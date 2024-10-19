@@ -16,16 +16,16 @@ jobs:
     name: ACT-sail-spike (RV${{ matrix.xlen }}${{ matrix.extensions }})
     runs-on: ubuntu-22.04
     # Set a 15-minute time limit for this job
-    timeout-minutes: 30
+    # timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
         xlen: ["32", "64"]
-        extensions: ["IMAFCZicsr_Zifencei"]
+        extensions: ["IMAFDCSUZicsr_Zicond_Zifencei_Zfa_Zfh_Zca_Zcb_Zba_Zbb_Zbc_Zbkb_Zbkc_Zbkx_Zbs_Zknd_Zkne_Zknh"]
         include:
           # include an entry for each isa string with the reset value for the bottom 25 bits (7 hex digits) of MISA
-          - extensions: "IMAFCZicsr_Zifencei"
-            misa_lower: "0001125"
+          - extensions: "IMAFDCSUZicsr_Zicond_Zifencei_Zfa_Zfh_Zca_Zcb_Zba_Zbb_Zbc_Zbkb_Zbkc_Zbkx_Zbs_Zknd_Zkne_Zknh"
+            misa_lower: "014112D"
           # XLEN and zero-padding for MISA reset value
           - xlen: "32"
             misa_upper: "4"
@@ -137,7 +137,7 @@ jobs:
           sed -i "/^   reset-val: /c\   reset-val: 0x${{ matrix.misa_upper }}${{ matrix.misa_lower }}" spike_simple/spike_simple_isa.yaml
           sed -i "/^                - extensions[25:0]/c\                - extensions[25:0] bitmask [0x${{ matrix.misa_lower}}, 0x0000000]" spike_simple/spike_simple_isa.yaml
           riscof run --config config.ini --suite ../../riscv-test-suite/rv${{ matrix.xlen }}i_m/ --env ../../riscv-test-suite/env
-
+          echo $?
 
       - name: Check size of riscof_work folder
         id: check_size
