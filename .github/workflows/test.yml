@@ -21,11 +21,11 @@ jobs:
       fail-fast: false
       matrix:
         xlen: ["32", "64"]
-        extensions: ["IMACZicsr_Zifencei"]
+        extensions: ["IMAFCZicsr_Zifencei"]
         include:
           # include an entry for each isa string with the reset value for the bottom 25 bits (7 hex digits) of MISA
-          - extensions: "IMACZicsr_Zifencei"
-            misa_lower: "0001105"
+          - extensions: "IMAFCZicsr_Zifencei"
+            misa_lower: "0001125"
           # XLEN and zero-padding for MISA reset value
           - xlen: "32"
             misa_upper: "4"
