@@ -77,12 +77,12 @@ RVTEST_CODE_BEGIN
                 li a2, 6
                 la s2, 8096
                 csrrc t6, mip, s1
-                srli s1, 2
+                srli s1, s1, 2
                 csrrs t6, mip, s1
             
                     4:
                     csrrc t6, mie, s2
-                    srli s2, 2
+                    srli s2, s2, 2
                     csrrs t6, mie, s2
                     addi a2, a2, -1
                     bnez a2, 3b
@@ -122,10 +122,11 @@ RVTEST_CODE_BEGIN
         2:
         li t0, 1
         bne s2, t0, 3f
-        csrrsi t6, mip, 32
+        li t1, 32
+        csrrs t6, mip, t1
 
         3:
-        bnez s2, t0, 4f
+        bnez s2, 4f
         li t0, 512
         csrrs t6, mip, t0
 
@@ -152,7 +153,8 @@ RVTEST_CODE_BEGIN
 
         andi t0, a0, 32        
         beqz t0, 2f
-        csrrsi t6, mip, 32
+        li t1, 32
+        csrrs t6, mip, t1
 
         2:
         andi t0, a0, 16        
@@ -221,7 +223,8 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 8      
         beqz t0, 4f
-        csrrsi t6, mie, 32
+        li t1, 32
+        csrrs t6, mie, t1
             
         4:
         andi t0, a0, 4        
@@ -279,10 +282,10 @@ RVTEST_CODE_BEGIN
         3:
         li t1, 1
         slli t1, t1, 21
-        csrrci t6, mstatus, t1
+        csrrc t6, mstatus, t1
         andi t0, a0, 1
         beqz t0, 4f 
-        csrrsi t6, mstatus, t1
+        csrrs t6, mstatus, t1
 
         4:
         li t0, -1
@@ -384,11 +387,13 @@ RVTEST_CODE_BEGIN
     csrrw t6, mideleg, zero
     csrrw t6, mie, t0
     RVTEST_GOTO_LOWER_MODE Smode
-    csrrsi t6, mip, 32
+    li t1, 32
+    csrrs t6, mip, t1
     RVTEST_GOTO_HIGHER_MODE Mmode
     csrrsi t6, mstatus, 8
     csrrci t6, mstatus, 8
-    csrrci t6, mip, 32
+    li t1, 32
+    csrrc t6, mip, t1
 
     /////////////////////////////////
     // cp_trigger_changingtom_ssi
@@ -397,7 +402,7 @@ RVTEST_CODE_BEGIN
     // then change to machine mode, then write mstatus.MIE
     /////////////////////////////////
 
-    cp_trigger_changingtom_sti:
+    cp_trigger_changingtom_ssi:
     RVTEST_GOTO_HIGHER_MODE Mmode
     li t0, -1
     csrrw t6, mideleg, zero

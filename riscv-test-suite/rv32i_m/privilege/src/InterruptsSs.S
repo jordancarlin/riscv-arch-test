@@ -201,7 +201,7 @@ RVTEST_CODE_BEGIN
         nop
         RVTEST_GOTO_HIGHER_MODE Mmode
         li t1, 32
-        csrrci t6, mip, t1
+        csrrc t6, mip, t1
         RVTEST_GOTO_LOWER_MODE Smode
         bnez a0, 1b
 
@@ -446,24 +446,24 @@ RVTEST_CODE_BEGIN
         li t1, -1
         csrrw t6, mideleg, zero
         csrrw t6, mie, t1
-        cause_external_interrupt_M
+        jal cause_external_interrupt_M
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
         RVTEST_GOTO_HIGHER_MODE Mmode
-        reset_external_interrupts
+        jal reset_external_interrupts
 
         RVTEST_GOTO_HIGHER_MODE Mmode
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, t1
-        cause_external_interrupt_M
+        jal cause_external_interrupt_M
         jal cause_mtimer_interrupt_now
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
         RVTEST_GOTO_HIGHER_MODE Mmode
-        reset_external_interrupts
+        jal reset_external_interrupts
 
     ///////////////////////////////
     // cp_trigger_changingtos_sti
@@ -597,12 +597,12 @@ RVTEST_CODE_BEGIN
             li a2, 6
             la s2, 8096
             csrrc t6, mip, s1
-            srli s1, 2
+            srli s1, s1, 2
             csrrs t6, mip, s1
         
                 3:
                 csrrc t6, mie, s2
-                srli s2, 2
+                srli s2, s2, 2
                 csrrs t6, mie, s2
                 RVTEST_GOTO_LOWER_MODE Smode
                 nop
@@ -1207,10 +1207,10 @@ RVTEST_CODE_BEGIN
         4:
         li t1, 1
         slli t1, t1, 21
-        csrrci t6, mstatus, t1
+        csrrc t6, mstatus, t1
         andi t0, a0, 1
         beqz t0, 5f 
-        csrrsi t6, mstatus, t1
+        csrrs t6, mstatus, t1
 
         5:
         li t0, 128
@@ -1280,7 +1280,7 @@ RVTEST_CODE_BEGIN
         5:
         li t1, 1
         slli t1, t1, 21
-        csrrci t6, mstatus, t1
+        csrrc t6, mstatus, t1
         jal reset_mtimecmp
 
         RVTEST_GOTO_LOWER_MODE Smode

@@ -86,7 +86,7 @@ RVTEST_CODE_BEGIN
         5:
         RVTEST_GOTO_LOWER_MODE Umode
         li t1, 128
-        csrrsi t6, mie, t1
+        csrrs t6, mie, t1
         jal cause_mtimer_interrupt_now
         jal reset_mtimecmp
         bnez a0, 1b
@@ -144,7 +144,7 @@ RVTEST_CODE_BEGIN
     // set PLIC to trigger ME interrupt
     ///////////////////////////////
 
-    cp_user_msi:
+    cp_user_mei:
         
         li a0, 16
 
@@ -178,7 +178,7 @@ RVTEST_CODE_BEGIN
         5:
         RVTEST_GOTO_LOWER_MODE Umode
         li t1, 2048
-        csrrsi t6, mie, t1
+        csrrs t6, mie, t1
         jal cause_external_interrupt_M
         jal reset_external_interrupts
         bnez a0, 1b
@@ -191,7 +191,7 @@ RVTEST_CODE_BEGIN
     // set PLIC to trigger SE interrupt
     ///////////////////////////////
 
-    cp_user_msi:
+    cp_user_sei:
         
         li a0, 16
 
@@ -225,7 +225,7 @@ RVTEST_CODE_BEGIN
         5:
         RVTEST_GOTO_LOWER_MODE Umode
         li t1, 512
-        csrrsi t6, mie, t1
+        csrrs t6, mie, t1
         jal cause_external_interrupt_S
         jal reset_external_interrupts
         bnez a0, 1b
