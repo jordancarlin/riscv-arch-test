@@ -525,16 +525,16 @@ RVTEST_CODE_BEGIN
             5:
             li t0, 1
             bne t0, a1, 6f
-            csrrsi t6, mie, 32
+            li t1, 32
+            csrrs t6, mie, t1
 
             6:
             bnez a1, 7f
-            li t0, 32
             csrrsi t6, mie, 2
 
             7:
             bnez a1, 2b
-            
+
         bnez a0, 1b
 
     j test_end
@@ -629,12 +629,14 @@ RVTEST_CODE_BEGIN
             case5_vectored:
                 li t3, 5
                 bne s2, t3, case4_vectored
-                csrrsi t6, mip, 32
+                li t1, 32
+                csrrs t6, mip, t1
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
                 RVTEST_GOTO_HIGHER_MODE Mmode
-                csrrci t6, mip, 32
+                li t1, 32
+                csrrc t6, mip, t1
 
             case4_vectored:
                 li t3, 4

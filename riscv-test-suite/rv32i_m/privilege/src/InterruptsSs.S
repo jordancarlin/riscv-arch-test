@@ -195,11 +195,13 @@ RVTEST_CODE_BEGIN
         csrrsi t6, mstatus, 2
 
         4:
-        csrrsi t6, mip, 32
+        li t1, 32
+        csrrs t6, mip, t1
         RVTEST_GOTO_LOWER_MODE Smode
         nop
         RVTEST_GOTO_HIGHER_MODE Mmode
-        csrrci t6, mip, 32
+        li t1, 32
+        csrrci t6, mip, t1
         RVTEST_GOTO_LOWER_MODE Smode
         bnez a0, 1b
 
@@ -477,24 +479,28 @@ RVTEST_CODE_BEGIN
         li t1, -1
         csrrw t6, mideleg, zero
         csrrw t6, mie, t1
-        csrrsi t6, mip, 32
+        li t1, 32
+        csrrs t6, mip, t1
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
         RVTEST_GOTO_HIGHER_MODE Mmode
-        csrrci t6, mip, 32
+        li t1, 32
+        csrrc t6, mip, t1
 
         RVTEST_GOTO_HIGHER_MODE Mmode
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, t1
-        csrrsi t6, mip, 32
+        li t1, 32
+        csrrs t6, mip, t1
         jal cause_mtimer_interrupt_now
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
         RVTEST_GOTO_HIGHER_MODE Mmode
-        csrrci t6, mip, 32
+        li t1, 32
+        csrrc t6, mip, t1
 
     ///////////////////////////////
     // cp_trigger_changingtos_ssi
@@ -656,7 +662,8 @@ RVTEST_CODE_BEGIN
 
         andi t0, a0, 32        
         beqz t0, 2f
-        csrrsi t6, mip, 32
+        li t1, 32
+        csrrs t6, mip, t1
 
         2:
         andi t0, a0, 16        
@@ -729,7 +736,8 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 8      
         beqz t0, 4f
-        csrrsi t6, mie, 32
+        li t1, 32
+        csrrs t6, mie, t1
             
         4:
         andi t0, a0, 4        
@@ -791,8 +799,9 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 8      
         beqz t0, 4f
-        csrrsi t6, mie, 32
-        csrrsi t6, mip, 32
+        li t1, 32
+        csrrs t6, mie, t1
+        csrrs t6, mip, t1
             
         4:
         andi t0, a0, 4        
@@ -849,7 +858,8 @@ RVTEST_CODE_BEGIN
 
         andi t0, a0, 32        
         beqz t0, 2f
-        csrrsi t6, mip, 32
+        li t1, 32
+        csrrs t6, mip, t1
 
         2:
         andi t0, a0, 16        
@@ -922,7 +932,8 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 8      
         beqz t0, 4f
-        csrrsi t6, mie, 32
+        li t1, 32
+        csrrs t6, mie, t1
             
         4:
         andi t0, a0, 4        
@@ -984,9 +995,10 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 8      
         beqz t0, 4f
-        csrrsi t6, mie, 32
-        csrrsi t6, mip, 32
-            
+        li t1, 32
+        csrrs t6, mie, t1
+        csrrs t6, mip, t1
+        
         4:
         andi t0, a0, 4        
         beqz t0, 5f
@@ -1055,7 +1067,8 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 8      
         beqz t0, 4f
-        csrrsi t6, mideleg, 32
+        li t1, 32
+        csrrs t6, mideleg, t1
             
         4:
         andi t0, a0, 4        
@@ -1118,8 +1131,9 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 8      
         beqz t0, 4f
-        csrrsi t6, mideleg, 32
-        csrrsi t6, mie, 32
+        li t1, 32
+        csrrs t6, mideleg, t1
+        csrrs t6, mie, t1
             
         4:
         andi t0, a0, 4        
@@ -1371,12 +1385,14 @@ RVTEST_CODE_BEGIN
             case5_vectored:
                 li t3, 5
                 bne s2, t3, case4_vectored
-                csrrsi t6, mip, 32
+                li t1, 32
+                csrrs t6, mip, t1
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
                 RVTEST_GOTO_HIGHER_MODE Mmode
-                csrrci t6, mip, 32
+                li t1, 32
+                csrrc t6, mip, t1
 
             case4_vectored:
                 li t3, 4

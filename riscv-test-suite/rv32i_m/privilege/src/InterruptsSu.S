@@ -322,12 +322,15 @@ RVTEST_CODE_BEGIN
             case5_vectored:
                 li t3, 5
                 bne s2, t3, case4_vectored
-                csrrsi t6, mip, 32
+                
+                li t1, 32
+                csrrs t6, mip, t1
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
                 RVTEST_GOTO_HIGHER_MODE Mmode
-                csrrci t6, mip, 32
+                li t1, 32
+                csrrc t6, mip, t1
 
             case4_vectored:
                 li t3, 4
