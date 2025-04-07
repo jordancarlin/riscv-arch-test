@@ -1151,6 +1151,134 @@ RVTEST_CODE_BEGIN
         csrrw t6, mideleg, zero
         bnez a0, 1b
 
+    ///////////////////////////////
+    // cp_wfi
+    //
+    // Cross Product of mstatus.MIE = {0/1}
+    // Cross Product of mstatus.SIE = {0/1}
+    // Cross product of mideleg = 0s/1s
+    // Cross product of mstatus.TW = {0/1}
+    // mie.MTIE = 1
+    // Set MTIMECMP = TIME + 0x100 to interrupt in the future
+    // mode = cross product of {user, supervisor, machine}
+    // WFI Instruction
+    ///////////////////////////////
+
+    cp_wfi:
+    
+        li a0, 16
+        li a1, 3
+        RVTEST_GOTO_HIGHER_MODE Mmode
+
+        1:
+        addi a0, a0, -1
+        csrrci t6, mstatus, 8
+        andi t0, a0, 8
+        beqz t0, 2f
+        csrrsi t6, mstatus, 8
+        
+        2:
+        csrrci t6, mstatus, 2
+        andi t0, a0, 4
+        beqz t0, 3f
+        csrrsi t6, mstatus, 2
+        
+        3:
+        li t1, -1
+        csrrc t6, mideleg, t1
+        andi t0, a0, 2
+        beqz t0, 4f 
+        csrrs t6, mideleg, t1
+
+        4:
+        li t1, 1
+        slli t1, t1, 21
+        csrrci t6, mstatus, t1
+        andi t0, a0, 1
+        beqz t0, 5f 
+        csrrsi t6, mstatus, t1
+
+        5:
+        li t0, 128
+        csrrs t6, mie, t0
+        jal cause_mtimer_interrupt_soon
+
+        addi a1, a1, -1
+        li t0, 2
+        bne a1, t0, 6f
+        RVTEST_GOTO_LOWER_MODE Smode
+
+        6:
+        li t0, 1
+        bne a1, t0, 7f
+        RVTEST_GOTO_LOWER_MODE Umode
+
+        7:
+        wfi
+        bnez a0, 1b
+
+    ///////////////////////////////
+    // cp_wfi_timeout
+    //
+    // Cross Product of mstatus.MIE = {0/1}
+    // Cross Product of mstatus.SIE = {0/1}
+    // Cross product of mideleg = 0s/1s
+    // Cross product of mstatus.TW = 1
+    // mie.MTIE = {0/1}
+    // Set MTIMECMP = MAX so timeout occurs
+    // mode = cross product of {user, supervisor}
+    // WFI Instruction
+    ///////////////////////////////
+
+    cp_wfi_timeout:
+    
+        li a0, 16
+        li a1, 2
+        RVTEST_GOTO_HIGHER_MODE Mmode
+
+        1:
+        addi a0, a0, -1
+        csrrci t6, mstatus, 8
+        andi t0, a0, 8
+        beqz t0, 2f
+        csrrsi t6, mstatus, 8
+        
+        2:
+        csrrci t6, mstatus, 2
+        andi t0, a0, 4
+        beqz t0, 3f
+        csrrsi t6, mstatus, 2
+        
+        3:
+        li t1, -1
+        csrrc t6, mideleg, t1
+        andi t0, a0, 2
+        beqz t0, 4f 
+        csrrs t6, mideleg, t1
+
+        4:
+        li t1, 128
+        csrrc t6, mie, t1
+        andi t0, a0, 1
+        beqz t0, 5f 
+        csrrs t6, mie, t1
+
+        5:
+        li t1, 1
+        slli t1, t1, 21
+        csrrci t6, mstatus, t1
+        jal reset_mtimecmp
+
+        RVTEST_GOTO_LOWER_MODE Smode
+        addi a1, a1, -1
+        li t0, 1
+        bne a1, t0, 6f
+        RVTEST_GOTO_LOWER_MODE Umode
+
+        6:
+        wfi
+        bnez a0, 1b
+
     j test_end
 
     reset_mtimecmp:
@@ -1311,7 +1439,6 @@ RVTEST_CODE_BEGIN
 
         ret
 
-
     cause_mtimer_interrupt_now:
         // raises an M-mode timer interrupt using CLINT, interrupt is raised as soon as the function writes to MTIMECMP(H)
 
@@ -1325,6 +1452,41 @@ RVTEST_CODE_BEGIN
                     lw t2, 4(t0) # high word of MTIME
                     sw t2, 4(t1) # MTIMECMP high word = MTIME high word
             #endif
+        #else
+            ERROR: __riscv_xlen not defined
+        #endif
+
+        ret
+
+    cause_mtimer_interrupt_soon:
+        // raises an M-mode timer interrupt using CLINT, interrupt is raised 256 (255) cycles after write to MTIMECMP(H)
+        la t0, MTIME
+        la t4, MTIMECMP
+
+        #ifdef __riscv_xlen
+            #if __riscv_xlen == 64
+                    ld t0, 0(t0)                    # read MTIME
+                    
+                    addi t0, t0, 0x100              # create a delay
+                    
+                    sd t0, 0(t4)         # set MTIMECMP = MTIME + 0x100 to cause timer interrupt later
+
+            #elif __riscv_xlen == 32
+                    lw t1, 0(t0)                    # low word of MTIME
+                    lw t2, 4(t0)                    # high word of MTIME
+                    
+                    addi t3, t1, 0x100              # add 0x100 to MTIME value
+                    bgtu t1, t3, MTIME_overflow     # if overflow occurred, carry the 1 to MTIME high word
+                    j write_MTIMECMP                # otherwise, leave MTIME high word untouched
+                    
+                    MTIME_overflow:
+                    addi t2, t2, 1
+                    
+                    write_MTIMECMP:
+                    sw t3, 0(t4)          # MTIMECMP = MTIME + 0x100
+                    sw t2, 4(t4)          
+            #endif
+            
         #else
             ERROR: __riscv_xlen not defined
         #endif
