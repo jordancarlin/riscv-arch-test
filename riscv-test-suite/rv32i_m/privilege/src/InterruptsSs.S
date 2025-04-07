@@ -583,6 +583,7 @@ RVTEST_CODE_BEGIN
         la s1, 8096
         csrrci t6, mtvec, 3
         csrrsi t6, mstatus, 8
+        addi a0, a0, -1
         bnez a0, 2f
         csrrci t6, mstatus, 8
 
@@ -606,7 +607,6 @@ RVTEST_CODE_BEGIN
             addi a1, a1, -1
             bnez a1, 2b
             
-        addi a0, a0, -1
         bnez a0, 1b
 
     ///////////////////////////////
