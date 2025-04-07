@@ -56,23 +56,24 @@ RVTEST_CODE_BEGIN
         li a0, 8
 
         1:
+        addi a0, a0, -1
         RVTEST_GOTO_HIGHER_MODE Mmode
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
-        andi t0, a0, 8
+        andi t0, a0, 4
         beqz t0, 2f
         csrrw t6, mideleg, t1
         
         2:
         csrrci t6, mstatus, 8
-        andi t0, a0, 4
+        andi t0, a0, 2
         beqz t0, 3f
         csrrsi t6, mstatus, 8
         
         3:
         csrrci t6, mstatus, 2
-        andi t0, a0, 2
+        andi t0, a0, 1
         beqz t0, 4f 
         csrrsi t6, mstatus, 2
 
@@ -80,7 +81,6 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         jal cause_mtimer_interrupt_now
         jal reset_mtimecmp # reset mtimecmp to avoid premature interrupt in next test
-        addi a0, a0, -1
         bnez a0, 1b
 
     ///////////////////////////////
@@ -95,23 +95,24 @@ RVTEST_CODE_BEGIN
         li a0, 8
 
         1:
+        addi a0, a0, -1
         RVTEST_GOTO_HIGHER_MODE Mmode
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
-        andi t0, a0, 8
+        andi t0, a0, 4
         beqz t0, 2f
         csrrw t6, mideleg, t1
         
         2:
         csrrci t6, mstatus, 8
-        andi t0, a0, 4
+        andi t0, a0, 2
         beqz t0, 3f
         csrrsi t6, mstatus, 8
         
         3:
         csrrci t6, mstatus, 2
-        andi t0, a0, 2
+        andi t0, a0, 1
         beqz t0, 4f 
         csrrsi t6, mstatus, 2
 
@@ -119,7 +120,6 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         jal cause_msoftware_interrupt_clint
         jal reset_msoftware_interrupt_clint # reset msip to avoid premature interrupt in next test
-        addi a0, a0, -1
         bnez a0, 1b
 
     ///////////////////////////////
@@ -134,23 +134,24 @@ RVTEST_CODE_BEGIN
         li a0, 8
 
         1:
+        addi a0, a0, -1
         RVTEST_GOTO_HIGHER_MODE Mmode
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
-        andi t0, a0, 8
+        andi t0, a0, 4
         beqz t0, 2f
         csrrw t6, mideleg, t1
         
         2:
         csrrci t6, mstatus, 8
-        andi t0, a0, 4
+        andi t0, a0, 2
         beqz t0, 3f
         csrrsi t6, mstatus, 8
         
         3:
         csrrci t6, mstatus, 2
-        andi t0, a0, 2
+        andi t0, a0, 1
         beqz t0, 4f 
         csrrsi t6, mstatus, 2
 
@@ -158,7 +159,6 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         jal cause_external_interrupt_M
         jal reset_external_interrupts       # reset external interrupts to avoid premature interrupt in next test
-        addi a0, a0, -1
         bnez a0, 1b
 
     ///////////////////////////////
@@ -170,26 +170,27 @@ RVTEST_CODE_BEGIN
 
     cp_trigger_sti:
     
-        li a0, 4
+        li a0, 8
 
         1:
+        addi a0, a0, -1
         RVTEST_GOTO_HIGHER_MODE Mmode
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
-        andi t0, a0, 8
+        andi t0, a0, 4
         beqz t0, 2f
         csrrw t6, mideleg, t1
         
         2:
         csrrci t6, mstatus, 8
-        andi t0, a0, 4
+        andi t0, a0, 2
         beqz t0, 3f
         csrrsi t6, mstatus, 8
         
         3:
         csrrci t6, mstatus, 2
-        andi t0, a0, 2
+        andi t0, a0, 1
         beqz t0, 4f 
         csrrsi t6, mstatus, 2
 
@@ -200,7 +201,6 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_HIGHER_MODE Mmode
         csrrci t6, mip, 32
         RVTEST_GOTO_LOWER_MODE Smode
-        addi a0, a0, -1
         bnez a0, 1b
 
     ///////////////////////////////
@@ -215,23 +215,24 @@ RVTEST_CODE_BEGIN
         li a0, 8
 
         1:
+        addi a0, a0, -1
         RVTEST_GOTO_HIGHER_MODE Mmode
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
-        andi t0, a0, 8
+        andi t0, a0, 4
         beqz t0, 2f
         csrrw t6, mideleg, t1
         
         2:
         csrrci t6, mstatus, 8
-        andi t0, a0, 4
+        andi t0, a0, 2
         beqz t0, 3f
         csrrsi t6, mstatus, 8
         
         3:
         csrrci t6, mstatus, 2
-        andi t0, a0, 2
+        andi t0, a0, 1
         beqz t0, 4f 
         csrrsi t6, mstatus, 2
 
@@ -243,7 +244,6 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_HIGHER_MODE Mmode
         csrrci t6, mip, 2
         RVTEST_GOTO_LOWER_MODE Smode
-        addi a0, a0, -1
         bnez a0, 1b
 
     ///////////////////////////////
@@ -258,29 +258,29 @@ RVTEST_CODE_BEGIN
         li a0, 8
 
         1:
+        addi a0, a0, -1
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
-        andi t0, a0, 8
+        andi t0, a0, 4
         beqz t0, 2f
         csrrw t6, mideleg, t1
         
         2:
         csrrci t6, mstatus, 8
-        andi t0, a0, 4
+        andi t0, a0, 2
         beqz t0, 3f
         csrrsi t6, mstatus, 8
         
         3:
         csrrci t6, mstatus, 2
-        andi t0, a0, 2
+        andi t0, a0, 1
         beqz t0, 4f 
         csrrsi t6, mstatus, 2
 
         4:
         csrrsi t6, sip, 2
         csrrci t6, sip, 2
-        addi a0, a0, -1
         bnez a0, 1b
 
     ///////////////////////////////
@@ -295,29 +295,29 @@ RVTEST_CODE_BEGIN
         li a0, 8
 
         1:
+        addi a0, a0, -1
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
-        andi t0, a0, 8
+        andi t0, a0, 4
         beqz t0, 2f
         csrrw t6, mideleg, t1
         
         2:
         csrrci t6, mstatus, 8
-        andi t0, a0, 4
+        andi t0, a0, 2
         beqz t0, 3f
         csrrsi t6, mstatus, 8
         
         3:
         csrrci t6, mstatus, 2
-        andi t0, a0, 2
+        andi t0, a0, 1
         beqz t0, 4f 
         csrrsi t6, mstatus, 2
 
         4:
         jal cause_external_interrupt_S
         jal reset_external_interrupts
-        addi a0, a0, -1
         bnez a0, 1b
 
     ///////////////////////////////
@@ -332,22 +332,23 @@ RVTEST_CODE_BEGIN
         li a0, 8
 
         1:
+        addi a0, a0, -1
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
-        andi t0, a0, 8
+        andi t0, a0, 4
         beqz t0, 2f
         csrrw t6, mideleg, t1
         
         2:
         csrrci t6, mstatus, 8
-        andi t0, a0, 4
+        andi t0, a0, 2
         beqz t0, 3f
         csrrsi t6, mstatus, 8
         
         3:
         csrrci t6, mstatus, 2
-        andi t0, a0, 2
+        andi t0, a0, 1
         beqz t0, 4f 
         csrrsi t6, mstatus, 2
 
@@ -361,7 +362,6 @@ RVTEST_CODE_BEGIN
         li t0, 512
         csrrc t6, mip, t0
         RVTEST_GOTO_LOWER_MODE Smode
-        addi a0, a0, -1
         bnez a0, 1b
 
     ///////////////////////////////
@@ -566,6 +566,75 @@ RVTEST_CODE_BEGIN
         li t0, 512
         csrrc t6, mip, t0
 
+    ///////////////////////////////
+    // cp_interrupts
+    //
+    // Cross of mstatus.MIE = {0/1}, mtvec.MODE = 00, 
+    // 6 walking 1s in mie, 6 walking 1s in mip (2 x 6 x 6 bins)
+    ///////////////////////////////
+
+    cp_interrupts:
+
+        li a0, 2
+        
+        1:
+        RVTEST_GOTO_HIGHER_MODE Mmode
+        li a1, 6
+        la s1, 8096
+        csrrci t6, mtvec, 3
+        csrrsi t6, mstatus, 8
+        bnez a0, 2f
+        csrrci t6, mstatus, 8
+
+            2:
+            li a2, 6
+            la s2, 8096
+            csrrc t6, mip, s1
+            srli s1, 2
+            csrrs t6, mip, s1
+        
+                3:
+                csrrc t6, mie, s2
+                srli s2, 2
+                csrrs t6, mie, s2
+                RVTEST_GOTO_LOWER_MODE Smode
+                nop
+                RVTEST_GOTO_HIGHER_MODE Mmode
+                addi a2, a2, -1
+                bnez a2, 3b
+            
+            addi a1, a1, -1
+            bnez a1, 2b
+            
+        addi a0, a0, -1
+        bnez a0, 1b
+
+    ///////////////////////////////
+    // cp_vectored
+    //
+    // Cross of stvec.MODE = 00/01, mstatus.MIE=1, mie = 1s, mideleg = 1s, 
+    // 6 different interrupts walking in mip, change to supervisor mode then 
+    // write sstatus.SIE={0/1}
+    ///////////////////////////////
+
+    cp_vectored:
+
+        RVTEST_GOTO_HIGHER_MODE Mmode
+        csrrci t6, stvec, 3
+        li t0, -1
+        csrrsi t6, mstatus, 8
+        csrrs t6, mie, t0
+        csrrs t6, mideleg, t0
+        jal cross_interrupts_s_EP
+
+        RVTEST_GOTO_HIGHER_MODE Mmode
+        csrrsi t6, stvec, 1
+        li t0, -1
+        csrrsi t6, mstatus, 8
+        csrrs t6, mie, t0
+        csrrs t6, mideleg, t0
+        jal cross_interrupts_s_EP
+
     j test_end
 
     reset_mtimecmp:
@@ -616,6 +685,116 @@ RVTEST_CODE_BEGIN
         SREG zero, 0(t0) # write CLINT.msip = 1 for hart 0
 
         ret
+
+    cross_interrupts_s_EP:
+        // helper function for crossing mie.MEIE/MSIE/MTIE with mip.MEIP/MSIP/MTIP in Interrupts tests (enables and pending)
+        li s1, 5                # iterate through setting mie.M/SEIE, M/SSIE, or M/STIE (5-0)
+        li t1, -1
+
+        addi sp, sp, -8
+        SREG ra, 0(sp)
+
+        for_mie:
+        
+            slli t3, s1, 1      # setting mie.M/SEIE, M/SSIE, or M/STIE based on s1 value
+            li t4, 2
+            sll t4, t4, t3
+            csrrw t6, mie, t4   # set enable for interrupt type of interest, clear all others
+        
+            jal raise_interrupts_s
+        
+            addi s1, s1, -1     
+            bge s1, zero, for_mie # iterate through interrupt types to be enabled
+
+        LREG ra, 0(sp)
+        addi sp, sp, 8
+            
+        ret
+
+    raise_interrupts_s:
+        // raises each of mip.M/SEIP/M/SSIP/M/STIP once in sequence
+
+        addi sp, sp, -8
+        SREG ra, 0(sp)
+
+        li s2, 5
+
+        for_mip:
+            
+            # based on s2 value, attempt to trigger one of M/SEIP, M/SSIP, or M/STIP
+            # includes resets in case interrupt is not triggered
+
+            case5_vectored:
+                li t3, 5
+                bne s2, t3, case4_vectored
+                csrrsi t6, mip, 32
+                RVTEST_GOTO_LOWER_MODE Smode
+                csrrci t6, sstatus, 2
+                csrrsi t6, sstatus, 2
+                RVTEST_GOTO_HIGHER_MODE Mmode
+                csrrci t6, mip, 32
+
+            case4_vectored:
+                li t3, 4
+                bne s2, t3, case3_vectored
+                li t0, 512
+                csrrs t6, mip, t0
+                RVTEST_GOTO_LOWER_MODE Smode
+                csrrci t6, sstatus, 2
+                csrrsi t6, sstatus, 2
+                RVTEST_GOTO_HIGHER_MODE Mmode
+                li t0, 512
+                csrrc t6, mip, t0
+            
+            case3_vectored:
+                li t3, 3
+                bne s2, t3, case3_vectored
+                csrrsi t6, mip, 2
+                RVTEST_GOTO_LOWER_MODE Smode
+                csrrci t6, sstatus, 2
+                csrrsi t6, sstatus, 2
+                RVTEST_GOTO_HIGHER_MODE Mmode
+                csrrci t6, mip, 2
+            
+            case2_vectored:
+                li t3, 2
+                bne s2, t3, case1_vectored      # if s2 == 2, trigger timer interrupt
+                jal cause_mtimer_interrupt_now
+                RVTEST_GOTO_LOWER_MODE Smode
+                csrrci t6, sstatus, 2
+                csrrsi t6, sstatus, 2
+                RVTEST_GOTO_HIGHER_MODE Mmode
+                jal reset_mtimecmp
+
+            case1_vectored:
+                li t3, 1
+                bne s2, t3, case0_vectored      # if s2 == 1, trigger external interrupt
+                jal cause_external_interrupt_M
+                RVTEST_GOTO_LOWER_MODE Smode
+                csrrci t6, sstatus, 2
+                csrrsi t6, sstatus, 2
+                RVTEST_GOTO_HIGHER_MODE Mmode
+                jal reset_external_interrupts
+
+            case0_vectored:
+                li t3, 0
+                bne s2, t3, case_end_vectored   # if s2 = 0, trigger software interrupt
+                jal cause_msoftware_interrupt_clint
+                RVTEST_GOTO_LOWER_MODE Smode
+                csrrci t6, sstatus, 2
+                csrrsi t6, sstatus, 2
+                RVTEST_GOTO_HIGHER_MODE Mmode
+                jal reset_msoftware_interrupt_clint
+
+            case_end_vectored:
+                addi s2, s2, -1
+                bge s2, zero, for_mip
+
+        LREG ra, 0(sp)
+        addi sp, sp, 8
+
+        ret
+
 
     cause_mtimer_interrupt_now:
         // raises an M-mode timer interrupt using CLINT, interrupt is raised as soon as the function writes to MTIMECMP(H)
