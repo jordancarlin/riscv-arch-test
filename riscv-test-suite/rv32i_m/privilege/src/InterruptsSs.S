@@ -57,7 +57,7 @@ RVTEST_CODE_BEGIN
 
         1:
         addi a0, a0, -1
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
@@ -96,7 +96,7 @@ RVTEST_CODE_BEGIN
 
         1:
         addi a0, a0, -1
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
@@ -135,7 +135,7 @@ RVTEST_CODE_BEGIN
 
         1:
         addi a0, a0, -1
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
@@ -174,7 +174,7 @@ RVTEST_CODE_BEGIN
 
         1:
         addi a0, a0, -1
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
@@ -199,7 +199,7 @@ RVTEST_CODE_BEGIN
         csrrs t6, mip, t1
         RVTEST_GOTO_LOWER_MODE Smode
         nop
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t1, 32
         csrrc t6, mip, t1
         RVTEST_GOTO_LOWER_MODE Smode
@@ -218,7 +218,7 @@ RVTEST_CODE_BEGIN
 
         1:
         addi a0, a0, -1
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
@@ -239,11 +239,11 @@ RVTEST_CODE_BEGIN
         csrrsi t6, mstatus, 2
 
         4:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrsi t6, mip, 2
         RVTEST_GOTO_LOWER_MODE Smode
         nop
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mip, 2
         RVTEST_GOTO_LOWER_MODE Smode
         bnez a0, 1b
@@ -355,12 +355,12 @@ RVTEST_CODE_BEGIN
         csrrsi t6, mstatus, 2
 
         4:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t0, 512
         csrrs t6, mip, t0
         RVTEST_GOTO_LOWER_MODE Smode
         nop
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t0, 512
         csrrc t6, mip, t0
         RVTEST_GOTO_LOWER_MODE Smode
@@ -375,7 +375,7 @@ RVTEST_CODE_BEGIN
 
     cp_trigger_changingtos_mti:
     
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, zero
@@ -384,10 +384,10 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         jal reset_mtimecmp
 
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, t1
@@ -396,7 +396,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         jal reset_mtimecmp
 
     ///////////////////////////////
@@ -408,7 +408,7 @@ RVTEST_CODE_BEGIN
 
     cp_trigger_changingtos_msi:
     
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, zero
@@ -417,10 +417,10 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrc t6, mip, 8
 
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, t1
@@ -429,7 +429,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrc t6, mip, 8
 
     ///////////////////////////////
@@ -441,7 +441,7 @@ RVTEST_CODE_BEGIN
 
     cp_trigger_changingtos_mei:
     
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, zero
@@ -450,10 +450,10 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         jal reset_external_interrupts
 
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, t1
@@ -462,7 +462,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         jal reset_external_interrupts
 
     ///////////////////////////////
@@ -474,7 +474,7 @@ RVTEST_CODE_BEGIN
 
     cp_trigger_changingtos_sti:
     
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, zero
@@ -484,11 +484,11 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t1, 32
         csrrc t6, mip, t1
 
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, t1
@@ -498,7 +498,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t1, 32
         csrrc t6, mip, t1
 
@@ -511,7 +511,7 @@ RVTEST_CODE_BEGIN
 
     cp_trigger_changingtos_ssi:
     
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, zero
@@ -520,10 +520,10 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mip, 2
 
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, t1
@@ -532,7 +532,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mip, 2
 
     ///////////////////////////////
@@ -544,7 +544,7 @@ RVTEST_CODE_BEGIN
 
     cp_trigger_changingtos_sei:
     
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, zero
@@ -554,11 +554,11 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t0, 512
         csrrc t6, mip, t0
 
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t1, -1
         csrrw t6, mideleg, t1
@@ -568,7 +568,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrsi t6, sstatus, 2
         csrrci t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t0, 512
         csrrc t6, mip, t0
 
@@ -584,7 +584,7 @@ RVTEST_CODE_BEGIN
         li a0, 2
         
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li a1, 6
         la s1, 8096
         csrrci t6, mtvec, 3
@@ -606,7 +606,7 @@ RVTEST_CODE_BEGIN
                 csrrs t6, mie, s2
                 RVTEST_GOTO_LOWER_MODE Smode
                 nop
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 addi a2, a2, -1
                 bnez a2, 3b
             
@@ -625,7 +625,7 @@ RVTEST_CODE_BEGIN
 
     cp_vectored:
 
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, stvec, 3
         li t0, -1
         csrrsi t6, mstatus, 8
@@ -633,7 +633,7 @@ RVTEST_CODE_BEGIN
         csrrs t6, mideleg, t0
         jal cross_interrupts_s_EP
 
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrsi t6, stvec, 1
         li t0, -1
         csrrsi t6, mstatus, 8
@@ -653,7 +653,7 @@ RVTEST_CODE_BEGIN
         li a0, 64
         
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mie, t0
@@ -695,7 +695,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrci t6, sstatus, 2
         csrrsi t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrw t6, mip, zero
         jal reset_msoftware_interrupt_clint
         jal reset_mtimecmp
@@ -714,7 +714,7 @@ RVTEST_CODE_BEGIN
         li a0, 64
 
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -761,7 +761,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrci t6, sstatus, 2
         csrrsi t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrw t6, mie, zero
         bnez a0, 1b
 
@@ -778,7 +778,7 @@ RVTEST_CODE_BEGIN
         li a0, 64
 
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -829,7 +829,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrci t6, sstatus, 2
         csrrsi t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrw t6, mie, zero
         csrrw t6, mip, zero
         jal reset_msoftware_interrupt_clint
@@ -849,7 +849,7 @@ RVTEST_CODE_BEGIN
         li a0, 64
         
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mie, t0
@@ -891,7 +891,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrci t6, sstatus, 2
         csrrsi t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrw t6, mip, zero
         jal reset_msoftware_interrupt_clint
         jal reset_mtimecmp
@@ -910,7 +910,7 @@ RVTEST_CODE_BEGIN
         li a0, 64
 
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -957,7 +957,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrci t6, sstatus, 2
         csrrsi t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrw t6, mie, zero
         bnez a0, 1b
 
@@ -974,7 +974,7 @@ RVTEST_CODE_BEGIN
         li a0, 64
 
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -1025,7 +1025,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrci t6, sstatus, 2
         csrrsi t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrw t6, mie, zero
         csrrw t6, mip, zero
         jal reset_msoftware_interrupt_clint
@@ -1045,7 +1045,7 @@ RVTEST_CODE_BEGIN
         li a0, 64
 
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -1092,7 +1092,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrci t6, sstatus, 2
         csrrsi t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrw t6, mideleg, zero
         bnez a0, 1b
 
@@ -1108,7 +1108,7 @@ RVTEST_CODE_BEGIN
         li a0, 64
 
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -1160,7 +1160,7 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_LOWER_MODE Smode
         csrrci t6, sstatus, 2
         csrrsi t6, sstatus, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrw t6, mie, zero
         csrrw t6, mideleg, zero
         bnez a0, 1b
@@ -1182,7 +1182,7 @@ RVTEST_CODE_BEGIN
     
         li a0, 16
         li a1, 3
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
 
         1:
         addi a0, a0, -1
@@ -1248,7 +1248,7 @@ RVTEST_CODE_BEGIN
     
         li a0, 16
         li a1, 2
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
 
         1:
         addi a0, a0, -1
@@ -1390,7 +1390,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 li t1, 32
                 csrrc t6, mip, t1
 
@@ -1402,7 +1402,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 li t0, 512
                 csrrc t6, mip, t0
             
@@ -1413,7 +1413,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 csrrci t6, mip, 2
             
             case2_vectored:
@@ -1423,7 +1423,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 jal reset_mtimecmp
 
             case1_vectored:
@@ -1433,7 +1433,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 jal reset_external_interrupts
 
             case0_vectored:
@@ -1443,7 +1443,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 jal reset_msoftware_interrupt_clint
 
             case_end_vectored:
@@ -1545,6 +1545,46 @@ RVTEST_CODE_BEGIN
 
         # enable interrupts from source 3 (GPIO) in M-mode
         la t0, INT_EN_00
+        li t1, 0b1000
+        sw t1, 0(t0)
+
+        # enable interrupts from high output
+        la t0, GPIO_BASE_ADDR
+        li t1, 1
+        sw t1, 0x28(t0) # enable high interrupt for pin 1
+        sw t1, 0x0C(t0) # write 1 to pin 1, this should cause interrupt
+
+        ret
+
+    cause_external_interrupt_S:
+        // raises an external S-mode interrupt using GPIO
+        # set M-mode interrupt threshold to 7
+        la t0, THRESHOLD_0
+        li t1, 7
+        sw t1, 0(t0)
+        
+        # set S-mode interrupt threshold to 0
+        la t0, THRESHOLD_1
+        sw zero, 0(t0)
+
+        # give GPIO sufficient priority to trigger interrupt
+        la t0, INT_PRIORITY_3
+        li t1, 1
+        sw t1, 0(t0)
+
+        # clear all interrupt enables to make sure interrupt doesn't go off prematurely
+        la t0, GPIO_BASE_ADDR
+        li t1, 1
+        sw t1, 0x08(t0) # enable output on pin 1
+        sw t1, 0x04(t0) # enable input on pin 1
+
+        sw zero, 0x18(t0) # clear rise enable
+        sw zero, 0x20(t0) # clear fall enable
+        sw zero, 0x28(t0) # clear high enable
+        sw zero, 0x30(t0) # clear low enable
+
+        # enable interrupts from source 3 (GPIO) in S-mode
+        la t0, INT_EN_10
         li t1, 0b1000
         sw t1, 0(t0)
 

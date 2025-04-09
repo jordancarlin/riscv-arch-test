@@ -56,7 +56,7 @@ RVTEST_CODE_BEGIN
         li a3, 2
 
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li a0, 2
         li t1, -1
         csrrw t6, mideleg, zero
@@ -144,7 +144,7 @@ RVTEST_CODE_BEGIN
         li a0, 64
         
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mie, t0
@@ -201,7 +201,7 @@ RVTEST_CODE_BEGIN
         li a0, 64
 
         1:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -264,7 +264,7 @@ RVTEST_CODE_BEGIN
     cp_wfi:
     
         li a0, 8
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
 
         1:
         addi a0, a0, -1
@@ -303,7 +303,7 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_trigger_ssi_mip:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         li t0, -1               # all 1s
         csrrw t6, mie, t0       # enable all interrupts
 
@@ -325,13 +325,13 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_trigger_changingtom_mti:
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     li t0, -1
     csrrw t6, mideleg, zero
     csrrw t6, mie, t0
     RVTEST_GOTO_LOWER_MODE Smode
     jal cause_mtimer_interrupt_now
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     csrrsi t6, mstatus, 8
     csrrci t6, mstatus, 8
     jal reset_mtimecmp
@@ -344,13 +344,13 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_trigger_changingtom_msi:
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     li t0, -1
     csrrw t6, mideleg, zero
     csrrw t6, mie, t0
     RVTEST_GOTO_LOWER_MODE Smode
     jal cause_msoftware_interrupt_clint
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     csrrsi t6, mstatus, 8
     csrrci t6, mstatus, 8
     jal reset_msoftware_interrupt_clint
@@ -363,13 +363,13 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_trigger_changingtom_mei:
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     li t0, -1
     csrrw t6, mideleg, zero
     csrrw t6, mie, t0
     RVTEST_GOTO_LOWER_MODE Smode
     jal cause_external_interrupt_M
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     csrrsi t6, mstatus, 8
     csrrci t6, mstatus, 8
     jal reset_external_interrupts
@@ -382,14 +382,14 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_trigger_changingtom_sti:
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     li t0, -1
     csrrw t6, mideleg, zero
     csrrw t6, mie, t0
     RVTEST_GOTO_LOWER_MODE Smode
     li t1, 32
     csrrs t6, mip, t1
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     csrrsi t6, mstatus, 8
     csrrci t6, mstatus, 8
     li t1, 32
@@ -403,13 +403,13 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_trigger_changingtom_ssi:
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     li t0, -1
     csrrw t6, mideleg, zero
     csrrw t6, mie, t0
     RVTEST_GOTO_LOWER_MODE Smode
     csrrsi t6, mip, 2
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     csrrsi t6, mstatus, 8
     csrrci t6, mstatus, 8
     csrrci t6, mip, 2
@@ -422,13 +422,13 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_trigger_changingtom_sei:
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     li t0, -1
     csrrw t6, mideleg, zero
     csrrw t6, mie, t0
     RVTEST_GOTO_LOWER_MODE Smode
     jal cause_external_interrupt_S
-    RVTEST_GOTO_HIGHER_MODE Mmode
+    RVTEST_GOTO_MMODE
     csrrsi t6, mstatus, 8
     csrrci t6, mstatus, 8
     jal reset_external_interrupts
@@ -441,7 +441,7 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_sei4:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t0, 128
         csrrs t6, mip, t0
@@ -455,7 +455,7 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_sei5:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         li t0, 128
         csrrs t6, mip, t0
@@ -471,7 +471,7 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_sei6:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         jal cause_external_interrupt_S
         csrrc t6, mip, t0
@@ -485,7 +485,7 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_sei7:
-        RVTEST_GOTO_HIGHER_MODE Mmode
+        RVTEST_GOTO_MMODE
         csrrci t6, mstatus, 8
         jal cause_external_interrupt_S
         jal reset_external_interrupts
@@ -639,7 +639,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 li t1, 32
                 csrrc t6, mip, t1
 
@@ -651,7 +651,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 li t0, 512
                 csrrc t6, mip, t0
             
@@ -662,7 +662,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 csrrci t6, mip, 2
             
             case2_vectored:
@@ -672,7 +672,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 jal reset_mtimecmp
 
             case1_vectored:
@@ -682,7 +682,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 jal reset_external_interrupts
 
             case0_vectored:
@@ -692,7 +692,7 @@ RVTEST_CODE_BEGIN
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
-                RVTEST_GOTO_HIGHER_MODE Mmode
+                RVTEST_GOTO_MMODE
                 jal reset_msoftware_interrupt_clint
 
             case_end_vectored:
@@ -794,6 +794,46 @@ RVTEST_CODE_BEGIN
 
         # enable interrupts from source 3 (GPIO) in M-mode
         la t0, INT_EN_00
+        li t1, 0b1000
+        sw t1, 0(t0)
+
+        # enable interrupts from high output
+        la t0, GPIO_BASE_ADDR
+        li t1, 1
+        sw t1, 0x28(t0) # enable high interrupt for pin 1
+        sw t1, 0x0C(t0) # write 1 to pin 1, this should cause interrupt
+
+        ret
+
+    cause_external_interrupt_S:
+        // raises an external S-mode interrupt using GPIO
+        # set M-mode interrupt threshold to 7
+        la t0, THRESHOLD_0
+        li t1, 7
+        sw t1, 0(t0)
+        
+        # set S-mode interrupt threshold to 0
+        la t0, THRESHOLD_1
+        sw zero, 0(t0)
+
+        # give GPIO sufficient priority to trigger interrupt
+        la t0, INT_PRIORITY_3
+        li t1, 1
+        sw t1, 0(t0)
+
+        # clear all interrupt enables to make sure interrupt doesn't go off prematurely
+        la t0, GPIO_BASE_ADDR
+        li t1, 1
+        sw t1, 0x08(t0) # enable output on pin 1
+        sw t1, 0x04(t0) # enable input on pin 1
+
+        sw zero, 0x18(t0) # clear rise enable
+        sw zero, 0x20(t0) # clear fall enable
+        sw zero, 0x28(t0) # clear high enable
+        sw zero, 0x30(t0) # clear low enable
+
+        # enable interrupts from source 3 (GPIO) in S-mode
+        la t0, INT_EN_10
         li t1, 0b1000
         sw t1, 0(t0)
 
