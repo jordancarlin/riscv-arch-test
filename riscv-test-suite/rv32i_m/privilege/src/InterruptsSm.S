@@ -94,7 +94,7 @@ RVTEST_CODE_BEGIN
                     srli s2, s2, 2
                     csrrs t6, mie, s2
                     addi a2, a2, -1
-                    bnez a2, 3b
+                    bnez a2, 4b
                 
                 addi a1, a1, -1
                 bnez a1, 3b
@@ -333,7 +333,7 @@ RVTEST_CODE_BEGIN
     // then change to machine mode, then write mstatus.MIE
     /////////////////////////////////
 
-    cp_trigger_changingtom_mti:
+cp_trigger_changingtom_mti:
     RVTEST_GOTO_MMODE
     li t0, -1
     csrrw t6, mideleg, zero
