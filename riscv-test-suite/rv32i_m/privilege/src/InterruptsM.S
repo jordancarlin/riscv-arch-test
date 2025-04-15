@@ -6,7 +6,6 @@
 // This assembly file tests the ecall instruction of the RISC-V I extension.
 // 
 
-
 #include "model_test.h"
 
 #define ACCESS_FAULT_ADDRESS 0
@@ -27,67 +26,6 @@
 
 #define GPIO_OUTPUT_EN  (GPIO_BASE_ADDR + 0x08)
 #define GPIO_OUTPUT_VAL (GPIO_BASE_ADDR + 0x0C)
-
-#define RVMODEL_CLR_MSW_INT \
-la t0, MSIP; \
-lw t2, 0(t0); \
-andi t2, t2, -2; \
-sw t2, 0(t0);
-
-#define RVMODEL_CLR_MTIMER_INT \
-li t0, -1; \
-la t2, MTIMECMP; \
-SREG t0, 0(t2); \
-#ifdef __riscv_xlen \
-    #if __riscv_xlen == 32 \
-        sw t0, 4(t2); \
-    #endif \
-#else \
-    ERROR: __riscv_xlen not defined; \
-#endif
-
-#define RVMODEL_CLR_MEXT_INT \
-la t0, THRESHOLD_0; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, THRESHOLD_1; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, INT_PRIORITY_3; \
-sw zero, 0(t0); \
-la t0, INT_EN_00; \
-sw zero, 0(t0); \
-la t0, GPIO_BASE_ADDR; \
-sw zero, 0x18(t0); \
-sw zero, 0x20(t0); \
-sw zero, 0x28(t0); \
-sw zero, 0x30(t0);
-
-#define RVMODEL_CLR_SSW_INT \
-csrrci t6, mip, 2; \
-csrrci t6, sip, 2; 
-
-#define RVMODEL_CLR_STIMER_INT \
-li t0, 32; \
-csrrc t6, mip, t0; \
-csrrc t6, sip, t0;
-
-#define RVMODEL_CLR_SEXT_INT \
-la t0, THRESHOLD_0; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, THRESHOLD_1; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, INT_PRIORITY_3; \
-sw zero, 0(t0); \
-la t0, INT_EN_00; \
-sw zero, 0(t0); \
-la t0, GPIO_BASE_ADDR; \
-sw zero, 0x18(t0); \
-sw zero, 0x20(t0); \
-sw zero, 0x28(t0); \
-sw zero, 0x30(t0);
 
 #include "arch_test.h"
 

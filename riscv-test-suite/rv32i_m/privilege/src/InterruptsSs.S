@@ -27,67 +27,6 @@
 #define GPIO_OUTPUT_EN  (GPIO_BASE_ADDR + 0x08)
 #define GPIO_OUTPUT_VAL (GPIO_BASE_ADDR + 0x0C)
 
-#define RVMODEL_CLR_MSW_INT \
-la t0, MSIP; \
-lw t2, 0(t0); \
-andi t2, t2, -2; \
-sw t2, 0(t0);
-
-#define RVMODEL_CLR_MTIMER_INT \
-li t0, -1; \
-la t2, MTIMECMP; \
-SREG t0, 0(t2); \
-#ifdef __riscv_xlen \
-    #if __riscv_xlen == 32 \
-        sw t0, 4(t2); \
-    #endif \
-#else \
-    ERROR: __riscv_xlen not defined; \
-#endif
-
-#define RVMODEL_CLR_MEXT_INT \
-la t0, THRESHOLD_0; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, THRESHOLD_1; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, INT_PRIORITY_3; \
-sw zero, 0(t0); \
-la t0, INT_EN_00; \
-sw zero, 0(t0); \
-la t0, GPIO_BASE_ADDR; \
-sw zero, 0x18(t0); \
-sw zero, 0x20(t0); \
-sw zero, 0x28(t0); \
-sw zero, 0x30(t0);
-
-#define RVMODEL_CLR_SSW_INT \
-csrrci t6, mip, 2; \
-csrrci t6, sip, 2; 
-
-#define RVMODEL_CLR_STIMER_INT \
-li t0, 32; \
-csrrc t6, mip, t0; \
-csrrc t6, sip, t0;
-
-#define RVMODEL_CLR_SEXT_INT \
-la t0, THRESHOLD_0; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, THRESHOLD_1; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, INT_PRIORITY_3; \
-sw zero, 0(t0); \
-la t0, INT_EN_00; \
-sw zero, 0(t0); \
-la t0, GPIO_BASE_ADDR; \
-sw zero, 0x18(t0); \
-sw zero, 0x20(t0); \
-sw zero, 0x28(t0); \
-sw zero, 0x30(t0);
-
 #include "arch_test.h"
 
 RVTEST_ISA("RV32I_Zicsr")
@@ -98,7 +37,6 @@ RVTEST_ISA("RV32I_Zicsr")
 rvtest_entry_point:
 RVMODEL_BOOT
 RVTEST_CODE_BEGIN
-csrr sp, sscratch
 
 #ifdef TEST_CASE_1
     RVTEST_CASE(1,"//check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",interruptsM)
@@ -110,7 +48,7 @@ csrr sp, sscratch
     ALL_MEM_PMP          		                  	                      	// set the PMP permissions for the whole memory
 	csrw satp, zero  		                                        		// write satp with all zeros (bare mode)
     
-    j test_end                                                              // skip broken tests for commit
+    csrr sp, sscratch
     jal reset_mtimecmp
 
     RVTEST_GOTO_LOWER_MODE Smode
@@ -331,6 +269,7 @@ csrr sp, sscratch
         li a0, 8
 
         1:
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t1, -1
         csrrw t6, mie, t1
@@ -353,6 +292,9 @@ csrr sp, sscratch
 
         4:
         csrrsi t6, sip, 2
+        RVTEST_GOTO_LOWER_MODE Smode
+        nop
+        RVTEST_GOTO_MMODE
         csrrci t6, sip, 2
         bnez a0, 1b
 
@@ -368,6 +310,7 @@ csrr sp, sscratch
         li a0, 8
 
         1:
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t1, -1
         csrrw t6, mie, t1
@@ -389,6 +332,7 @@ csrr sp, sscratch
         csrrsi t6, mstatus, 2
 
         4:
+        RVTEST_GOTO_LOWER_MODE Smode
         jal cause_external_interrupt_S
         jal reset_external_interrupts
         bnez a0, 1b
@@ -405,6 +349,7 @@ csrr sp, sscratch
         li a0, 8
 
         1:
+        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t1, -1
         csrrw t6, mie, t1
@@ -426,7 +371,6 @@ csrr sp, sscratch
         csrrsi t6, mstatus, 2
 
         4:
-        RVTEST_GOTO_MMODE
         li t0, 512
         csrrs t6, mip, t0
         RVTEST_GOTO_LOWER_MODE Smode
@@ -1367,6 +1311,10 @@ csrr sp, sscratch
     j test_end
 
     reset_mtimecmp:
+
+        addi sp, sp, 8
+        SREG ra, 0(sp)
+
         // resets M-mode timer compare register to prevent further M-mode timer interrupts
         li t0, -1               # set mtimecmp to biggest number so it doesnt interrupt again
         la t1, MTIMECMP
@@ -1379,9 +1327,16 @@ csrr sp, sscratch
             ERROR: __riscv_xlen not defined
         #endif
 
+        SREG ra, 0(sp)
+        addi sp, sp, -8
+
         ret
 
     reset_external_interrupts:
+
+        addi sp, sp, 8
+        SREG ra, 0(sp)
+
         # set M-mode interrupt threshold to 7
         la t0, THRESHOLD_0
         li t1, 7
@@ -1407,11 +1362,21 @@ csrr sp, sscratch
         sw zero, 0x28(t0) # clear high
         sw zero, 0x30(t0) # clear low
 
+        SREG ra, 0(sp)
+        addi sp, sp, -8
+
         ret
 
     reset_msoftware_interrupt_clint:
+
+        addi sp, sp, 8
+        SREG ra, 0(sp)
+
         la t0, CLINT_BASE_ADDR
         SREG zero, 0(t0) # write CLINT.msip = 1 for hart 0
+
+        SREG ra, 0(sp)
+        addi sp, sp, -8
 
         ret
 
@@ -1420,7 +1385,7 @@ csrr sp, sscratch
         li s1, 5                # iterate through setting mie.M/SEIE, M/SSIE, or M/STIE (5-0)
         li t1, -1
 
-        addi sp, sp, -8
+        addi sp, sp, 8
         SREG ra, 0(sp)
 
         for_mie:
@@ -1435,15 +1400,16 @@ csrr sp, sscratch
             addi s1, s1, -1     
             bge s1, zero, for_mie # iterate through interrupt types to be enabled
 
+        
         LREG ra, 0(sp)
-        addi sp, sp, 8
-            
+        addi sp, sp, -8
+
         ret
 
     raise_interrupts_s:
         // raises each of mip.M/SEIP/M/SSIP/M/STIP once in sequence
 
-        addi sp, sp, -8
+        addi sp, sp, 8
         SREG ra, 0(sp)
 
         li s2, 5
@@ -1479,7 +1445,7 @@ csrr sp, sscratch
             
             case3_vectored:
                 li t3, 3
-                bne s2, t3, case3_vectored
+                bne s2, t3, case2_vectored
                 csrrsi t6, mip, 2
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
@@ -1522,11 +1488,15 @@ csrr sp, sscratch
                 bge s2, zero, for_mip
 
         LREG ra, 0(sp)
-        addi sp, sp, 8
+        addi sp, sp, -8
 
         ret
 
     cause_mtimer_interrupt_now:
+
+        addi sp, sp, 8
+        SREG ra, 0(sp)
+
         // raises an M-mode timer interrupt using CLINT, interrupt is raised as soon as the function writes to MTIMECMP(H)
 
         la t0, MTIME
@@ -1543,9 +1513,16 @@ csrr sp, sscratch
             ERROR: __riscv_xlen not defined
         #endif
 
+        SREG ra, 0(sp)
+        addi sp, sp, -8
+
         ret
 
     cause_mtimer_interrupt_soon:
+
+        addi sp, sp, 8
+        SREG ra, 0(sp)
+
         // raises an M-mode timer interrupt using CLINT, interrupt is raised 256 (255) cycles after write to MTIMECMP(H)
         la t0, MTIME
         la t4, MTIMECMP
@@ -1578,16 +1555,30 @@ csrr sp, sscratch
             ERROR: __riscv_xlen not defined
         #endif
 
+        SREG ra, 0(sp)
+        addi sp, sp, -8
+
         ret
 
     cause_msoftware_interrupt_clint:
+
+        addi sp, sp, 8
+        SREG ra, 0(sp)
+
         la t0, CLINT_BASE_ADDR
         la t1, 1
         SREG t1, 0(t0) # write CLINT.msip = 1 for hart 0
 
+        SREG ra, 0(sp)
+        addi sp, sp, -8
+
         ret
 
     cause_external_interrupt_M:
+
+        addi sp, sp, 8
+        SREG ra, 0(sp)
+
         // raises an external M-mode interrupt using GPIO
         # set M-mode interrupt threshold to 0
         la t0, THRESHOLD_0
@@ -1625,9 +1616,16 @@ csrr sp, sscratch
         sw t1, 0x28(t0) # enable high interrupt for pin 1
         sw t1, 0x0C(t0) # write 1 to pin 1, this should cause interrupt
 
+        SREG ra, 0(sp)
+        addi sp, sp, -8
+
         ret
 
     cause_external_interrupt_S:
+
+        addi sp, sp, 8
+        SREG ra, 0(sp)
+
         // raises an external S-mode interrupt using GPIO
         # set M-mode interrupt threshold to 7
         la t0, THRESHOLD_0
@@ -1664,6 +1662,9 @@ csrr sp, sscratch
         li t1, 1
         sw t1, 0x28(t0) # enable high interrupt for pin 1
         sw t1, 0x0C(t0) # write 1 to pin 1, this should cause interrupt
+
+        SREG ra, 0(sp)
+        addi sp, sp, -8
 
         ret
 

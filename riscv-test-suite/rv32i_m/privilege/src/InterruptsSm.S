@@ -27,67 +27,6 @@
 #define GPIO_OUTPUT_EN  (GPIO_BASE_ADDR + 0x08)
 #define GPIO_OUTPUT_VAL (GPIO_BASE_ADDR + 0x0C)
 
-#define RVMODEL_CLR_MSW_INT \
-la t0, MSIP; \
-lw t2, 0(t0); \
-andi t2, t2, -2; \
-sw t2, 0(t0);
-
-#define RVMODEL_CLR_MTIMER_INT \
-li t0, -1; \
-la t2, MTIMECMP; \
-SREG t0, 0(t2); \
-#ifdef __riscv_xlen \
-    #if __riscv_xlen == 32 \
-        sw t0, 4(t2); \
-    #endif \
-#else \
-    ERROR: __riscv_xlen not defined; \
-#endif
-
-#define RVMODEL_CLR_MEXT_INT \
-la t0, THRESHOLD_0; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, THRESHOLD_1; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, INT_PRIORITY_3; \
-sw zero, 0(t0); \
-la t0, INT_EN_00; \
-sw zero, 0(t0); \
-la t0, GPIO_BASE_ADDR; \
-sw zero, 0x18(t0); \
-sw zero, 0x20(t0); \
-sw zero, 0x28(t0); \
-sw zero, 0x30(t0);
-
-#define RVMODEL_CLR_SSW_INT \
-csrrci t6, mip, 2; \
-csrrci t6, sip, 2; 
-
-#define RVMODEL_CLR_STIMER_INT \
-li t0, 32; \
-csrrc t6, mip, t0; \
-csrrc t6, sip, t0;
-
-#define RVMODEL_CLR_SEXT_INT \
-la t0, THRESHOLD_0; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, THRESHOLD_1; \
-li t2, 7; \
-sw t2, 0(t0); \
-la t0, INT_PRIORITY_3; \
-sw zero, 0(t0); \
-la t0, INT_EN_00; \
-sw zero, 0(t0); \
-la t0, GPIO_BASE_ADDR; \
-sw zero, 0x18(t0); \
-sw zero, 0x20(t0); \
-sw zero, 0x28(t0); \
-sw zero, 0x30(t0);
-
 #include "arch_test.h"
 
 RVTEST_ISA("RV32I_Zicsr")
@@ -98,7 +37,6 @@ RVTEST_ISA("RV32I_Zicsr")
 rvtest_entry_point:
 RVMODEL_BOOT
 RVTEST_CODE_BEGIN
-csrr sp, sscratch
 
 #ifdef TEST_CASE_1
     RVTEST_CASE(1,"//check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",interruptsM)
@@ -110,6 +48,7 @@ csrr sp, sscratch
     ALL_MEM_PMP          		                  	                      	// set the PMP permissions for the whole memory
 	csrw satp, zero  		                                        		// write satp with all zeros (bare mode)
     
+    csrr sp, sscratch
     jal reset_mtimecmp
 
     RVTEST_GOTO_LOWER_MODE Smode
@@ -668,7 +607,7 @@ csrr sp, sscratch
         li s1, 5                # iterate through setting mie.M/SEIE, M/SSIE, or M/STIE (5-0)
         li t1, -1
 
-        addi sp, sp, -8
+        addi sp, sp, 8
         SREG ra, 0(sp)
 
         for_mie:
@@ -684,14 +623,14 @@ csrr sp, sscratch
             bge s1, zero, for_mie # iterate through interrupt types to be enabled
 
         LREG ra, 0(sp)
-        addi sp, sp, 8
+        addi sp, sp, -8
             
         ret
 
     raise_interrupts_s:
         // raises each of mip.M/SEIP/M/SSIP/M/STIP once in sequence
 
-        addi sp, sp, -8
+        addi sp, sp, 8
         SREG ra, 0(sp)
 
         li s2, 5
@@ -770,7 +709,7 @@ csrr sp, sscratch
                 bge s2, zero, for_mip
 
         LREG ra, 0(sp)
-        addi sp, sp, 8
+        addi sp, sp, -8
 
         ret
 

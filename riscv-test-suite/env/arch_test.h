@@ -800,6 +800,7 @@
 .option push
 .option norvc
 #ifdef  rvtest_mtrap_routine    /**** this can be empty if no Umode ****/
+    mv   t0, x2
     li   x2, 0                  /* Ecall w/x2=0 is handled specially to rtn here */
 // Note that if illegal op trap is delegated , this may infinite loop
 // The solution is either for test to disable delegation, or to
@@ -807,6 +808,7 @@
 
     GOTO_M_OP                   /* ECALL: traps always, but returns immediately to */
                                 /* the next op if x2=0, else handles trap normally */
+    mv x2, t0
 
  #endif
 .option pop
@@ -923,9 +925,25 @@
         //.warning "RVMODEL_CLR_SSW_INT    not defined. Executing this will end test. Define an empty macro to suppress this warning"
         #define  RVMODEL_CLR_SSW_INT     RVTEST_DFLT_INT_HNDLR
 #endif
+#ifndef RVMODEL_MCLR_SSW_INT
+        //.warning "RVMODEL_CLR_SSW_INT    not defined. Executing this will end test. Define an empty macro to suppress this warning"
+        #define  RVMODEL_MCLR_SSW_INT     RVTEST_DFLT_INT_HNDLR
+#endif
+#ifndef RVMODEL_SCLR_SSW_INT
+        //.warning "RVMODEL_CLR_MEXT_INT   not defined. Executing this will end test. Define an empty macro to suppress this warning"
+        #define  RVMODEL_SCLR_SSW_INT     RVTEST_DFLT_INT_HNDLR   
+#endif
 #ifndef RVMODEL_CLR_STIMER_INT
         //.warning "RVMODEL_CLR_STIMER_INT not defined. Executing this will end test. Define an empty macro to suppress this warning"
         #define  RVMODEL_CLR_STIMER_INT  RVTEST_DFLT_INT_HNDLR
+#endif
+#ifndef RVMODEL_MCLR_STIMER_INT
+        //.warning "RVMODEL_CLR_STIMER_INT not defined. Executing this will end test. Define an empty macro to suppress this warning"
+        #define  RVMODEL_MCLR_STIMER_INT  RVTEST_DFLT_INT_HNDLR
+#endif
+#ifndef RVMODEL_SCLR_STIMER_INT
+        //.warning "RVMODEL_CLR_MEXT_INT   not defined. Executing this will end test. Define an empty macro to suppress this warning"
+        #define  RVMODEL_SCLR_STIMER_INT     RVTEST_DFLT_INT_HNDLR   
 #endif
 #ifndef RVMODEL_CLR_SEXT_INT
         //.warning "RVMODEL_CLR_SEXT_INT   not defined. Executing this will end test. Define an empty macro to suppress this warning"
@@ -1662,11 +1680,28 @@ excpt_\__MODE__\()hndlr_tbl:            // handler code should only touch T2..T6
 
 //------------- SMode----------------
 \__MODE__\()clr_Ssw_int:                // int 1 default to just return if not defined
-        RVMODEL_CLR_SSW_INT
+        .ifc \__MODE__ , M
+            RVMODEL_MCLR_SSW_INT
+        .else 
+                .ifc \__MODE__ , S
+                        RVMODEL_SCLR_SSW_INT
+                .else
+                        RVMODEL_CLR_SSW_INT
+                .endif
+        .endif 
+
         j       resto_\__MODE__\()rtn
 
 \__MODE__\()clr_Stmr_int:               // int 5 default to just return
-        RVMODEL_CLR_STIMER_INT
+        .ifc \__MODE__ , M
+            RVMODEL_MCLR_STIMER_INT
+        .else 
+                .ifc \__MODE__ , S
+                        RVMODEL_SCLR_STIMER_INT
+                .else
+                        RVMODEL_CLR_STIMER_INT
+                .endif
+        .endif 
         j       resto_\__MODE__\()rtn
 
 \__MODE__\()clr_Sext_int:               // int 9 default to just return after saving IntID in T3
