@@ -800,7 +800,7 @@
 .option push
 .option norvc
 #ifdef  rvtest_mtrap_routine    /**** this can be empty if no Umode ****/
-    mv   t0, x2
+    mv   t0, x2                 /* FIXME: Hacky way to preserve x2 as stack pointer by trashing t0 instead */
     li   x2, 0                  /* Ecall w/x2=0 is handled specially to rtn here */
 // Note that if illegal op trap is delegated , this may infinite loop
 // The solution is either for test to disable delegation, or to
@@ -808,7 +808,7 @@
 
     GOTO_M_OP                   /* ECALL: traps always, but returns immediately to */
                                 /* the next op if x2=0, else handles trap normally */
-    mv x2, t0
+    mv   x2, t0                 /* FIXME: Hacky way to preserve x2 as stack pointer by trashing t0 instead */
 
  #endif
 .option pop
@@ -925,11 +925,11 @@
         //.warning "RVMODEL_CLR_SSW_INT    not defined. Executing this will end test. Define an empty macro to suppress this warning"
         #define  RVMODEL_CLR_SSW_INT     RVTEST_DFLT_INT_HNDLR
 #endif
-#ifndef RVMODEL_MCLR_SSW_INT
+#ifndef RVMODEL_MCLR_SSW_INT // M-mode interrupt handler for S-mode SW Ints
         //.warning "RVMODEL_CLR_SSW_INT    not defined. Executing this will end test. Define an empty macro to suppress this warning"
         #define  RVMODEL_MCLR_SSW_INT     RVTEST_DFLT_INT_HNDLR
 #endif
-#ifndef RVMODEL_SCLR_SSW_INT
+#ifndef RVMODEL_SCLR_SSW_INT // S-mode interrupt handler for S-mode SW Ints
         //.warning "RVMODEL_CLR_MEXT_INT   not defined. Executing this will end test. Define an empty macro to suppress this warning"
         #define  RVMODEL_SCLR_SSW_INT     RVTEST_DFLT_INT_HNDLR   
 #endif
@@ -937,11 +937,11 @@
         //.warning "RVMODEL_CLR_STIMER_INT not defined. Executing this will end test. Define an empty macro to suppress this warning"
         #define  RVMODEL_CLR_STIMER_INT  RVTEST_DFLT_INT_HNDLR
 #endif
-#ifndef RVMODEL_MCLR_STIMER_INT
+#ifndef RVMODEL_MCLR_STIMER_INT // M-mode interrupt handler for S-mode Timer Ints
         //.warning "RVMODEL_CLR_STIMER_INT not defined. Executing this will end test. Define an empty macro to suppress this warning"
         #define  RVMODEL_MCLR_STIMER_INT  RVTEST_DFLT_INT_HNDLR
 #endif
-#ifndef RVMODEL_SCLR_STIMER_INT
+#ifndef RVMODEL_SCLR_STIMER_INT // S-mode interrupt handler for S-mode Timer Ints
         //.warning "RVMODEL_CLR_MEXT_INT   not defined. Executing this will end test. Define an empty macro to suppress this warning"
         #define  RVMODEL_SCLR_STIMER_INT     RVTEST_DFLT_INT_HNDLR   
 #endif
@@ -1680,7 +1680,8 @@ excpt_\__MODE__\()hndlr_tbl:            // handler code should only touch T2..T6
 
 //------------- SMode----------------
 \__MODE__\()clr_Ssw_int:                // int 1 default to just return if not defined
-        .ifc \__MODE__ , M
+                                        // S-mode software interrupts need to be reset differently when raised in M or S mode
+        .ifc \__MODE__ , M              // Select the interrupt handler function based on current privilege mode
             RVMODEL_MCLR_SSW_INT
         .else 
                 .ifc \__MODE__ , S
@@ -1692,8 +1693,9 @@ excpt_\__MODE__\()hndlr_tbl:            // handler code should only touch T2..T6
 
         j       resto_\__MODE__\()rtn
 
-\__MODE__\()clr_Stmr_int:               // int 5 default to just return
-        .ifc \__MODE__ , M
+\__MODE__\()clr_Stmr_int:               // int 5 default to just return 
+                                        // S-mode timer interrupts need to be reset differently when raised in M or S mode
+        .ifc \__MODE__ , M              // Select the interrupt handler function based on current privilege mode
             RVMODEL_MCLR_STIMER_INT
         .else 
                 .ifc \__MODE__ , S
