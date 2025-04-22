@@ -31,7 +31,7 @@ RVTEST_CODE_BEGIN
     ALL_MEM_PMP          		                  	                      	// set the PMP permissions for the whole memory
 	csrw satp, zero  		                                        		// write satp with all zeros (bare mode)
     
-    csrr sp, sscratch
+    la sp, topofstack
     jal reset_mtimecmp
 
     RVTEST_GOTO_LOWER_MODE Smode
@@ -567,3 +567,11 @@ sig_end_canary:
 CANARY;
 rvtest_sig_end:
 RVMODEL_DATA_END
+
+scratch:
+.fill 4,4,0x0
+
+# Initialize stack with room for 512 bytes
+.bss
+    .space 512
+topofstack:

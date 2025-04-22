@@ -31,10 +31,12 @@ RVTEST_CODE_BEGIN
     ALL_MEM_PMP          		                  	                      	// set the PMP permissions for the whole memory
 	csrw satp, zero  		                                        		// write satp with all zeros (bare mode)
     
-    csrr sp, sscratch
+    la sp, topofstack
     jal reset_mtimecmp
 
+    mv t0, sp
     RVTEST_GOTO_LOWER_MODE Smode
+    mv sp, t0
 
     ///////////////////////////////
     // cp_interrupts
@@ -46,47 +48,17 @@ RVTEST_CODE_BEGIN
     cp_interrupts:
 
         li a3, 2
+        RVTEST_GOTO_MMODE # Need to be in M-mode to set mideleg
 
         1:
-        RVTEST_GOTO_MMODE
-        li a0, 2
-        li t1, -1
-        csrrw t6, mideleg, zero
+        csrrw t6, mideleg, zero # Set mideleg to 0 by default
         addi a3, a3, -1
-        bnez a3, 2f
-        csrrw t6, mideleg, t1
-
+        bnez a3, 2f             # if this is second loop iteration,
+        csrrw t6, mideleg, t1   # use mideleg = 1s instead
+        
+        2:
         jal cross_interrupts_s_EP // expect this to hit M-mode cp_priority coverpoints too
 
-/*
-            2:
-            li a1, 6
-            la s1, 8096
-            csrrci t6, mtvec, 3
-            csrrsi t6, mstatus, 8
-            addi a0, a0, -1
-            bnez a0, 3f
-            csrrci t6, mstatus, 8
-
-                3:
-                li a2, 6
-                la s2, 8096
-                csrrc t6, mip, s1
-                srli s1, s1, 2
-                csrrs t6, mip, s1
-            
-                    4:
-                    csrrc t6, mie, s2
-                    srli s2, s2, 2
-                    csrrs t6, mie, s2
-                    addi a2, a2, -1
-                    bnez a2, 4b
-                
-                addi a1, a1, -1
-                bnez a1, 3b
-                
-            bnez a0, 2b
-*/
         bnez a3, 1b
 
     /////////////////////////////////
@@ -97,36 +69,36 @@ RVTEST_CODE_BEGIN
 
     cp_vectored:
 
-        csrrci t6, mtvec, 3
+        csrrci t6, mtvec, 3 
         csrrsi t6, mtvec, 1 # mtvec.MODE = 01
 
-        csrrsi t6, mstatus, 8 # mstatus.MIE = 1
+        csrrsi t6, mstatus, 8   # mstatus.MIE = 1
         csrrw t6, mie, zero     # clear all interrupt enables
 
         li s1, 0x0222
         csrrs t6, mie, s1       # set mie.SEIE/STIE/SSIE
 
-        li s2, 3
+        li s2, 3                # use as index for mip cases
 
         1:
         addi s2, s2, -1
         li t0, 2
-        bne s2, t0, 2f
+        bne s2, t0, 2f          # case 2: set mip.SSIP
         csrrsi t6, mip, 2
 
         2:
         li t0, 1
         bne s2, t0, 3f
-        li t1, 32
+        li t1, 32               # case 1: set mip.STIP
         csrrs t6, mip, t1
 
         3:
         bnez s2, 4f
-        li t0, 512
+        li t0, 512              # case 0: set mip.SEIP
         csrrs t6, mip, t0
 
         4:
-        bnez s2, 1b
+        bnez s2, 1b             # go to next case unless no interrupts were attempted
 
     ///////////////////////////////
     // cp_priority_mip
@@ -136,54 +108,54 @@ RVTEST_CODE_BEGIN
     ///////////////////////////////
 
     cp_priority_mip:
-        li a0, 64
+        li a0, 64           # set up bitfield to iterate through mip permutations
+        RVTEST_GOTO_MMODE   # set up everything in M-mode
         
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
-        csrrw t6, mie, t0
-        csrrw t6, mideleg, zero
-        csrrci t6, mstatus, 8
+        csrrw t6, mie, t0           # set mie = 1s
+        csrrw t6, mideleg, zero     # use mideleg = 0s
+        csrrci t6, mstatus, 8       # start with mstatus.MIE = 0
 
-        andi t0, a0, 32        
-        beqz t0, 2f
-        li t1, 32
-        csrrs t6, mip, t1
+        andi t0, a0, 32             # use bit 5 for stimer
+        beqz t0, 2f                 
+        li t1, 32                   
+        csrrs t6, mip, t1           # set mip.STIP
 
         2:
-        andi t0, a0, 16        
+        andi t0, a0, 16             # use bit 4 for sexternal
         beqz t0, 3f
         li t0, 512
-        csrrs t6, mip, t0
+        csrrs t6, mip, t0           # set mip.SEIP
 
         3:
-        andi t0, a0, 8      
+        andi t0, a0, 8              # use bit 3 for ssoftware
         beqz t0, 4f
-        csrrsi t6, mip, 2
+        csrrsi t6, mip, 2           # set mip.SSIP
             
         4:
-        andi t0, a0, 4        
+        andi t0, a0, 4                  # use bit 2 for mtimer
         beqz t0, 5f
         jal cause_mtimer_interrupt_now
 
         5:
-        andi t0, a0, 2        
+        andi t0, a0, 2                  # use bit 1 for mexternal
         beqz t0, 6f
         jal cause_external_interrupt_M
 
         6:
-        andi t0, a0, 1        
+        andi t0, a0, 1                  # use bit 0 for msoftware
         beqz t0, 7f
-        jal cause_msoftware_interrupt_clint
+        jal cause_msoftware_interrupt
 
         7:
-        csrrsi t6, mstatus, 8
-        csrrw t6, mip, zero
+        csrrsi t6, mstatus, 8           # set mstatus.MIE = 1, expect interrupts in priority order
+        csrrw t6, mip, zero             # this and next 3 lines clear whatever isn't taken
         jal reset_msoftware_interrupt_clint
         jal reset_mtimecmp
         jal reset_external_interrupts
-        bnez a0, 1b
+        bnez a0, 1b                     # go to next case unless no interrupts were attempted
 
     ///////////////////////////////
     // cp_priority_mie
@@ -199,49 +171,49 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
-        csrrw t6, mip, t0
-        csrrw t6, mideleg, zero
-        csrrci t6, mstatus, 8
-        jal cause_mtimer_interrupt_now
+        csrrci t6, mstatus, 8           # set up with mstatus.MIE = 0
+        csrrw t6, mip, t0               # set all supervisor interrupts
+        csrrw t6, mideleg, zero         # do not delegate
+        jal cause_mtimer_interrupt_now  # set machine interrupts one by one
         jal cause_external_interrupt_M
-        jal cause_msoftware_interrupt_clint
+        jal cause_msoftware_interrupt
 
-        andi t0, a0, 32        
+        andi t0, a0, 32                 # use bit 5 for ssoftware
         beqz t0, 2f
         csrrsi t6, mie, 2
 
         2:
-        andi t0, a0, 16        
+        andi t0, a0, 16                 # use bit 4 for msoftware
         beqz t0, 3f
         csrrsi t6, mie, 8
 
         3:
-        andi t0, a0, 8      
+        andi t0, a0, 8                  # use bit 3 for stimer
         beqz t0, 4f
         li t1, 32
         csrrs t6, mie, t1
             
         4:
-        andi t0, a0, 4        
+        andi t0, a0, 4                  # use bit 2 for mtimer
         beqz t0, 5f
         li t0, 128
         csrrs t6, mie, t0
 
         5:
-        andi t0, a0, 2        
+        andi t0, a0, 2                  # use bit 1 for sexternal
         beqz t0, 6f
         li t0, 512
         csrrs t6, mie, t0
 
         6:
-        andi t0, a0, 1        
+        andi t0, a0, 1                  # use bit 1 for mexternal
         beqz t0, 7f
         li t0, 2048
         csrrs t6, mie, t0
 
         7:
-        csrrsi t6, mstatus, 8
-        csrrw t6, mie, zero
+        csrrsi t6, mstatus, 8           # raise mstatus.MIE, expect all interrupts to trigger in priority order
+        csrrw t6, mie, zero             # clear mie before next test
         bnez a0, 1b
 
     ///////////////////////////////
@@ -344,7 +316,7 @@ RVTEST_CODE_BEGIN
         csrrw t6, mideleg, zero
         csrrw t6, mie, t0
         RVTEST_GOTO_LOWER_MODE Smode
-        jal cause_msoftware_interrupt_clint
+        jal cause_msoftware_interrupt
         RVTEST_GOTO_MMODE
         csrrsi t6, mstatus, 8
         csrrci t6, mstatus, 8
@@ -502,7 +474,7 @@ RVTEST_CODE_BEGIN
 
         2:
         jal cause_mtimer_interrupt_now
-        jal cause_msoftware_interrupt_clint
+        jal cause_msoftware_interrupt
         jal cause_external_interrupt_M
         csrrci t6, mstatus, 8
         andi t0, a0, 2
@@ -593,7 +565,7 @@ RVTEST_CODE_BEGIN
         li s1, 5                # iterate through setting mie.M/SEIE, M/SSIE, or M/STIE (5-0)
         li t1, -1
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         for_mie:
@@ -609,14 +581,14 @@ RVTEST_CODE_BEGIN
             bge s1, zero, for_mie # iterate through interrupt types to be enabled
 
         LREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
             
         ret
 
     raise_interrupts_s:
         // raises each of mip.M/SEIP/M/SSIP/M/STIP once in sequence
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         li s2, 5
@@ -652,7 +624,7 @@ RVTEST_CODE_BEGIN
             
             case3_vectored:
                 li t3, 3
-                bne s2, t3, case3_vectored
+                bne s2, t3, case2_vectored
                 csrrsi t6, mip, 2
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
@@ -683,7 +655,7 @@ RVTEST_CODE_BEGIN
             case0_vectored:
                 li t3, 0
                 bne s2, t3, case_end_vectored   # if s2 = 0, trigger software interrupt
-                jal cause_msoftware_interrupt_clint
+                jal cause_msoftware_interrupt
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
@@ -695,7 +667,7 @@ RVTEST_CODE_BEGIN
                 bge s2, zero, for_mip
 
         LREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
@@ -753,7 +725,7 @@ RVTEST_CODE_BEGIN
 
         ret
 
-    cause_msoftware_interrupt_clint:
+    cause_msoftware_interrupt:
         la t0, CLINT_BASE_ADDR
         la t1, 1
         SREG t1, 0(t0) # write CLINT.msip = 1 for hart 0
@@ -881,3 +853,11 @@ sig_end_canary:
 CANARY;
 rvtest_sig_end:
 RVMODEL_DATA_END
+
+scratch:
+.fill 4,4,0x0
+
+# Initialize stack with room for 512 bytes
+.bss
+    .space 512
+topofstack:

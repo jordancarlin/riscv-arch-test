@@ -870,7 +870,7 @@
     csrs CSR_MSTATUS, T4        /* set correct mode and Vbit            */
   .endif
 #endif
-  csrr   sp, CSR_MSCRATCH       /* ensure sp points to Mmode datae area */
+//  csrr   sp, CSR_MSCRATCH       /* ensure sp points to Mmode datae area */
         /**** mstatus MPV and PP now set up to desired mode    ****/
         /**** set MEPC to mret+4; requires relocating the pc   ****/
 .if     (\LMODE\() == Vmode)     // get trapsig_ptr & init val up 2 save areas (M<-S<-V)

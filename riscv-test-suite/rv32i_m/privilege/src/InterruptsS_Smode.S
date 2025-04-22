@@ -31,7 +31,7 @@ RVTEST_CODE_BEGIN
     ALL_MEM_PMP          		                  	                      	// set the PMP permissions for the whole memory
 	csrw satp, zero  		                                        		// write satp with all zeros (bare mode)
     
-    csrr sp, sscratch
+    la sp, topofstack
     jal reset_mtimecmp
 
     RVTEST_GOTO_LOWER_MODE Smode
@@ -163,10 +163,10 @@ RVTEST_CODE_BEGIN
     cp_trigger_sti:
     
         li a0, 8
+        RVTEST_GOTO_MMODE
 
         1:
         addi a0, a0, -1
-        RVTEST_GOTO_MMODE
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
@@ -194,7 +194,6 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_MMODE
         li t1, 32
         csrrc t6, mip, t1
-        RVTEST_GOTO_LOWER_MODE Smode
         bnez a0, 1b
 
     ///////////////////////////////
@@ -207,10 +206,10 @@ RVTEST_CODE_BEGIN
     cp_trigger_ssi_mip:
     
         li a0, 8
+        RVTEST_GOTO_MMODE
 
         1:
         addi a0, a0, -1
-        RVTEST_GOTO_MMODE
         li t1, -1
         csrrw t6, mie, t1
         csrrw t6, mideleg, zero
@@ -231,13 +230,11 @@ RVTEST_CODE_BEGIN
         csrrsi t6, mstatus, 2
 
         4:
-        RVTEST_GOTO_MMODE
         csrrsi t6, mip, 2
         RVTEST_GOTO_LOWER_MODE Smode
         nop
         RVTEST_GOTO_MMODE
         csrrci t6, mip, 2
-        RVTEST_GOTO_LOWER_MODE Smode
         bnez a0, 1b
 
     ///////////////////////////////
@@ -250,9 +247,9 @@ RVTEST_CODE_BEGIN
     cp_trigger_ssi_sip:
     
         li a0, 8
+        RVTEST_GOTO_MMODE
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t1, -1
         csrrw t6, mie, t1
@@ -330,9 +327,9 @@ RVTEST_CODE_BEGIN
     cp_trigger_sei_seip:
     
         li a0, 8
+        RVTEST_GOTO_MMODE
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t1, -1
         csrrw t6, mie, t1
@@ -361,7 +358,6 @@ RVTEST_CODE_BEGIN
         RVTEST_GOTO_MMODE
         li t0, 512
         csrrc t6, mip, t0
-        RVTEST_GOTO_LOWER_MODE Smode
         bnez a0, 1b
 
     ///////////////////////////////
@@ -649,9 +645,9 @@ RVTEST_CODE_BEGIN
 
     cp_priority_mip_m:
         li a0, 64
+        RVTEST_GOTO_MMODE
         
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mie, t0
@@ -710,9 +706,9 @@ RVTEST_CODE_BEGIN
 
     cp_priority_mie_m:
         li a0, 64
+        RVTEST_GOTO_MMODE
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -774,9 +770,9 @@ RVTEST_CODE_BEGIN
     cp_priority_both_m:
         
         li a0, 64
+        RVTEST_GOTO_MMODE
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -845,9 +841,9 @@ RVTEST_CODE_BEGIN
 
     cp_priority_mip_s:
         li a0, 64
+        RVTEST_GOTO_MMODE
         
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mie, t0
@@ -906,9 +902,9 @@ RVTEST_CODE_BEGIN
 
     cp_priority_mie_s:
         li a0, 64
+        RVTEST_GOTO_MMODE
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -970,9 +966,9 @@ RVTEST_CODE_BEGIN
     cp_priority_both_s:
         
         li a0, 64
+        RVTEST_GOTO_MMODE
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -1041,9 +1037,9 @@ RVTEST_CODE_BEGIN
 
     cp_priority_mideleg_m:
         li a0, 64
+        RVTEST_GOTO_MMODE
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -1104,9 +1100,9 @@ RVTEST_CODE_BEGIN
 
     cp_priority_mideleg_s:
         li a0, 64
+        RVTEST_GOTO_MMODE
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         li t0, -1
         csrrw t6, mip, t0
@@ -1295,7 +1291,7 @@ RVTEST_CODE_BEGIN
 
     reset_mtimecmp:
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         // resets M-mode timer compare register to prevent further M-mode timer interrupts
@@ -1311,13 +1307,13 @@ RVTEST_CODE_BEGIN
         #endif
 
         SREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
     reset_external_interrupts:
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         # set M-mode interrupt threshold to 7
@@ -1346,20 +1342,20 @@ RVTEST_CODE_BEGIN
         sw zero, 0x30(t0) # clear low
 
         SREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
     reset_msoftware_interrupt_clint:
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         la t0, CLINT_BASE_ADDR
         SREG zero, 0(t0) # write CLINT.msip = 1 for hart 0
 
         SREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
@@ -1368,7 +1364,7 @@ RVTEST_CODE_BEGIN
         li s1, 5                # iterate through setting mie.M/SEIE, M/SSIE, or M/STIE (5-0)
         li t1, -1
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         for_mie:
@@ -1385,14 +1381,14 @@ RVTEST_CODE_BEGIN
 
         
         LREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
     raise_interrupts_s:
         // raises each of mip.M/SEIP/M/SSIP/M/STIP once in sequence
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         li s2, 5
@@ -1471,13 +1467,13 @@ RVTEST_CODE_BEGIN
                 bge s2, zero, for_mip
 
         LREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
     cause_mtimer_interrupt_now:
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         // raises an M-mode timer interrupt using CLINT, interrupt is raised as soon as the function writes to MTIMECMP(H)
@@ -1497,13 +1493,13 @@ RVTEST_CODE_BEGIN
         #endif
 
         SREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
     cause_mtimer_interrupt_soon:
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         // raises an M-mode timer interrupt using CLINT, interrupt is raised 256 (255) cycles after write to MTIMECMP(H)
@@ -1539,13 +1535,13 @@ RVTEST_CODE_BEGIN
         #endif
 
         SREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
     cause_msoftware_interrupt_clint:
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         la t0, CLINT_BASE_ADDR
@@ -1553,13 +1549,13 @@ RVTEST_CODE_BEGIN
         SREG t1, 0(t0) # write CLINT.msip = 1 for hart 0
 
         SREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
     cause_external_interrupt_M:
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         // raises an external M-mode interrupt using GPIO
@@ -1600,13 +1596,13 @@ RVTEST_CODE_BEGIN
         sw t1, 0x0C(t0) # write 1 to pin 1, this should cause interrupt
 
         SREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
     cause_external_interrupt_S:
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         // raises an external S-mode interrupt using GPIO
@@ -1647,7 +1643,7 @@ RVTEST_CODE_BEGIN
         sw t1, 0x0C(t0) # write 1 to pin 1, this should cause interrupt
 
         SREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
@@ -1692,3 +1688,11 @@ sig_end_canary:
 CANARY;
 rvtest_sig_end:
 RVMODEL_DATA_END
+
+scratch:
+.fill 4,4,0x0
+
+# Initialize stack with room for 512 bytes
+.bss
+    .space 512
+topofstack:

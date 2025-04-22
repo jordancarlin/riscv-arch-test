@@ -8,25 +8,6 @@
 
 #include "model_test.h"
 
-#define ACCESS_FAULT_ADDRESS 0
-#define CLINT_BASE_ADDR 0x02000000
-#define PLIC_BASE_ADDR 0x0C000000
-#define GPIO_BASE_ADDR 0x10060000
-
-#define MTIME           (CLINT_BASE_ADDR + 0xBFF8)
-#define MSIP            (CLINT_BASE_ADDR)
-#define MTIMECMP        (CLINT_BASE_ADDR + 0x4000)
-#define MTIMECMPH       (CLINT_BASE_ADDR + 0x4004)
-
-#define THRESHOLD_0     (PLIC_BASE_ADDR + 0x200000)
-#define THRESHOLD_1     (PLIC_BASE_ADDR + 0x201000)
-#define INT_PRIORITY_3  (PLIC_BASE_ADDR + 0x00000C)
-#define INT_EN_00       (PLIC_BASE_ADDR + 0x002000)
-#define INT_EN_10       (PLIC_BASE_ADDR + 0x002080)
-
-#define GPIO_OUTPUT_EN  (GPIO_BASE_ADDR + 0x08)
-#define GPIO_OUTPUT_VAL (GPIO_BASE_ADDR + 0x0C)
-
 #include "arch_test.h"
 
 RVTEST_ISA("RV32I_Zicsr")
@@ -554,7 +535,7 @@ csrr sp, sscratch
         li s1, 2                # iterate through setting mie.MEIE, MSIE, or MTIE (2-0)
         li t1, -1
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         for_mie:
@@ -570,14 +551,14 @@ csrr sp, sscratch
             bge s1, zero, for_mie # iterate through interrupt types to be enabled
 
         LREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
             
         ret
 
     raise_interrupts_m:
         // raises each of mip.MEIP/MSIP/MTIP once in sequence
 
-        addi sp, sp, 8
+        addi sp, sp, -8
         SREG ra, 0(sp)
 
         li s2, 2
@@ -610,7 +591,7 @@ csrr sp, sscratch
                 bge s2, zero, for_mip
 
         LREG ra, 0(sp)
-        addi sp, sp, -8
+        addi sp, sp, 8
 
         ret
 
@@ -655,3 +636,11 @@ sig_end_canary:
 CANARY;
 rvtest_sig_end:
 RVMODEL_DATA_END
+
+scratch:
+.fill 4,4,0x0
+
+# Initialize stack with room for 512 bytes
+.bss
+    .space 512
+topofstack:
