@@ -46,42 +46,44 @@ RVTEST_CODE_BEGIN
 
     cp_user_mti:
         
-        li a0, 16
+        li a0, 16           # use a0 as bitfield
+        RVTEST_GOTO_MMODE   # start test in M-mode to set CSRs
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         andi t0, a0, 8
         csrrci t6, mstatus, 8
-        bnez t0, 2f
+        bnez t0, 2f             # set mstatus.MIE with bit 3 of a0
         csrrsi t6, mstatus, 8
 
         2:
         andi t0, a0, 4
         csrrci t6, mstatus, 2
-        bnez t0, 3f
+        bnez t0, 3f             # set mstatus.SIE with bit 2 of a0
         csrrsi t6, mstatus, 2
 
         3:
         andi t0, a0, 2
         csrrci t6, stvec, 3
-        bnez t0, 4f
+        bnez t0, 4f             # set stvec.MODE[0] with bit 1 of a0
         csrrsi t6, stvec, 1
 
         4:
         andi t0, a0, 1
         li t1, 128
         csrrc t6, mideleg, t1
-        bnez t0, 5f
+        bnez t0, 5f             # set mideleg.MTI with bit 0 of a0
         csrrs t6, mideleg, t1
 
         5:
-        RVTEST_GOTO_LOWER_MODE Umode
         li t1, 128
-        csrrs t6, mie, t1
-        jal cause_mtimer_interrupt_now
-        jal reset_mtimecmp
-        bnez a0, 1b
+        csrrs t6, mie, t1       # set mie.MTIE = 1
+        jal cause_mtimer_interrupt_now  # set mip.MTIP = 1
+        RVTEST_GOTO_LOWER_MODE Umode    # switch to U-mode
+        nop                             # expect interrupt if mstatus.SIE = 1
+        RVTEST_GOTO_MMODE               # return to M-mode for cleanup
+        jal reset_mtimecmp              # clear mip.MTIP
+        bnez a0, 1b                     # loop to next case
 
     ///////////////////////////////
     // cp_user_msi
@@ -93,40 +95,42 @@ RVTEST_CODE_BEGIN
 
     cp_user_msi:
         
-        li a0, 16
+        li a0, 16           # use a0 as bitfield
+        RVTEST_GOTO_MMODE   # start test in M-mode to set CSRs
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         andi t0, a0, 8
         csrrci t6, mstatus, 8
-        bnez t0, 2f
+        bnez t0, 2f             # set mstatus.MIE with bit 3 of a0
         csrrsi t6, mstatus, 8
 
         2:
         andi t0, a0, 4
         csrrci t6, mstatus, 2
-        bnez t0, 3f
+        bnez t0, 3f             # set mstatus.SIE with bit 2 of a0
         csrrsi t6, mstatus, 2
 
         3:
         andi t0, a0, 2
         csrrci t6, stvec, 3
-        bnez t0, 4f
+        bnez t0, 4f             # set stvec.MODE[0] with bit 1 of a0
         csrrsi t6, stvec, 1
 
         4:
         andi t0, a0, 1
         csrrci t6, mideleg, 8
-        bnez t0, 5f
+        bnez t0, 5f             # set mideleg.MSI with bit 0 of a0
         csrrsi t6, mideleg, 8
 
         5:
-        RVTEST_GOTO_LOWER_MODE Umode
-        csrrsi t6, mie, 8
-        jal cause_msoftware_interrupt_clint
-        jal reset_msoftware_interrupt_clint
-        bnez a0, 1b
+        csrrsi t6, mie, 8       # set mie.MSIE = 1
+        jal cause_msoftware_interrupt  # set mip.MSIP = 1
+        RVTEST_GOTO_LOWER_MODE Umode    # switch to U-mode
+        nop                             # expect interrupt if mstatus.SIE = 1
+        RVTEST_GOTO_MMODE               # return to M-mode for cleanup
+        jal reset_msoftware_interrupt              # clear mip.MSIP
+        bnez a0, 1b                     # loop to next case
 
     ///////////////////////////////
     // cp_user_mei
@@ -138,42 +142,44 @@ RVTEST_CODE_BEGIN
 
     cp_user_mei:
         
-        li a0, 16
+        li a0, 16           # use a0 as bitfield
+        RVTEST_GOTO_MMODE   # start test in M-mode to set CSRs
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         andi t0, a0, 8
         csrrci t6, mstatus, 8
-        bnez t0, 2f
+        bnez t0, 2f             # set mstatus.MIE with bit 3 of a0
         csrrsi t6, mstatus, 8
 
         2:
         andi t0, a0, 4
         csrrci t6, mstatus, 2
-        bnez t0, 3f
+        bnez t0, 3f             # set mstatus.SIE with bit 2 of a0
         csrrsi t6, mstatus, 2
 
         3:
         andi t0, a0, 2
         csrrci t6, stvec, 3
-        bnez t0, 4f
+        bnez t0, 4f             # set stvec.MODE[0] with bit 1 of a0
         csrrsi t6, stvec, 1
 
         4:
         andi t0, a0, 1
         li t1, 2048
         csrrc t6, mideleg, t1
-        bnez t0, 5f
+        bnez t0, 5f             # set mideleg.MSI with bit 0 of a0
         csrrs t6, mideleg, t1
 
         5:
-        RVTEST_GOTO_LOWER_MODE Umode
         li t1, 2048
-        csrrs t6, mie, t1
-        jal cause_external_interrupt_M
-        jal reset_external_interrupts
-        bnez a0, 1b
+        csrrs t6, mie, t1       # set mie.MEIE = 1
+        jal cause_external_interrupt_M  # set mip.MEIP = 1
+        RVTEST_GOTO_LOWER_MODE Umode    # switch to U-mode
+        nop                             # expect interrupt if mstatus.SIE = 1
+        RVTEST_GOTO_MMODE               # return to M-mode for cleanup
+        jal reset_external_interrupts   # clear mip.MEIP
+        bnez a0, 1b                     # loop to next case
 
     ///////////////////////////////
     // cp_user_sei
@@ -185,42 +191,44 @@ RVTEST_CODE_BEGIN
 
     cp_user_sei:
         
-        li a0, 16
+        li a0, 16           # use a0 as bitfield
+        RVTEST_GOTO_MMODE   # start test in M-mode to set CSRs
 
         1:
-        RVTEST_GOTO_MMODE
         addi a0, a0, -1
         andi t0, a0, 8
         csrrci t6, mstatus, 8
-        bnez t0, 2f
+        bnez t0, 2f             # set mstatus.MIE with bit 3 of a0
         csrrsi t6, mstatus, 8
 
         2:
         andi t0, a0, 4
         csrrci t6, mstatus, 2
-        bnez t0, 3f
+        bnez t0, 3f             # set mstatus.SIE with bit 2 of a0
         csrrsi t6, mstatus, 2
 
         3:
         andi t0, a0, 2
         csrrci t6, stvec, 3
-        bnez t0, 4f
+        bnez t0, 4f             # set stvec.MODE[0] with bit 1 of a0
         csrrsi t6, stvec, 1
 
         4:
         andi t0, a0, 1
         li t1, 512
         csrrc t6, mideleg, t1
-        bnez t0, 5f
+        bnez t0, 5f             # set mideleg.MSI with bit 0 of a0
         csrrs t6, mideleg, t1
 
         5:
-        RVTEST_GOTO_LOWER_MODE Umode
         li t1, 512
-        csrrs t6, mie, t1
-        jal cause_external_interrupt_S
-        jal reset_external_interrupts
-        bnez a0, 1b
+        csrrs t6, mie, t1       # set mie.SEIE = 1
+        jal cause_external_interrupt_S  # set mip.SEIP = 1
+        RVTEST_GOTO_LOWER_MODE Umode    # switch to U-mode
+        nop                             # expect interrupt if mstatus.SIE = 1
+        RVTEST_GOTO_MMODE               # return to M-mode for cleanup
+        jal reset_external_interrupts   # clear mip.SEIP
+        bnez a0, 1b                     # loop to next case
 
     j test_end
 
@@ -267,7 +275,7 @@ RVTEST_CODE_BEGIN
 
         ret
 
-    reset_msoftware_interrupt_clint:
+    reset_msoftware_interrupt:
         la t0, CLINT_BASE_ADDR
         SREG zero, 0(t0) # write CLINT.msip = 1 for hart 0
 
@@ -369,12 +377,12 @@ RVTEST_CODE_BEGIN
             case0_vectored:
                 li t3, 0
                 bne s2, t3, case_end_vectored   # if s2 = 0, trigger software interrupt
-                jal cause_msoftware_interrupt_clint
+                jal cause_msoftware_interrupt
                 RVTEST_GOTO_LOWER_MODE Smode
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
                 RVTEST_GOTO_MMODE
-                jal reset_msoftware_interrupt_clint
+                jal reset_msoftware_interrupt
 
             case_end_vectored:
                 addi s2, s2, -1
@@ -439,7 +447,7 @@ RVTEST_CODE_BEGIN
 
         ret
 
-    cause_msoftware_interrupt_clint:
+    cause_msoftware_interrupt:
         la t0, CLINT_BASE_ADDR
         la t1, 1
         SREG t1, 0(t0) # write CLINT.msip = 1 for hart 0

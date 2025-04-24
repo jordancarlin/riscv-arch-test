@@ -57,7 +57,7 @@ RVTEST_CODE_BEGIN
         csrrw t6, mideleg, t1   # use mideleg = 1s instead
         
         2:
-        jal cross_interrupts_s_EP // expect this to hit M-mode cp_priority coverpoints too
+        jal cross_interrupts_s_EP # expect this to hit M-mode cp_priority coverpoints too
 
         bnez a3, 1b
 
@@ -152,7 +152,7 @@ RVTEST_CODE_BEGIN
         7:
         csrrsi t6, mstatus, 8           # set mstatus.MIE = 1, expect interrupts in priority order
         csrrw t6, mip, zero             # this and next 3 lines clear whatever isn't taken
-        jal reset_msoftware_interrupt_clint
+        jal reset_msoftware_interrupt
         jal reset_mtimecmp
         jal reset_external_interrupts
         bnez a0, 1b                     # go to next case unless no interrupts were attempted
@@ -317,7 +317,7 @@ RVTEST_CODE_BEGIN
         jal cause_msoftware_interrupt
         csrrsi t6, mstatus, 8           # set mstatus.MIE = 1, expect interrupt here
         csrrci t6, mstatus, 8           # clear mstatus.MIE to clean up for future tests
-        jal reset_msoftware_interrupt_clint
+        jal reset_msoftware_interrupt
 
     /////////////////////////////////
     // cp_trigger_mei
@@ -543,7 +543,7 @@ RVTEST_CODE_BEGIN
 
         ret
 
-    reset_msoftware_interrupt_clint:
+    reset_msoftware_interrupt:
         la t0, CLINT_BASE_ADDR
         SREG zero, 0(t0) # write CLINT.msip = 1 for hart 0
 
@@ -649,7 +649,7 @@ RVTEST_CODE_BEGIN
                 csrrci t6, sstatus, 2
                 csrrsi t6, sstatus, 2
                 RVTEST_GOTO_MMODE
-                jal reset_msoftware_interrupt_clint
+                jal reset_msoftware_interrupt
 
             case_end_vectored:
                 addi s2, s2, -1
