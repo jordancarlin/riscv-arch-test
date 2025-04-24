@@ -1358,7 +1358,7 @@ RVTEST_CODE_BEGIN
         addi sp, sp, -8
         SREG ra, 0(sp)
 
-        for_mie:
+        for_mie_s:
         
             slli t3, s1, 1      # setting mie.M/SEIE, M/SSIE, or M/STIE based on s1 value
             li t4, 2
@@ -1368,7 +1368,7 @@ RVTEST_CODE_BEGIN
             jal raise_interrupts_s
         
             addi s1, s1, -1     
-            bge s1, zero, for_mie # iterate through interrupt types to be enabled
+            bge s1, zero, for_mie_s # iterate through interrupt types to be enabled
 
         
         LREG ra, 0(sp)
@@ -1384,7 +1384,7 @@ RVTEST_CODE_BEGIN
         addi sp, sp, -8
         SREG ra, 0(sp)
 
-        for_mie:
+        for_mie_svec:
         
             slli t3, s1, 1      # setting mie.M/SEIE, M/SSIE, or M/STIE based on s1 value
             li t4, 2
@@ -1394,7 +1394,7 @@ RVTEST_CODE_BEGIN
             jal raise_interrupts_svec
         
             addi s1, s1, -1     
-            bge s1, zero, for_mie # iterate through interrupt types to be enabled
+            bge s1, zero, for_mie_svec # iterate through interrupt types to be enabled
 
         
         LREG ra, 0(sp)

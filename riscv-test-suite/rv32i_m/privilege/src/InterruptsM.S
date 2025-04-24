@@ -18,7 +18,6 @@ RVTEST_ISA("RV32I_Zicsr")
 rvtest_entry_point:
 RVMODEL_BOOT
 RVTEST_CODE_BEGIN
-csrr sp, sscratch
 
 #ifdef TEST_CASE_1
     RVTEST_CASE(1,"//check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",interruptsM)
@@ -27,6 +26,7 @@ csrr sp, sscratch
     #define rvtest_strap_routine
     #define rvtest_dtrap_routine
     
+    la sp, scratch
     jal reset_mtimecmp
 
     /////////////////////////////////
@@ -303,7 +303,7 @@ csrr sp, sscratch
             case_TW:
                 andi t0, s2, 1  # check bit 0
                 beqz t0, case_end_wfi # set mstatus.TW based on s2 bit 0 value
-                li t0, 0x200000
+                la t0, 0x200000
                 csrrs t6, mstatus, t0 # set mstatus.TW
 
             case_end_wfi:
