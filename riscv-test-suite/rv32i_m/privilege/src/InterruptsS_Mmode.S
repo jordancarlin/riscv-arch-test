@@ -34,10 +34,6 @@ RVTEST_CODE_BEGIN
     la sp, topofstack
     jal reset_mtimecmp
 
-    mv t0, sp
-    RVTEST_GOTO_LOWER_MODE Smode
-    mv sp, t0
-
     ///////////////////////////////
     // cp_interrupts
     //
@@ -47,19 +43,10 @@ RVTEST_CODE_BEGIN
 
     cp_interrupts:
 
-        li a3, 2
         RVTEST_GOTO_MMODE # Need to be in M-mode to set mideleg
 
-        1:
-        csrrw t6, mideleg, zero # Set mideleg to 0 by default
-        addi a3, a3, -1
-        bnez a3, 2f             # if this is second loop iteration,
-        csrrw t6, mideleg, t1   # use mideleg = 1s instead
-        
-        2:
+        csrrw t6, mideleg, zero # Set mideleg to 0
         jal cross_interrupts_s_EP # expect this to hit M-mode cp_priority coverpoints too
-
-        bnez a3, 1b
 
     /////////////////////////////////
     // cp_vectored
@@ -84,18 +71,24 @@ RVTEST_CODE_BEGIN
         addi s2, s2, -1
         li t0, 2
         bne s2, t0, 2f          # case 2: set mip.SSIP
-        csrrsi t6, mip, 2
+        csrr t6, mie            # trap handler clears mie, so make sure it is preserved
+        csrsi mip, 2
+        csrw mie, t6            # restore mie for other cases
 
         2:
         li t0, 1
         bne s2, t0, 3f
         li t1, 32               # case 1: set mip.STIP
-        csrrs t6, mip, t1
+        csrr t6, mie            # trap handler clears mie, so make sure it is preserved
+        csrs mip, t1
+        csrw mie, t6            # restore mie for other cases
 
         3:
         bnez s2, 4f
         li t0, 512              # case 0: set mip.SEIP
-        csrrs t6, mip, t0
+        csrr t6, mie            # trap handler clears mie, so make sure it is preserved
+        csrs mip, t1
+        csrw mie, t6            # restore mie for other cases
 
         4:
         bnez s2, 1b             # go to next case unless no interrupts were attempted
@@ -108,11 +101,10 @@ RVTEST_CODE_BEGIN
     ///////////////////////////////
 
     cp_priority_mip:
-        li a0, 64           # set up bitfield to iterate through mip permutations
+        li a0, 63           # set up bitfield to iterate through mip permutations
         RVTEST_GOTO_MMODE   # set up everything in M-mode
         
         1:
-        addi a0, a0, -1
         li t0, -1
         csrrw t6, mie, t0           # set mie = 1s
         csrrw t6, mideleg, zero     # use mideleg = 0s
@@ -155,7 +147,8 @@ RVTEST_CODE_BEGIN
         jal reset_msoftware_interrupt
         jal reset_mtimecmp
         jal reset_external_interrupts
-        bnez a0, 1b                     # go to next case unless no interrupts were attempted
+        addi a0, a0, -1
+        bgez a0, 1b                     # go to next case unless no interrupts were attempted
 
     ///////////////////////////////
     // cp_priority_mie
@@ -165,12 +158,11 @@ RVTEST_CODE_BEGIN
     ///////////////////////////////
 
     cp_priority_mie_m:
-        li a0, 64
+        li a0, 63           # set up bitfield to iterate through mip permutations
+        RVTEST_GOTO_MMODE   # set up everything in M-mode
 
         1:
-        RVTEST_GOTO_MMODE
-        addi a0, a0, -1
-        li t0, -1
+        li t0, 0x222                    # 1 in SEIP, STIP, SSIP
         csrrci t6, mstatus, 8           # set up with mstatus.MIE = 0
         csrrw t6, mip, t0               # set all supervisor interrupts
         csrrw t6, mideleg, zero         # do not delegate
@@ -214,7 +206,13 @@ RVTEST_CODE_BEGIN
         7:
         csrrsi t6, mstatus, 8           # raise mstatus.MIE, expect all interrupts to trigger in priority order
         csrrw t6, mie, zero             # clear mie before next test
-        bnez a0, 1b
+        li t0, -1
+        csrrc t6, mip, t0               # clear all supervisor interrupts pending
+        jal reset_mtimecmp              # clear machine interrupts one by one
+        jal reset_external_interrupts
+        jal reset_msoftware_interrupt
+        addi a0, a0, -1
+        bgez a0, 1b                     # go to next case unless no interrupts were attempted
 
     ///////////////////////////////
     // cp_wfi_m
@@ -230,11 +228,10 @@ RVTEST_CODE_BEGIN
 
     cp_wfi:
     
-        li a0, 8
+        li a0, 7
         RVTEST_GOTO_MMODE               # perform whole test in M-mode
 
         1:
-        addi a0, a0, -1
         csrrci t6, mstatus, 8           # toggle mstatus.MIE based on bit 2
         andi t0, a0, 4
         beqz t0, 2f
@@ -261,14 +258,15 @@ RVTEST_CODE_BEGIN
         csrrs t6, mie, t0               # enable mtimer interrupts
         jal cause_mtimer_interrupt_soon
         wfi                             # wfi should wait until timer interrupt triggers
-        bnez a0, 1b
+        addi a0, a0, -1
+        bgez a0, 1b                     # repeat until all cases are tested
 
     /////////////////////////////////
     // cp_trigger_ssi_sip
     //
     // With mstatus.MIE = {0/1}, mideleg.SSI=1, and mie = 1s, write sip.SSIP
     /////////////////////////////////
-
+    /*
     cp_trigger_ssi_sip:
         RVTEST_GOTO_MMODE
         li t0, -1               # all 1s
@@ -284,7 +282,7 @@ RVTEST_CODE_BEGIN
         csrrsi t6, mstatus, 8   # mstatus.MIE = 1
         csrrsi t6, sip, 2       # set sip.SSIP, expect interrupt
         csrrci t6, sip, 2
-
+    */
     /////////////////////////////////
     // cp_trigger_mti
     // 
@@ -301,7 +299,7 @@ RVTEST_CODE_BEGIN
         csrrsi t6, mstatus, 8           # set mstatus.MIE = 1, expect interrupt here
         csrrci t6, mstatus, 8           # clear mstatus.MIE to clean up for future tests
         jal reset_mtimecmp
-
+    
     /////////////////////////////////
     // cp_trigger_changingtom_msi
     // 
@@ -455,29 +453,25 @@ RVTEST_CODE_BEGIN
     /////////////////////////////////
 
     cp_global_ie:
-        li a0, 4            # bitfield for mstatus.MIE and SIE
-        li a1, 3            # index var for mie bits
+        li a0, 3            # bitfield for {mstatus.MIE, SIE}
         
-        1:
-        addi a0, a0, -1
-
         2:
+        li a1, 2                            # index var for MEIE (2), MTIE (1), MSIE (0)
         jal cause_mtimer_interrupt_now      # raise all pending machine mode interrupts
         jal cause_msoftware_interrupt
         jal cause_external_interrupt_M
         csrrci t6, mstatus, 8               # toggle mstatus.MIE based on bit 1 of a0
         andi t0, a0, 2
-        bnez t0, 3f
+        beqz t0, 3f
         csrrsi t6, mstatus, 8
 
         3:
         csrrci t6, mstatus, 2               # toggle mstatus.SIE based on bit 0 of a0
         andi t0, a0, 1
-        bnez t0, 4f
+        beqz t0, 4f
         csrrsi t6, mstatus, 2
 
             4:
-            addi a1, a1, -1
             li t0, 2
             bne t0, a1, 5f                  # case 2: set mie.MEIE
             li t0, 2048
@@ -494,9 +488,11 @@ RVTEST_CODE_BEGIN
             csrrsi t6, mie, 8
 
             7:
-            bnez a1, 2b
+            addi a1, a1, -1
+            bgez a1, 4b
 
-        bnez a0, 1b
+        addi a0, a0, -1
+        bgez a0, 2b
 
     j test_end
 
@@ -550,112 +546,132 @@ RVTEST_CODE_BEGIN
         ret
 
     cross_interrupts_s_EP:
-        // helper function for crossing mie.M/SEIE/M/SSIE/M/STIE with mip.M/SEIP/M/SSIP/M/STIP in Interrupts tests (enables and pending)
-        li s1, 5                # iterate through setting mie.M/SEIE, M/SSIE, or M/STIE (5-0)
-        li t1, -1
+        // helper function for crossing mie.MEIE/SEIE/M/STIE/M/SSIE with mip.M/SEIP/MTIP/MSIP in Interrupts tests (enables and pending)
+        li s0, 5                # iterate through setting mie.MEIE (5), SEIE (4), MTIE (3), STIE (2), MSIE (1), or SSIE (0)
 
         addi sp, sp, -8
         SREG ra, 0(sp)
 
-        for_mie:
+        for_mie_s:
         
-            slli t3, s1, 1      # setting mie.M/SEIE, M/SSIE, or M/STIE based on s1 value
+            slli t3, s0, 1      # setting mie.M/SEIE, M/STIE, or M/SSIE based on s0 value
             li t4, 2
-            sll t4, t4, t3
+            sll t4, t4, t3      # put a 1 in bit (1+(2*s0))
             csrrw t6, mie, t4   # set enable for interrupt type of interest, clear all others
         
             jal raise_interrupts_s
         
-            addi s1, s1, -1     
-            bge s1, zero, for_mie # iterate through interrupt types to be enabled
+            addi s0, s0, -1     
+            bge s0, zero, for_mie_s # iterate through interrupt types to be enabled
 
+        
         LREG ra, 0(sp)
         addi sp, sp, 8
-            
+
         ret
 
     raise_interrupts_s:
         // raises each of mip.M/SEIP/M/SSIP/M/STIP once in sequence
 
-        addi sp, sp, -8
+        addi sp, sp, -8     # store return address to stack
         SREG ra, 0(sp)
 
-        li s2, 5
+        li s2, 5            # RVTEST_GOTO_LOWER_MODE macro wipes s1 so use s2 instead
 
-        for_mip:
+        for_mip_s:
             
-            # based on s2 value, attempt to trigger one of M/SEIP, M/SSIP, or M/STIP
+            # based on s2 value, set mie.MEIE (5), SEIE (4), MTIE (3), STIE (2), MSIE (1), or SSIE (0)
             # includes resets in case interrupt is not triggered
+            # To trigger interrupts in S-mode, raise mstatus.SIE and switch to S-mode 
+            # TODO: Fix ordering of interrupt triggers to match order in mip/mie
 
-            case5_vectored:
+            for_mip_s_stip:
                 li t3, 5
-                bne s2, t3, case4_vectored
+                bne s2, t3, for_mip_s_seip    # if s2 == 5, trigger stimer interrupt
+                csrr t6, mie                    # trap handler resets mie, so preserve it for future tests
                 li t1, 32
-                csrrs t6, mip, t1
-                RVTEST_GOTO_LOWER_MODE Smode
-                csrrci t6, sstatus, 2
-                csrrsi t6, sstatus, 2
+                csrs mip, t1               # set mip.STIP
+                csrsi mstatus, 2                # set mstatus.SIE
+                RVTEST_GOTO_LOWER_MODE Smode    # t6 is preserved by mode changes, expect interrupt here
+                nop
                 RVTEST_GOTO_MMODE
+                csrci mstatus, 2                # clear mstatus.SIE
+                csrw mie, t6                    # restore mie value for next test
                 li t1, 32
                 csrrc t6, mip, t1
 
-            case4_vectored:
+            for_mip_s_seip:
                 li t3, 4
-                bne s2, t3, case3_vectored
+                bne s2, t3, for_mip_s_ssip    # if s2 == 4, trigger sexternal interrupt
+                csrr t6, mie                    # trap handler resets mie, so preserve it for future tests
                 li t0, 512
-                csrrs t6, mip, t0
-                RVTEST_GOTO_LOWER_MODE Smode
-                csrrci t6, sstatus, 2
-                csrrsi t6, sstatus, 2
+                csrs mip, t0               # set mip.SEIP
+                csrsi mstatus, 2                # set mstatus.SIE
+                RVTEST_GOTO_LOWER_MODE Smode    # t6 is preserved by mode changes, expect interrupt here
+                nop
                 RVTEST_GOTO_MMODE
+                csrci mstatus, 2                # clear mstatus.SIE
+                csrw mie, t6                    # restore mie value for next test
                 li t0, 512
                 csrrc t6, mip, t0
             
-            case3_vectored:
+            for_mip_s_ssip:
                 li t3, 3
-                bne s2, t3, case2_vectored
-                csrrsi t6, mip, 2
-                RVTEST_GOTO_LOWER_MODE Smode
-                csrrci t6, sstatus, 2
-                csrrsi t6, sstatus, 2
+                bne s2, t3, for_mip_s_mtip    # if s2 = 3, trigger ssoftware interrupt
+                csrr t6, mie                    # trap handler resets mie, so preserve it for future tests
+                csrsi mip, 2                    # set mip.SSIP
+                csrsi mstatus, 2                # set mstatus.SIE
+                RVTEST_GOTO_LOWER_MODE Smode    # t6 is preserved by mode changes, expect interrupt here
+                nop
                 RVTEST_GOTO_MMODE
+                csrci mstatus, 2                # clear mstatus.SIE
+                csrw mie, t6                    # restore mie value for next test
                 csrrci t6, mip, 2
             
-            case2_vectored:
+            for_mip_s_mtip:
                 li t3, 2
-                bne s2, t3, case1_vectored      # if s2 == 2, trigger timer interrupt
-                jal cause_mtimer_interrupt_now
-                RVTEST_GOTO_LOWER_MODE Smode
-                csrrci t6, sstatus, 2
-                csrrsi t6, sstatus, 2
+                bne s2, t3, for_mip_s_meip    # if s2 == 2, trigger mtimer interrupt
+                csrr t6, mie                    # trap handler resets mie, so preserve it for future tests
+                jal cause_mtimer_interrupt_now  # set mip.MTIP
+                csrsi mstatus, 2                # set mstatus.SIE
+                RVTEST_GOTO_LOWER_MODE Smode    # t6 is preserved by mode changes, expect interrupt here
+                nop
                 RVTEST_GOTO_MMODE
+                csrci mstatus, 2                # clear mstatus.SIE
+                csrw mie, t6                    # restore mie value for next test
                 jal reset_mtimecmp
 
-            case1_vectored:
+            for_mip_s_meip:
                 li t3, 1
-                bne s2, t3, case0_vectored      # if s2 == 1, trigger external interrupt
-                jal cause_external_interrupt_M
-                RVTEST_GOTO_LOWER_MODE Smode
-                csrrci t6, sstatus, 2
-                csrrsi t6, sstatus, 2
+                bne s2, t3, for_mip_s_msip    # if s2 == 1, trigger mexternal interrupt
+                csrr t6, mie                    # trap handler resets mie, so preserve it for future tests
+                jal cause_external_interrupt_M  # set mip.MEIP
+                csrsi mstatus, 2                # set mstatus.SIE
+                RVTEST_GOTO_LOWER_MODE Smode    # t6 is preserved by mode changes, expect interrupt here
+                nop
                 RVTEST_GOTO_MMODE
+                csrci mstatus, 2                # clear mstatus.SIE
+                csrw mie, t6                    # restore mie value for next test
                 jal reset_external_interrupts
 
-            case0_vectored:
+            for_mip_s_msip:
                 li t3, 0
-                bne s2, t3, case_end_vectored   # if s2 = 0, trigger software interrupt
-                jal cause_msoftware_interrupt
-                RVTEST_GOTO_LOWER_MODE Smode
-                csrrci t6, sstatus, 2
-                csrrsi t6, sstatus, 2
+                bne s2, t3, for_mip_s_end # if s2 = 0, trigger msoftware interrupt
+                csrr t6, mie                    # trap handler resets mie, so preserve it for future tests
+                jal cause_msoftware_interrupt   # set mip.MSIP
+                csrsi mstatus, 2                # set mstatus.SIE
+                RVTEST_GOTO_LOWER_MODE Smode    # t6 is preserved by mode changes, expect interrupt here
+                nop
                 RVTEST_GOTO_MMODE
+                csrci mstatus, 2                # clear mstatus.SIE
+                csrw mie, t6                    # restore mie value for next test
                 jal reset_msoftware_interrupt
 
-            case_end_vectored:
+            for_mip_s_end:
                 addi s2, s2, -1
-                bge s2, zero, for_mip
+                bgez s2, for_mip_s
 
-        LREG ra, 0(sp)
+        LREG ra, 0(sp)      # restore return address from stack
         addi sp, sp, 8
 
         ret

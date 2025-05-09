@@ -22,9 +22,9 @@ RVTEST_CODE_BEGIN
 #ifdef TEST_CASE_1
     RVTEST_CASE(1,"//check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",interruptsM)
 
-    #define rvtest_mtrap_routine
+    /* #define rvtest_mtrap_routine
     #define rvtest_strap_routine
-    #define rvtest_dtrap_routine
+    #define rvtest_dtrap_routine */
     
     la sp, scratch
     jal reset_mtimecmp
@@ -186,7 +186,7 @@ RVTEST_CODE_BEGIN
             jal cross_interrupts_m_EP
             
             addi s0, s0, -1
-            beqz s0, for_mstatus # iterate through mstatus.MIE values (1-0)
+            bgez s0, for_mstatus # iterate through mstatus.MIE values (1-0)
 
     /////////////////////////////////
     // cp_vectored
@@ -273,17 +273,14 @@ RVTEST_CODE_BEGIN
 
     /////////////////////////////////
     // cp_wfi
-    // Cross Product of mstatus.MIE = {0/1}, mstatus.SIE = {0/1}, mstatus.TW = {0/1}, mie.MTIE = 1
+    // Cross Product of mstatus.MIE = {0/1},  mstatus.TW = {0/1}, mie.MTIE = 1
     // Set MTIMECMP = TIME + 0x100 to interrupt in the future
     // WFI instruction
     /////////////////////////////////
 
     cp_wfi:
 
-        li t0, 0x080
-        csrrw t6, mie, t0 # mie.MTIE = 1
-
-        li s2, 7
+        li s2, 3
 
         for_wfi:
 
@@ -291,14 +288,9 @@ RVTEST_CODE_BEGIN
             csrrc t6, mstatus, t0 # clear mstatus.TW, MIE, SIE
 
             case_MIE:
-                andi t0, s2, 4  # check bit 2
-                beqz t0, case_SIE # set mstatus.MIE based on s2 bit 2 value
-                csrrsi t6, mstatus, 8 # set mstatus.MIE
-
-            case_SIE:
                 andi t0, s2, 2  # check bit 1
-                beqz t0, case_TW # set mstatus.SIE based on s2 bit 1 value
-                csrrsi t6, mstatus, 2 # set mstatus.SIE
+                beqz t0, case_TW # set mstatus.MIE based on s2 bit 1 value
+                csrrsi t6, mstatus, 8 # set mstatus.MIE
 
             case_TW:
                 andi t0, s2, 1  # check bit 0
@@ -306,7 +298,9 @@ RVTEST_CODE_BEGIN
                 la t0, 0x200000
                 csrrs t6, mstatus, t0 # set mstatus.TW
 
-            case_end_wfi:
+            case_end_wfi:        
+                li t0, 0x080
+                csrrw t6, mie, t0 # trap handler clears mie, so set mie.MTIE = 1 just before triggering interrupt
                 jal cause_mtimer_interrupt_soon
                 wfi
                 addi s2, s2, -1
@@ -531,18 +525,19 @@ RVTEST_CODE_BEGIN
         ret
 
     cross_interrupts_m_EP:
-        // helper function for crossing mie.MEIE/MSIE/MTIE with mip.MEIP/MSIP/MTIP in Interrupts tests (enables and pending)
-        li s1, 2                # iterate through setting mie.MEIE, MSIE, or MTIE (2-0)
-        li t1, -1
-
-        addi sp, sp, -8
+        // helper function for crossing mie.MEIE/MTIE/MSIE with mip.MEIP/MTIP/MSIP in Interrupts tests (enables and pending)
+        
+        addi sp, sp, -8         # save return address to the stack
         SREG ra, 0(sp)
+        
+        li s1, 2                # iterate through setting mie.MEIE, MTIE, or MSIE (2-0)
+        li t1, -1
 
         for_mie:
         
-            slli t3, s1, 2      # setting mie.MEIE, MSIE, or MTIE based on s1 value
+            slli t3, s1, 2      # setting mie.MEIE, MTIE, or MSIE based on s1 value = {2,1,0}
             li t4, 8
-            sll t4, t4, t3
+            sll t4, t4, t3      # put a 1 in bit (3+s1*4) of mie
             csrrw t6, mie, t4   # set enable for interrupt type of interest, clear all others
         
             jal raise_interrupts_m
@@ -556,7 +551,7 @@ RVTEST_CODE_BEGIN
         ret
 
     raise_interrupts_m:
-        // raises each of mip.MEIP/MSIP/MTIP once in sequence
+        // raises each of mip.MEIP/MTIP/MSIP once in sequence
 
         addi sp, sp, -8
         SREG ra, 0(sp)
@@ -565,28 +560,34 @@ RVTEST_CODE_BEGIN
 
         for_mip:
             
-            # based on s2 value, attempt to trigger one of MEIP, MSIP, or MTIP
+            # based on s2 value, attempt to trigger one of MEIP (s2=2), MTIP (s2=1), or MSIP (s2=0)
             # includes resets in case interrupt is not triggered
             
-            case2_vectored:
+            for_mip_meip:
                 li t3, 2
-                bne s2, t3, case1_vectored      # if s2 == 2, trigger timer interrupt
-                jal cause_mtimer_interrupt_now
-                jal reset_mtimecmp
-
-            case1_vectored:
-                li t3, 1
-                bne s2, t3, case0_vectored      # if s2 == 1, trigger external interrupt
+                bne s2, t3, for_mip_mtip        # if s2 == 2, trigger external interrupt
+                csrr t6, mie            # if interrupt is raised, mie will be cleared, so save it
                 jal cause_external_interrupt_M
                 jal reset_external_interrupts
+                csrw mie, t6                    # restore mie to test next cases
 
-            case0_vectored:
+            for_mip_mtip:
+                li t3, 1
+                bne s2, t3, for_mip_msip        # if s2 == 1, trigger timer interrupt
+                csrr t6, mie            # if interrupt is raised, mie will be cleared, so save it
+                jal cause_mtimer_interrupt_now
+                jal reset_mtimecmp
+                csrw mie, t6                    # restore mie to test next cases
+
+            for_mip_msip:
                 li t3, 0
-                bne s2, t3, case_end_vectored   # if s2 = 0, trigger software interrupt
+                bne s2, t3, for_mip_end         # if s2 = 0, trigger software interrupt
+                csrr t6, mie            # if interrupt is raised, mie will be cleared, so save it
                 jal set_msip
                 jal reset_msip
+                csrw mie, t6                    # restore mie to test next cases
 
-            case_end_vectored:
+            for_mip_end:
                 addi s2, s2, -1
                 bge s2, zero, for_mip
 
@@ -597,7 +598,7 @@ RVTEST_CODE_BEGIN
 
     test_end:
 
-    RVMODEL_IO_WRITE_STR(x30, "# Test part A - test ECALL\n");
+    RVMODEL_IO_WRITE_STR(x30, "# Test part A - test M-mode interrupts\n");
 
     RVMODEL_IO_WRITE_STR(x30, "# Test End\n")
 

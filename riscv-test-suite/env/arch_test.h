@@ -870,7 +870,7 @@
     csrs CSR_MSTATUS, T4        /* set correct mode and Vbit            */
   .endif
 #endif
-//  csrr   sp, CSR_MSCRATCH       /* ensure sp points to Mmode datae area */
+csrrw   sp, CSR_MSCRATCH, sp     /* ensure sp points to Mmode datae area */
         /**** mstatus MPV and PP now set up to desired mode    ****/
         /**** set MEPC to mret+4; requires relocating the pc   ****/
 .if     (\LMODE\() == Vmode)     // get trapsig_ptr & init val up 2 save areas (M<-S<-V)
@@ -881,6 +881,7 @@
         LREG    T1, code_bgn_off + 0*sv_area_sz(sp)
 .endif
         LREG    T4, code_bgn_off(sp)
+  csrrw sp, CSR_MSCRATCH, sp    /* restore sp and mscratch */
   sub   T1, T1,T4               /* calc addr delta between this mode (M) and lower mode code */
   addi  T1, T1, 4*WDBYTSZ       /* bias by # ops after auipc continue executing at mret+4 */
   auipc T4, 0
