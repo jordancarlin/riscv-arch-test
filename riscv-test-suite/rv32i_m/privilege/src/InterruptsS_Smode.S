@@ -61,14 +61,16 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0
         andi t0, a0, 2              # toggle mstatus.MIE using bit 1 of a0
         beqz t0, 3f
-        csrrsi t6, mstatus, t0
+        li t0, 8
+        csrrs t6, mstatus, t0
         
         3:
         li t0, 2
         csrrc t6, mstatus, t0
         andi t0, a0, 1              # toggle mstatus.SIE using bit 0 of a0
         beqz t0, 4f 
-        csrrsi t6, mstatus, 2
+        li t0, 2
+        csrrs t6, mstatus, t0
 
         4:
         
@@ -106,14 +108,16 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0
         andi t0, a0, 2
         beqz t0, 3f
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         
         3:
         li t0, 2
         csrrc t6, mstatus, t0
         andi t0, a0, 1
         beqz t0, 4f 
-        csrrsi t6, mstatus, 2
+        li t0, 2
+        csrrs t6, mstatus, t0
 
         4:
         RVTEST_GOTO_LOWER_MODE Smode
@@ -150,14 +154,16 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0
         andi t0, a0, 2
         beqz t0, 3f
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         
         3:
         li t0, 2
         csrrc t6, mstatus, t0
         andi t0, a0, 1
         beqz t0, 4f 
-        csrrsi t6, mstatus, 2
+        li t0, 2
+        csrrs t6, mstatus, t0
 
         4:
         RVTEST_GOTO_LOWER_MODE Smode
@@ -194,14 +200,16 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0
         andi t0, a0, 2
         beqz t0, 3f
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         
         3:
         li t0, 2
         csrrc t6, mstatus, t0
         andi t0, a0, 1
         beqz t0, 4f 
-        csrrsi t6, mstatus, 2
+        li t0, 2
+        csrrs t6, mstatus, t0
 
         4:
         li t1, 32
@@ -240,17 +248,20 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0
         andi t0, a0, 2              # toggle mstatus.MIE using bit 2
         beqz t0, 3f
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         
         3:
         li t0, 2
         csrrc t6, mstatus, t0
         andi t0, a0, 1              # toggle mstatus.SIE using bit 1
         beqz t0, 4f 
-        csrrsi t6, mstatus, 2
+        li t0, 2
+        csrrs t6, mstatus, t0
 
         4:
-        csrrsi t6, mip, 2   # expect m-mode interrupt here if mstatus.MIE=1, and mideleg.SSI=0 or mstatus.SIE=0
+        li t0, 2
+        csrrs t6, mip, t0   # expect m-mode interrupt here if mstatus.MIE=1, and mideleg.SSI=0 or mstatus.SIE=0
         RVTEST_GOTO_LOWER_MODE Smode
         nop                         # expect s-mode interrupt if mideleg.SSI=1 and mstatus.SIE=1
         RVTEST_GOTO_MMODE
@@ -285,14 +296,16 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0
         andi t0, a0, 2              # toggle mstatus.MIE using bit 2
         beqz t0, 3f
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         
         3:
         li t0, 2
         csrrc t6, mstatus, t0
         andi t0, a0, 1              # toggle mstatus.SIE using bit 1
         beqz t0, 4f 
-        csrrsi t6, mstatus, 2
+        li t0, 2
+        csrrs t6, mstatus, t0
 
         4:
         RVTEST_GOTO_LOWER_MODE Smode    # expect m-mode interrupt here if mstatus.MIE=1, mideleg.SSI=1, and mstatus.SIE=0
@@ -329,14 +342,16 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0
         andi t0, a0, 2              # toggle mstatus.MIE using bit 2
         beqz t0, 3f
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         
         3:
         li t0, 2
         csrrc t6, mstatus, t0
         andi t0, a0, 1              # toggle mstatus.SIE using bit 1
         beqz t0, 4f 
-        csrrsi t6, mstatus, 2
+        li t0, 2
+        csrrs t6, mstatus, t0
 
         4:
         jal cause_external_interrupt_S   # expect m-mode interrupt here if mstatus.MIE=1, and mideleg.SEI=0 or mstatus.SIE=0
@@ -373,14 +388,16 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0
         andi t0, a0, 2              # toggle mstatus.MIE using bit 2
         beqz t0, 3f
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         
         3:
         li t0, 2
         csrrc t6, mstatus, t0
         andi t0, a0, 1              # toggle mstatus.SIE using bit 1
         beqz t0, 4f 
-        csrrsi t6, mstatus, 2
+        li t0, 2
+        csrrs t6, mstatus, t0
 
         4:
         li t0, 512
@@ -563,7 +580,8 @@ RVTEST_CODE_BEGIN
         li t1, -1
         csrrw t6, mideleg, zero         # disable delegation of all interrupts
         csrrw t6, mie, t1               # enable all interrupts
-        csrrsi t6, mip, 2               # raise ssoftware interrupt in M-mode, should not trigger interrupt
+        li t0, 2
+        csrrs t6, mip, t0               # raise ssoftware interrupt in M-mode, should not trigger interrupt
         RVTEST_GOTO_LOWER_MODE Smode   
         li t0, 2 
         csrrs t6, sstatus, t0           # set sstatus.SIE = 1, should not trigger interrupt
@@ -718,7 +736,8 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 8      
         beqz t0, 4f                 # toggle ssw int with bit 3
-        csrrsi t6, mip, 2
+        li t0, 2
+        csrrs t6, mip, t0
             
         4:
         andi t0, a0, 4        
@@ -772,12 +791,14 @@ RVTEST_CODE_BEGIN
 
         andi t0, a0, 32        
         beqz t0, 2f                 # toggle ssw int with bit 5
-        csrrsi t6, mie, 2
+        li t0, 2
+        csrrs t6, mie, t0
 
         2:
         andi t0, a0, 16        
         beqz t0, 3f                 # toggle msw int with bit 4
-        csrrsi t6, mie, 8
+        li t0, 8
+        csrrs t6, mie, t0
 
         3:
         andi t0, a0, 8      
@@ -869,7 +890,8 @@ RVTEST_CODE_BEGIN
         6:
         andi t0, a0, 1        
         beqz t0, 7f                 # toggle mext int with bit 0
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         li t0, 2048
         csrrs t6, mie, t0
         jal cause_external_interrupt_M
@@ -904,7 +926,8 @@ RVTEST_CODE_BEGIN
         li t0, -1                   # load all 1s for mie
         csrrw t6, mie, t0           # enable all interrupts
         csrrw t6, mideleg, t1       # allow delegation of all interrupts
-        csrrsi t6, mstatus, 8       # set up with mstatus.MIE = 1
+        li t0, 8
+        csrrs t6, mstatus, t0       # set up with mstatus.MIE = 1
 
         andi t0, a0, 32             
         beqz t0, 2f                 # toggle stimer int with bit 5
@@ -920,7 +943,8 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 8      
         beqz t0, 4f                 # toggle ssw int with bit 3
-        csrrsi t6, mip, 2
+        li t0, 2
+        csrrs t6, mip, t0
             
         4:
         andi t0, a0, 4        
@@ -965,7 +989,8 @@ RVTEST_CODE_BEGIN
         1:
         li t0, 0x222                # 1 in SEIP, STIP, SSIP
         csrrw t6, mideleg, t1       # enable delegation of all interrupts
-        csrrsi t6, mstatus, 8       # set up with mstatus.MIE = 1
+        li t0, 8
+        csrrs t6, mstatus, t0       # set up with mstatus.MIE = 1
         csrrw t6, mip, t0           # raise mip.S*IP
         jal cause_mtimer_interrupt_now
         jal cause_external_interrupt_M
@@ -973,12 +998,14 @@ RVTEST_CODE_BEGIN
 
         andi t0, a0, 32        
         beqz t0, 2f                 # toggle ssw int with bit 5
-        csrrsi t6, mie, 2
+        li t0, 2
+        csrrs t6, mie, t0
 
         2:
         andi t0, a0, 16        
         beqz t0, 3f                 # toggle msw int with bit 4
-        csrrsi t6, mie, 8
+        li t0, 8
+        csrrs t6, mie, t0
 
         3:
         andi t0, a0, 8      
@@ -1030,17 +1057,20 @@ RVTEST_CODE_BEGIN
         1:
         csrrw t6, mip, zero         # start with no interrupts pending
         csrrw t6, mideleg, t1       # enable delegation for all interrupts
-        csrrsi t6, mstatus, 8       # set up with mstatus.MIE = 0
+        li t0, 8
+        csrrs t6, mstatus, t0       # set up with mstatus.MIE = 0
 
         andi t0, a0, 32        
         beqz t0, 2f                 # toggle ssw int with bit 5
-        csrrsi t6, mie, 2
-        csrrsi t6, mip, 2
+        li t0, 2
+        csrrs t6, mie, t0
+        csrrs t6, mip, t0
 
         2:
         andi t0, a0, 16        
         beqz t0, 3f                 # toggle msw int with bit 4
-        csrrsi t6, mie, 8
+        li t0, 8
+        csrrs t6, mie, t0
         jal cause_msoftware_interrupt
 
         3:
@@ -1067,7 +1097,8 @@ RVTEST_CODE_BEGIN
         6:
         andi t0, a0, 1        
         beqz t0, 7f                 # toggle mext int with bit 0
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         li t0, 2048
         csrrs t6, mie, t0
         jal cause_external_interrupt_M
@@ -1123,7 +1154,8 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 1      
         beqz t0, 4f                     # toggle ssw int with bit 0
-        csrrsi t6, mideleg, 2
+        li t0, 2
+        csrrs t6, mideleg, t0
             
         4:
         RVTEST_GOTO_LOWER_MODE Smode    # move to S-mode before attempting triggers
@@ -1172,8 +1204,9 @@ RVTEST_CODE_BEGIN
         3:
         andi t0, a0, 1      
         beqz t0, 4f                     # toggle ssw int with bit 0
-        csrrsi t6, mideleg, 2
-        csrrsi t6, mie, 2
+        li t0, 2
+        csrrs t6, mideleg, t0
+        csrrs t6, mie, t0
 
         4:
         RVTEST_GOTO_LOWER_MODE Smode    # move to S-mode before attempting triggers
@@ -1211,14 +1244,16 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0
         andi t0, a0, 8
         beqz t0, 2f                     # use bit 3 to toggle mstatus.MIE
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         
         2:
         li t0, 2
         csrrc t6, mstatus, t0
         andi t0, a0, 4
         beqz t0, 3f                     # use bit 2 to toggle mstatus.SIE
-        csrrsi t6, mstatus, 2
+        li t0, 2
+        csrrs t6, mstatus, t0
         
         3:
         li t1, -1
@@ -1279,14 +1314,16 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0
         andi t0, a0, 8
         beqz t0, 2f                         # use bit 3 to toggle mstatus.MIE
-        csrrsi t6, mstatus, 8
+        li t0, 8
+        csrrs t6, mstatus, t0
         
         2:
         li t0, 2
         csrrc t6, mstatus, t0
         andi t0, a0, 4
         beqz t0, 3f                         # use bit 2 to toggle mstatus.SIE
-        csrrsi t6, mstatus, 2
+        li t0, 2
+        csrrs t6, mstatus, t0
         
         3:
         li t1, -1
