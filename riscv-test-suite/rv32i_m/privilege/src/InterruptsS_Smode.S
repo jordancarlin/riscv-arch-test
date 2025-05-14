@@ -667,8 +667,10 @@ RVTEST_CODE_BEGIN
         csrrc t6, mstatus, t0       # do first test with mstatus.MIE = 0
         jal cross_interrupts_s_EP   # expect this to hit M-mode cp_priority coverpoints too
 
+        csrrw t6, mideleg, zero # Set mideleg to 0s
+
         li t0, 8
-        csrrs t6, mstatus, t0       # do second test with mstatus.MIE = 1
+        csrrc t6, mstatus, t0       # do second test with mstatus.MIE = 0
         jal cross_interrupts_s_EP   # expect this to hit M-mode cp_priority coverpoints too
 
     ///////////////////////////////
