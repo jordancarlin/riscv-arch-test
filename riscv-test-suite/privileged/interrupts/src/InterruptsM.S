@@ -1,16 +1,17 @@
-// -----------
-// Copyright (c) 2020. RISC-V International. All rights reserved.
-// SPDX-License-Identifier: BSD-3-Clause
-// -----------
+///////////////////////////////////////////
+// InterruptsM.S
 //
-// This assembly file tests the ecall instruction of the RISC-V I extension.
-// 
-
+// Written: Hjamal@hmc.edu       6 April 2025
+//
+// Purpose: Functional coverage tests for Machine-mode Interrupts
+//
+// SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
+///////////////////////////////////////////
 #include "model_test.h"
 
 #include "arch_test.h"
 
-RVTEST_ISA("RV32I_Zicsr")
+RVTEST_ISA("RV32I_Zicsr, RV64I_Zicsr")
 
 # Test code region
 .section .text.init
@@ -20,11 +21,7 @@ RVMODEL_BOOT
 RVTEST_CODE_BEGIN
 
 #ifdef TEST_CASE_1
-    RVTEST_CASE(1,"//check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",interruptsM)
-
-    /* #define rvtest_mtrap_routine
-    #define rvtest_strap_routine
-    #define rvtest_dtrap_routine */
+    RVTEST_CASE(1,"//check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",interruptsM)
     
     la sp, scratch
     jal reset_mtimecmp
