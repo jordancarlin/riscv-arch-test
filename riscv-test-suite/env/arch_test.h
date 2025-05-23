@@ -800,6 +800,7 @@
 .option push
 .option norvc
 #ifdef  rvtest_mtrap_routine    /**** this can be empty if no Umode ****/
+    mv   t0, x2                 /* FIXME: Hacky way to preserve x2 as stack pointer by trashing t0 instead */
     li   x2, 0                  /* Ecall w/x2=0 is handled specially to rtn here */
 // Note that if illegal op trap is delegated , this may infinite loop
 // The solution is either for test to disable delegation, or to
@@ -807,6 +808,7 @@
 
     GOTO_M_OP                   /* ECALL: traps always, but returns immediately to */
                                 /* the next op if x2=0, else handles trap normally */
+    mv   x2, t0                 /* FIXME: Hacky way to preserve x2 as stack pointer by trashing t0 instead */
 
  #endif
 .option pop
@@ -816,7 +818,7 @@
 /**** This is a helper macro that causes harts to transition from    ****/
 /**** M-mode to a lower priv mode at the instruction that follows    ****/
 /**** the macro invocation. Legal params are VS,HS,VU,HU,S,U.        ****/
-/**** The H,U variations leave V unchanged. This uses T4 only.       ****/
+/****  This uses T1,T2&T4. The H,U variations leave V unchanged.     ****/
 /**** NOTE: this MUST be executed in M-mode. Precede with GOTO_MMODE ****/
 /**** FIXME - SATP & VSATP must point to the identity map page table ****/
 
@@ -868,19 +870,19 @@
     csrs CSR_MSTATUS, T4        /* set correct mode and Vbit            */
   .endif
 #endif
-  csrr   sp, CSR_MSCRATCH       /* ensure sp points to Mmode datae area */
+  csrr   T2, CSR_MSCRATCH       /* ensure GPR T2 points to Mmode datae area */
         /**** mstatus MPV and PP now set up to desired mode    ****/
         /**** set MEPC to mret+4; requires relocating the pc   ****/
 .if     (\LMODE\() == Vmode)     // get trapsig_ptr & init val up 2 save areas (M<-S<-V)
-        LREG    T1, code_bgn_off + 2*sv_area_sz(sp)
+        LREG    T1, code_bgn_off + 2*sv_area_sz(T2)
 #ifdef rvtest_strap_routine
 .elseif (\LMODE\() == Smode || \LMODE\() == Umode)     // get trapsig_ptr & init val up 1 save areas (M<-S)
-        LREG    T1, code_bgn_off + 1*sv_area_sz(sp)
+        LREG    T1, code_bgn_off + 1*sv_area_sz(T2)
 #endif
 .else                            // get trapsig ptr & init val for this Mmode, (M)
-        LREG    T1, code_bgn_off + 0*sv_area_sz(sp)
+        LREG    T1, code_bgn_off + 0*sv_area_sz(T2)
 .endif
-        LREG    T4, code_bgn_off(sp)
+        LREG    T4, code_bgn_off(T2)
   sub   T1, T1,T4               /* calc addr delta between this mode (M) and lower mode code */
   addi  T1, T1, 4*WDBYTSZ       /* bias by # ops after auipc continue executing at mret+4 */
   auipc T4, 0
@@ -925,9 +927,25 @@
         //.warning "RVMODEL_CLR_SSW_INT    not defined. Executing this will end test. Define an empty macro to suppress this warning"
         #define  RVMODEL_CLR_SSW_INT     RVTEST_DFLT_INT_HNDLR
 #endif
+#ifndef RVMODEL_MCLR_SSW_INT // M-mode interrupt handler for S-mode SW Ints
+        //.warning "RVMODEL_CLR_SSW_INT    not defined. Executing this will end test. Define an empty macro to suppress this warning"
+        #define  RVMODEL_MCLR_SSW_INT     RVTEST_DFLT_INT_HNDLR
+#endif
+#ifndef RVMODEL_SCLR_SSW_INT // S-mode interrupt handler for S-mode SW Ints
+        //.warning "RVMODEL_CLR_MEXT_INT   not defined. Executing this will end test. Define an empty macro to suppress this warning"
+        #define  RVMODEL_SCLR_SSW_INT     RVTEST_DFLT_INT_HNDLR   
+#endif
 #ifndef RVMODEL_CLR_STIMER_INT
         //.warning "RVMODEL_CLR_STIMER_INT not defined. Executing this will end test. Define an empty macro to suppress this warning"
         #define  RVMODEL_CLR_STIMER_INT  RVTEST_DFLT_INT_HNDLR
+#endif
+#ifndef RVMODEL_MCLR_STIMER_INT // M-mode interrupt handler for S-mode Timer Ints
+        //.warning "RVMODEL_CLR_STIMER_INT not defined. Executing this will end test. Define an empty macro to suppress this warning"
+        #define  RVMODEL_MCLR_STIMER_INT  RVTEST_DFLT_INT_HNDLR
+#endif
+#ifndef RVMODEL_SCLR_STIMER_INT // S-mode interrupt handler for S-mode Timer Ints
+        //.warning "RVMODEL_CLR_MEXT_INT   not defined. Executing this will end test. Define an empty macro to suppress this warning"
+        #define  RVMODEL_SCLR_STIMER_INT     RVTEST_DFLT_INT_HNDLR   
 #endif
 #ifndef RVMODEL_CLR_SEXT_INT
         //.warning "RVMODEL_CLR_SEXT_INT   not defined. Executing this will end test. Define an empty macro to suppress this warning"
@@ -1590,7 +1608,7 @@ clrint_\__MODE__\()tbl:                 //this code should only touch T2..T6
         .dword  \__MODE__\()clr_Vext_int                // int cause  A  Vmode Ext int
         .dword  \__MODE__\()clr_Mext_int                // int cause  B  Mmode Ext int
 //****************************************************************
-#elseif rvtest_dtrap_routine  // M/S/U only
+#elifdef rvtest_dtrap_routine  // M/S/U only
         .dword  0                       // int cause  0 is reserved, error
         .dword  \__MODE__\()clr_Ssw_int         // int cause  1  Smode SW int
         .dword  1                       // int cause  2  no Vmode
@@ -1668,11 +1686,30 @@ excpt_\__MODE__\()hndlr_tbl:            // handler code should only touch T2..T6
 
 //------------- SMode----------------
 \__MODE__\()clr_Ssw_int:                // int 1 default to just return if not defined
-        RVMODEL_CLR_SSW_INT
+                                        // S-mode software interrupts need to be reset differently when raised in M or S mode
+        .ifc \__MODE__ , M              // Select the interrupt handler function based on current privilege mode
+            RVMODEL_MCLR_SSW_INT
+        .else 
+                .ifc \__MODE__ , S
+                        RVMODEL_SCLR_SSW_INT
+                .else
+                        RVMODEL_CLR_SSW_INT
+                .endif
+        .endif 
+
         j       resto_\__MODE__\()rtn
 
-\__MODE__\()clr_Stmr_int:               // int 5 default to just return
-        RVMODEL_CLR_STIMER_INT
+\__MODE__\()clr_Stmr_int:               // int 5 default to just return 
+                                        // S-mode timer interrupts need to be reset differently when raised in M or S mode
+        .ifc \__MODE__ , M              // Select the interrupt handler function based on current privilege mode
+            RVMODEL_MCLR_STIMER_INT
+        .else 
+                .ifc \__MODE__ , S
+                        RVMODEL_SCLR_STIMER_INT
+                .else
+                        RVMODEL_CLR_STIMER_INT
+                .endif
+        .endif 
         j       resto_\__MODE__\()rtn
 
 \__MODE__\()clr_Sext_int:               // int 9 default to just return after saving IntID in T3
