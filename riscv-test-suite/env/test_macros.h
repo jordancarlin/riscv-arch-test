@@ -484,7 +484,6 @@ Mend_PMP:                                    ;\
  /*SIGMODES using gcc -D SIGMODE_NONE for no Signiture -D SIGMODE_SELFCHECK for selfcheck(both do nothing, needs updating) NO -D for defualt Signitures*/
 
 /* Ensure SIGMODE_DEFAULT is defined if no SIGMODE is provided */ 
-#define SIGMODE_NONE
 #ifndef SIGMODE_NONE
 #ifndef SIGMODE_SELFCHECK
 #define SIGMODE_DEFAULT
