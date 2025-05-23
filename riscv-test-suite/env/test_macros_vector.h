@@ -111,7 +111,7 @@
     addi HELPER_GPR, DATA_BASE, DOFF2 ;                                 \
     VLE(SEW) VS2, (HELPER_GPR) ;                                        \
     VINST VD, VS2 ;                                                     \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_VV_M() runs a single masked vector instruction test.
@@ -135,7 +135,7 @@
     VLE(SEW) VS2, (HELPER_GPR) ;                                        \
     vxor.vv VD, VD, VD ;                                                \
     VINST VD, VS2, v0.t ;                                               \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_WV() runs a single vector instruction test.
@@ -159,7 +159,7 @@
     addi HELPER_GPR, DATA_BASE, DOFF ;                                  \
     VLE(SEW) VD, (HELPER_GPR) ;                                         \
     VINST VD, VS2 ;                                                     \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_VVR() runs a single vector instruction test.
@@ -183,7 +183,7 @@
     addi HELPER_GPR, DATA_BASE, DOFF1 ;                                 \
     LREG RS1, (HELPER_GPR) ;                                            \
     VINST VD, VS2, RS1 ;                                                \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_VVR_M() runs a single masked vector instruction test.
@@ -209,7 +209,7 @@
     LREG RS1, (HELPER_GPR) ;                                            \
     vxor.vv VD, VD, VD ;                                                \
     VINST VD, VS2, RS1, v0.t ;                                          \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_VVU() runs a single vector instruction test.
@@ -231,7 +231,7 @@
     addi HELPER_GPR, DATA_BASE, DOFF2 ;                                 \
     VLE(SEW) VS2, (HELPER_GPR) ;                                        \
     VINST VD, VS2, UIMM ;                                               \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_VVU_M() runs a single masked vector instruction test.
@@ -255,7 +255,7 @@
     VLE(SEW) VS2, (HELPER_GPR) ;                                        \
     vxor.vv VD, VD, VD ;                                                \
     VINST VD, VS2, UIMM, v0.t ;                                         \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_WVU() runs a single vector instruction test.
@@ -279,7 +279,7 @@
     addi HELPER_GPR, DATA_BASE, DOFF ;                                  \
     VLE(SEW) VD, (HELPER_GPR) ;                                         \
     VINST VD, VS2, UIMM ;                                               \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_VVV() runs a single vector instruction test.
@@ -303,7 +303,7 @@
     addi HELPER_GPR, DATA_BASE, DOFF1 ;                                 \
     VLE(SEW) VS1, (HELPER_GPR) ;                                        \
     VINST VD, VS2, VS1 ;                                                \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_VVV_M() runs a single masked vector instruction test.
@@ -329,7 +329,7 @@
     VLE(SEW) VS1, (HELPER_GPR) ;                                        \
     vxor.vv VD, VD, VD ;                                                \
     VINST VD, VS2, VS1, v0.t ;                                          \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_WVV() runs a single vector instruction test.
@@ -355,7 +355,7 @@
     addi HELPER_GPR, DATA_BASE, DOFF ;                                  \
     VLE(SEW) VD, (HELPER_GPR) ;                                         \
     VINST VD, VS2, VS1 ;                                                \
-    RVTEST_SIGUPD_V(AVL, SEW, VD)                                       \
+    RVTEST_SIGUPD_V(SIG_BASE, HELPER_GPR, AVL, SEW, VD)                 \
 1:                                                                      \
 
 // TEST_CASE_BLOCK_64B_* macros contain 64 byte blocks of test data
