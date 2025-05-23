@@ -481,14 +481,35 @@ Mend_PMP:                                    ;\
  /* automatically adjust base and offset if offset gets too big, resetting offset				 */
  /* RVTEST_SIGUPD(basereg, sigreg)	  stores sigreg at offset(basereg) and updates offset by regwidth	 */
  /* RVTEST_SIGUPD(basereg, sigreg,newoff) stores sigreg at newoff(basereg) and updates offset to regwidth+newoff */
-#define RVTEST_SIGUPD(_BR,_R,...)			;\
-  .if NARG(__VA_ARGS__) == 1				;\
-	.set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
-  .endif						;\
-  CHK_OFFSET(_BR, REGWIDTH,0)				;\
-  SREG _R,offset(_BR)					;\
-  .set offset,offset+REGWIDTH
+ /*SIGMODES using gcc -D SIGMODE_NONE for no Signiture -D SIGMODE_SELFCHECK for selfcheck(both do nothing, needs updating) NO -D for defualt Signitures*/
 
+/* Ensure SIGMODE_DEFAULT is defined if no SIGMODE is provided */ 
+#define SIGMODE_NONE
+#ifndef SIGMODE_NONE
+#ifndef SIGMODE_SELFCHECK
+#define SIGMODE_DEFAULT
+#endif
+#endif
+
+#ifdef SIGMODE_NONE
+    #define RVTEST_SIGUPD(_BR, _R, ...) \
+        nop;
+#endif
+// SIGMODE_SELFCHECK: TODO
+#ifdef SIGMODE_SELFCHECK
+    #define RVTEST_SIGUPD(_BR, _R, ...) \
+        nop /* TODO: Add self-check logic here */;
+#endif
+// SIGMODE_DEFAULT: Default behavior
+#ifdef SIGMODE_DEFAULT
+    #define RVTEST_SIGUPD(_BR, _R, ...)                \
+        .if NARG(__VA_ARGS__) == 1				;\
+        .set offset,_ARG1(__VA_OPT__(__VA_ARGS__,0))	;\
+        .endif						;\
+        CHK_OFFSET(_BR, REGWIDTH,0)				;\
+        SREG _R,offset(_BR)					;\
+        .set offset,offset+REGWIDTH   
+#endif  
 /* RVTEST_SIGUPD_F(basereg, sigreg,flagreg,newoff)			 */
 /* This macro is used to store the signature values of (32 & 64) F and D */
 /* teats which use TEST_(FPSR_OP, FPIO_OP, FPRR_OP, FPR4_OP) opcodes	 */
@@ -509,7 +530,7 @@ Mend_PMP:                                    ;\
   CHK_OFFSET(_BR, SIGALIGN, 1)				;\
   SREG _F,offset(_BR)					;\
   .set offset,offset+SIGALIGN
- 
+
 /* RVTEST_SIGUPD_FID(basereg, sigreg,flagreg,newoff)			*/
 /* This macro stores the signature values of (32 & 64) F & D insts	*/
 /* which uses TEST_(FPID_OP, FCMP_OP) ops				*/
