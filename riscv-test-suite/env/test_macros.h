@@ -473,9 +473,9 @@ Mend_PMP:                                    ;\
   .if (_PRE_INC!=0)					;\
     .set offset, offset+_SZ				;\
   .endif						;\
-  .if offset >= 2048					;\
-     addi   _BREG,  _BREG,   (2048 - _SZ)		;\
-     .set   offset, offset - (2048 - _SZ)		;\
+  .if offset >= 2032					;\
+    addi   _BREG,  _BREG,   2032 		;\
+    .set   offset, 0		;\
   .endif
 
  /* automatically adjust base and offset if offset gets too big, resetting offset				 */
@@ -522,7 +522,7 @@ Mend_PMP:                                    ;\
   .if (offset&(SIGALIGN-1))!=0				;\
 /* Throw warnings then modify offset to target */	;\
      .warning "Incorrect signature Offset Alignment."	;\
-     .set offset, offset&(SIGALIGN-1)+SIGALIGN		;\
+     .set offset, (offset&~(SIGALIGN-1))+SIGALIGN		;\
   .endif						;\
   CHK_OFFSET(_BR, SIGALIGN, 0)				;\
   FSREG _R,offset(_BR)					;\
