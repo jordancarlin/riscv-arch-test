@@ -467,7 +467,8 @@ Mend_PMP:                                    ;\
     sub  _AREG, _AREG, _TREG /* undo modification */ ;\
  .endif
   /* this function ensures individual sig stores don't exceed offset limits  */
-  /* if they would, update the base and reduce offset by 2048 - _SZ	     */
+  /* if they would, update the base by 2032 and reset the offset     */
+  /* exceed offset limit is 16 below basereg to allow for allignment across different register sizes and 2032 to avoid max 2048 add*/
   /* an option is to pre-incr offset if there was a previous signature store */
 #define CHK_OFFSET(_BREG, _SZ, _PRE_INC)		;\
   .if (_PRE_INC!=0)					;\
