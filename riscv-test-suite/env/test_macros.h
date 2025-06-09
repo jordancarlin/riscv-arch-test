@@ -473,7 +473,7 @@ Mend_PMP:                                    ;\
   .if (_PRE_INC!=0)					;\
     .set offset, offset+_SZ				;\
   .endif						;\
-  .if offset >= 2032					;\
+  .if offset >= 2016					;\
     addi   _BREG,  _BREG,   2032 		;\
     .set   offset, 0		;\
   .endif
