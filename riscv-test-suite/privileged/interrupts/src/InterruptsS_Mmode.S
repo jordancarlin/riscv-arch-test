@@ -22,11 +22,7 @@ RVMODEL_BOOT
 RVTEST_CODE_BEGIN
 
 #ifdef TEST_CASE_1
-    RVTEST_CASE(1,"//check ISA:=regex(.*I.*S.*Zicsr.*BLOCKED.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",interruptsS_M)
-
-    #define rvtest_mtrap_routine
-    #define rvtest_strap_routine
-    #define rvtest_dtrap_routine
+    RVTEST_CASE(1,"//check ISA:=regex(.*I.*S.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",interruptsS_M)
 
     ALL_MEM_PMP          		                  	                      	// set the PMP permissions for the whole memory
 	csrw satp, zero  		                                        		// write satp with all zeros (bare mode)
@@ -38,7 +34,7 @@ RVTEST_CODE_BEGIN
     // cp_interrupts
     //
     // Cross of mstatus.MIE = {0/1}, mtvec.MODE = 00, mideleg = {0s/1s},
-    // 6 walking 1s in mie, 6 walking 1s in mip (2 x 6 x 6 bins)
+    // 6 walking 1s in mie, 6 walking 1s in mip (2 x 2 x 6 x 6 bins)
     ///////////////////////////////
 
     cp_interrupts:
@@ -582,7 +578,7 @@ RVTEST_CODE_BEGIN
         ret
 
     cross_interrupts_s_EP:
-        // helper function for crossing mie.MEIE/SEIE/M/STIE/M/SSIE with mip.M/SEIP/MTIP/MSIP in Interrupts tests (enables and pending)
+        // helper function for crossing mie.MEIE/SEIE/MTIE/STIE/MSIE/SSIE with mip.MEIP/SEIP/MTIP/STIP/MSIP/SSIP in Interrupts tests (enables and pending)
         li s0, 5                # iterate through setting mie.MEIE (5), SEIE (4), MTIE (3), STIE (2), MSIE (1), or SSIE (0)
 
         addi sp, sp, -8
@@ -590,9 +586,9 @@ RVTEST_CODE_BEGIN
 
         for_mie_s:
         
-            slli t3, s0, 1      # setting mie.M/SEIE, M/STIE, or M/SSIE based on s0 value
-            li t4, 2
-            sll t4, t4, t3      # put a 1 in bit (1+(2*s0))
+            slli t3, s0, 1      # setting mie.M/SEIE, M/STIE, or M/SSIE based on s0 value: t3 = 2 * s0
+            li t4, 2            # t4 = 1 in bit 1
+            sll t4, t4, t3      # t4 = 1 in bit (1+(2*s0))
             csrrw t6, mie, t4   # set enable for interrupt type of interest, clear all others
         
             jal raise_interrupts_s
@@ -616,19 +612,19 @@ RVTEST_CODE_BEGIN
 
         for_mip_s:
             
-            # based on s2 value, set mie.MEIE (5), SEIE (4), MTIE (3), STIE (2), MSIE (1), or SSIE (0)
+            # based on s2 value, set mip.MEIP (5), SEIP (4), MTIP (3), STIP (2), MSIP (1), or SSIP (0)
             # includes resets in case interrupt is not triggered
             # To trigger interrupts in S-mode, raise mstatus.SIE and switch to S-mode 
             # TODO: Fix ordering of interrupt triggers to match order in mip/mie
 
             for_mip_s_stip:
                 li t3, 5
-                bne s2, t3, for_mip_s_seip    # if s2 == 5, trigger stimer interrupt
+                bne s2, t3, for_mip_s_seip      # if s2 == 5, trigger stimer interrupt
                 csrr t6, mie                    # trap handler resets mie, so preserve it for future tests
                 li t1, 32
-                csrs mip, t1               # set mip.STIP
+                csrs mip, t1                    # set mip.STIP
                 li t0, 2
-                csrs mstatus, t0                # set mstatus.SIE
+                csrs mstatus, t0                # set mstatus.SIE *** unneeded?
                 RVTEST_GOTO_LOWER_MODE Smode    # t6 is preserved by mode changes, expect interrupt here
                 nop
                 RVTEST_GOTO_MMODE
@@ -640,10 +636,10 @@ RVTEST_CODE_BEGIN
 
             for_mip_s_seip:
                 li t3, 4
-                bne s2, t3, for_mip_s_ssip    # if s2 == 4, trigger sexternal interrupt
+                bne s2, t3, for_mip_s_ssip      # if s2 == 4, trigger sexternal interrupt
                 csrr t6, mie                    # trap handler resets mie, so preserve it for future tests
                 li t0, 512
-                csrs mip, t0               # set mip.SEIP
+                csrs mip, t0                    # set mip.SEIP
                 li t0, 2
                 csrs mstatus, t0                # set mstatus.SIE
                 RVTEST_GOTO_LOWER_MODE Smode    # t6 is preserved by mode changes, expect interrupt here

@@ -22,11 +22,7 @@ RVMODEL_BOOT
 RVTEST_CODE_BEGIN
 
 #ifdef TEST_CASE_1
-    RVTEST_CASE(1,"//check ISA:=regex(.*I.*S.*Zicsr.*BLOCKED.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",interruptsS_U)
-
-    #define rvtest_mtrap_routine
-    #define rvtest_strap_routine
-    #define rvtest_dtrap_routine
+    RVTEST_CASE(1,"//check ISA:=regex(.*I.*S.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",interruptsS_U)
     
     ALL_MEM_PMP          		                  	                      	// set the PMP permissions for the whole memory
 	csrw satp, zero  		                                        		// write satp with all zeros (bare mode)
