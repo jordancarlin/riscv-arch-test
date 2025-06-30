@@ -700,74 +700,76 @@ RVTEST_CODE_BEGIN
     ///////////////////////////////
     // cp_priority_mip_s
     //
-    // Cross of 2^6 permutations of mip, mie=1s, mideleg = 1s.  
-    // Set up with mstatus.MIE = 1, and change to supervisor,
-    // then write sstatus.SIE=1
+    // Cross of 2^6 permutations of mip, mie=1s, mideleg = {0s/STI+SEI+SSI}.  
+    // Set up with mstatus.MIE = 0, mstatus.SIE=1, and change to supervisor,
     ///////////////////////////////
-/*
-    cp_priority_mip_s: # TODO: change raising mip order to match bitfield order in mip/mie
-        li a0, 63           # use a0 as bitfield
-        RVTEST_GOTO_MMODE   # start test in M-mode to control CSRs
+
+    cp_priority_mip_s:
+        li a0, 127                  # use a0 as bitfield
+        RVTEST_GOTO_MMODE           # start test in M-mode to control CSRs
         
-        1:
+        0:                          # priority loop
         li t0, -1                   # load all 1s for mie
         csrrw t6, mie, t0           # enable all interrupts
-        csrrw t6, mideleg, t1       # allow delegation of all interrupts
-        li t0, 8
-        csrrs t6, mstatus, t0       # set up with mstatus.MIE = 1
+        csrrci t6, mstatus, 0b01000 # set up with mstatus.MIE = 0
 
+        li t1, -1                   # clear or set all bits of mideleg
+        csrrc t6, mideleg, t1       # clear mideleg
+        andi t0, a0, 64             # bit 6 controls delegation
+        beqz t0, 1f
+        csrrs t6, mideleg, t1       # allow delegation of all interrupts
+
+        1:                        
         andi t0, a0, 32             
-        beqz t0, 2f                 # toggle stimer int with bit 5
-        li t1, 32
-        csrrs t6, mip, t1
+        beqz t0, 2f                 # toggle meip with bit 5
+        jal cause_external_interrupt_M
 
         2:
         andi t0, a0, 16        
-        beqz t0, 3f                 # toggle sext int with bit 4
+        beqz t0, 3f                 # toggle seip with bit 4
         li t0, 512
         csrrs t6, mip, t0
 
         3:
         andi t0, a0, 8      
-        beqz t0, 4f                 # toggle ssw int with bit 3
-        li t0, 2
-        csrrs t6, mip, t0
+        beqz t0, 4f                 # toggle mtip int with bit 3
+        jal cause_mtimer_interrupt_now
             
         4:
         andi t0, a0, 4        
-        beqz t0, 5f                 # toggle mtimer int with bit 2
-        jal cause_mtimer_interrupt_now
+        beqz t0, 5f                 # toggle stip int with bit 2
+        li t1, 32
+        csrrs t6, mip, t1
 
         5:
         andi t0, a0, 2        
-        beqz t0, 6f                 # toggle mext int with bit 1
-        jal cause_external_interrupt_M
+        beqz t0, 6f                 # toggle msip int with bit 1
+        jal cause_msoftware_interrupt
 
         6:
         andi t0, a0, 1        
-        beqz t0, 7f                 # toggle msw int with bit 0
-        jal cause_msoftware_interrupt
+        beqz t0, 7f                 # toggle ssip int with bit 0
+        li t0, 2
+        csrrs t6, mip, t0
 
         7:
+        csrrsi t6, sstatus, 0b00010     # mstatus.SIE = 1
         RVTEST_GOTO_LOWER_MODE Smode    # move to S-mode before attempting triggers
-        li t0, 2
-        csrrs t6, sstatus, t0           # write sstatus.SIE, should trigger all pending interrupts
-        csrrc t6, sstatus, t0
+        nop
         RVTEST_GOTO_MMODE               # return to M-mode and clean up for next test
         csrrw t6, mip, zero             # clear mip.S*IP
         jal reset_msoftware_interrupt
         jal reset_mtimecmp
         jal reset_external_interrupts
         addi a0, a0, -1
-        bgez a0, 1b                     # if no interrupts attempted, move to next coverpoint
-*/
+        bgez a0, 0b                     # if no interrupts attempted, move to next coverpoint
+
     ///////////////////////////////
     // cp_priority_mie_s
     //
-    // Cross of 2^6 permutations of mie, mip=1s, mideleg = 1s.  
-    // Set up with mstatus.MIE = 1, and change to supervisor,
-    // then write sstatus.SIE=1
-    ///////////////////////////////
+    // Cross of 2^6 permutations of mie, mip=1s, mideleg = {0s/STI+SEI+SSI}.  
+    // Set up with mstatus.MIE = 0, mstatus.SIE=1, and change to supervisor,
+\    ///////////////////////////////
 
     cp_priority_mie_s:
         li a0, 63           # use a0 as bitfield
