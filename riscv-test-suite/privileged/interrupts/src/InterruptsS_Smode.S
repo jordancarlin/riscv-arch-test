@@ -462,36 +462,33 @@ RVTEST_CODE_BEGIN
         jal cross_interrupts_s_EP   # Try 36 combinations of enable and pending
 
     ///////////////////////////////
-    // cp_vectored
+    // cp_vectored_s
     //
-    // Cross of stvec.MODE = 00/01, mstatus.MIE=1, mie = 1s, mideleg = 1s, 
-    // 6 different interrupts walking in mip, change to supervisor mode then 
-    // write sstatus.SIE={0/1}
+    // Cross of stvec.MODE = 00/01, mstatus.MIE=0, mstatus.SIE=1, mie = 1s, mideleg = 1s, 
+    // 6 different interrupts walking in mip, change to supervisor mode 
     ///////////////////////////////
 
-    cp_vectored:
+    cp_vectored_s:
 
         RVTEST_GOTO_MMODE
-        li t0, 3
-        csrrc t6, stvec, t0         # stvec.MODE = 00
-        li t0, 8
-        csrrs t6, mstatus, t0       # mstatus.MIE = 1
+        csrrci t6, mstatus, 0b01000 # clear mstatus.MIE
+        csrrsi t6, mstatus, 0b00010 # set   mstatus.SIE
         li t0, -1                   # load all 1s for mie and mideleg
         csrrs t6, mie, t0           # enable all interrupts
         csrrs t6, mideleg, t0       # enable delegation of all interrupts
-        jal cross_interrupts_s_EP   # helper function does sstatus.SIE = 0 and 1
 
+        # Try 6 interrupts with stvec.MODE = 00
+        li t0, 3
+        csrrc t6, stvec, t0         # stvec.MODE = 00
+        jal raise_interrupts_s      # loop through the 6 interrupts
+
+       # Try 6 interrupts with stvec.MODE = 01
         RVTEST_GOTO_MMODE
         li t0, 3
         csrrc t6, stvec, t0
         li t0, 1
         csrrs t6, stvec, t0         # stvec.MODE = 01
-        li t0, 8
-        csrrs t6, mstatus, t0       # mstatus.MIE = 1
-        li t0, -1                   # load all 1s for mie and mideleg
-        csrrs t6, mie, t0           # enable all interrupts
-        csrrs t6, mideleg, t0       # enable delegation of all interrupts
-        jal cross_interrupts_s_EP   # helper function does sstatus.SIE = 0 and 1
+        jal raise_interrupts_s      # loop through the 6 interrupts
 
     ///////////////////////////////
     // cp_priority_mip_m
