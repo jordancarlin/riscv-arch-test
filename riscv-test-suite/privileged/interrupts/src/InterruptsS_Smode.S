@@ -769,142 +769,143 @@ RVTEST_CODE_BEGIN
     //
     // Cross of 2^6 permutations of mie, mip=1s, mideleg = {0s/STI+SEI+SSI}.  
     // Set up with mstatus.MIE = 0, mstatus.SIE=1, and change to supervisor,
-\    ///////////////////////////////
+    ///////////////////////////////
 
     cp_priority_mie_s:
-        li a0, 63           # use a0 as bitfield
-        RVTEST_GOTO_MMODE   # start test in M-mode to control CSRs
+        li a0, 127                  # use a0 as bitfield
+        RVTEST_GOTO_MMODE           # start test in M-mode to control CSRs
+        
+        0:                          # priority loop
+        csrrci t6, mstatus, 0b01000 # set up with mstatus.MIE = 0
+        li t0, -1                   # load all 1s
+        csrrc t6, mie, t0           # turn off all interrupt enables
 
-        1:
-        li t0, 0x222                # 1 in SEIP, STIP, SSIP
-        csrrw t6, mideleg, t1       # enable delegation of all interrupts
-        li t0, 8
-        csrrs t6, mstatus, t0       # set up with mstatus.MIE = 1
-        csrrw t6, mip, t0           # raise mip.S*IP
+        csrrw t6, mip, t0           # assert all writable interrupts
         jal cause_mtimer_interrupt_now
         jal cause_external_interrupt_M
         jal cause_msoftware_interrupt
 
-        andi t0, a0, 32        
-        beqz t0, 2f                 # toggle ssw int with bit 5
-        li t0, 2
-        csrrs t6, mie, t0
+        li t1, -1                   # clear or set all bits of mideleg
+        csrrc t6, mideleg, t1       # clear mideleg
+        andi t0, a0, 64             # bit 6 controls delegation
+        beqz t0, 1f
+        csrrs t6, mideleg, t1       # allow delegation of all interrupts
 
-        2:
-        andi t0, a0, 16        
-        beqz t0, 3f                 # toggle msw int with bit 4
-        li t0, 8
-        csrrs t6, mie, t0
-
-        3:
-        andi t0, a0, 8      
-        beqz t0, 4f                 # toggle stimer int with bit 3
-        li t1, 32
-        csrrs t6, mie, t1
-            
-        4:
-        andi t0, a0, 4        
-        beqz t0, 5f                 # toggle mtimer int with bit 2
-        li t0, 128
-        csrrs t6, mie, t0
-
-        5:
-        andi t0, a0, 2        
-        beqz t0, 6f                 # toggle sext int with bit 1
-        li t0, 512
-        csrrs t6, mie, t0
-
-        6:
-        andi t0, a0, 1        
-        beqz t0, 7f
-        li t0, 2048                 # toggle mext int with bit 0
-        csrrs t6, mie, t0
-
-        7:
-        RVTEST_GOTO_LOWER_MODE Smode    # move to S-mode before attempting triggers
-        li t0, 2
-        csrrs t6, sstatus, t0           # write sstatus.SIE, should trigger all enabled interrupts
-        csrrc t6, sstatus, t0
-        RVTEST_GOTO_MMODE               # return to M-mode and clean up for next test
-        csrrw t6, mie, zero             # reset all interrupt enables
-        addi a0, a0, -1
-        bgez a0, 1b                     # if no interrupts attempted, move to next coverpoint
-
-    ///////////////////////////////
-    // cp_priority_both_s
-    //
-    // Cross of 2^6 permutations of mie, mip=mie, mideleg = 1s.  
-    // Set up with mstatus.MIE = 1, and change to supervisor,
-    // then write sstatus.SIE=1
-    ///////////////////////////////
-
-    cp_priority_both_s:
-        
-        li a0, 63           # use a0 as bitfield
-        RVTEST_GOTO_MMODE   # start test in M-mode to control CSRs
-
-        1:
-        csrrw t6, mip, zero         # start with no interrupts pending
-        csrrw t6, mideleg, t1       # enable delegation for all interrupts
-        li t0, 8
-        csrrs t6, mstatus, t0       # set up with mstatus.MIE = 0
-
-        andi t0, a0, 32        
-        beqz t0, 2f                 # toggle ssw int with bit 5
-        li t0, 2
-        csrrs t6, mie, t0
-        csrrs t6, mip, t0
-
-        2:
-        andi t0, a0, 16        
-        beqz t0, 3f                 # toggle msw int with bit 4
-        li t0, 8
-        csrrs t6, mie, t0
-        jal cause_msoftware_interrupt
-
-        3:
-        andi t0, a0, 8      
-        beqz t0, 4f                 # toggle stimer int with bit 3
-        li t1, 32
-        csrrs t6, mie, t1
-        csrrs t6, mip, t1
-            
-        4:
-        andi t0, a0, 4        
-        beqz t0, 5f                 # toggle mtimer int with bit 2
-        li t0, 128
-        csrrs t6, mie, t0
-        jal cause_mtimer_interrupt_now
-
-        5:
-        andi t0, a0, 2        
-        beqz t0, 6f                 # toggle sext int with bit 1
-        li t0, 512
-        csrrs t6, mie, t0
-        csrrs t6, mip, t0
-
-        6:
-        andi t0, a0, 1        
-        beqz t0, 7f                 # toggle mext int with bit 0
-        li t0, 8
-        csrrs t6, mstatus, t0
+        1:                        
+        andi t0, a0, 32             
+        beqz t0, 2f                 # toggle meie with bit 5
         li t0, 2048
         csrrs t6, mie, t0
-        jal cause_external_interrupt_M
+
+        2:
+        andi t0, a0, 16        
+        beqz t0, 3f                 # toggle seie with bit 4
+        li t0, 512
+        csrrs t6, mie, t0
+
+        3:
+        andi t0, a0, 8      
+        beqz t0, 4f                 # toggle mtie int with bit 3
+        li t0, 128
+        csrrs t6, mie, t0
+            
+        4:
+        andi t0, a0, 4        
+        beqz t0, 5f                 # toggle stie int with bit 2
+        li t0, 32
+        csrrs t6, mie, t0
+
+        5:
+        andi t0, a0, 2        
+        beqz t0, 6f                 # toggle msie int with bit 1
+        li t0, 8
+        csrrs t6, mie, t0
+
+        6:
+        andi t0, a0, 1        
+        beqz t0, 7f                 # toggle ssie int with bit 0
+        li t0, 2
+        csrrs t6, mie, t0
 
         7:
+        csrrsi t6, sstatus, 0b00010     # mstatus.SIE = 1
         RVTEST_GOTO_LOWER_MODE Smode    # move to S-mode before attempting triggers
-        li t0, 2
-        csrrs t6, sstatus, t0           # write sstatus.SIE, should trigger all enabled/pending interrupts
-        csrrc t6, sstatus, t0
+        nop
         RVTEST_GOTO_MMODE               # return to M-mode and clean up for next test
-        csrrw t6, mie, zero             # clear mip and mie
-        csrrw t6, mip, zero
+        csrrw t6, mip, zero             # clear mip.S*IP
         jal reset_msoftware_interrupt
         jal reset_mtimecmp
         jal reset_external_interrupts
         addi a0, a0, -1
-        bgez a0, 1b                     # if no interrupts attempted, move to next coverpoint
+        bgez a0, 0b                     # if no interrupts attempted, move to next coverpoint
+
+    ///////////////////////////////
+    // cp_priority_both_s
+    //
+    // Cross of 2^6 permutations of mip, mie=mip, mideleg = {0s/STI+SEI+SSI}.  
+    // Set up with mstatus.MIE = 0, mstatus.SIE=1, and change to supervisor,
+    ///////////////////////////////
+
+    cp_priority_both_s:
+        li a0, 127                  # use a0 as bitfield
+        RVTEST_GOTO_MMODE           # start test in M-mode to control CSRs
+        
+        0:                          # priority loop
+        csrrci t6, mstatus, 0b01000 # set up with mstatus.MIE = 0
+
+        li t1, -1                   # clear or set all bits of mideleg
+        csrrc t6, mideleg, t1       # clear mideleg
+        andi t0, a0, 64             # bit 6 controls delegation
+        beqz t0, 1f
+        csrrs t6, mideleg, t1       # allow delegation of all interrupts
+
+        1:                        
+        andi t0, a0, 32             
+        beqz t0, 2f                 # toggle meip with bit 5
+        jal cause_external_interrupt_M
+
+        2:
+        andi t0, a0, 16        
+        beqz t0, 3f                 # toggle seip with bit 4
+        li t0, 512
+        csrrs t6, mip, t0
+
+        3:
+        andi t0, a0, 8      
+        beqz t0, 4f                 # toggle mtip int with bit 3
+        jal cause_mtimer_interrupt_now
+            
+        4:
+        andi t0, a0, 4        
+        beqz t0, 5f                 # toggle stip int with bit 2
+        li t1, 32
+        csrrs t6, mip, t1
+
+        5:
+        andi t0, a0, 2        
+        beqz t0, 6f                 # toggle msip int with bit 1
+        jal cause_msoftware_interrupt
+
+        6:
+        andi t0, a0, 1        
+        beqz t0, 7f                 # toggle ssip int with bit 0
+        li t0, 2
+        csrrs t6, mip, t0
+
+        7:
+        csrr t6, mip
+        csrrw t6, mie, t6               # mie = mip
+        csrrsi t6, sstatus, 0b00010     # mstatus.SIE = 1
+        RVTEST_GOTO_LOWER_MODE Smode    # move to S-mode before attempting triggers
+        nop
+        RVTEST_GOTO_MMODE               # return to M-mode and clean up for next test
+        csrrw t6, mip, zero             # clear mip.S*IP
+        jal reset_msoftware_interrupt
+        jal reset_mtimecmp
+        jal reset_external_interrupts
+        addi a0, a0, -1
+        bgez a0, 0b                     # if no interrupts attempted, move to next coverpoint
+
 
     ///////////////////////////////
     // cp_priority_mideleg_m
