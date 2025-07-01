@@ -701,7 +701,7 @@ RVTEST_CODE_BEGIN
     // cp_priority_mip_s
     //
     // Cross of 2^6 permutations of mip, mie=1s, mideleg = {0s/STI+SEI+SSI}.  
-    // Set up with mstatus.MIE = 0, mstatus.SIE=1, and change to supervisor,
+    // Set up with mstatus.MIE = 0, mstatus.SIE=1, and change to supervisor
     ///////////////////////////////
 
     cp_priority_mip_s:
@@ -768,7 +768,7 @@ RVTEST_CODE_BEGIN
     // cp_priority_mie_s
     //
     // Cross of 2^6 permutations of mie, mip=1s, mideleg = {0s/STI+SEI+SSI}.  
-    // Set up with mstatus.MIE = 0, mstatus.SIE=1, and change to supervisor,
+    // Set up with mstatus.MIE = 0, mstatus.SIE=1, and change to supervisor
     ///////////////////////////////
 
     cp_priority_mie_s:
@@ -843,7 +843,7 @@ RVTEST_CODE_BEGIN
     // cp_priority_both_s
     //
     // Cross of 2^6 permutations of mip, mie=mip, mideleg = {0s/STI+SEI+SSI}.  
-    // Set up with mstatus.MIE = 0, mstatus.SIE=1, and change to supervisor,
+    // Set up with mstatus.MIE = 0, mstatus.SIE=1, and change to supervisor
     ///////////////////////////////
 
     cp_priority_both_s:
