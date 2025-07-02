@@ -59,63 +59,36 @@ RVTEST_CODE_BEGIN
         csrrw t6, mideleg, zero     # Set mideleg to 0s
         jal cross_interrupts_m_EP   # Try 36 combinations of enable and pending
 
+   /////////////////////////////////
+    // cp_vectored_m
+    // Cross of mtvec.MODE = 01, mstatus.MIE=1, all 3 of mie.STIE/SSIE/SEIE,
+    // 3 walking 1s in mip.SMTIP/SSIP/SEIP (3 bins)
     /////////////////////////////////
-    // cp_vectored
-    // Cross of mtvec.MODE = 01, mstatus.MIE=1, mideleg = 0s, all 3 of mie.STIE/SSIE/SEIE,
-    // 3 walking 1s in mip.STIP/SSIP/SEIP (3 bins)
-    /////////////////////////////////
 
-    cp_vectored:
+    cp_vectored_m:
 
-        li t0, 3
-        csrrc t6, mtvec, t0
-        li t0, 1
-        csrrs t6, mtvec, t0 # mtvec.MODE = 01
+        csrrci t6, mtvec, 3
+        csrrsi t6, mtvec, 1     # mtvec.MODE = 01
 
-        li t0, 8
-        csrrs t6, mstatus, t0   # mstatus.MIE = 1
+        li t0, -1
+        csrrc t6, mideleg, t0   # mideleg = 0s
+
+        csrrsi t6, mstatus, 8   # mstatus.MIE = 1
         csrrw t6, mie, zero     # clear all interrupt enables
 
         li s1, 0x0222
         csrrs t6, mie, s1       # set mie.SEIE/STIE/SSIE
 
-        li s2, 3                # use as index for mip cases
-
-        1:
-        addi s2, s2, -1
-        li t0, 2
-        bne s2, t0, 2f          # case 2: set mip.SSIP
-        csrr t6, mie            # trap handler clears mie, so make sure it is preserved
-        li t0, 2
-        csrs mip, t0
-        csrw mie, t6            # restore mie for other cases
-
-        2:
-        li t0, 1
-        bne s2, t0, 3f
-        li t1, 32               # case 1: set mip.STIP
-        csrr t6, mie            # trap handler clears mie, so make sure it is preserved
-        csrs mip, t1
-        csrw mie, t6            # restore mie for other cases
-
-        3:
-        bnez s2, 4f
-        li t0, 512              # case 0: set mip.SEIP
-        csrr t6, mie            # trap handler clears mie, so make sure it is preserved
-        csrs mip, t1
-        csrw mie, t6            # restore mie for other cases
-
-        4:
-        bnez s2, 1b             # go to next case unless no interrupts were attempted
+        jal raise_interrupts_s
 
     ///////////////////////////////
-    // cp_priority_mip
+    // cp_priority_mip_m
     //
     // Cross of 2^6 permutations of mip, mie=1s, mideleg = 0s.  
     // Set up with mstatus.MIE = 0, then it rises.
     ///////////////////////////////
 
-    cp_priority_mip:
+    cp_priority_mip_m:
         li a0, 63           # set up bitfield to iterate through mip permutations
         RVTEST_GOTO_MMODE   # set up everything in M-mode
         
@@ -169,7 +142,7 @@ RVTEST_CODE_BEGIN
         bgez a0, 1b                     # go to next case unless no interrupts were attempted
 
     ///////////////////////////////
-    // cp_priority_mie
+    // cp_priority_mie_m
     //
     // Cross of 2^6 permutations of mie, mip=1s, mideleg = 0s.  
     // Set up with mstatus.MIE = 0, then it rises.
@@ -588,7 +561,6 @@ RVTEST_CODE_BEGIN
             
             # based on s2 value, set mip.MEIP (5), SEIP (4), MTIP (3), STIP (2), MSIP (1), or SSIP (0)
             # includes clearing mip in case interrupt is not triggered
-            # To trigger interrupts in S-mode, raise mstatus.SIE and switch to S-mode 
 
             for_mip_m_meip:
                 li t3, 5
@@ -643,6 +615,56 @@ RVTEST_CODE_BEGIN
                 csrw mie, t6                    # restore mie value for next test
                 addi s2, s2, -1                 # decrement loop counter
                 bgez s2, for_mip_m
+
+        LREG ra, 0(sp)      # restore return address from stack
+        addi sp, sp, 16
+
+        ret
+
+    raise_interrupts_s:
+        // raises each of mip.SEIP/SSIP/STIP once in sequence
+
+        addi sp, sp, -16     # store return address to stack
+        csrr t6, mie         # save mie on stack because trap handler may reset it
+        SREG t6, 8(sp)
+        SREG ra, 0(sp)
+
+        li s2, 2            # RVTEST_GOTO_LOWER_MODE macro wipes s1 so use s2 instead
+
+        for_mip_s:
+            
+            for_mip_s_seip:
+                li t3, 2
+                bne s2, t3, for_mip_s_stip      # if s2 == 4, trigger sexternal interrupt
+                li t0, 512
+                csrs mip, t0                    # set mip.SEIP
+                nop
+                li t0, 512
+                csrrc t6, mip, t0               # clear mip.SEIP
+            
+            for_mip_s_stip:
+                li t3, 1
+                bne s2, t3, for_mip_s_ssip      # if s2 == 2, trigger stimer interrupt
+                li t1, 32
+                csrs mip, t1                    # set mip.STIP
+                nop
+                li t1, 32                       # clear mip.STIP
+                csrrc t6, mip, t1
+
+            for_mip_s_ssip:
+                li t3, 0
+                bne s2, t3, for_mip_s_end      # if s2 = 0, trigger ssoftware interrupt
+                li t0, 2
+                csrs mip, t0                    # set mip.SSIP
+                nop
+                li t0, 2                        # clear mip.SSIP
+                csrrc t6, mip, t0
+
+            for_mip_s_end:
+                LREG t6, 8(sp)                  # restore mie value for next test
+                csrw mie, t6                    # restore mie value for next test
+                addi s2, s2, -1                 # decrement loop counter
+                bgez s2, for_mip_s
 
         LREG ra, 0(sp)      # restore return address from stack
         addi sp, sp, 16
