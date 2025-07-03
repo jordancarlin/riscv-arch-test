@@ -1162,10 +1162,7 @@ tsig_begin_canary:
 CANARY;
 mtrap_sigptr:
 .fill 150*(XLEN/32),4,0xb0bacafe
-strap_sigptr:
-.fill 150*(XLEN/32),4,0xdeadbeef
-utrap_sigptr:
-.fill 150*(XLEN/32),4,0xb0bacafe
+
 #Prof Harris mentioned we should probably start with 10000
 tsig_end_canary:
 CANARY;

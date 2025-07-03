@@ -1043,9 +1043,7 @@ postendian2:
     #else
         ERROR: __riscv_xlen not defined
     #endif
-
-
-jal s6, test_end
+    jal s6, test_end
 
 #include "priv-endian.h"
 test_end: //finish
@@ -1092,6 +1090,10 @@ tsig_begin_canary:
 CANARY;
 mtrap_sigptr:
     .fill 200*(XLEN/32),4,0xb0bacafe
+# strap_sigptr:
+# .fill 150*(XLEN/32),4,0xdeadbeef
+# utrap_sigptr:
+# .fill 150*(XLEN/32),4,0xb0bacafe
 tsig_end_canary:
 CANARY;
 

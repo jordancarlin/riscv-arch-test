@@ -140,12 +140,12 @@ setendianness:  //function to set/clear the bits depending on the endianness spe
     #ifdef __riscv_xlen
         #if __riscv_xlen == 64
             csrrs t6, mstatus, s1   # for RV64, set mstatus
-            csrr  t4, mstatus        # get the *updated* value after setting
-            RVTEST_SIGWRITE(x3, t4)    
+            nop
+            RVTEST_SIGWRITE(x3, t6)    
         #elif __riscv_xlen == 32
             csrrs t6, mstatush, s1  # for RV32, set mstatush
-            csrr t4, mstatush       # get the *updated* value after setting
-            RVTEST_SIGWRITE(x3, t4)   
+            nop
+            RVTEST_SIGWRITE(x3, t6) 
         #endif
     #else
         ERROR: __riscv_xlen not defined
@@ -155,13 +155,13 @@ setendianness:  //function to set/clear the bits depending on the endianness spe
     littleendian:
         #ifdef __riscv_xlen
             #if __riscv_xlen == 64
-                csrrc t6, mstatus, s1   # for RV64, clear mstatus            
-                csrr t4, mstatus        # get the *updated* value after setting
-                RVTEST_SIGWRITE(x3, t4) 
+                csrrc t6, mstatus, s1   # for RV64, clear mstatus         
+                nop   
+                RVTEST_SIGWRITE(x3, t6) 
             #elif __riscv_xlen == 32
-                csrrc t6, mstatush, s1  # for RV32, clear mstatush
-                csrr t4, mstatush       # get the *updated* value after setting
-                RVTEST_SIGWRITE(x3, t4) 
+                csrrc t6, mstatush, s1  # for RV32, clear CSR_MSTATUSH
+                nop
+                RVTEST_SIGWRITE(x3, t6) 
             #endif
         #else
             ERROR: __riscv_xlen not defined
@@ -172,18 +172,20 @@ setendianness:  //function to set/clear the bits depending on the endianness spe
     onlysstatus3: //used for 3rd EndianS coverpoint: cp_sstatus_ube_endianness_* (endianness given in sstatus.UBE)
         li a0, 1         # a0 = 1, change to supervisor mode ->to write to sstatus
         RVTEST_GOTO_LOWER_MODE Smode 
-        nop
         beqz s8, littleendian3      # little endian
         csrrs t6, sstatus, s1   # set sstatus.UBE
         nop
         csrr t4, sstatus       # get the *updated* value after setting
+        nop
         RVTEST_SIGWRITE(x3, t4) 
+        RVTEST_SIGWRITE(x3, t6) 
         j change
 
         littleendian3:
             csrrc t6, sstatus, s1   # clear sstatus.UBE
             csrr t4, sstatus        # get the *updated* value after setting
             RVTEST_SIGWRITE(x3, t4) 
+            RVTEST_SIGWRITE(x3, t6) 
             j change
 
     change: // Switch privilege mode
