@@ -1421,7 +1421,10 @@ code_adj_\__MODE__\()epc:
         add     T6, T6, T3                      // construct code seg end
         bgeu    T2, T6, data_adj_\__MODE__\()epc// epc > rvtest_code_end, try data adj
         bgeu    T2, T3,      adj_\__MODE__\()epc// epc >=rvtest_code_begin, adj and save
-        
+
+// Add logic to handle Instruction Access Fault (IAF).
+// If the exception cause is code 1 (IAF), adjust mepc to return to the instruction before the fault.
+// This is necessary for testing IAF-related exception recovery in the testplan (cp_illegal_instruction in exceptionsm).   
 #ifdef IAF                                   // Instruction Access Fault: logic to adjust mepc to return to ra for instruction access fault
         csrr   T5, CSR_XCAUSE                // t5 = exception cause
         addi   T5, T5, -1                    // Exception cause code 1 means Instruction Access Fault
