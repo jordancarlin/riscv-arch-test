@@ -1421,6 +1421,13 @@ code_adj_\__MODE__\()epc:
         add     T6, T6, T3                      // construct code seg end
         bgeu    T2, T6, data_adj_\__MODE__\()epc// epc > rvtest_code_end, try data adj
         bgeu    T2, T3,      adj_\__MODE__\()epc// epc >=rvtest_code_begin, adj and save
+        
+#ifdef IAF                                   // Instruction Access Fault: logic to adjust mepc to return to ra for instruction access fault
+        csrr   T5, CSR_XCAUSE                // t5 = exception cause
+        addi   T5, T5, -1                    // Exception cause code 1 means Instruction Access Fault
+        addi   T2, ra, -4                    // T2 points to the instruction before the fault
+        beqz   T5, adj_\__MODE__\()epc       // If IAF, jump to adjust mepc
+#endif
 
 data_adj_\__MODE__\()epc:
         LREG    T3, data_bgn_off(T4)            // see if epc is in the data area
