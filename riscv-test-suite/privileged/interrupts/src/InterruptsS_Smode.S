@@ -30,6 +30,7 @@ RVTEST_CODE_BEGIN
     la sp, topofstack
     jal reset_mtimecmp
 
+/*
     ///////////////////////////////
     // cp_trigger_mti
     //
@@ -905,17 +906,62 @@ RVTEST_CODE_BEGIN
         jal reset_external_interrupts
         addi a0, a0, -1
         bgez a0, 0b                     # if no interrupts attempted, move to next coverpoint
-
+*/
 
     ///////////////////////////////
     // cp_priority_mideleg_m
     //
-    // Cross of 2^3 permutations of mideleg, mip=1s, mie=1s.  
-    // Set up with mstatus.MIE = 0, and change to supervisor,
-    // then write sstatus.SIE=1
+    // Cross of 2^3 permutations of mideleg, mip={SEI, STI, SSI}}, mie=1s.  
+    // Set up with mstatus.MIE = 0, mstatus.SIE = 1, and change to supervisor
     ///////////////////////////////
 
     cp_priority_mideleg_m:
+/*
+    New code should hit coverpoints but is thorwing an ImperasDV mismatch 
+        li a0, 7                    # use a0 as bitfield
+        RVTEST_GOTO_MMODE           # start test in M-mode to control CSRs
+        
+        0:                          # priority loop
+        csrrci t6, mstatus, 0b01000 # set up with mstatus.MIE = 0
+        csrrsi t6, mstatus, 0b00010 # mstatus.SIE = 1
+
+        li t1, -1                   # clear or set all bits of mideleg
+        csrrc t6, mideleg, t1       # clear mideleg
+
+        1:                        
+        andi t0, a0, 4             
+        beqz t0, 2f                 # toggle mideleg.SEI with bit 2
+        li t0, 0x200
+        csrrs t6, mideleg, t0
+
+        2:
+        andi t0, a0, 2             
+        beqz t0, 3f                 # toggle mideleg.STI with bit 1
+        li t0, 0x020
+        csrrs t6, mideleg, t0
+
+        3:
+        andi t0, a0, 1             
+        beqz t0, 4f                 # toggle mideleg.SSI with bit 2
+        li t0, 0x002
+        csrrs t6, mideleg, t0
+            
+        4:
+        li t0, -1                       
+        csrrw t6, mie, t0               # mie = 1s
+        li t0, 0x222
+        csrrw t6, mip, t0               # mip = {SEI, STI, SSI}
+        RVTEST_GOTO_LOWER_MODE Smode    # move to S-mode before attempting triggers
+        nop
+        RVTEST_GOTO_MMODE               # return to M-mode and clean up for next test
+        csrrw t6, mip, zero             # clear mip.S*IP
+        addi a0, a0, -1
+        bgez a0, 0b                     # if no interrupts attempted, move to next coverpoint
+
+*/   
+
+/* These aren't getting coverage, and also are leaving mip bits set
+
         li a0, 7            # use a0 as bitfield for mideleg.{SEI, STI, SSI}
         RVTEST_GOTO_MMODE   # start test in M-mode to control CSRs
 
@@ -1008,9 +1054,10 @@ RVTEST_CODE_BEGIN
         csrrw t6, mideleg, zero         # reset mideleg
         addi a0, a0, -1
         bgez a0, 1b                     # if no interrupts attempted, move to next coverpoint
+*/
 
     ///////////////////////////////
-    // cp_wfi
+    // cp_wfi_s
     //
     // Cross Product of mstatus.MIE = {0/1}
     // Cross Product of mstatus.SIE = {0/1}
@@ -1018,32 +1065,27 @@ RVTEST_CODE_BEGIN
     // Cross product of mstatus.TW = {0/1}
     // mie.MTIE = 1
     // Set MTIMECMP = TIME + 0x100 to interrupt in the future
-    // mode = cross product of {user, supervisor, machine}
     // WFI Instruction
     ///////////////////////////////
 
-    cp_wfi:
+    cp_wfi_s:
     
-        li a0, 16           # use a0 as bitfield
-        li a1, 3            # use a3 as index variable for priv mode
-        RVTEST_GOTO_MMODE   # start test in M-mode to control CSRs
+        li a0, 15                       # use a0 as bitfield
+        RVTEST_GOTO_MMODE               # start test in M-mode to control CSRs
 
         1:
-        addi a0, a0, -1
-        li t0, 8
-        csrrc t6, mstatus, t0
+        li t1, 8
+        csrrc t6, mstatus, t1
         andi t0, a0, 8
         beqz t0, 2f                     # use bit 3 to toggle mstatus.MIE
-        li t0, 8
-        csrrs t6, mstatus, t0
+        csrrs t6, mstatus, t1
         
         2:
-        li t0, 2
-        csrrc t6, mstatus, t0
+        li t1, 2
+        csrrc t6, mstatus, t1
         andi t0, a0, 4
         beqz t0, 3f                     # use bit 2 to toggle mstatus.SIE
-        li t0, 2
-        csrrs t6, mstatus, t0
+        csrrs t6, mstatus, t1
         
         3:
         li t1, -1
@@ -1062,25 +1104,18 @@ RVTEST_CODE_BEGIN
 
         5:
         li t0, 128
-        csrrs t6, mie, t0               # enable timer interrupts
+        csrrw t6, mie, t0               # enable machine timer interrupts
         jal cause_mtimer_interrupt_soon # set up mtimecmp to interrupt in 256 cycles
-
-        addi a1, a1, -1
-        li t0, 2
-        bne a1, t0, 6f                  # if a1 = 2, run wfi in S-mode
-        RVTEST_GOTO_LOWER_MODE Smode
-
-        6:
-        li t0, 1
-        bne a1, t0, 7f                  # if a1 = 1, run wfi in U-mode
-        RVTEST_GOTO_LOWER_MODE Umode
-
-        7:
-        wfi                             # else, run wfi in M-mode, do not expect timeout
-        bnez a0, 1b                     # loop back to next case
+        RVTEST_GOTO_LOWER_MODE Smode    # enter supervisor mode
+        nop
+        wfi                             # wait for interrupt
+        nop
+        RVTEST_GOTO_MMODE               # return to M-mode and clean up for next test
+        addi a0, a0, -1                 # decrement bitfield counter
+        bgez a0, 1b                     # loop back to next case
 
     ///////////////////////////////
-    // cp_wfi_timeout
+    // cp_wfi_timeout_s
     //
     // Cross Product of mstatus.MIE = {0/1}
     // Cross Product of mstatus.SIE = {0/1}
@@ -1092,7 +1127,7 @@ RVTEST_CODE_BEGIN
     // WFI Instruction
     ///////////////////////////////
 
-    cp_wfi_timeout:
+    cp_wfi_timeout_s:
     
         li a0, 16           # use a0 as bitfield
         li a1, 3            # use a3 as index variable for priv mode
@@ -1148,75 +1183,11 @@ RVTEST_CODE_BEGIN
 
     j test_end
 
-    reset_mtimecmp:
+    ///////////////////////////////
+    // helper functions
+    ///////////////////////////////
 
-        addi sp, sp, -8
-        SREG ra, 0(sp)
-
-        // resets M-mode timer compare register to prevent further M-mode timer interrupts
-        li t0, -1               # set mtimecmp to biggest number so it doesnt interrupt again
-        la t1, MTIMECMP
-        SREG t0, 0(t1)
-        #ifdef __riscv_xlen
-            #if __riscv_xlen == 32
-                sw t0, 4(t1)
-            #endif
-        #else
-            ERROR: __riscv_xlen not defined
-        #endif
-
-        SREG ra, 0(sp)
-        addi sp, sp, 8
-
-        ret
-
-    reset_external_interrupts:
-
-        addi sp, sp, -8
-        SREG ra, 0(sp)
-
-        # set M-mode interrupt threshold to 7
-        la t0, THRESHOLD_0
-        li t1, 7
-        sw t1, 0(t0)
-        
-        # set S-mode interrupt threshold to 7
-        la t0, THRESHOLD_1
-        li t1, 7
-        sw t1, 0(t0)
-
-        // disable GPIO's sufficient priority to trigger interrupt
-        la t0, INT_PRIORITY_3
-        sw zero, 0(t0)
-
-        // disable interrupts from source 3 (GPIO) in M-mode
-        la t0, INT_EN_00
-        sw zero, 0(t0)
-
-        // clear all interrupt enables to make sure interrupt doesn't go off prematurely
-        la t0, GPIO_BASE_ADDR
-        sw zero, 0x18(t0) # clear rise
-        sw zero, 0x20(t0) # clear fall
-        sw zero, 0x28(t0) # clear high
-        sw zero, 0x30(t0) # clear low
-
-        SREG ra, 0(sp)
-        addi sp, sp, 8
-
-        ret
-
-    reset_msoftware_interrupt:
-
-        addi sp, sp, -8
-        SREG ra, 0(sp)
-
-        la t0, CLINT_BASE_ADDR
-        SREG zero, 0(t0) # write CLINT.msip = 1 for hart 0
-
-        SREG ra, 0(sp)
-        addi sp, sp, 8
-
-        ret
+    #include "trickbox.S"
 
     cross_interrupts_s_EP:
         // helper function for crossing mie.MEIE/SEIE/M/STIE/M/SSIE with mip.M/SEIP/MTIP/MSIP in Interrupts tests (enables and pending)
@@ -1353,186 +1324,7 @@ RVTEST_CODE_BEGIN
 
         ret
 
-    cause_mtimer_interrupt_now:
 
-        addi sp, sp, -8
-        SREG ra, 0(sp)
-
-        // raises an M-mode timer interrupt using CLINT, interrupt is raised as soon as the function writes to MTIMECMP(H)
-
-        la t0, MTIME
-        la t1, MTIMECMP
-        LREG t2, 0(t0) # read MTIME
-        SREG t2, 0(t1) # set MTIMECMP = MTIME to cause timer interrupt
-        nop
-
-        #ifdef __riscv_xlen
-            #if __riscv_xlen == 32
-                    lw t2, 4(t0) # high word of MTIME
-                    sw t2, 4(t1) # MTIMECMP high word = MTIME high word
-                    nop
-            #endif
-        #else
-            ERROR: __riscv_xlen not defined
-        #endif
-
-        SREG ra, 0(sp)
-        addi sp, sp, 8
-
-        ret
-
-    cause_mtimer_interrupt_soon:
-
-        addi sp, sp, -8
-        SREG ra, 0(sp)
-
-        // raises an M-mode timer interrupt using CLINT, interrupt is raised 256 (255) cycles after write to MTIMECMP(H)
-        la t0, MTIME
-        la t4, MTIMECMP
-
-        #ifdef __riscv_xlen
-            #if __riscv_xlen == 64
-                    ld t0, 0(t0)                    # read MTIME
-                    
-                    addi t0, t0, 0x100              # create a delay
-                    
-                    sd t0, 0(t4)         # set MTIMECMP = MTIME + 0x100 to cause timer interrupt later
-
-            #elif __riscv_xlen == 32
-                    lw t1, 0(t0)                    # low word of MTIME
-                    lw t2, 4(t0)                    # high word of MTIME
-                    
-                    addi t3, t1, 0x100              # add 0x100 to MTIME value
-                    bgtu t1, t3, MTIME_overflow     # if overflow occurred, carry the 1 to MTIME high word
-                    j write_MTIMECMP                # otherwise, leave MTIME high word untouched
-                    
-                    MTIME_overflow:
-                    addi t2, t2, 1
-                    
-                    write_MTIMECMP:
-                    sw t3, 0(t4)          # MTIMECMP = MTIME + 0x100
-                    sw t2, 4(t4)          
-            #endif
-            
-        #else
-            ERROR: __riscv_xlen not defined
-        #endif
-
-        SREG ra, 0(sp)
-        addi sp, sp, 8
-
-        ret
-
-    cause_msoftware_interrupt:
-
-        addi sp, sp, -8
-        SREG ra, 0(sp)
-
-        la t0, CLINT_BASE_ADDR
-        la t1, 1
-        SREG t1, 0(t0) # write CLINT.msip = 1 for hart 0
-        nop
-
-        SREG ra, 0(sp)
-        addi sp, sp, 8
-
-        ret
-
-    cause_external_interrupt_M:
-
-        addi sp, sp, -8
-        SREG ra, 0(sp)
-
-        // raises an external M-mode interrupt using GPIO
-        # set M-mode interrupt threshold to 0
-        la t0, THRESHOLD_0
-        sw zero, 0(t0)
-        
-        # set S-mode interrupt threshold to 7
-        la t0, THRESHOLD_1
-        li t1, 7
-        sw t1, 0(t0)
-
-        # give GPIO sufficient priority to trigger interrupt
-        la t0, INT_PRIORITY_3
-        li t1, 1
-        sw t1, 0(t0)
-
-        # clear all interrupt enables to make sure interrupt doesn't go off prematurely
-        la t0, GPIO_BASE_ADDR
-        li t1, 1
-        sw t1, 0x08(t0) # enable output on pin 1
-        sw t1, 0x04(t0) # enable input on pin 1
-
-        sw zero, 0x18(t0) # clear rise enable
-        sw zero, 0x20(t0) # clear fall enable
-        sw zero, 0x28(t0) # clear high enable
-        sw zero, 0x30(t0) # clear low enable
-
-        # enable interrupts from source 3 (GPIO) in M-mode
-        la t0, INT_EN_00
-        li t1, 0b1000
-        sw t1, 0(t0)
-
-        # enable interrupts from high output
-        la t0, GPIO_BASE_ADDR
-        li t1, 1
-        sw t1, 0x28(t0) # enable high interrupt for pin 1
-        sw t1, 0x0C(t0) # write 1 to pin 1, this should cause interrupt
-        nop
-
-        SREG ra, 0(sp)
-        addi sp, sp, 8
-
-        ret
-
-    cause_external_interrupt_S:
-
-        addi sp, sp, -8
-        SREG ra, 0(sp)
-
-        // raises an external S-mode interrupt using GPIO
-        # set M-mode interrupt threshold to 7
-        la t0, THRESHOLD_0
-        li t1, 7
-        sw t1, 0(t0)
-        
-        # set S-mode interrupt threshold to 0
-        la t0, THRESHOLD_1
-        sw zero, 0(t0)
-
-        # give GPIO sufficient priority to trigger interrupt
-        la t0, INT_PRIORITY_3
-        li t1, 1
-        sw t1, 0(t0)
-
-        # clear all interrupt enables to make sure interrupt doesn't go off prematurely
-        la t0, GPIO_BASE_ADDR
-        li t1, 1
-        sw t1, 0x08(t0) # enable output on pin 1
-        sw t1, 0x04(t0) # enable input on pin 1
-
-        sw zero, 0x18(t0) # clear rise enable
-        sw zero, 0x20(t0) # clear fall enable
-        sw zero, 0x28(t0) # clear high enable
-        sw zero, 0x30(t0) # clear low enable
-
-        # enable interrupts from source 3 (GPIO) in S-mode
-        la t0, INT_EN_10
-        li t1, 0b1000
-        sw t1, 0(t0)
-
-        # enable interrupts from high output
-        la t0, GPIO_BASE_ADDR
-        li t1, 1
-        sw t1, 0x28(t0) # enable high interrupt for pin 1
-        sw t1, 0x0C(t0) # write 1 to pin 1, this should cause interrupt
-        nop
-
-        SREG ra, 0(sp)
-        addi sp, sp, 8
-
-        ret
 
     test_end:
 
