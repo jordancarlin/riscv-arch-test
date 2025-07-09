@@ -23,7 +23,7 @@ RVMODEL_BOOT
 RVTEST_CODE_BEGIN
 
 #ifdef TEST_CASE_1
-    RVTEST_CASE(1,"//check ISA:=regex(.*I.*Zicsr.*BLOCKED.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",ExceptionsS)
+    RVTEST_CASE(1,"//check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",ExceptionsS)
     RVTEST_SIGBASE( x3,signature_base)
 //BLOCKED.*
 	.attribute unaligned_access, 0
@@ -57,6 +57,7 @@ main:
     // Set up the trap handler
     la t0, s_traphandler
     csrw stvec, t0
+    nop
 
     // Call the cp_medeleg function in the three privilege modes
 
@@ -100,6 +101,7 @@ main:
     // Write zeros to medeleg
     li a4, 0
     csrw medeleg, a4
+    nop
 
     // Enter supervisor privilege mode
     RVTEST_GOTO_LOWER_MODE Smode 
@@ -539,10 +541,12 @@ cp_medeleg_loop:
 
     // write walking 1 to medeleg
     csrw medeleg, a4
+    nop
 
     // Enter test mode (stored in a3)
     mv   a0, a3
     ecall
+    nop  
 
     /////////////////////////////////
     //cp_instr_adr_misaligned_jalr AND cp_stvec
@@ -582,14 +586,14 @@ cp_medeleg_loop:
 
     // test offset[1:0] = 01, odd multiple of 2+1, rs1[1:0] = 01
     auipc   t1, 0
-    addi    t1, t1, 5      // lower two bits become 11
-    jalr    t1, t1, 5
+    addi    t1, t1, 5      // lower two bits become 01
+    jalr    t1, t1, 9
     .word   0x00010013
 
     // test offset[1:0] = 01, odd multiple of 2, rs1[1:0] = 10
     auipc   t1, 0
     addi    t1, t1, 6       // 6 mod 4 = 2, so lower two bits are 10
-    jalr    t1, t1, 5
+    jalr    t1, t1, 9
     .word   0x00010013
 
     // test offset[1:0] = 01, odd multiple of 2+1, rs1[1:0] = 11
@@ -810,6 +814,7 @@ store_loop:
     // test an ecall
     mv a0, a3 // move stored return priveledge mode to a0
     ecall
+    nop
 
     /////////////////////////////////
     //cp_illegal_instruction

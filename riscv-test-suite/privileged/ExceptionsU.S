@@ -542,7 +542,9 @@ store_loop_priority:
     nop 
 
     #load into user mode
-    RVTEST_GOTO_LOWER_MODE Umode 
+    li a0, 0
+    ecall
+    nop
 
     #test ecall (load into machine mode)
     RVTEST_GOTO_MMODE  
@@ -551,10 +553,12 @@ store_loop_priority:
     #update MIE
     csrc mstatus, t1
     #load into user mode
-    RVTEST_GOTO_LOWER_MODE Umode 
-
+    li a0, 0
+    ecall
+    nop
     #test ecall (load into machine mode)
     RVTEST_GOTO_LOWER_MODE Umode 
+
 //done
 test_end:
     // return to machine mode
