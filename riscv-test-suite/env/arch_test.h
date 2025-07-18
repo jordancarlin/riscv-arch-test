@@ -815,6 +815,8 @@
 .option pop
 .endm
 
+/**** This is a helper macro that causes harts to transition from    ****/
+/**** U-mode to a higher priv mode at the instruction that follows    ****/
 
 .macro  RVTEST_GOTO_SMODE
 .option push
@@ -1793,13 +1795,14 @@ excpt_\__MODE__\()hndlr_tbl:            // handler code should only touch T2..T6
 
 
 
-
-//*******************************************************************************************************************/
-/***************  Spcl handler for returning from GOTO_SMODE                                               ********/
-/***************  Executed in S-mode. Enter w/ T1=ptr to Mregsave, T2=0                                    ********/
-/***************  T5 = SCAUSE                                                                              ********/
-/***************  NOTE: Code needs to be updated when rvtest_vtrap_routine= True, currently commented out  ********/
-/***************  NOTE: There is a relocation calculation that is not currently working (commented out)    ********/
+//**********************************************************************************************************************/
+/***************  Spcl handler for returning from GOTO_SMODE                                                   ********/
+/***************  Executed in S-mode. Enter w/ T1=ptr to Mregsave, T2=0                                        ********/
+/***************  T5 = SCAUSE                                                                                  ********/
+/***************  NOTE: Code needs to be updated when rvtest_vtrap_routine= True, currently commented out      ********/
+/***************  NOTE: There is a relocation calculation that is not currently working (commented out)        ********/
+/***************  Created to solve rtn2mmode NOTE: (Ecall must NOT delegate when T2=0 or this fails)           ********/
+/***************  rtn2smode solve the delegation failure and also uses CSRs that can be accessed in supervisor ********/
 
 rtn2smode:
         addi    T4,T5, -CAUSE_SUPERVISOR_ECALL    
