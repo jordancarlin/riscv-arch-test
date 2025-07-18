@@ -1840,7 +1840,7 @@ rtn_fm_smode:
 /***************  Spcl handler for returning from GOTO_MMODE.            ********/
 /***************  Only gets executed if GOTO_MMODE not called from Mmode ********/
 /***************  Executed in M-mode. Enter w/ T1=ptr to Mregsave, T2=0  ********/
-/***************  NOTE: Ecall must NOT delegate when T2=0 or this fails  ********/
+/***************  NOTE: Ecall must NOT delegate when T2=0 or this fails -> use rtn2smode  ********/
 
 rtn2mmode:
         addi    T4,T5, -CAUSE_MACHINE_ECALL
