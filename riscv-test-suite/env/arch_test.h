@@ -319,6 +319,7 @@
 #define MPP_LSB   11    //bit pos of LSB of the mstatus.MPP  field
 #define MPRV_LSB  17    //bit pos of LSB of the mstatus.MPRV field
 #define MPV_LSB    7    // bit pos of prev vmod mstatush.MPV in either mstatush or mstatus upper
+#define SPV_LSB    7    // bit pos of prev vmod hstatus.SPV 
 #define MPP_SMODE (1<<MPP_LSB)
 //define sizes
 #define actual_tramp_sz ((XLEN + 3* NUM_SPECD_INTCAUSES + 5) * 4)     // 5 is added ops before common entry pt
@@ -815,6 +816,22 @@
 .endm
 
 
+.macro  RVTEST_GOTO_SMODE
+.option push
+.option norvc
+#ifdef  rvtest_strap_routine    /**** this can be empty if no Umode ****/
+    mv   t0, x2                 /* FIXME: Hacky way to preserve x2 as stack pointer by trashing t0 instead */
+    li   x2, 0                  /* Ecall w/x2=0 is handled specially to rtn here */
+
+    ecall                   /* ECALL: traps always, but returns immediately to */
+                                /* the next op if x2=0, else handles trap normally */
+    mv   x2, t0                 /* FIXME: Hacky way to preserve x2 as stack pointer by trashing t0 instead */
+
+ #endif
+.option pop
+.endm
+
+
 /**** This is a helper macro that causes harts to transition from    ****/
 /**** M-mode to a lower priv mode at the instruction that follows    ****/
 /**** the macro invocation. Legal params are VS,HS,VU,HU,S,U.        ****/
@@ -891,6 +908,28 @@
   mret                          /* transition to desired mode           */
 .option pop
 .endm                           // end of RVTEST_GOTO_LOWER_MODE
+
+
+// //==============================================================================
+// // Helper macro: GOTO_MMODE_FROM_UMODE_WHEN_ECALL_FROM_SMODE_IS_DELEGATED
+// // sPECIAL CASE: this is used to transition from Umode to Mmode when medeleg[1]=1
+// //==============================================================================
+
+// .macro GOTO_MMODE_FROM_UMODE_WHEN_ECALL_FROM_SMODE_IS_DELEGATED
+// .option push
+// .option norvc
+// #ifdef  rvtest_strap_routine    /**** this can be empty if no Umode ****/
+//         li x2, 0
+//         ecall                    /*ECALL: traps always, but returns immediately to the next op if x2=0, *
+//                                  /* trap handler sees x2 = 0 and returns to S-mode  */
+//         RVTEST_GOTO_MMODE   
+
+
+// #endif
+// .option pop
+// .endm
+
+
 
 //==============================================================================
 // Helper macro to set defaults for undefined interrupt set/clear
@@ -1197,7 +1236,15 @@ spcl_\__MODE__\()2mmode_test:
         addi    T4, T4, -8                      // map cause 8..11 to 0.  Mmode should avoid ECALL 0
         bnez    T4, \__MODE__\()trapsig_ptr_upd // no, not in special mode, just continue
         LREG    T2, trap_sv_off+7*REGWIDTH(sp)  // get test x2 (which is sp, which has been saved in the trap_sv area
+.ifc \__MODE__ , S
+        beqz    T2, rtn2smode    // if T2==0, then we are in Umode, so go to Mmode
+.else       
         beqz    T2, rtn2mmode                   // spcl code 0 in T2 means spcl ECALL goto_mmode, just rtn after ECALL
+
+.endif
+
+
+
 //------pre-update trap_sig pointer so handlers can themselves trap-----
 \__MODE__\()trapsig_ptr_upd:                    // calculate entry size based on int vs. excpt, int type, and h mode
         li      T2, 4*REGWIDTH                  // standard entry length
@@ -1421,6 +1468,16 @@ code_adj_\__MODE__\()epc:
         add     T6, T6, T3                      // construct code seg end
         bgeu    T2, T6, data_adj_\__MODE__\()epc// epc > rvtest_code_end, try data adj
         bgeu    T2, T3,      adj_\__MODE__\()epc// epc >=rvtest_code_begin, adj and save
+
+// Add logic to handle Instruction Access Fault (IAF).
+// If the exception cause is code 1 (IAF), adjust mepc to return to the instruction before the fault.
+// This is necessary for testing IAF-related exception recovery in the testplan (cp_illegal_instruction in exceptionsm).   
+#ifdef IAF                                   // Instruction Access Fault: logic to adjust mepc to return to ra for instruction access fault
+        csrr   T5, CSR_XCAUSE                // t5 = exception cause
+        addi   T5, T5, -1                    // Exception cause code 1 means Instruction Access Fault
+        addi   T2, ra, -4                    // T2 points to the instruction before the fault
+        beqz   T5, adj_\__MODE__\()epc       // If IAF, jump to adjust mepc
+#endif
 
 data_adj_\__MODE__\()epc:
         LREG    T3, data_bgn_off(T4)            // see if epc is in the data area
@@ -1733,6 +1790,53 @@ excpt_\__MODE__\()hndlr_tbl:            // handler code should only touch T2..T6
 
 .ifc \__MODE__ , M
 
+
+
+
+
+//*******************************************************************************************************************/
+/***************  Spcl handler for returning from GOTO_SMODE                                               ********/
+/***************  Executed in S-mode. Enter w/ T1=ptr to Mregsave, T2=0                                    ********/
+/***************  T5 = SCAUSE                                                                              ********/
+/***************  NOTE: Code needs to be updated when rvtest_vtrap_routine= True, currently commented out  ********/
+/***************  NOTE: There is a relocation calculation that is not currently working (commented out)    ********/
+
+rtn2smode:
+        addi    T4,T5, -CAUSE_SUPERVISOR_ECALL    
+        beqz    T4, rtn_fm_smode                                /* shortcut if called from Smode        */
+// #if (rvtest_vtrap_routine)                                   /*uncommented when needed for V*/
+//         csrr    T2, CSR_HSTATUS                              /* find out originating mode if RV64/128*/
+//         slli    T2, T2, WDSZ-SPV_LSB-1                       /* but V into MSB  ****FIXME if RV128   */ 
+// #endif
+        LREG    T6, code_bgn_off+1*sv_area_sz(sp)               /* Access S-mode save area: get U/S mode code begin */
+        bgez    T2, rtn_fm_smode                                /* V==0, not virtualized, *1 offset  */
+// from_vir:
+//         LREG    T6, code_bgn_off+2*sv_area_sz(sp)            /* get VU/VS   mode code begin */
+
+// /* Don't understand the logic behind the operations to find CODE_BEGIN */
+// /* Obtain the correct epc to come back to the running code without this so it might be needed for rtn2smode */
+// from_u_ss:                                                   /* get u/s modes CODE_BEGIN             */
+//         sub     T4, T4, T6                                   /* calc relocation amount               */
+rtn_fm_smode:
+        csrr    T2, CSR_SEPC                                    /* get return address in orig mode's VM */
+        //add     T2, T2, T4                                    /* calc rtn_addr in Mmode VM           */
+
+        LREG    T1, trap_sv_off+1*REGWIDTH(sp)
+ //     LREG    T2, trap_sv_off+2*REGWIDTH(sp)                  /*this holds the return address  */
+        LREG    T3, trap_sv_off+3*REGWIDTH(sp)
+        LREG    T4, trap_sv_off+4*REGWIDTH(sp)  
+        LREG    T5, trap_sv_off+5*REGWIDTH(sp)  
+        LREG    T6, trap_sv_off+6*REGWIDTH(sp)
+        LREG    sp, trap_sv_off+7*REGWIDTH(sp)                  // restore temporaries
+        jr      4(T2)                                           /* return after GOTO_SMODE in S-mode    */
+
+
+
+  
+
+/*******************************************************************************/
+
+
 /***************  Spcl handler for returning from GOTO_MMODE.            ********/
 /***************  Only gets executed if GOTO_MMODE not called from Mmode ********/
 /***************  Executed in M-mode. Enter w/ T1=ptr to Mregsave, T2=0  ********/
@@ -1775,6 +1879,9 @@ rtn_fm_mmode:
 .endif
 .option pop
 .endm                                   // end of HANDLER
+
+
+
 
 /*******************************************************************************/
 /***************                 end of handler macro               ************/
