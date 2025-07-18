@@ -34,7 +34,7 @@ RVTEST_CODE_BEGIN
 main:
 
     # set mstatus.FS to 01 to enable fp
-    li t0,0x4000
+    LI(t0, 0x4000)
     csrs mstatus, t0
     nop
 
@@ -47,7 +47,7 @@ main:
     csrr a0, mstatus
     nop 
 
-    li t1,1        # load a test value
+    LI(t1, 1)        # load a test value
     .align 2       # align the next instruction to a 4 byte boundary
 
     //test all six types of taken branches to a misaligned address
@@ -218,7 +218,7 @@ main:
     //cp_instr_access_fault
     /////////////////////////////////
 
-    li    t1, ACCESS_FAULT_ADDRESS       // Load the fault address into t0
+    LI(t1, ACCESS_FAULT_ADDRESS)       // Load the fault address into t0
     jalr  ra, t1, 0                      // Jump to the fault address (return address must be in t2)
     nop
 
@@ -283,11 +283,11 @@ main:
     /////////////////////////////////
 
     # Get a pointer to scratch data
-    la      t4, scratch
+    LA(t4, scratch)
 
     # Initialize loop counter (offset) from 0 to 7
-    li      t0, 0         # t0 = loop index (offset)
-    li      t5, 8         # loop limit (we will test offsets 0 through 7)
+    LI(t0, 0)         # t0 = loop index (offset)
+    LI(t5, 8)         # loop limit (we will test offsets 0 through 7)
 
 load_loop:
     # Compute effective address = base (t4) + current offset (t0)
@@ -329,7 +329,7 @@ load_loop:
     /////////////////////////////////
 
     //load the illegal address into a register
-    li    t0, ACCESS_FAULT_ADDRESS
+    LI(t0, ACCESS_FAULT_ADDRESS)
 
     // Attempt to load byte (signed)
     lb t1, 0(t0)
@@ -362,18 +362,18 @@ load_loop:
     /////////////////////////////////
 
     # Get a pointer to scratch data and deliberately misalign it by adding 1.
-    la      t4, scratch
+    LA(t4, scratch)
 
     # Initialize loop counter (offset) from 0 to 7.
-    li      t0, 0         # t0 = loop index (offset)
-    li      t5, 8         # loop limit (we will test offsets 0 through 7)
+    LI(t0, 0)         # t0 = loop index (offset)
+    LI(t5, 8)         # loop limit (we will test offsets 0 through 7)
 
 store_loop:
     # Compute effective address = base (t4) + current offset (t0)
     add     t1, t4, t0    # t1 = effective address with 3 LSBs = t0
 
     # Prepare a test value to store.
-    li      t2, 0xDECAFCAB
+    LI(t2, 0xDECAFCAB)
 
     # Attempt store instructions at the misaligned effective address.
     sb      t2, 0(t1)     # store byte (8 bits)
@@ -400,27 +400,27 @@ store_loop:
     /////////////////////////////////
 
     # Load the illegal address into a register
-    la t0, ACCESS_FAULT_ADDRESS
+    LA(t0, ACCESS_FAULT_ADDRESS)
 
     # Attempt to store byte
-    li t1, 0xAB
+    LI(t1, 0xAB)
     sb t1, 0(t0)
     nop 
 
     # Attempt to store halfword
-    li t2, 0xBEAD
+    LI(t2, 0xBEAD)
     sh t2, 0(t0)
     nop 
 
     # Attempt to store word
-    li t3, 0xADDEDCAB
+    LI(t3, 0xADDEDCAB)
     sw t3, 0(t0)
     nop 
 
     #ifdef __riscv_xlen
         #if __riscv_xlen == 64
             // Attempt to store doubleword
-            li t4, 0xDEADBEEFDEADBEEF
+            LI(t4, 0xDEADBEEFDEADBEEF)
             sd t4, 0(t0)
             nop 
         #endif
@@ -441,11 +441,11 @@ store_loop:
     //Test misaligned priority for load instructions
 
   # Get a pointer to an access fault address
-    la      t4, ACCESS_FAULT_ADDRESS
+    LA(t4, ACCESS_FAULT_ADDRESS)
 
     # Initialize loop counter (offset) from 0 to 7
-    li      t0, 0         # t0 = loop index (offset)
-    li      t5, 8         # loop limit (we will test offsets 0 through 7)
+    LI(t0, 0)         # t0 = loop index (offset)
+    LI(t5, 8)         # loop limit (we will test offsets 0 through 7)
 
 load_loop_priority:
     # Compute effective address = base (t4) + current offset (t0)
@@ -482,25 +482,25 @@ load_loop_priority:
     blt     t0, t5, load_loop_priority
 
     # Initialize loop counter (offset) from 0 to 7
-    li      t0, 0         # t0 = loop index (offset)
-    li      t5, 8         # loop limit (we will test offsets 0 through 7)
+    LI(t0, 0)         # t0 = loop index (offset)
+    LI(t5, 8)         # loop limit (we will test offsets 0 through 7)
 
 
     //Test misaligned priority for store instructions
 
         # Get a pointer to scratch data and deliberately misalign it by adding 1.
-    la      t4, ACCESS_FAULT_ADDRESS
+    LA(t4, ACCESS_FAULT_ADDRESS)
 
     # Initialize loop counter (offset) from 0 to 7.
-    li      t0, 0         # t0 = loop index (offset)
-    li      t5, 8         # loop limit (we will test offsets 0 through 7)
+    LI(t0, 0)         # t0 = loop index (offset)
+    LI(t5, 8)         # loop limit (we will test offsets 0 through 7)
 
 store_loop_priority:
     # Compute effective address = base (t4) + current offset (t0)
     add     t1, t4, t0    # t1 = effective address with 3 LSBs = t0
 
     # Prepare a test value to store.
-    li      t2, 0xDECAFCAB
+    LI(t2, 0xDECAFCAB)
 
     # Attempt store instructions at the misaligned effective address.
     sb      t2, 0(t1)     # store byte (8 bits)
@@ -531,13 +531,13 @@ store_loop_priority:
     nop
 
     # Prepare the mask for the MIE bit (bit 3).
-    li      t1, 0x8         # 0x8 == (1 << 3)
+    LI(t1, 0x8)         # 0x8 == (1 << 3)
 
     # Clear the MIE bit in mstatus so that on exception entry MPIE becomes 0.
     csrrc   x0, mstatus, t1
     nop
 
-    li     a0, 3
+    LI(a0, 3)
     ecall             # Execute ecall with MIE = 0; trap entry will set MPIE = 0.
     nop 
 
@@ -545,7 +545,7 @@ store_loop_priority:
     csrrs   x0, mstatus, t1
     nop
 
-    li     a0, 3
+    LI(a0, 3)
     ecall                     # Execute ecall with MIE = 1; trap entry will set MPIE = 1.
     nop
 
