@@ -44,13 +44,6 @@ main:
     RVTEST_GOTO_MMODE   
     RVTEST_GOTO_LOWER_MODE Smode 
 
-
-
-    // Set up the trap handler
-    # la t0, s_traphandler
-    # csrw stvec, t0
-    # nop
-
     // Call the cp_medeleg function in the three privilege modes
 
     // supervisor mode test
@@ -228,17 +221,12 @@ main:
 
     // enter privilege mode being tested
     # RVTEST_GOTO_LOWER_MODE Smode 
-    li a0, 0
+    LI(a0, 0)
     ecall
     nop
     
     // test ecall (enter machine privilege mode)
     RVTEST_GOTO_MMODE   # M-mode  
-
-
-
-
-
 
 
 
@@ -249,7 +237,7 @@ main:
     nop
     // enter privilege mode being tested
     //RVTEST_GOTO_LOWER_MODE Smode 
-    li a0, 0
+    LI(a0, 0)
     ecall
     nop
 
@@ -268,7 +256,7 @@ main:
 
     // test ecall (enter machine privilege mode)
     RVTEST_GOTO_MMODE   # M-mode  
-    li a0, 0
+    LI(a0, 0)
     ecall
     nop
 
@@ -449,78 +437,7 @@ main:
 finished:
     j test_end
 
-// Supervisor Mode Trap Handler
-// This may be replaced by the generic riscv-arch-test trap handler in the
-// future to log trap signatures, but is adequate for lockstep testing
-//
-// Provides a simple trap handler that allows for privilege mode changes
-// Place argument in a0 and issue ecall:
-//  0: change to user mode
-//  1: change to supervisor mode
-//  3: change to machine mode
-//  4: terminate program
-//
-// Notes on s_traphandler:
-// When medeleg bit 8 is set (medeleg[8] = 1), user-level ecalls are delegated
-// to the supervisor trap handler. However, if the user program requests a mode change
-// to machine mode via ecall, the supervisor trap handler (using sret)
-// cannot directly return to machine mode due to insufficient privileges.
-//
-// To resolve this, s_traphandler invokes an additional ecall, encoding (a0 + 5) in a0,
-// which escalates the trap to the machine-level trap handler. The machine-level handler
-// recognizes the (a0 + 5) signal as indicating that it should use sepc
-// rather than mepc upon return. The machine-level handler then completes
-// the privilege escalation and returns using mret, resuming execution in the desired privilege mode.
-//
-// Any other exception is delegated by skipping over the instruction by incrementing by 4 (assumes only
-// uncompressed instructions are used).
-# s_traphandler:
-#     # Load trap handler stack pointer tp
-#     csrrw tp, sscratch, tp  // swap SSCRATCH and tp
-#     SREG t0, 0(tp)          // Save t0, t1, and ra on the stack
-#     SREG t1, -8(tp)
-#     SREG s7, -16(tp)
 
-#     csrr   s7, sepc         // Load faulting instruction address from sepc
-
-#     // Check if the exception was caused by an access fault
-#     csrr   t1, scause            // t1 = exception cause
-#     li t0, 1                     // Exception cause code 1 means Instruction Access Fault
-#     bne    t1, t0, IAF_skip      // If not an IAF, skip ra load
-#     // If it was an instruction access fault our program uses a jalr to jump to the fault address.
-#     // A jalr sets rd = PC +4, so we need to subtract 4 from the return address to get the address
-#     // of the faulting instruction.
-#     addi  ra, ra, -4
-#     csrw sepc, ra           // save ra to sepc if its an IAF
-# IAF_skip:
-
-#     csrr t0, scause
-#     li t1, 8                 // is it an ecall trap?
-#     andi t0, t0, 0xFC        // if CAUSE = 8, 9, or 11
-#     bne t0, t1, s_trap_ecall_skip  // ignore other exceptions
-
-#     // Restore registers before going into machine trap handler
-#     LREG t0, 0(tp)          // Restore t0, t1, and s7
-#     LREG t1, -8(tp)
-#     LREG s7, -16(tp)
-#     csrrw tp, sscratch, tp   // Restore tp
-
-#     addi   a0, a0, 5        // Changes inputs to 5, 6, 7, or 8 (signals that it was an ecall from the s_traphandler)
-#     ecall                   // Trap to M-mode, where the privilege change is handled
-
-# s_trap_ecall_skip:
-
-#     csrr t1, sepc
-#     addi t1, t1, 4         // Add 4 to sepc kip over uncompressed instruction
-#     csrw sepc, t1
-
-#     // Restore t0, t1, and ra
-#     LREG t0, 0(tp)
-#     LREG t1, -8(tp)
-#     LREG s7, -16(tp)
-#     csrrw tp, sscratch, tp   // restore tp
-
-#     sret
 
 // Function: cp_medeleg
 // Tests instructions when medeleg = all 1's, all 0's, and walking 1's.
