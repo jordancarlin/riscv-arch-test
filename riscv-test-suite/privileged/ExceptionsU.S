@@ -3,7 +3,7 @@
 // ExceptionsU.S
 //
 // Written: Roman De Santos rdesantos@hmc.edu 24 February 2025
-// Edited (to include signature logic): Marina Bellido mbellido@hmc.edu July 7th 2025
+// Edited and ACT integration: Marina Bellido mbellido@hmc.edu July 7th 2025
 //
 // Purpose: Functional coverage test for Exceptions in U mode
 //

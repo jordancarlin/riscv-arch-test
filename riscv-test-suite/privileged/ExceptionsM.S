@@ -3,6 +3,7 @@
 // ExceptionsM.S
 //
 // Written: Roman De Santos rdesantos@hmc.edu 6 February 2025
+// Edited and ACT integration: Marina Bellido mbellido@hmc.edu 10 July 2025
 //
 // Purpose: Functional coverage test for Exceptions in M mode
 //
