@@ -24,7 +24,7 @@ RVMODEL_BOOT
 RVTEST_CODE_BEGIN
 
 #ifdef TEST_CASE_1
-    RVTEST_CASE(1,"//check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",ExceptionsU)
+    RVTEST_CASE(1,"//check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def TEST_CASE_1=True",ExceptionsU)
     RVTEST_SIGBASE( x3,signature_base)
 
 	.attribute unaligned_access, 0
@@ -540,9 +540,7 @@ store_loop_priority:
     nop 
 
     #load into user mode
-    LI(a0, 0)
-    ecall
-    nop
+    RVTEST_GOTO_LOWER_MODE Umode
 
     #test ecall (load into machine mode)
     RVTEST_GOTO_MMODE  
@@ -551,9 +549,7 @@ store_loop_priority:
     #update MIE
     csrc mstatus, t1
     #load into user mode
-    LI(a0, 0)
-    ecall
-    nop
+    RVTEST_GOTO_LOWER_MODE Umode
     #test ecall (load into machine mode)
     RVTEST_GOTO_LOWER_MODE Umode 
 

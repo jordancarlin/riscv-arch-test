@@ -24,7 +24,7 @@ RVMODEL_BOOT
 RVTEST_CODE_BEGIN
 
 #ifdef TEST_CASE_1
-    RVTEST_CASE(1,"//check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_dtrap_routine=True; def TEST_CASE_1=True",ExceptionsM)
+    RVTEST_CASE(1,"//check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def TEST_CASE_1=True",ExceptionsM)
     RVTEST_SIGBASE( x3,signature_base)
 
 	.attribute unaligned_access, 0
@@ -43,9 +43,6 @@ main:
     /////////////////////////////////
     //cp_instr_adr_misaligned_branch
     ///////////////////////////////// 
-
-    csrr a0, mstatus
-    nop 
 
     LI(t1, 1)        # load a test value
     .align 2       # align the next instruction to a 4 byte boundary
@@ -536,18 +533,12 @@ store_loop_priority:
     # Clear the MIE bit in mstatus so that on exception entry MPIE becomes 0.
     csrrc   x0, mstatus, t1
     nop
-
-    LI(a0, 3)
-    ecall             # Execute ecall with MIE = 0; trap entry will set MPIE = 0.
-    nop 
+    RVTEST_GOTO_MMODE    # Execute ecall with MIE = 0; trap entry will set MPIE = 0.
 
     # Set the MIE bit in mstatus so that on exception entry MPIE becomes 1.
     csrrs   x0, mstatus, t1
     nop
-
-    LI(a0, 3)
-    ecall                     # Execute ecall with MIE = 1; trap entry will set MPIE = 1.
-    nop
+    RVTEST_GOTO_MMODE    # Execute ecall with MIE = 1; trap entry will set MPIE = 1.
 
     # Restore the original mstatus.
     csrw    mstatus, t0
