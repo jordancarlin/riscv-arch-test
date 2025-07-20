@@ -537,6 +537,7 @@ store_loop_priority:
 
     //mstatus_MIE = 0
     csrc mstatus, t1
+    csrr t3, mstatus
     nop 
 
     #load into user mode
@@ -545,18 +546,21 @@ store_loop_priority:
     #test ecall (load into machine mode)
     RVTEST_GOTO_MMODE  
 
+
+    LI(t1, 8)        # (1 << 3) bit 3 in mstatus is the MIE bit
     //mstatus_MIE = 1
-    #update MIE
-    csrc mstatus, t1
+    csrs mstatus, t1
+    nop
+    csrr t3, mstatus
+
     #load into user mode
     RVTEST_GOTO_LOWER_MODE Umode
     #test ecall (load into machine mode)
-    RVTEST_GOTO_LOWER_MODE Umode 
+    RVTEST_GOTO_MMODE  
 
-//done
-test_end:
-    // return to machine mode
-    RVTEST_GOTO_MMODE   
+
+test_end:  
+    //done
 
 
 
