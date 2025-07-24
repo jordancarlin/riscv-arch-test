@@ -537,7 +537,6 @@ store_loop_priority:
 
     //mstatus_MIE = 0
     csrc mstatus, t1
-    csrr t3, mstatus
     nop 
 
     #load into user mode
@@ -551,7 +550,6 @@ store_loop_priority:
     //mstatus_MIE = 1
     csrs mstatus, t1
     nop
-    csrr t3, mstatus
 
     #load into user mode
     RVTEST_GOTO_LOWER_MODE Umode
