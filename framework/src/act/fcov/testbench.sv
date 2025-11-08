@@ -44,6 +44,8 @@ module testbench;
   int     fileNum;
   int     order;
   int     regNum;
+  int     hartId;
+  int     issueSlot;
   logic [(XLEN-1):0] xRegVal;
   logic [(FLEN-1):0] fRegVal;
   logic [(VLEN-1):0] vRegVal;
@@ -113,6 +115,13 @@ module testbench;
   rvviTrace #(.XLEN(XLEN), .FLEN(FLEN), .VLEN(VLEN)) rvvi();
   riscv_arch_test riscv_arch_test(rvvi);
 
+  // Initialize RVVI-Text state tracking variables
+  initial begin
+    order = 0;
+    hartId = 0;
+    issueSlot = 0;
+  end
+
   // Sample an instruction from the trace file on each clock edge
   // Moves through full list of trace files
   always_ff @(posedge clk) begin
@@ -157,38 +166,149 @@ module testbench;
       splitLine(line, words); // Split line into queue of individual words
       while (words.size > 0) begin
         key = words.pop_front();
-        val = words.pop_front();
         // Need to parse values using $sscanf because standard ascii to int conversion
         // doesn't work for number larger than 32 bits
         case(key)
+          // RVVI-Text header elements (skip/validate)
+          "VERSION": begin
+            // Skip version numbers
+            val = words.pop_front(); // major
+            val = words.pop_front(); // minor
+          end
+          "VENDOR": begin
+            // Skip vendor name and version
+            val = words.pop_front(); // name
+            val = words.pop_front(); // version
+          end
+          "PARAMS": begin
+            // Parse PARAMS count and skip parameters
+            val = words.pop_front();
+            num = $sscanf(val, "%d", regNum); // count
+            // Skip all parameters (count * 2 words)
+            for (int i = 0; i < regNum * 2; i++) begin
+              val = words.pop_front();
+            end
+          end
+          // RVVI-Text control elements
+          "HART": begin
+            val = words.pop_front();
+            num = $sscanf(val, "%d", hartId);
+            issueSlot = 0; // Reset issue slot when hart changes
+          end
+          "ISSUE": begin
+            val = words.pop_front();
+            num = $sscanf(val, "%d", issueSlot);
+          end
+          "ORDER": begin
+            val = words.pop_front();
+            num = $sscanf(val, "%d", order);
+          end
+          // Retirement/Trap events
+          "RET": begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", pc_rdata);
+            val = words.pop_front();
+            num = $sscanf(val, "%h", insn);
+            valid = 1;
+            // Auto-increment order for next instruction
+            order++;
+          end
+          "TRAP": begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", pc_rdata);
+            val = words.pop_front();
+            num = $sscanf(val, "%h", insn);
+            trap = 1;
+            valid = 1;
+            // Auto-increment order for next instruction
+            order++;
+          end
           // Standard signals
-          "ORDER":          num = $sscanf(val, "%d", order);
-          "INSN":           num = $sscanf(val, "%h", insn);
-          "TRAP":           num = $sscanf(val, "%b", trap);
-          "DEBUG_MODE":     num = $sscanf(val, "%b", debug_mode);
-          "PC":             num = $sscanf(val, "%h", pc_rdata);
-          "MODE":           num = $sscanf(val, "%d", mode);
+          "DM":             begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", debug_mode);
+          end
+          "MODE":           begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", mode);
+          end
+          "VIRT":           begin
+            val = words.pop_front();
+            // VIRT not currently used, skip
+          end
           // Interrupts
-          "M_EXT_INTR":     num = $sscanf(val, "%b", m_ext_intr);
-          "S_EXT_INTR":     num = $sscanf(val, "%b", s_ext_intr);
-          "M_TIMER_INTR":   num = $sscanf(val, "%b", m_timer_intr);
-          "M_SOFT_INTR":    num = $sscanf(val, "%b", m_soft_intr);
+          "M_EXT_INTR":     begin
+            val = words.pop_front();
+            num = $sscanf(val, "%b", m_ext_intr);
+          end
+          "S_EXT_INTR":     begin
+            val = words.pop_front();
+            num = $sscanf(val, "%b", s_ext_intr);
+          end
+          "M_TIMER_INTR":   begin
+            val = words.pop_front();
+            num = $sscanf(val, "%b", m_timer_intr);
+          end
+          "M_SOFT_INTR":    begin
+            val = words.pop_front();
+            num = $sscanf(val, "%b", m_soft_intr);
+          end
           // Virtual Memory
-          "VIRT_ADR_I":     num = $sscanf(val, "%h", virt_adr_i);
-          "VIRT_ADR_D":     num = $sscanf(val, "%h", virt_adr_d);
-          "PHYS_ADR_I":     num = $sscanf(val, "%h", phys_adr_i);
-          "PHYS_ADR_D":     num = $sscanf(val, "%h", phys_adr_d);
-          "PTE_I":          num = $sscanf(val, "%h", pte_i);
-          "PTE_D":          num = $sscanf(val, "%h", pte_d);
-          "PPN_I":          num = $sscanf(val, "%h", ppn_i);
-          "PPN_D":          num = $sscanf(val, "%h", ppn_d);
-          "PAGE_TYPE_I":    num = $sscanf(val, "%b", page_type_i);
-          "PAGE_TYPE_D":    num = $sscanf(val, "%b", page_type_d);
-          "READ_ACCESS":    num = $sscanf(val, "%b", read_access);
-          "WRITE_ACCESS":   num = $sscanf(val, "%b", write_access);
-          "EXECUTE_ACCESS": num = $sscanf(val, "%b", execute_access);
+          "VIRT_ADR_I":     begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", virt_adr_i);
+          end
+          "VIRT_ADR_D":     begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", virt_adr_d);
+          end
+          "PHYS_ADR_I":     begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", phys_adr_i);
+          end
+          "PHYS_ADR_D":     begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", phys_adr_d);
+          end
+          "PTE_I":          begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", pte_i);
+          end
+          "PTE_D":          begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", pte_d);
+          end
+          "PPN_I":          begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", ppn_i);
+          end
+          "PPN_D":          begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", ppn_d);
+          end
+          "PAGE_TYPE_I":    begin
+            val = words.pop_front();
+            num = $sscanf(val, "%b", page_type_i);
+          end
+          "PAGE_TYPE_D":    begin
+            val = words.pop_front();
+            num = $sscanf(val, "%b", page_type_d);
+          end
+          "READ_ACCESS":    begin
+            val = words.pop_front();
+            num = $sscanf(val, "%b", read_access);
+          end
+          "WRITE_ACCESS":   begin
+            val = words.pop_front();
+            num = $sscanf(val, "%b", write_access);
+          end
+          "EXECUTE_ACCESS": begin
+            val = words.pop_front();
+            num = $sscanf(val, "%b", execute_access);
+          end
           // Registers
           "X": begin
+            val = words.pop_front();
             num = $sscanf(val, "%d", regNum);
             val = words.pop_front();
             num = $sscanf(val, "%h", xRegVal);
@@ -196,6 +316,7 @@ module testbench;
             x_wb |= (1 << regNum);
           end
           "F": begin
+            val = words.pop_front();
             num = $sscanf(val, "%d", regNum);
             val = words.pop_front();
             num = $sscanf(val, "%h", fRegVal);
@@ -203,26 +324,60 @@ module testbench;
             f_wb |= (1 << regNum);
           end
           "V": begin
+            val = words.pop_front();
             num = $sscanf(val, "%d", regNum);
             val = words.pop_front();
             num = $sscanf(val, "%h", vRegVal);
             v_wdata[regNum] = vRegVal;
             v_wb |= (1 << regNum);
           end
-          "CSR": begin
+          "C": begin // CSR using RVVI-Text format
+            val = words.pop_front();
             num = $sscanf(val, "%h", regNum);
             val = words.pop_front();
             num = $sscanf(val, "%h", xRegVal);
             csr[regNum] = xRegVal;
             csr_wb[regNum] =1'b1;
           end
+          // Legacy support for old format
+          "INSN":           begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", insn);
+          end
+          "PC":             begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", pc_rdata);
+          end
+          "CSR": begin
+            val = words.pop_front();
+            num = $sscanf(val, "%h", regNum);
+            val = words.pop_front();
+            num = $sscanf(val, "%h", xRegVal);
+            csr[regNum] = xRegVal;
+            csr_wb[regNum] =1'b1;
+          end
+          // NET and META elements
+          "NET": begin
+            // Skip NET elements
+            val = words.pop_front(); // name
+            val = words.pop_front(); // value
+          end
+          "META": begin
+            // Parse META count and skip tokens
+            val = words.pop_front();
+            num = $sscanf(val, "%d", regNum); // count
+            for (int i = 0; i < regNum; i++) begin
+              val = words.pop_front();
+            end
+          end
           default: begin
-            $display("Unknown key: %s", key);
-            $finish();
+            // Skip unknown keys (could be comments or extensions)
+            if (words.size > 0) begin
+              val = words.pop_front();
+            end
           end
         endcase
       end
-      valid = 1;
     end
   end
 
