@@ -158,12 +158,29 @@ module testbench;
     read_access, write_access, execute_access,
     x_wb, f_wb, v_wb, csr_wb, x_wdata, f_wdata, v_wdata} = 0;
 
-    // Get next line from trace file
+    // Get next line(s) from trace file, handling line continuations
+    words.delete();
     num = $fgets(line, traceFileHandler);
-
+    
     // Parse line and set signals
     if (line != "" & line != "\n") begin // Skip empty lines
-      splitLine(line, words); // Split line into queue of individual words
+      string temp_words[$];
+      splitLine(line, temp_words);
+      
+      // Handle line continuation
+      while (temp_words.size > 0 && temp_words[$] == "\\") begin
+        temp_words.pop_back(); // Remove the backslash
+        words = {words, temp_words}; // Append to accumulated words
+        temp_words.delete();
+        num = $fgets(line, traceFileHandler);
+        if (line != "" & line != "\n") begin
+          splitLine(line, temp_words);
+        end
+      end
+      
+      // Append final line's words
+      words = {words, temp_words};
+      
       while (words.size > 0) begin
         key = words.pop_front();
         // Need to parse values using $sscanf because standard ascii to int conversion
@@ -176,9 +193,10 @@ module testbench;
             val = words.pop_front(); // minor
           end
           "VENDOR": begin
-            // Skip vendor name and version
+            // Skip vendor name and version numbers
             val = words.pop_front(); // name
-            val = words.pop_front(); // version
+            val = words.pop_front(); // major version
+            val = words.pop_front(); // minor version
           end
           "PARAMS": begin
             // Parse PARAMS count and skip parameters
@@ -424,12 +442,54 @@ module testbench;
   assign rvvi.csr[0][0] = csr;
 
   // Takes a string and splits it into individual words that are returned in the provided string queue
+  // Handles comments enclosed in single quotes
   function automatic void splitLine(string line, ref string words[$]);
     string word;
-    while (line.len() > 0) begin
-      num = $sscanf(line, "%s", word);
+    int length = line.len();
+    int j = 0, i = 0;
+    byte ch = 0;
+    bit comment = 0;
+    
+    word = "";
+    
+    while (i < length) begin
+      ch = line[i];
+      i++;
+      
+      // Handle comments
+      if (ch == "'" && comment) begin
+        comment = 0;
+        j = i;
+        continue;
+      end
+      if (ch == "'" && !comment) begin
+        comment = 1;
+        if ((i-j) > 1) begin
+          words.push_back(word);
+          word = "";
+        end
+        continue;
+      end
+      if (comment) begin
+        continue;
+      end
+      
+      // Handle whitespace
+      if (ch <= 32) begin // space and non-printable characters
+        if ((i-j) > 1) begin
+          words.push_back(word);
+          word = "";
+        end
+        j = i;
+      end else begin
+        word = {word, ch};
+      end
+    end
+    
+    // Push remaining buffered word
+    if ((i-j) > 1) begin
       words.push_back(word);
-      line = line.substr(word.len() + 1, line.len() - 1);
+      word = "";
     end
   endfunction
 

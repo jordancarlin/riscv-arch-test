@@ -36,8 +36,8 @@ def sailLog2Trace(
     with inputLogFile.open() as f, outputTraceFile.open("w") as outfile:
         # Write RVVI-Text header
         outfile.write("VERSION 0 1\n")
-        outfile.write(f"VENDOR sail-to-rvvi 1\n")
-        outfile.write(f"PARAMS 6 ILEN 32 XLEN {xlen} FLEN {flen} VLEN {vlen} NHART 1 NRETIRE 1\n")
+        outfile.write("VENDOR sail_to_rvvi 1 0\n")
+        outfile.write(f"PARAMS 6 ILEN 32 XLEN {xlen} FLEN {flen} VLEN {vlen} NHART 1 RETIRE 1\n")
 
         lines = f.readlines()
         prev_mode_num = None
