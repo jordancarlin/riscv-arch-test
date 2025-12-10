@@ -1,8 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "labels": ["dependencies"],
-  "configMigration": true,
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigestsToSemver",
+    ":configMigration",
+    ":pinDevDependencies",
+    "abandonments:recommended"
+  ],
   "lockFileMaintenance": {
     "enabled": true
   },
@@ -11,5 +17,9 @@
   },
   "pre-commit": {
     "enabled": true
+  },
+  {
+  "pyenv": {
+    "enabled": false
   }
 }
