@@ -1,2 +1,3 @@
 **/generators/coverage/templates/*.txt linguist-language=systemverilog
 *.h linguist-language=assembly
+*.do linguist-language=tcl
