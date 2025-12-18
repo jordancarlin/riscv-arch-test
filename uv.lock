@@ -28,7 +28,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "pydantic", specifier = ">=2.12.5" },
-    { name = "ruamel-yaml", specifier = ">=0.18.16" },
+    { name = "ruamel-yaml", specifier = ">=0.18.17" },
     { name = "typer", specifier = ">=0.20.0" },
 ]
 
@@ -71,7 +71,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "ruamel-yaml", specifier = ">=0.18.16" }]
+requires-dist = [{ name = "ruamel-yaml", specifier = ">=0.18.17" }]
 
 [[package]]
 name = "markdown-it-py"
