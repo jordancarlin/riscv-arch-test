@@ -14,5 +14,11 @@
   },
   "pyenv": {
     "enabled": false
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["ruff", "astral-sh/ruff-pre-commit"],
+      "groupName": "ruff"
+    }
+  ]
 }
