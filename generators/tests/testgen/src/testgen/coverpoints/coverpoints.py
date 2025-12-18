@@ -78,10 +78,21 @@ SKIP_COVERPOINTS = frozenset(
         "cp_gpr_hazard_rw",
         "cp_gpr_hazard_w",
         "cp_gpr_hazard_r",
-        "cp_imm_edges_6bit_n0",  # Used only for cross products
         "cp_rd_sign",  # Already covered by rd_edges
         "cmp_rd_rs1_eqval",  # Already covered by cr_rs1_rs2_edges
         "cmp_rd_rs2_eqval",  # Already covered by cr_rs1_rs2_edges
+        # Covered by edge tests
+        "cp_csr_fflags_n",
+        "cp_csr_fflags_on",
+        "cp_csr_fflags_v",
+        "cp_csr_fflags_vd",
+        "cp_csr_fflags_vdon",
+        "cp_csr_fflags_vdoun",
+        "cp_csr_fflags_vn",
+        "cp_csr_fflags_von",
+        "cp_csr_fflags_voun",
+        "cp_csr_fflags_vun",
+        "cp_fclass",
     }
 )
 

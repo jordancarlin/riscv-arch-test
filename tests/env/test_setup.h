@@ -19,7 +19,7 @@
 
   // Include model specific boot code
   RVMODEL_BOOT
-  RVMODEL_IO_INIT
+  RVMODEL_IO_INIT(T1, T2, T3)
 
   // Disable assembler/linker optimizations
   .option push
@@ -37,8 +37,7 @@
   // Start of test
   .global rvtest_code_begin
   rvtest_code_begin:
-    // Initialize test data pointer
-    LA(x4, rvtest_data_begin)
+
     // Initialize signature pointer
     LA(x3, signature_base)
 
@@ -49,6 +48,12 @@
     #else
       // nops to match selfchecking test length
       RVTEST_SIGUPD_NOPS
+    #endif
+    // Initialize test data pointer
+    LA(x6, rvtest_data_begin)
+
+    #ifdef RVTEST_VECTOR
+      RVTEST_V_ENABLE(x5, x6)
     #endif
   .option pop
 .endm
@@ -195,13 +200,16 @@
       CANARY
 
     // Main signature region
+    #ifdef RVTEST_VECTOR
+      .align 3
+    #endif
     signature_base:
       #ifdef SELFCHECK
         // Preload signature region with correct values for self-checking
         #include SIGNATURE_FILE
       #else
         // Initialize signature region to known value for initial pass
-        .fill SIGUPD_COUNT*(XLEN/32),4,0xdeadbeef
+        .fill SIGUPD_COUNT*SIG_STRIDE,4,0xdeadbeef
       #endif
 
     // Signature region for trap handlers
