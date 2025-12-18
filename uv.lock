@@ -320,7 +320,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "rich", specifier = ">=13.0.0" },
+    { name = "rich", specifier = ">=13.9.4" },
     { name = "typer", specifier = ">=0.20.0" },
 ]
 
