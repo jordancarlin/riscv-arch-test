@@ -86,7 +86,7 @@ jobs:
           echo "SHORT_SHA=$(echo ${GITHUB_SHA::7})" >> $GITHUB_ENV
 
       - name: Create Release
-        uses: softprops/action-gh-release@60cfd9a691d814dcf0d094598101c5cb61cd1646
+        uses: softprops/action-gh-release@5122b4edc95f85501a71628a57dc180a03ec7588
         with:
           draft: false
           prerelease: ${{ ! (github.event_name == 'workflow_dispatch' && github.event.inputs.create_release == 'true') }}
