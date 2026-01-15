@@ -27,5 +27,5 @@ merge-summaries = "act.merge_summaries:main"
 
 ##### BUILD #####
 [build-system]
-requires = ["uv_build>=0.9.18,<0.10.0"]
+requires = ["uv_build>=0.9.26,<0.10.0"]
 build-backend = "uv_build"
