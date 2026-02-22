@@ -1,6 +1,6 @@
 # RISC-V Architectural Certification Tests
 
-The RISC-V Architectural Certification Tests (ACTs) are a set of assembly language tests designed to certify that a design faithfully implements the RISC-V specification. These are not verification tests and additional verification should be run on all processors. For additional details on the certification process, see [LINK COMING SOON]().
+The RISC-V Architectural Certification Tests (ACTs) are a set of assembly language tests designed to certify that a design faithfully implements the RISC-V specification. These are not verification tests and additional verification should be run on all processors.
 
 The Architectural Certification Tests are used with the ACT4 Framework, a Makefile and Python based tool that replaces the deprecated riscof tool. The ACT4 Framework generates and compiles self-checking tests in Executable Linkable Format (ELF) for a device under test (DUT) and optionally collects coverage showing that the tests hit the coverpoints that check the normative rules. The user is then responsible for running all of the ELF files on the DUT with the user's own testbench. Each test reports success or failure, and if possible prints error messages to a console.
 
@@ -64,7 +64,7 @@ For more details on uv and alternate installation methods, see the [uv installat
 
 #### 3. RISC-V Compiler
 
-The ACT framework is compatible with GCC or LLVM. This guide uses GCC, but if you prefer LLVM you just need to set the path for the compiler appropriately when [creating your config file](#act-framework-configuration-file).
+The ACT framework is compatible with GCC or LLVM/Clang. This guide uses GCC, but if you prefer LLVM you just need to set the path for the compiler appropriately when [creating your config file](#act-framework-configuration-file). See [config/sail/sail-rv64-max-clang/test_config.yaml](./config/sail/sail-rv64-max-clang/test_config.yaml) for an example.
 
 > [!NOTE]
 >
