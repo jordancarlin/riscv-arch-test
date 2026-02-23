@@ -41,7 +41,6 @@ def validate_udb_config(udb_config_file: Path) -> None:
         "validate",
         "cfg",
         f"{udb_config_file}",
-        # f"cfgs/{udb_config_file.name}",
     ]
     env = os.environ.copy()
     env["PODMAN"] = "true"

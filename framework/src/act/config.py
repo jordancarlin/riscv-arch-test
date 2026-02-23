@@ -51,13 +51,12 @@ class Config(BaseModel):
     @classmethod
     def validate_executable(cls, v: Path | None, info: ValidationInfo) -> Path | None:
         """Ensure the executable can be found."""
-        if v is not None:
-            full_path = shutil.which(v)
-            if full_path is None:
-                raise FileNotFoundError(f"{info.field_name} executable not found: {v}")
-            return Path(full_path)
-        else:
+        if v is None:
             return v
+        full_path = shutil.which(v)
+        if full_path is None:
+            raise FileNotFoundError(f"{info.field_name} executable not found: {v}")
+        return Path(full_path)
 
     @field_validator("udb_config", "linker_script", "dut_include_dir", mode="before")
     @classmethod

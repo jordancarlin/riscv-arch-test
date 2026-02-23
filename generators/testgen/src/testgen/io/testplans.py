@@ -57,7 +57,7 @@ def read_testplan(testplan_path: Path) -> list[TestPlanData]:
             del row["RV64"]
             coverpoints: list[str] = []
             for key, value in row.items():
-                if type(value) is str and value != "":
+                if isinstance(value, str) and value != "":
                     if (
                         value != "x"
                     ):  # for special entries, append the entry name (e.g. cp_rd_edges becomes cp_rd_edges_lui)

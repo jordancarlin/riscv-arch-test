@@ -136,13 +136,11 @@ def _dispatch_test_gen(task: UnprivTask | PrivTask) -> None:
             testplan_dir=task.testplan_dir,
             output_test_dir=task.output_test_dir,
         )
-    elif isinstance(task, PrivTask):
+    else:
         generate_priv_test(
             testsuite=task.testsuite,
             output_test_dir=task.output_test_dir,
         )
-    else:
-        raise ValueError("Invalid task type.")
 
 
 def main() -> None:

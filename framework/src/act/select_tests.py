@@ -14,10 +14,7 @@ from act.parse_test_constraints import TestMetadata
 
 def check_test_params(test_params: dict[str, Any], config_params: dict[str, Any]) -> bool:
     """Check if all parameters in test_params match those in config_params."""
-    for param, value in test_params.items():
-        if param not in config_params or config_params[param] != value:
-            return False
-    return True
+    return all(param in config_params and config_params[param] == value for param, value in test_params.items())
 
 
 def select_tests(
@@ -26,10 +23,8 @@ def select_tests(
     """Select tests that match the UDB configuration."""
     selected_tests: dict[str, TestMetadata] = {}
     for test_name, test_metadata in test_dict.items():
-        # Check if all required extensions are implemented
-        if (test_metadata.required_extensions).issubset(implemented_extensions):
-            # Check if all parameters match
-            test_params = test_metadata.params
-            if check_test_params(test_params, config_params):
-                selected_tests[test_name] = test_metadata
+        if test_metadata.required_extensions.issubset(implemented_extensions) and check_test_params(
+            test_metadata.params, config_params
+        ):
+            selected_tests[test_name] = test_metadata
     return selected_tests

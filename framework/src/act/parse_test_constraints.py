@@ -89,15 +89,8 @@ def generate_test_dict(tests_dir: Path, extensions: str, exclude: str = "") -> d
         Dictionary mapping test file paths to their metadata.
     """
 
-    extension_list: list[str] = []
-    if extensions != "all":
-        for ext in extensions.split(","):
-            extension_list.append(ext.strip())
-
-    exclude_list: list[str] = []
-    if exclude:
-        for ext in exclude.split(","):
-            exclude_list.append(ext.strip())
+    extension_list = [ext.strip() for ext in extensions.split(",")] if extensions != "all" else []
+    exclude_list = [ext.strip() for ext in exclude.split(",")] if exclude else []
 
     test_list: dict[str, TestMetadata] = {}
 
