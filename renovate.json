@@ -1,0 +1,20 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "git-submodules": {
+    "enabled": true
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^\\.github/scripts/install-.*\\.sh$",
+        "^\\.github/workflows/regress\\.yml$"
+      ],
+      "matchStrings": [
+        "# renovate:\\s+datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)(?:\\s+packageName=(?<packageName>\\S+))?\\s+currentValue=(?<currentValue>\\S+)\\s*\\n\\s*\\S+\\s*=\\s*\"(?<currentDigest>[a-f0-9]+)\"",
+        "# renovate:\\s+datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)(?![^\\n]*currentValue=)(?:\\s+packageName=(?<packageName>\\S+))?(?:\\s+versioning=(?<versioning>\\S+))?(?:\\s+extractVersion=(?<extractVersion>\\S+))?\\s*\\n\\s*\\S+\\s*[:=]\\s*\"(?<currentValue>[^\"]+)\""
+      ]
+    }
+  ]
+}

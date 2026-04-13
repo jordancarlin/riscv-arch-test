@@ -8,6 +8,7 @@
 set -euo pipefail
 
 INSTALL_DIR="${1:?Usage: install-cvw.sh <install-dir>}"
+# renovate: datasource=git-refs depName=cvw packageName=https://github.com/openhwgroup/cvw currentValue=main
 CVW_COMMIT="59aec1116a30f4dfaf5b572227f0de5a913fac17"
 VERILATOR_VERSION="v5.036"
 
