@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
-# Continuous performance testing of the ACT framework with CodSpeed.
+# Continuous performance testing of the testgen test generator with CodSpeed.
 
 name: CodSpeed
 
