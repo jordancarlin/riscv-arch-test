@@ -559,7 +559,7 @@ There should be one coverage file for each tab of a testplan spreadsheet. Create
 
 Write SystemVerilog coverpoints. Complex coverpoints are normally a cross-product of simpler coverpoints.
 
-The coverpoints use architectural state conveyed over Extended RVVI (see Certification Test Plan for signals available). It is easiest to write coverpoints in terms of `ins.current` and `ins.prev`, the current and previous instructions. If the test is too complicated to express just in terms of these, it may be necessary to leave out some conditions. For example, virtual memory coverpoints don't specify all of the page table entries.
+The coverpoints use architectural state conveyed over RVVI (see Certification Test Plan for signals available). It is easiest to write coverpoints in terms of `ins.current` and `ins.prev`, the current and previous instructions. If the test is too complicated to express just in terms of these, it may be necessary to leave out some conditions. For example, virtual memory coverpoints don't specify all of the page table entries.
 
 As with unprivileged tests, add a YAML file with the [Normative Rule - Coverpoint Mapping](#normative-rule---coverpoint-mapping).
 
@@ -646,7 +646,7 @@ The coverpoints given in the spreadsheet are usually cross-products of simpler c
 
 #### Extending RVVI
 
-If additional state is absolutely necessary, it could be added to the Extended RVVI specification. This involves changing the spec and tools that read and write it, so should not be done if there is any other reasonable way to write a "good enough" coverpoint. Open an issue to discuss other potential options before proceeding down this route.
+If additional state is absolutely necessary, extend an existing RVVI mechanism where possible. `state` records can convey implementation-specific hart state. Memory access records convey virtual-memory state. Do not add custom RVVI signals. This involves changing the spec and tools that read and write it, so should not be done if there is any other reasonable way to write a "good enough" coverpoint. Open an issue to discuss other potential options before proceeding down this route.
 
 ### Adding New Privileged Tests
 

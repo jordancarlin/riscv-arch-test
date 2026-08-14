@@ -1,7 +1,9 @@
 /*
+ * Copyright (c) 2024-2026 Synopsys, Inc. All rights reserved.
  * Copyright (c) 2005-2024 Imperas Software Ltd., www.imperas.com
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
  * Adapted from https://github.com/riscv-verification/RVVI
- * Modified February 2024, jcarlin@hmc.edu
+ * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +21,17 @@
  *
  */
 
+`ifdef E_SUPPORTED
+    `define NUM_REGS 16
+`else
+    `define NUM_REGS 32
+`endif
+`define NUM_CSRS 4096
+
 `define RVVI_TRACE_VERSION_MAJOR 1
-`define RVVI_TRACE_VERSION_MINOR 6
+`define RVVI_TRACE_VERSION_MINOR 7
+
+`include "rvviTraceTypes.svh"
 
 /*
  * A single DTM (Debug Transport Module), connects
@@ -30,139 +41,198 @@
  */
 interface dm
 #(
-  parameter int ILEN   = 32,  // Instruction length in bits
-  parameter int XLEN   = 32,  // GPR length in bits
-  parameter int FLEN   = 32,  // FPR length in bits
-  parameter int VLEN   = 512, // Vector register size in bits
-  parameter int NHART  = 1,   // Number of harts reported
-  parameter int RETIRE = 1    // Number of instructions that can retire during valid event
+    parameter int ILEN    = 32,  // Instruction length in bits
+    parameter int XLEN    = 32,  // GPR length in bits
+    parameter int FLEN    = 32,  // FPR length in bits
+    parameter int VLEN    = 256, // Vector register size in bits
+    parameter int NHART   = 1,   // Number of harts reported
+    parameter int RETIRE  = 1    // Number of instructions that can retire during valid event
 );
-  //
-  // RISCV DM signals
-  //
-  wire                      clk;                                      // Interface clock
-  wire                      rd;                                       // read
-  wire                      wr;                                       // write
-  wire [31:0]               address;
-  wire [31:0]               data;
+    //
+    // RISCV DM signals
+    //
+    wire                      clk;                                      // Interface clock
+    wire                      rd;                                       // read
+    wire                      wr;                                       // write
+    wire [31:0]               address;
+    wire [31:0]               data;
 
-  bit  [(XLEN-1):0]         store      [127:0];                       // Storage for DM registers
+    bit  [(XLEN-1):0]         store      [127:0];                       // Storage for DM registers
 
 endinterface
 
 interface rvviTrace
 #(
-  parameter int ILEN   = 32,  // Instruction length in bits
-  parameter int XLEN   = 32,  // GPR length in bits
-  parameter int FLEN   = 32,  // FPR length in bits
-  parameter int VLEN   = 512, // Vector register size in bits
-  parameter int NHART  = 1,   // Number of harts reported
-  parameter int RETIRE = 1    // Number of instructions that can retire during valid event
+    parameter int ILEN        = 32,   // Instruction length in bits
+    parameter int XLEN        = 32,   // GPR length in bits
+    parameter int FLEN        = 32,   // FPR length in bits
+    parameter int VLEN        = 256,  // Vector register size in bits
+    parameter int NHART       = 1,    // Number of harts reported
+    parameter int RETIRE      = 1,    // Number of instructions that can retire during valid event
+    parameter int CLIENTS_MAX = 5     // number of RVVI clients
 );
+    //
+    // RISCV output signals
+    //
+    wire                      clk;                                      // Interface clock
+    wire                      valid      [(NHART-1):0][(RETIRE-1):0];   // Valid event
+    wire [63:0]               order      [(NHART-1):0][(RETIRE-1):0];   // Unique event order count (no gaps or reuse)
 
-  `ifdef COVER_E
-    localparam NUM_REGS = 16;
-  `else
-    localparam NUM_REGS = 32;
-  `endif
+    wire [(ILEN-1):0]         insn       [(NHART-1):0][(RETIRE-1):0];   // Instruction bit pattern
+    wire                      trap       [(NHART-1):0][(RETIRE-1):0];   // State update without instruction retirement
+    wire                      debug_mode [(NHART-1):0][(RETIRE-1):0];   // Retired instruction executed in debug mode
 
-  //
-  // RISCV output signals
-  //
-  wire                      clk;                                      // Interface clock
-  wire                      valid      [(NHART-1):0][(RETIRE-1):0];   // Valid event
-  wire [63:0]               order      [(NHART-1):0][(RETIRE-1):0];   // Unique event order count (no gaps or reuse)
+    // Program counter
+    wire [(XLEN-1):0]         pc_rdata   [(NHART-1):0][(RETIRE-1):0];   // PC of instruction
 
-  wire [(ILEN-1):0]         insn       [(NHART-1):0][(RETIRE-1):0];   // Instruction bit pattern
-  wire                      trap       [(NHART-1):0][(RETIRE-1):0];   // State update without instruction retirement
-  wire                      debug_mode [(NHART-1):0][(RETIRE-1):0];   // Retired instruction executed in debug mode
+    // X Registers
+    wire [31:0][(XLEN-1):0]   x_wdata    [(NHART-1):0][(RETIRE-1):0];   // X data value
+    wire [31:0]               x_wb       [(NHART-1):0][(RETIRE-1):0];   // X data writeback (change) flag
 
-  // Program counter
-  wire [(XLEN-1):0]         pc_rdata   [(NHART-1):0][(RETIRE-1):0];   // PC of instruction
+    // F Registers
+    wire [31:0][(FLEN-1):0]   f_wdata    [(NHART-1):0][(RETIRE-1):0];   // F data value
+    wire [31:0]               f_wb       [(NHART-1):0][(RETIRE-1):0];   // F data writeback (change) flag
 
-  // X Registers
-  wire [NUM_REGS-1:0][(XLEN-1):0]   x_wdata    [(NHART-1):0][(RETIRE-1):0];   // X data value
-  wire [NUM_REGS-1:0]               x_wb       [(NHART-1):0][(RETIRE-1):0];   // X data writeback (change) flag
+    // V Registers
+    wire [31:0][(VLEN-1):0]   v_wdata    [(NHART-1):0][(RETIRE-1):0];   // V data value
+    wire [31:0]               v_wb       [(NHART-1):0][(RETIRE-1):0];   // V data writeback (change) flag
 
-  // F Registers
-  wire [31:0][(FLEN-1):0]   f_wdata    [(NHART-1):0][(RETIRE-1):0];   // F data value
-  wire [31:0]               f_wb       [(NHART-1):0][(RETIRE-1):0];   // F data writeback (change) flag
+    // Control and Status Registers
+    wire [4095:0][(XLEN-1):0] csr        [(NHART-1):0][(RETIRE-1):0];   // Full CSR Address range
+    wire [4095:0]             csr_wb     [(NHART-1):0][(RETIRE-1):0];   // CSR writeback (change) flag
 
-  // V Registers
-  wire [31:0][(VLEN-1):0]   v_wdata    [(NHART-1):0][(RETIRE-1):0];   // V data value
-  wire [31:0]               v_wb       [(NHART-1):0][(RETIRE-1):0];   // V data writeback (change) flag
+    // Atomic Memory Control
+    wire                      lrsc_cancel[(NHART-1):0][(RETIRE-1):0];   // Implementation defined cancel
 
-  // Control and Status Registers
-  wire [4095:0][(XLEN-1):0] csr        [(NHART-1):0][(RETIRE-1):0];   // Full CSR Address range
-  wire [4095:0]             csr_wb     [(NHART-1):0][(RETIRE-1):0];   // CSR writeback (change) flag
+    //
+    // Optional sideband state
+    //
 
-  // Atomic Memory Control
-  wire                      lrsc_cancel[(NHART-1):0][(RETIRE-1):0];   // Implementation defined cancel
+    string state[(NHART-1):0][string];
 
-  //
-  // Optional
-  //
-  wire [(XLEN-1):0]         pc_wdata   [(NHART-1):0][(RETIRE-1):0];   // PC of next instruction
-  wire                      intr       [(NHART-1):0][(RETIRE-1):0];   // (RVFI Legacy) Flag first instruction of trap handler
-  wire                      halt       [(NHART-1):0][(RETIRE-1):0];   // Halted  instruction
-  wire [1:0]                ixl        [(NHART-1):0][(RETIRE-1):0];   // XLEN mode 32/64 bit
-  wire [1:0]                mode       [(NHART-1):0][(RETIRE-1):0];   // Privilege mode of operation
-  wire                      mode_virt  [(NHART-1):0][(RETIRE-1):0];   // Virtual mode
+    //
+    // Optional
+    //
+    wire [(XLEN-1):0]         pc_wdata   [(NHART-1):0][(RETIRE-1):0];   // PC of next instruction
+    wire                      intr       [(NHART-1):0][(RETIRE-1):0];   // (RVFI Legacy) Flag first instruction of trap handler
+    wire                      halt       [(NHART-1):0][(RETIRE-1):0];   // Halted  instruction
+    wire [1:0]                ixl        [(NHART-1):0][(RETIRE-1):0];   // XLEN mode 32/64 bit
+    wire [1:0]                mode       [(NHART-1):0][(RETIRE-1):0];   // Privilege mode of operation
+    wire                      mode_virt  [(NHART-1):0][(RETIRE-1):0];   // Virtual mode
 
-  // Virtual Memory signals for verification
-  localparam PA_BITS = (XLEN==32 ? 32'd34 : 32'd56);
-  localparam PPN_BITS = (XLEN==32 ? 32'd22 : 32'd44);
+    //
+    // Optional DMI Interface
+    //
+    dm dm();
 
-  wire [(XLEN-1):0]     virt_adr_i     [(NHART-1):0][(RETIRE-1):0]; // Instruction virtual address
-  wire [(XLEN-1):0]     virt_adr_d     [(NHART-1):0][(RETIRE-1):0]; // Data virtual address
-  wire [(PA_BITS-1):0]  phys_adr_i     [(NHART-1):0][(RETIRE-1):0]; // Instruction physical address
-  wire [(PA_BITS-1):0]  phys_adr_d     [(NHART-1):0][(RETIRE-1):0]; // Data physical address
-  wire [(XLEN-1):0]     pte_i          [(NHART-1):0][(RETIRE-1):0]; // Instruction page table entry
-  wire [(XLEN-1):0]     pte_d          [(NHART-1):0][(RETIRE-1):0]; // Data page table entry
-  wire [(PPN_BITS-1):0] ppn_i          [(NHART-1):0][(RETIRE-1):0]; // Instruction physical page number
-  wire [(PPN_BITS-1):0] ppn_d          [(NHART-1):0][(RETIRE-1):0]; // Data physical page number
-  wire [1:0]            page_type_i    [(NHART-1):0][(RETIRE-1):0]; // Instruction page type
-  wire [1:0]            page_type_d    [(NHART-1):0][(RETIRE-1):0]; // Data page type
-  wire                  read_access    [(NHART-1):0][(RETIRE-1):0]; // Read access
-  wire                  write_access   [(NHART-1):0][(RETIRE-1):0]; // Write access
-  wire                  execute_access [(NHART-1):0][(RETIRE-1):0]; // Execute access
+    //
+    // Optional memory interface
+    //
 
-  //
-  // Optional DMI Interface
-  //
-  dm dm();
+    rvvi_mem_access_t mem_accesses[CLIENTS_MAX][(NHART-1):0][$];
 
-  //
-  // Synchronization of NETs
-  //
-  longint vslot;
-  always @(posedge clk) begin
-    vslot <= vslot + 1;
-  end
+    //
+    // Synchronization of NETs
+    //
 
-  string           name[$];
-  longint unsigned value[$];
-  longint unsigned tslot[$];
-  longint unsigned nets[string];
-
-  function automatic void net_push(input string pname, input longint unsigned pvalue);
-    name.push_front(pname);
-    value.push_front(pvalue);
-    tslot.push_front(vslot);
-  endfunction
-
-  function automatic int net_pop(output string pname, output longint unsigned pvalue, output longint unsigned pslot);
-    int  ok;
-    string msg;
-    if (name.size() > 0) begin
-      pname       = name.pop_back();
-      pvalue      = value.pop_back();
-      pslot       = tslot.pop_back();
-      nets[pname] = pvalue;
-      ok = 1;
-    end else begin
-      ok = 0;
+    longint vslot;
+    always @(posedge clk) begin
+        vslot <= vslot + 1;
     end
-    return ok;
-  endfunction
+
+    string           name  [CLIENTS_MAX][$];
+    longint unsigned value [CLIENTS_MAX][$];
+    longint unsigned tslot [CLIENTS_MAX][$];
+    longint unsigned nets  [CLIENTS_MAX][string];
+    string           cancel[CLIENTS_MAX][$];
+
+    //
+    // rvvi-trace clients
+    //
+
+    int client_id_next = 0;
+    logic client_recv_nets  [CLIENTS_MAX];
+    logic client_recv_memory[CLIENTS_MAX];
+
+    function automatic int client_register(logic recv_nets, logic recv_memory);
+
+        // reserve new client slot ID
+        int out;
+        out = client_id_next;
+        if (client_id_next >= CLIENTS_MAX) begin
+            $fatal(1, "%m: Maximum RVVI-TRACE client count reached");
+        end
+        ++client_id_next;
+
+        // set observer state
+        client_recv_nets  [out] = recv_nets;
+        client_recv_memory[out] = recv_memory;
+
+        return out;
+    endfunction
+
+    function automatic void net_push(input string pname, input longint unsigned pvalue);
+        // push net change to all clients queues
+        int i;
+        for (i=0; i<client_id_next; ++i) begin
+            if (client_recv_nets[i]) begin
+                name [i].push_front(pname);
+                value[i].push_front(pvalue);
+                tslot[i].push_front(vslot);
+            end
+        end
+    endfunction
+
+    function automatic int net_pop(input int client, output string pname, output longint unsigned pvalue, output longint unsigned pslot);
+        int ok;
+        if (name[client].size() > 0) begin
+            pname  = name [client].pop_back(); // net name
+            pvalue = value[client].pop_back(); // net value
+            pslot  = tslot[client].pop_back(); // net slot
+            nets[client][pname] = pvalue; // save current 'popped' net state
+            ok = 1; // success
+        end else begin
+            ok = 0; // empty
+        end
+        return ok;
+    endfunction
+
+    function automatic void net_cancel_push(input string pname);
+        // push net cancel to all clients
+        int i;
+        for (i=0; i<client_id_next; ++i) begin
+            if (client_recv_nets[i]) begin
+                cancel[i].push_front(pname);
+            end
+        end
+    endfunction
+
+    function automatic int net_cancel_pop(input int client, output string pname);
+        int ok;
+        if (cancel[client].size() > 0) begin
+            pname = cancel[client].pop_back(); // net name
+            ok = 1; // success
+        end else begin
+            ok = 0; // empty
+        end
+        return ok;
+    endfunction
+
+    function automatic void mem_access_push(int hart, input rvvi_mem_access_t access);
+        int i;
+        for (i=0; i<client_id_next; ++i) begin
+            if (client_recv_memory[i]) begin
+                mem_accesses[i][hart].push_front(access);
+            end
+        end
+    endfunction
+
+    function automatic int mem_access_pop(input int client, int hart, output rvvi_mem_access_t access);
+        if (mem_accesses[client][hart].size() == 0) begin
+            return 0;  // empty
+        end
+        access = mem_accesses[client][hart].pop_back();
+        return 1;  // ok
+    endfunction
+
 endinterface

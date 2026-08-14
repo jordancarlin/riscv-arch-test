@@ -27,9 +27,6 @@ module testbench;
 
   localparam VLEN = `UDB_VLEN;
 
-  localparam PA_BITS = (XLEN==32 ? 32'd34 : 32'd56);
-  localparam PPN_BITS = (XLEN==32 ? 32'd22 : 32'd44);
-
   // Temporary signals for filling RVVI trace interface (file handling, string parsing, etc)
   string  traceFileList, traceFile;
   integer traceFileListHandler, traceFileHandler, num;
@@ -54,13 +51,6 @@ module testbench;
   logic [(XLEN-1):0] pc_rdata;
   logic [1:0]        mode;
   logic              mode_virt; // hypervisor bit
-  // Virtual Memory
-  logic [(XLEN-1):0]     virt_adr_i, virt_adr_d;
-  logic [(PA_BITS-1):0]  phys_adr_i, phys_adr_d;
-  logic [(XLEN-1):0]     pte_i, pte_d;
-  logic [(PPN_BITS-1):0] ppn_i, ppn_d;
-  logic [1:0]            page_type_i, page_type_d;
-  logic read_access, write_access, execute_access;
   // Registers
   logic [31:0][(XLEN-1):0]   x_wdata;
   logic [31:0]               x_wb;
@@ -141,9 +131,6 @@ module testbench;
 
     // Reset all signals at the beginning of each iteration
     {valid, insn, trap, debug_mode, pc_rdata, mode, mode_virt,
-    virt_adr_i, virt_adr_d, phys_adr_i, phys_adr_d,
-    pte_i, pte_d, ppn_i, ppn_d, page_type_i, page_type_d,
-    read_access, write_access, execute_access,
     x_wb, f_wb, v_wb, csr_wb, x_wdata, f_wdata, v_wdata} = 0;
 
     // Get next line from trace file
@@ -166,25 +153,6 @@ module testbench;
           "PC":             num = $sscanf(val, "%h", pc_rdata);
           "MODE":           num = $sscanf(val, "%d", mode);
           "MODE_VIRT":      num = $sscanf(val, "%d", mode_virt);
-          // Interrupts
-          "M_EXT_INTR":     num = $sscanf(val, "%b", m_ext_intr);
-          "S_EXT_INTR":     num = $sscanf(val, "%b", s_ext_intr);
-          "M_TIMER_INTR":   num = $sscanf(val, "%b", m_timer_intr);
-          "M_SOFT_INTR":    num = $sscanf(val, "%b", m_soft_intr);
-          // Virtual Memory
-          "VIRT_ADR_I":     num = $sscanf(val, "%h", virt_adr_i);
-          "VIRT_ADR_D":     num = $sscanf(val, "%h", virt_adr_d);
-          "PHYS_ADR_I":     num = $sscanf(val, "%h", phys_adr_i);
-          "PHYS_ADR_D":     num = $sscanf(val, "%h", phys_adr_d);
-          "PTE_I":          num = $sscanf(val, "%h", pte_i);
-          "PTE_D":          num = $sscanf(val, "%h", pte_d);
-          "PPN_I":          num = $sscanf(val, "%h", ppn_i);
-          "PPN_D":          num = $sscanf(val, "%h", ppn_d);
-          "PAGE_TYPE_I":    num = $sscanf(val, "%b", page_type_i);
-          "PAGE_TYPE_D":    num = $sscanf(val, "%b", page_type_d);
-          "READ_ACCESS":    num = $sscanf(val, "%b", read_access);
-          "WRITE_ACCESS":   num = $sscanf(val, "%b", write_access);
-          "EXECUTE_ACCESS": num = $sscanf(val, "%b", execute_access);
           // Registers
           "X": begin
             num = $sscanf(val, "%d", regNum);
@@ -235,21 +203,6 @@ module testbench;
   assign rvvi.pc_rdata[0][0] = pc_rdata;
   assign rvvi.mode[0][0] = mode;
   assign rvvi.mode_virt[0][0] = mode_virt;
-
-  // Virtual Memory
-  assign rvvi.virt_adr_i[0][0] = virt_adr_i;
-  assign rvvi.virt_adr_d[0][0] = virt_adr_d;
-  assign rvvi.phys_adr_i[0][0] = phys_adr_i;
-  assign rvvi.phys_adr_d[0][0] = phys_adr_d;
-  assign rvvi.pte_i[0][0] = pte_i;
-  assign rvvi.pte_d[0][0] = pte_d;
-  assign rvvi.ppn_i[0][0] = ppn_i;
-  assign rvvi.ppn_d[0][0] = ppn_d;
-  assign rvvi.page_type_i[0][0] = page_type_i;
-  assign rvvi.page_type_d[0][0] = page_type_d;
-  assign rvvi.read_access[0][0] = read_access;
-  assign rvvi.write_access[0][0] = write_access;
-  assign rvvi.execute_access[0][0] = execute_access;
 
   // Registers
   assign rvvi.x_wb[0][0] = x_wb;

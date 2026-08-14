@@ -63,19 +63,6 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
     rvviData.csr = 0;
     rvviData.csr_wb = 0;
     rvviData.lrsc_cancel = 0;
-    rvviData.virt_adr_i = 0;
-    rvviData.virt_adr_d = 0;
-    rvviData.phys_adr_i = 0;
-    rvviData.phys_adr_d = 0;
-    rvviData.pte_i = 0;
-    rvviData.pte_d = 0;
-    rvviData.ppn_i = 0;
-    rvviData.ppn_d = 0;
-    rvviData.page_type_i = 0;
-    rvviData.page_type_d = 0;
-    rvviData.read_access = 0;
-    rvviData.write_access = 0;
-    rvviData.execute_access = 0;
     rvviData.hart = hart;
     rvviData.issue = issue;
     rvviData.disass = "";
@@ -140,21 +127,6 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
   // Todo: CSR values should use the current values and only update the changed ones
   rvviData.csr = this.rvvi.csr[hart][issue];
   rvviData.csr_wb = this.rvvi.csr_wb[hart][issue];
-
-  // Store virtual memory signals from the current trace
-  rvviData.virt_adr_i = this.rvvi.virt_adr_i[hart][issue];
-  rvviData.virt_adr_d = this.rvvi.virt_adr_d[hart][issue];
-  rvviData.phys_adr_i = this.rvvi.phys_adr_i[hart][issue];
-  rvviData.phys_adr_d = this.rvvi.phys_adr_d[hart][issue];
-  rvviData.pte_i = this.rvvi.pte_i[hart][issue];
-  rvviData.pte_d = this.rvvi.pte_d[hart][issue];
-  rvviData.ppn_i = this.rvvi.ppn_i[hart][issue];
-  rvviData.ppn_d = this.rvvi.ppn_d[hart][issue];
-  rvviData.page_type_i = this.rvvi.page_type_i[hart][issue];
-  rvviData.page_type_d = this.rvvi.page_type_d[hart][issue];
-  rvviData.read_access = this.rvvi.read_access[hart][issue];
-  rvviData.write_access = this.rvvi.write_access[hart][issue];
-  rvviData.execute_access = this.rvvi.execute_access[hart][issue];
 
   // Store additional signals from the current trace
   rvviData.lrsc_cancel = this.rvvi.lrsc_cancel[hart][issue];
