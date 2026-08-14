@@ -50,15 +50,6 @@
 `ifdef EXCEPTIONSSM_COVERAGE
   `include "ExceptionsSm_coverage.svh"
 `endif
-`ifdef EXCEPTIONSSV_COVERAGE
-  `include "ExceptionsSv_coverage.svh"
-`endif
-`ifdef EXCEPTIONSSVZAAMO_COVERAGE
-  `include "ExceptionsSvZaamo_coverage.svh"
-`endif
-`ifdef EXCEPTIONSSVZALRSC_COVERAGE
-  `include "ExceptionsSvZalrsc_coverage.svh"
-`endif
 `ifdef EXCEPTIONSU_COVERAGE
   `include "ExceptionsU_coverage.svh"
 `endif
@@ -215,53 +206,17 @@
 `ifdef SSSTRICTV_COVERAGE
   `include "SsstrictV_coverage.svh"
 `endif
-`ifdef SSTVALA_COVERAGE
-  `include "Sstvala_coverage.svh"
-`endif
 `ifdef SSTVECD_COVERAGE
   `include "Sstvecd_coverage.svh"
 `endif
 `ifdef SSU64XL_COVERAGE
   `include "Ssu64xl_coverage.svh"
 `endif
-`ifdef SV_COVERAGE
-  `include "Sv_coverage.svh"
-`endif
-`ifdef SVH_COVERAGE
-  `include "SvH_coverage.svh"
-`endif
-`ifdef SVPMP_COVERAGE
-  `include "SvPMP_coverage.svh"
-`endif
-`ifdef SVPMPZICBO_COVERAGE
-  `include "SvPMPZicbo_coverage.svh"
-`endif
-`ifdef SVZICBO_COVERAGE
-  `include "SvZicbo_coverage.svh"
-`endif
-`ifdef SVADE_COVERAGE
-  `include "Svade_coverage.svh"
-`endif
-`ifdef SVADU_COVERAGE
-  `include "Svadu_coverage.svh"
-`endif
-`ifdef SVADUPMP_COVERAGE
-  `include "SvaduPMP_coverage.svh"
-`endif
-`ifdef SVBARE_COVERAGE
-  `include "Svbare_coverage.svh"
-`endif
 `ifdef SVINVAL_COVERAGE
   `include "Svinval_coverage.svh"
 `endif
 `ifdef SVINVALH_COVERAGE
   `include "SvinvalH_coverage.svh"
-`endif
-`ifdef SVNAPOT_COVERAGE
-  `include "Svnapot_coverage.svh"
-`endif
-`ifdef SVPBMT_COVERAGE
-  `include "Svpbmt_coverage.svh"
 `endif
 `ifdef U_COVERAGE
   `include "U_coverage.svh"

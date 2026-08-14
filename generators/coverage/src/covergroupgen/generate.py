@@ -79,6 +79,28 @@ _VECTOR_TESTGEN_COMMON = _load_testgen_script("vector_testgen_common.py")
 
 SSSTRICTV_SKIP_COMBINATIONS = _load_ssstrictv_skip_combinations()
 
+# RVVI-TRACE 1.7 reports virtual-memory state in memory-access records. These
+# coverpoints will be enabled after the RVVI-TEXT reader consumes those records.
+MEMORY_ACCESS_COVERAGE_EXTENSIONS = frozenset(
+    {
+        "ExceptionsSv",
+        "ExceptionsSvZaamo",
+        "ExceptionsSvZalrsc",
+        "Sstvala",
+        "Sv",
+        "SvH",
+        "SvPMP",
+        "SvPMPZicbo",
+        "SvZicbo",
+        "Svade",
+        "Svadu",
+        "SvaduPMP",
+        "Svbare",
+        "Svnapot",
+        "Svpbmt",
+    }
+)
+
 
 # Coverpoints whose template name depends on the SEW (element width).
 SEW_DEPENDENT_CPS = {
@@ -816,7 +838,7 @@ def write_coverage_headers(
     priv_path = output_dir / "priv"
     if priv_path.exists():
         keys.update(f.stem.split("_")[0] for f in priv_path.iterdir() if f.name.endswith("_coverage.svh"))
-    sorted_keys = sorted(keys)
+    sorted_keys = sorted(keys - MEMORY_ACCESS_COVERAGE_EXTENSIONS)
 
     # RISCV_coverage_config.svh — ifdef includes for each extension
     lines: list[str] = [customize_template(templates, "config_header")]
