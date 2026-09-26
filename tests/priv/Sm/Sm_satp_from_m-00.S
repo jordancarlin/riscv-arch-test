@@ -34,11 +34,11 @@ RVTEST_BEGIN
 /////////////////////////////////
 
 #ifdef S_SUPPORTED
-  LI(x9, 0x00100000) # mstatus.TVM (bit 20)
-  csrs mstatus, x9
+  LI(x14, 0x00100000) # mstatus.TVM (bit 20)
+  csrs mstatus, x14
 Sm_mcsr_cg_cp_satp_from_m_tvm_enabled:
   csrr x6, satp # read satp with mstatus.TVM = 1; TVM only traps S-mode, so expect no trap
-  csrc mstatus, x9
+  csrc mstatus, x14
 Sm_mcsr_cg_cp_satp_from_m_tvm_disabled:
   csrr x6, satp # read satp with mstatus.TVM = 0; expect no trap.  Value is WARL and unpredictable so don't sigupd it
 #endif // S_SUPPORTED
@@ -53,8 +53,8 @@ RVTEST_DATA_BEGIN
 
 
 // Testcase strings
-Sm_mcsr_cg_cp_satp_from_m_tvm_enabled_str: .string "\"test: 7733; cg: Sm_mcsr_cg; cp: cp_satp_from_m; bin: tvm_enabled\""
-Sm_mcsr_cg_cp_satp_from_m_tvm_disabled_str: .string "\"test: 7734; cg: Sm_mcsr_cg; cp: cp_satp_from_m; bin: tvm_disabled\""
+Sm_mcsr_cg_cp_satp_from_m_tvm_enabled_str: .string "\"test: 9505; cg: Sm_mcsr_cg; cp: cp_satp_from_m; bin: tvm_enabled\""
+Sm_mcsr_cg_cp_satp_from_m_tvm_disabled_str: .string "\"test: 9506; cg: Sm_mcsr_cg; cp: cp_satp_from_m; bin: tvm_disabled\""
 
 // End of test data section and model specific data
 RVTEST_DATA_END

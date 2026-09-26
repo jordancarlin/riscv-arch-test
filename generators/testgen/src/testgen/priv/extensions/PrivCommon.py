@@ -24,7 +24,8 @@ VADDR_TIERS = [
     (55, "SV57_SUPPORTED"),
 ]
 
-# Standard S-mode CSRs, shared with the Sm suite (cp_scsr_from_m)
+# Legacy S-mode CSR descriptions, shared with Sm (cp_scsr_from_m).
+# sscratch uses the central CSR catalog in both suites.
 # Format: (CSR Name, Mask).  Mask specifies a set of bits to check
 
 # Create bit masks.  WPRI fields should be 0 to ignore reads.
@@ -53,13 +54,11 @@ S_CSRS = [
     # stvec.MODE[1] must be 0. Legal values for BASE are hard to describe with a reference model
     ("stvec", 0b10),
     ("scounteren", None),
-    ("sscratch", None),
     ("sepc", None),
     ("stval", None),
     ("sip", 0xFFFF),  # only test standard non-reserved portion
     ("sie", 0xFFFF),  # only test standard non-reserved portion
 ]
-S_CSR_SENVCFG = ("senvcfg", None)
 
 
 def _vaddr_walk_step(

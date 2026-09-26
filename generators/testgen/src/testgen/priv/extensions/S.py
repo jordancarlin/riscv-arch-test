@@ -11,10 +11,12 @@
 from testgen.asm.csr import csr_access_test, csr_walk_test, gen_csr_read_sigupd, gen_csr_write_sigupd
 from testgen.asm.helpers import comment_banner, write_sigupd
 from testgen.constants import INDENT
+from testgen.csr import generate as csr_patterns
+from testgen.csr.catalog import CSRS
+from testgen.csr.suites import suite_csr_test
 from testgen.data.state import TestData
 from testgen.data.test_chunk import TestChunk
 from testgen.priv.extensions.PrivCommon import (
-    S_CSR_SENVCFG,
     S_CSRS,
     S_SSTATUS_MASK,
     addr_csr_tests,
@@ -34,7 +36,6 @@ S_VADDR_CSRS = {
     "sepc": (0b00, {}),
     "stval": (0b00, {}),
 }
-# senvcfg CBIE/PMM reserved values are handled with warl_fields in the walk test below
 
 
 def _generate_scause_tests(test_data: TestData) -> list[str]:
@@ -294,8 +295,11 @@ def _generate_scsr_tests(test_data: TestData, test_chunks: list[TestChunk]) -> N
         tc.code.extend(csr_access_test(test_data, csr, covergroup, coverpoint))
 
     tc = test_data.new_test_chunk(test_chunks)
+    tc.code.extend(csr_patterns.csr_access_test(test_data, CSRS["sscratch"], covergroup, coverpoint))
+
+    tc = test_data.new_test_chunk(test_chunks)
     tc.code.extend(["", "#ifdef S1P12P0_OR_LATER_SUPPORTED"])
-    tc.code.extend(csr_access_test(test_data, S_CSR_SENVCFG, covergroup, coverpoint))
+    tc.code.extend(suite_csr_test(test_data, CSRS["senvcfg"], csr_patterns.csr_access_test, covergroup, coverpoint))
     tc.code.extend(["", "#endif"])
 
     ######################################
@@ -336,13 +340,11 @@ def _generate_scsr_tests(test_data: TestData, test_chunks: list[TestChunk]) -> N
         tc.code.extend(csr_walk_test(test_data, csr, covergroup, coverpoint))
 
     tc = test_data.new_test_chunk(test_chunks)
+    tc.code.extend(csr_patterns.csr_bitops_test(test_data, CSRS["sscratch"], covergroup, coverpoint))
+
+    tc = test_data.new_test_chunk(test_chunks)
     tc.code.extend(["", "#ifdef S1P12P0_OR_LATER_SUPPORTED"])
-    # senvcfg.CBIE (bits 5:4) and senvcfg.PMM (bits 33:32) are WARL fields with reserved
-    # values 0b10 and 0b01 respectively. Walk iterations that write a reserved value may
-    # legalize to any legal value, so those iterations check that the field is legal
-    # instead of exact-matching the reference model.
-    warl_fields = [("cbie", 4, 2, 0b10), ("pmm", 32, 2, 0b01)]
-    tc.code.extend(csr_walk_test(test_data, S_CSR_SENVCFG, covergroup, coverpoint, warl_fields=warl_fields))
+    tc.code.extend(suite_csr_test(test_data, CSRS["senvcfg"], csr_patterns.csr_bitops_test, covergroup, coverpoint))
     tc.code.extend(["", "#endif"])
 
     tc = test_data.new_test_chunk(test_chunks, "scsr_addr")

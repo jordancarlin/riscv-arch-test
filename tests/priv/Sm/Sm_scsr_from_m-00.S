@@ -15,7 +15,7 @@
 ##### END_TEST_CONFIG #####
 
 // Define the size of the signature region
-#define SIGUPD_COUNT 46
+#define SIGUPD_COUNT 70
 
 // Extra defines (if needed) to enable trap handlers, fpu, vector, etc.
 #define BOOT_TO_MMODE
@@ -36,136 +36,112 @@ RVTEST_BEGIN
 #ifdef S_SUPPORTED
 
 # CSR Access Tests for sstatus
-  csrr x8, sstatus    # Save CSR
+  csrr x15, sstatus    # Save CSR
 #if __riscv_xlen == 64
   LI(x14, 0x80000000808de722)    # Load 64-bit mask
 #else
   LI(x14, 0x808de722)   # Load 32-bit mask (upper bits of 0x80000000808de722 are ignored)
 #endif
-  LI(x9, -1)             # write all 1s
+  LI(x8, -1)             # write all 1s
 Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw1:
-  csrw sstatus, x9    # Write all 1s to CSR
-  # Read sstatus into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sstatus    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x80000000808de722
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw1_str)
+  csrw sstatus, x8    # Write all 1s to CSR
+  # Read sstatus into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, sstatus    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x80000000808de722
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw1_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw0:
   csrw sstatus, zero   # Write all 0s to CSR
-  # Read sstatus into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sstatus    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x80000000808de722
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw0_str)
+  # Read sstatus into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, sstatus    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x80000000808de722
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw0_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrs_all:
-  csrs sstatus, x9    # Set all 1s
-  # Read sstatus into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sstatus    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x80000000808de722
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrs_all_str)
+  csrs sstatus, x8    # Set all 1s
+  # Read sstatus into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, sstatus    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x80000000808de722
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrs_all_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrc_all:
-  csrc sstatus, x9    # Clear all 1s
-  # Read sstatus into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sstatus    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x80000000808de722
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrc_all_str)
-  csrw sstatus, x8       # Restore CSR
+  csrc sstatus, x8    # Clear all 1s
+  # Read sstatus into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, sstatus    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x80000000808de722
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrc_all_str)
+  csrw sstatus, x15       # Restore CSR
 
 # CSR Access Tests for stvec
   csrr x9, stvec    # Save CSR
-  LI(x8, 2)    # Load mask (0x2)
+  LI(x13, 2)    # Load mask (0x2)
   LI(x6, -1)             # write all 1s
 Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw1:
   csrw stvec, x6    # Write all 1s to CSR
-  # Read stvec into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, stvec    # Read CSR
-  and x15, x15, x8    # keep only masked bits 0x2
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw1_str)
+  # Read stvec into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, stvec    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x2
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw1_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw0:
   csrw stvec, zero   # Write all 0s to CSR
-  # Read stvec into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, stvec    # Read CSR
-  and x15, x15, x8    # keep only masked bits 0x2
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw0_str)
+  # Read stvec into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, stvec    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x2
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw0_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_stvec_csrs_all:
   csrs stvec, x6    # Set all 1s
-  # Read stvec into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, stvec    # Read CSR
-  and x15, x15, x8    # keep only masked bits 0x2
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrs_all_str)
+  # Read stvec into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, stvec    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x2
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrs_all_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrc_all:
   csrc stvec, x6    # Clear all 1s
-  # Read stvec into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, stvec    # Read CSR
-  and x15, x15, x8    # keep only masked bits 0x2
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrc_all_str)
+  # Read stvec into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, stvec    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x2
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrc_all_str)
   csrw stvec, x9       # Restore CSR
 
 # CSR Access Tests for scounteren
-  csrr x8, scounteren    # Save CSR
-  LI(x14, -1)             # write all 1s
+  csrr x6, scounteren    # Save CSR
+  LI(x15, -1)             # write all 1s
 Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw1:
-  csrw scounteren, x14    # Write all 1s to CSR
-  # Read scounteren into x9 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(scounteren, x9, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw1_str)
+  csrw scounteren, x15    # Write all 1s to CSR
+  # Read scounteren into x8 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(scounteren, x8, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw1_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw0:
   csrw scounteren, zero   # Write all 0s to CSR
-  # Read scounteren into x9 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(scounteren, x9, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw0_str)
+  # Read scounteren into x8 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(scounteren, x8, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw0_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrs_all:
-  csrs scounteren, x14    # Set all 1s
-  # Read scounteren into x9 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(scounteren, x9, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrs_all_str)
+  csrs scounteren, x15    # Set all 1s
+  # Read scounteren into x8 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(scounteren, x8, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrs_all_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrc_all:
-  csrc scounteren, x14    # Clear all 1s
-  # Read scounteren into x9 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(scounteren, x9, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrc_all_str)
-  csrw scounteren, x8       # Restore CSR
-
-# CSR Access Tests for sscratch
-  csrr x15, sscratch    # Save CSR
-  LI(x8, -1)             # write all 1s
-Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrw1:
-  csrw sscratch, x8    # Write all 1s to CSR
-  # Read sscratch into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sscratch, x6, Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrw1_str)
-
-Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrw0:
-  csrw sscratch, zero   # Write all 0s to CSR
-  # Read sscratch into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sscratch, x6, Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrw0_str)
-
-Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrs_all:
-  csrs sscratch, x8    # Set all 1s
-  # Read sscratch into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sscratch, x6, Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrs_all_str)
-
-Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrc_all:
-  csrc sscratch, x8    # Clear all 1s
-  # Read sscratch into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sscratch, x6, Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrc_all_str)
-  csrw sscratch, x15       # Restore CSR
+  csrc scounteren, x15    # Clear all 1s
+  # Read scounteren into x8 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(scounteren, x8, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrc_all_str)
+  csrw scounteren, x6       # Restore CSR
 
 # CSR Access Tests for sepc
   csrr x13, sepc    # Save CSR
-  LI(x9, -1)             # write all 1s
+  LI(x15, -1)             # write all 1s
 Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrw1:
-  csrw sepc, x9    # Write all 1s to CSR
+  csrw sepc, x15    # Write all 1s to CSR
   # Read sepc into x14 and check against expected.
   RVTEST_SIGUPD_CSR_READ(sepc, x14, Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrw1_str)
 
@@ -175,18 +151,18 @@ Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrw0:
   RVTEST_SIGUPD_CSR_READ(sepc, x14, Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrw0_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_sepc_csrs_all:
-  csrs sepc, x9    # Set all 1s
+  csrs sepc, x15    # Set all 1s
   # Read sepc into x14 and check against expected.
   RVTEST_SIGUPD_CSR_READ(sepc, x14, Sm_mcsr_cg_cp_scsr_from_m_sepc_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_sepc_csrs_all_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrc_all:
-  csrc sepc, x9    # Clear all 1s
+  csrc sepc, x15    # Clear all 1s
   # Read sepc into x14 and check against expected.
   RVTEST_SIGUPD_CSR_READ(sepc, x14, Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrc_all_str)
   csrw sepc, x13       # Restore CSR
 
 # CSR Access Tests for stval
-  csrr x15, stval    # Save CSR
+  csrr x8, stval    # Save CSR
   LI(x9, -1)             # write all 1s
 Sm_mcsr_cg_cp_scsr_from_m_stval_csrrw1:
   csrw stval, x9    # Write all 1s to CSR
@@ -207,17 +183,17 @@ Sm_mcsr_cg_cp_scsr_from_m_stval_csrrc_all:
   csrc stval, x9    # Clear all 1s
   # Read stval into x13 and check against expected.
   RVTEST_SIGUPD_CSR_READ(stval, x13, Sm_mcsr_cg_cp_scsr_from_m_stval_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_stval_csrrc_all_str)
-  csrw stval, x15       # Restore CSR
+  csrw stval, x8       # Restore CSR
 
 # CSR Access Tests for sip
-  csrr x8, sip    # Save CSR
-  LI(x9, 65535)    # Load mask (0xffff)
-  LI(x13, -1)             # write all 1s
+  csrr x13, sip    # Save CSR
+  LI(x14, 65535)    # Load mask (0xffff)
+  LI(x8, -1)             # write all 1s
 Sm_mcsr_cg_cp_scsr_from_m_sip_csrrw1:
-  csrw sip, x13    # Write all 1s to CSR
+  csrw sip, x8    # Write all 1s to CSR
   # Read sip into x15, keep only bits specified by mask, and check against expected.
   csrr x15, sip    # Read CSR
-  and x15, x15, x9    # keep only masked bits 0xffff
+  and x15, x15, x14    # keep only masked bits 0xffff
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_scsr_from_m_sip_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_sip_csrrw1_str)
 
@@ -225,89 +201,426 @@ Sm_mcsr_cg_cp_scsr_from_m_sip_csrrw0:
   csrw sip, zero   # Write all 0s to CSR
   # Read sip into x15, keep only bits specified by mask, and check against expected.
   csrr x15, sip    # Read CSR
-  and x15, x15, x9    # keep only masked bits 0xffff
+  and x15, x15, x14    # keep only masked bits 0xffff
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_scsr_from_m_sip_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_sip_csrrw0_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_sip_csrs_all:
-  csrs sip, x13    # Set all 1s
+  csrs sip, x8    # Set all 1s
   # Read sip into x15, keep only bits specified by mask, and check against expected.
   csrr x15, sip    # Read CSR
-  and x15, x15, x9    # keep only masked bits 0xffff
+  and x15, x15, x14    # keep only masked bits 0xffff
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_scsr_from_m_sip_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_sip_csrs_all_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_sip_csrrc_all:
-  csrc sip, x13    # Clear all 1s
+  csrc sip, x8    # Clear all 1s
   # Read sip into x15, keep only bits specified by mask, and check against expected.
   csrr x15, sip    # Read CSR
-  and x15, x15, x9    # keep only masked bits 0xffff
+  and x15, x15, x14    # keep only masked bits 0xffff
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_scsr_from_m_sip_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_sip_csrrc_all_str)
-  csrw sip, x8       # Restore CSR
+  csrw sip, x13       # Restore CSR
 
 # CSR Access Tests for sie
-  csrr x14, sie    # Save CSR
-  LI(x15, 65535)    # Load mask (0xffff)
-  LI(x13, -1)             # write all 1s
+  csrr x15, sie    # Save CSR
+  LI(x14, 65535)    # Load mask (0xffff)
+  LI(x6, -1)             # write all 1s
 Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw1:
-  csrw sie, x13    # Write all 1s to CSR
-  # Read sie into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, sie    # Read CSR
-  and x8, x8, x15    # keep only masked bits 0xffff
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw1_str)
+  csrw sie, x6    # Write all 1s to CSR
+  # Read sie into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, sie    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0xffff
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw1_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw0:
   csrw sie, zero   # Write all 0s to CSR
-  # Read sie into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, sie    # Read CSR
-  and x8, x8, x15    # keep only masked bits 0xffff
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw0_str)
+  # Read sie into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, sie    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0xffff
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw0_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_sie_csrs_all:
-  csrs sie, x13    # Set all 1s
-  # Read sie into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, sie    # Read CSR
-  and x8, x8, x15    # keep only masked bits 0xffff
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_sie_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_sie_csrs_all_str)
+  csrs sie, x6    # Set all 1s
+  # Read sie into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, sie    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0xffff
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_scsr_from_m_sie_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_sie_csrs_all_str)
 
 Sm_mcsr_cg_cp_scsr_from_m_sie_csrrc_all:
-  csrc sie, x13    # Clear all 1s
-  # Read sie into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, sie    # Read CSR
-  and x8, x8, x15    # keep only masked bits 0xffff
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrc_all_str)
-  csrw sie, x14       # Restore CSR
+  csrc sie, x6    # Clear all 1s
+  # Read sie into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, sie    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0xffff
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_sie_csrrc_all_str)
+  csrw sie, x15       # Restore CSR
+#if defined(S_SUPPORTED)
+
+# =============================================================================
+# sscratch CSR access tests
+# =============================================================================
+# Save sscratch.
+  csrr x6, sscratch
+
+# sscratch: write ones
+  LI(x15, -1)
+Sm_mcsr_cg_cp_scsr_from_m_sscratch_write_ones_VALUE:
+  csrw sscratch, x15
+  csrr x14, sscratch
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_scsr_from_m_sscratch_write_ones_VALUE, Sm_mcsr_cg_cp_scsr_from_m_sscratch_write_ones_VALUE_str)
+
+# sscratch: write zeros
+Sm_mcsr_cg_cp_scsr_from_m_sscratch_write_zeros_VALUE:
+  csrw sscratch, zero
+  csrr x14, sscratch
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_scsr_from_m_sscratch_write_zeros_VALUE, Sm_mcsr_cg_cp_scsr_from_m_sscratch_write_zeros_VALUE_str)
+
+# sscratch: set ones
+  LI(x15, -1)
+Sm_mcsr_cg_cp_scsr_from_m_sscratch_set_ones_VALUE:
+  csrs sscratch, x15
+  csrr x14, sscratch
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_scsr_from_m_sscratch_set_ones_VALUE, Sm_mcsr_cg_cp_scsr_from_m_sscratch_set_ones_VALUE_str)
+
+# sscratch: clear ones
+  LI(x15, -1)
+Sm_mcsr_cg_cp_scsr_from_m_sscratch_clear_ones_VALUE:
+  csrc sscratch, x15
+  csrr x14, sscratch
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_scsr_from_m_sscratch_clear_ones_VALUE, Sm_mcsr_cg_cp_scsr_from_m_sscratch_clear_ones_VALUE_str)
+
+# Restore sscratch.
+  csrw sscratch, x6
+
+#endif
 
 #ifdef S1P12P0_OR_LATER_SUPPORTED
+#if defined(S1P12P0_OR_LATER_SUPPORTED)
 
-# CSR Access Tests for senvcfg
-  csrr x15, senvcfg    # Save CSR
-  LI(x14, -1)             # write all 1s
-Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrw1:
-  csrw senvcfg, x14    # Write all 1s to CSR
-  # Read senvcfg into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(senvcfg, x6, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrw1, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrw1_str)
+# =============================================================================
+# senvcfg CSR access tests
+# =============================================================================
+# Save senvcfg.
+  csrr x14, senvcfg
 
-Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrw0:
-  csrw senvcfg, zero   # Write all 0s to CSR
-  # Read senvcfg into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(senvcfg, x6, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrw0, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrw0_str)
+# senvcfg: write ones
+#if __riscv_xlen == 32
+  LI(x9, -0xfe)
+#else
+  LI(x9, -0x3000000fe)
+#endif
+  and x13, x14, x9
+#if __riscv_xlen == 32
+  LI(x9, 0xfd)
+#else
+  LI(x9, 0x3000000fd)
+#endif
+  or x8, x13, x9
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_FIOM:
+  csrw senvcfg, x8
+# Check senvcfg.FIOM.
+  csrr x13, senvcfg
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_FIOM, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_FIOM_str)
+# Check senvcfg.LPE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_LPE:
+  csrr x13, senvcfg
+  srli x13, x13, 2
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_LPE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_LPE_str)
+# Check senvcfg.SSE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_SSE:
+  csrr x13, senvcfg
+  srli x13, x13, 3
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_SSE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_SSE_str)
+# Check senvcfg.CBIE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBIE:
+  csrr x13, senvcfg
+  srli x13, x13, 4
+  andi x13, x13, 0x3
+#if defined(ZICBOM_SUPPORTED)
+  mv x8, x13
+#else
+# Legal WARL value: 1 if valid, 0 otherwise.
+  LI(x8, 0)
+  LI(x9, 0)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+  LI(x9, 1)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+  LI(x9, 3)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+#endif
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBIE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBIE_str)
+# Check senvcfg.CBCFE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBCFE:
+  csrr x13, senvcfg
+  srli x13, x13, 6
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBCFE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBCFE_str)
+# Check senvcfg.CBZE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBZE:
+  csrr x13, senvcfg
+  srli x13, x13, 7
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBZE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBZE_str)
+#if __riscv_xlen == 64
+# Check senvcfg.PMM.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_PMM:
+  csrr x13, senvcfg
+  srli x13, x13, 32
+  andi x13, x13, 0x3
+# Legal WARL value: 1 if valid, 0 otherwise.
+  LI(x8, 0)
+  LI(x9, 0)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+  LI(x9, 2)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+  LI(x9, 3)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_PMM, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_PMM_str)
+#endif
 
-Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrs_all:
-  csrs senvcfg, x14    # Set all 1s
-  # Read senvcfg into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(senvcfg, x6, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrs_all, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrs_all_str)
+# senvcfg: write zeros
+#if __riscv_xlen == 32
+  LI(x9, -0xfe)
+#else
+  LI(x9, -0x3000000fe)
+#endif
+  and x13, x14, x9
+  LI(x9, 0)
+  or x8, x13, x9
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_FIOM:
+  csrw senvcfg, x8
+# Check senvcfg.FIOM.
+  csrr x13, senvcfg
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_FIOM, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_FIOM_str)
+# Check senvcfg.LPE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_LPE:
+  csrr x13, senvcfg
+  srli x13, x13, 2
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_LPE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_LPE_str)
+# Check senvcfg.SSE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_SSE:
+  csrr x13, senvcfg
+  srli x13, x13, 3
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_SSE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_SSE_str)
+# Check senvcfg.CBIE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBIE:
+  csrr x13, senvcfg
+  srli x13, x13, 4
+  andi x13, x13, 0x3
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBIE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBIE_str)
+# Check senvcfg.CBCFE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBCFE:
+  csrr x13, senvcfg
+  srli x13, x13, 6
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBCFE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBCFE_str)
+# Check senvcfg.CBZE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBZE:
+  csrr x13, senvcfg
+  srli x13, x13, 7
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBZE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBZE_str)
+#if __riscv_xlen == 64
+# Check senvcfg.PMM.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_PMM:
+  csrr x13, senvcfg
+  srli x13, x13, 32
+  andi x13, x13, 0x3
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_PMM, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_PMM_str)
+#endif
 
-Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrc_all:
-  csrc senvcfg, x14    # Clear all 1s
-  # Read senvcfg into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(senvcfg, x6, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrc_all, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrc_all_str)
-  csrw senvcfg, x15       # Restore CSR
+# senvcfg: set ones
+#if __riscv_xlen == 32
+  LI(x8, 0xfd)
+#else
+  LI(x8, 0x3000000fd)
+#endif
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_FIOM:
+  csrs senvcfg, x8
+# Check senvcfg.FIOM.
+  csrr x13, senvcfg
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_FIOM, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_FIOM_str)
+# Check senvcfg.LPE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_LPE:
+  csrr x13, senvcfg
+  srli x13, x13, 2
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_LPE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_LPE_str)
+# Check senvcfg.SSE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_SSE:
+  csrr x13, senvcfg
+  srli x13, x13, 3
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_SSE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_SSE_str)
+# Check senvcfg.CBIE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBIE:
+  csrr x13, senvcfg
+  srli x13, x13, 4
+  andi x13, x13, 0x3
+#if defined(ZICBOM_SUPPORTED)
+  mv x8, x13
+#else
+# Legal WARL value: 1 if valid, 0 otherwise.
+  LI(x8, 0)
+  LI(x9, 0)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+  LI(x9, 1)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+  LI(x9, 3)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+#endif
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBIE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBIE_str)
+# Check senvcfg.CBCFE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBCFE:
+  csrr x13, senvcfg
+  srli x13, x13, 6
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBCFE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBCFE_str)
+# Check senvcfg.CBZE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBZE:
+  csrr x13, senvcfg
+  srli x13, x13, 7
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBZE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBZE_str)
+#if __riscv_xlen == 64
+# Check senvcfg.PMM.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_PMM:
+  csrr x13, senvcfg
+  srli x13, x13, 32
+  andi x13, x13, 0x3
+# Legal WARL value: 1 if valid, 0 otherwise.
+  LI(x8, 0)
+  LI(x9, 0)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+  LI(x9, 2)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+  LI(x9, 3)
+  xor x9, x13, x9
+  seqz x9, x9
+  or x8, x8, x9
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_PMM, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_PMM_str)
+#endif
+
+# senvcfg: clear ones
+#if __riscv_xlen == 32
+  LI(x8, 0xfd)
+#else
+  LI(x8, 0x3000000fd)
+#endif
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_FIOM:
+  csrc senvcfg, x8
+# Check senvcfg.FIOM.
+  csrr x13, senvcfg
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_FIOM, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_FIOM_str)
+# Check senvcfg.LPE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_LPE:
+  csrr x13, senvcfg
+  srli x13, x13, 2
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_LPE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_LPE_str)
+# Check senvcfg.SSE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_SSE:
+  csrr x13, senvcfg
+  srli x13, x13, 3
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_SSE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_SSE_str)
+# Check senvcfg.CBIE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBIE:
+  csrr x13, senvcfg
+  srli x13, x13, 4
+  andi x13, x13, 0x3
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBIE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBIE_str)
+# Check senvcfg.CBCFE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBCFE:
+  csrr x13, senvcfg
+  srli x13, x13, 6
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBCFE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBCFE_str)
+# Check senvcfg.CBZE.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBZE:
+  csrr x13, senvcfg
+  srli x13, x13, 7
+  andi x13, x13, 0x1
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBZE, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBZE_str)
+#if __riscv_xlen == 64
+# Check senvcfg.PMM.
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_PMM:
+  csrr x13, senvcfg
+  srli x13, x13, 32
+  andi x13, x13, 0x3
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_PMM, Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_PMM_str)
+#endif
+
+# Restore senvcfg.
+  csrw senvcfg, x14
+
+#endif
 
 #endif // S1P12P0_OR_LATER_SUPPORTED
 #endif // S_SUPPORTED
@@ -322,42 +635,66 @@ RVTEST_DATA_BEGIN
 
 
 // Testcase strings
-Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw1_str: .string "\"test: 7697; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sstatus_csrrw1\""
-Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw0_str: .string "\"test: 7698; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sstatus_csrrw0\""
-Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrs_all_str: .string "\"test: 7699; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sstatus_csrs_all\""
-Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrc_all_str: .string "\"test: 7700; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sstatus_csrrc_all\""
-Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw1_str: .string "\"test: 7701; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stvec_csrrw1\""
-Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw0_str: .string "\"test: 7702; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stvec_csrrw0\""
-Sm_mcsr_cg_cp_scsr_from_m_stvec_csrs_all_str: .string "\"test: 7703; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stvec_csrs_all\""
-Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrc_all_str: .string "\"test: 7704; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stvec_csrrc_all\""
-Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw1_str: .string "\"test: 7705; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: scounteren_csrrw1\""
-Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw0_str: .string "\"test: 7706; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: scounteren_csrrw0\""
-Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrs_all_str: .string "\"test: 7707; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: scounteren_csrs_all\""
-Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrc_all_str: .string "\"test: 7708; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: scounteren_csrrc_all\""
-Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrw1_str: .string "\"test: 7709; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sscratch_csrrw1\""
-Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrw0_str: .string "\"test: 7710; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sscratch_csrrw0\""
-Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrs_all_str: .string "\"test: 7711; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sscratch_csrs_all\""
-Sm_mcsr_cg_cp_scsr_from_m_sscratch_csrrc_all_str: .string "\"test: 7712; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sscratch_csrrc_all\""
-Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrw1_str: .string "\"test: 7713; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sepc_csrrw1\""
-Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrw0_str: .string "\"test: 7714; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sepc_csrrw0\""
-Sm_mcsr_cg_cp_scsr_from_m_sepc_csrs_all_str: .string "\"test: 7715; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sepc_csrs_all\""
-Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrc_all_str: .string "\"test: 7716; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sepc_csrrc_all\""
-Sm_mcsr_cg_cp_scsr_from_m_stval_csrrw1_str: .string "\"test: 7717; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stval_csrrw1\""
-Sm_mcsr_cg_cp_scsr_from_m_stval_csrrw0_str: .string "\"test: 7718; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stval_csrrw0\""
-Sm_mcsr_cg_cp_scsr_from_m_stval_csrs_all_str: .string "\"test: 7719; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stval_csrs_all\""
-Sm_mcsr_cg_cp_scsr_from_m_stval_csrrc_all_str: .string "\"test: 7720; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stval_csrrc_all\""
-Sm_mcsr_cg_cp_scsr_from_m_sip_csrrw1_str: .string "\"test: 7721; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sip_csrrw1\""
-Sm_mcsr_cg_cp_scsr_from_m_sip_csrrw0_str: .string "\"test: 7722; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sip_csrrw0\""
-Sm_mcsr_cg_cp_scsr_from_m_sip_csrs_all_str: .string "\"test: 7723; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sip_csrs_all\""
-Sm_mcsr_cg_cp_scsr_from_m_sip_csrrc_all_str: .string "\"test: 7724; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sip_csrrc_all\""
-Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw1_str: .string "\"test: 7725; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sie_csrrw1\""
-Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw0_str: .string "\"test: 7726; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sie_csrrw0\""
-Sm_mcsr_cg_cp_scsr_from_m_sie_csrs_all_str: .string "\"test: 7727; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sie_csrs_all\""
-Sm_mcsr_cg_cp_scsr_from_m_sie_csrrc_all_str: .string "\"test: 7728; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sie_csrrc_all\""
-Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrw1_str: .string "\"test: 7729; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_csrrw1\""
-Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrw0_str: .string "\"test: 7730; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_csrrw0\""
-Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrs_all_str: .string "\"test: 7731; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_csrs_all\""
-Sm_mcsr_cg_cp_scsr_from_m_senvcfg_csrrc_all_str: .string "\"test: 7732; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_csrrc_all\""
+Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw1_str: .string "\"test: 9445; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sstatus_csrrw1\""
+Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrw0_str: .string "\"test: 9446; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sstatus_csrrw0\""
+Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrs_all_str: .string "\"test: 9447; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sstatus_csrs_all\""
+Sm_mcsr_cg_cp_scsr_from_m_sstatus_csrrc_all_str: .string "\"test: 9448; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sstatus_csrrc_all\""
+Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw1_str: .string "\"test: 9449; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stvec_csrrw1\""
+Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrw0_str: .string "\"test: 9450; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stvec_csrrw0\""
+Sm_mcsr_cg_cp_scsr_from_m_stvec_csrs_all_str: .string "\"test: 9451; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stvec_csrs_all\""
+Sm_mcsr_cg_cp_scsr_from_m_stvec_csrrc_all_str: .string "\"test: 9452; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stvec_csrrc_all\""
+Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw1_str: .string "\"test: 9453; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: scounteren_csrrw1\""
+Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrw0_str: .string "\"test: 9454; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: scounteren_csrrw0\""
+Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrs_all_str: .string "\"test: 9455; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: scounteren_csrs_all\""
+Sm_mcsr_cg_cp_scsr_from_m_scounteren_csrrc_all_str: .string "\"test: 9456; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: scounteren_csrrc_all\""
+Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrw1_str: .string "\"test: 9457; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sepc_csrrw1\""
+Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrw0_str: .string "\"test: 9458; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sepc_csrrw0\""
+Sm_mcsr_cg_cp_scsr_from_m_sepc_csrs_all_str: .string "\"test: 9459; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sepc_csrs_all\""
+Sm_mcsr_cg_cp_scsr_from_m_sepc_csrrc_all_str: .string "\"test: 9460; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sepc_csrrc_all\""
+Sm_mcsr_cg_cp_scsr_from_m_stval_csrrw1_str: .string "\"test: 9461; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stval_csrrw1\""
+Sm_mcsr_cg_cp_scsr_from_m_stval_csrrw0_str: .string "\"test: 9462; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stval_csrrw0\""
+Sm_mcsr_cg_cp_scsr_from_m_stval_csrs_all_str: .string "\"test: 9463; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stval_csrs_all\""
+Sm_mcsr_cg_cp_scsr_from_m_stval_csrrc_all_str: .string "\"test: 9464; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: stval_csrrc_all\""
+Sm_mcsr_cg_cp_scsr_from_m_sip_csrrw1_str: .string "\"test: 9465; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sip_csrrw1\""
+Sm_mcsr_cg_cp_scsr_from_m_sip_csrrw0_str: .string "\"test: 9466; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sip_csrrw0\""
+Sm_mcsr_cg_cp_scsr_from_m_sip_csrs_all_str: .string "\"test: 9467; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sip_csrs_all\""
+Sm_mcsr_cg_cp_scsr_from_m_sip_csrrc_all_str: .string "\"test: 9468; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sip_csrrc_all\""
+Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw1_str: .string "\"test: 9469; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sie_csrrw1\""
+Sm_mcsr_cg_cp_scsr_from_m_sie_csrrw0_str: .string "\"test: 9470; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sie_csrrw0\""
+Sm_mcsr_cg_cp_scsr_from_m_sie_csrs_all_str: .string "\"test: 9471; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sie_csrs_all\""
+Sm_mcsr_cg_cp_scsr_from_m_sie_csrrc_all_str: .string "\"test: 9472; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sie_csrrc_all\""
+Sm_mcsr_cg_cp_scsr_from_m_sscratch_write_ones_VALUE_str: .string "\"test: 9473; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sscratch_write_ones_VALUE\""
+Sm_mcsr_cg_cp_scsr_from_m_sscratch_write_zeros_VALUE_str: .string "\"test: 9474; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sscratch_write_zeros_VALUE\""
+Sm_mcsr_cg_cp_scsr_from_m_sscratch_set_ones_VALUE_str: .string "\"test: 9475; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sscratch_set_ones_VALUE\""
+Sm_mcsr_cg_cp_scsr_from_m_sscratch_clear_ones_VALUE_str: .string "\"test: 9476; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: sscratch_clear_ones_VALUE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_FIOM_str: .string "\"test: 9477; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_ones_FIOM\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_LPE_str: .string "\"test: 9478; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_ones_LPE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_SSE_str: .string "\"test: 9479; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_ones_SSE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBIE_str: .string "\"test: 9480; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_ones_CBIE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBCFE_str: .string "\"test: 9481; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_ones_CBCFE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_CBZE_str: .string "\"test: 9482; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_ones_CBZE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_ones_PMM_str: .string "\"test: 9483; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_ones_PMM\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_FIOM_str: .string "\"test: 9484; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_zeros_FIOM\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_LPE_str: .string "\"test: 9485; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_zeros_LPE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_SSE_str: .string "\"test: 9486; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_zeros_SSE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBIE_str: .string "\"test: 9487; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_zeros_CBIE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBCFE_str: .string "\"test: 9488; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_zeros_CBCFE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_CBZE_str: .string "\"test: 9489; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_zeros_CBZE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_write_zeros_PMM_str: .string "\"test: 9490; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_write_zeros_PMM\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_FIOM_str: .string "\"test: 9491; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_set_ones_FIOM\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_LPE_str: .string "\"test: 9492; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_set_ones_LPE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_SSE_str: .string "\"test: 9493; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_set_ones_SSE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBIE_str: .string "\"test: 9494; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_set_ones_CBIE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBCFE_str: .string "\"test: 9495; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_set_ones_CBCFE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_CBZE_str: .string "\"test: 9496; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_set_ones_CBZE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_set_ones_PMM_str: .string "\"test: 9497; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_set_ones_PMM\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_FIOM_str: .string "\"test: 9498; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_clear_ones_FIOM\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_LPE_str: .string "\"test: 9499; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_clear_ones_LPE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_SSE_str: .string "\"test: 9500; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_clear_ones_SSE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBIE_str: .string "\"test: 9501; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_clear_ones_CBIE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBCFE_str: .string "\"test: 9502; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_clear_ones_CBCFE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_CBZE_str: .string "\"test: 9503; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_clear_ones_CBZE\""
+Sm_mcsr_cg_cp_scsr_from_m_senvcfg_clear_ones_PMM_str: .string "\"test: 9504; cg: Sm_mcsr_cg; cp: cp_scsr_from_m; bin: senvcfg_clear_ones_PMM\""
 
 // End of test data section and model specific data
 RVTEST_DATA_END

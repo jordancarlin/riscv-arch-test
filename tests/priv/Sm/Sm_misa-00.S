@@ -34,57 +34,57 @@ RVTEST_BEGIN
 /////////////////////////////////
 
 # Save misa
-  csrr x6, misa      # save misa
+  csrr x15, misa      # save misa
 # Load 1s into msb and msb-1 corresponding to misa.MXL bitfields
-  LI(x14, -1)           # all 1s
-  srli x14, x14, 1  # all 1s except msb = 0
-  not x14, x14      # 1 in msb (works regardless of XLEN)
-  srli x9, x14, 1 # 1s in msb-1
-  or x8, x14, x9 # 1s in both msb and msb-1
+  LI(x8, -1)           # all 1s
+  srli x8, x8, 1  # all 1s except msb = 0
+  not x8, x8      # 1 in msb (works regardless of XLEN)
+  srli x13, x8, 1 # 1s in msb-1
+  or x9, x8, x13 # 1s in both msb and msb-1
 
 Sm_mcsr_cg_cp_misa_mxl_csrc_11:
-  csrc misa, x8       # attempt to clear both MXL bits
-  csrr x13, misa          # read misa to check MXL bits are unchanged
-  and x13, x13, x8 # mask off bits below MXL
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_mxl_csrc_11, Sm_mcsr_cg_cp_misa_mxl_csrc_11_str)
+  csrc misa, x9       # attempt to clear both MXL bits
+  csrr x6, misa          # read misa to check MXL bits are unchanged
+  and x6, x6, x9 # mask off bits below MXL
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_misa_mxl_csrc_11, Sm_mcsr_cg_cp_misa_mxl_csrc_11_str)
 
 Sm_mcsr_cg_cp_misa_mxl_csrs_11:
-  csrs misa, x8       # attempt to set both MXL bits
-  csrr x13, misa          # read misa to check MXL bits are unchanged
-  and x13, x13, x8 # mask off bits below MXL
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_mxl_csrs_11, Sm_mcsr_cg_cp_misa_mxl_csrs_11_str)
+  csrs misa, x9       # attempt to set both MXL bits
+  csrr x6, misa          # read misa to check MXL bits are unchanged
+  and x6, x6, x9 # mask off bits below MXL
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_misa_mxl_csrs_11, Sm_mcsr_cg_cp_misa_mxl_csrs_11_str)
 
 Sm_mcsr_cg_cp_misa_mxl_csrw_00:
   csrw misa, zero           # attempt to write 00 to MXL bits
-  csrr x13, misa          # read misa to check MXL bits are unchanged
-  and x13, x13, x8 # mask off bits below MXL
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_mxl_csrw_00, Sm_mcsr_cg_cp_misa_mxl_csrw_00_str)
+  csrr x6, misa          # read misa to check MXL bits are unchanged
+  and x6, x6, x9 # mask off bits below MXL
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_misa_mxl_csrw_00, Sm_mcsr_cg_cp_misa_mxl_csrw_00_str)
 
 Sm_mcsr_cg_cp_misa_mxl_csrw_01:
-  csrw misa, x9       # attempt to write 01 to MXL bits
-  csrr x13, misa          # read misa to check MXL bits are unchanged
-  and x13, x13, x8 # mask off bits below MXL
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_mxl_csrw_01, Sm_mcsr_cg_cp_misa_mxl_csrw_01_str)
+  csrw misa, x13       # attempt to write 01 to MXL bits
+  csrr x6, misa          # read misa to check MXL bits are unchanged
+  and x6, x6, x9 # mask off bits below MXL
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_misa_mxl_csrw_01, Sm_mcsr_cg_cp_misa_mxl_csrw_01_str)
 
 Sm_mcsr_cg_cp_misa_mxl_csrw_10:
-  csrw misa, x14        # attempt to write 10 to MXL bits
-  csrr x13, misa          # read misa to check MXL bits are unchanged
-  and x13, x13, x8 # mask off bits below MXL
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_mxl_csrw_10, Sm_mcsr_cg_cp_misa_mxl_csrw_10_str)
+  csrw misa, x8        # attempt to write 10 to MXL bits
+  csrr x6, misa          # read misa to check MXL bits are unchanged
+  and x6, x6, x9 # mask off bits below MXL
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_misa_mxl_csrw_10, Sm_mcsr_cg_cp_misa_mxl_csrw_10_str)
 
 Sm_mcsr_cg_cp_misa_mxl_csrw_11:
-  csrw misa, x8       # attempt to write 11 to MXL bits
-  csrr x13, misa          # read misa to check MXL bits are unchanged
-  and x13, x13, x8 # mask off bits below MXL
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_mxl_csrw_11, Sm_mcsr_cg_cp_misa_mxl_csrw_11_str)
+  csrw misa, x9       # attempt to write 11 to MXL bits
+  csrr x6, misa          # read misa to check MXL bits are unchanged
+  and x6, x6, x9 # mask off bits below MXL
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_misa_mxl_csrw_11, Sm_mcsr_cg_cp_misa_mxl_csrw_11_str)
 
-  csrw misa, x6    # restore misa
+  csrw misa, x15    # restore misa
 
 /////////////////////////////////
 // cp_misa_dependencies
@@ -92,102 +92,102 @@ Sm_mcsr_cg_cp_misa_mxl_csrw_11:
 /////////////////////////////////
 
 # Write I = 1, E = 1. Error if this reads back the same.
-  csrr x14, misa # save original value of misa
-  LI(x9, 0b00000000000000000100010000) # Illegal value to write to misa and read back
+  csrr x6, misa # save original value of misa
+  LI(x13, 0b00000000000000000100010000) # Illegal value to write to misa and read back
   LI(x8, 0b00000000000000000100010000) # bits to check
 Sm_mcsr_cg_cp_misa_dependencies_i1e1:
-  csrw misa, x9 # attempt to write misa
-  csrr x15, misa # read back
-  csrw misa, x14 # restore original value of misa
-  and x15, x15, x8 # Mask off don't care bits
-  xor x15, x15, x9 # Zero result means failing condition observed
-  seqz x15, x15  # 1 indicates illegal outcome.  Ref model should always produce 0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_misa_dependencies_i1e1, Sm_mcsr_cg_cp_misa_dependencies_i1e1_str)
+  csrw misa, x13 # attempt to write misa
+  csrr x14, misa # read back
+  csrw misa, x6 # restore original value of misa
+  and x14, x14, x8 # Mask off don't care bits
+  xor x14, x14, x13 # Zero result means failing condition observed
+  seqz x14, x14  # 1 indicates illegal outcome.  Ref model should always produce 0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_misa_dependencies_i1e1, Sm_mcsr_cg_cp_misa_dependencies_i1e1_str)
 
 # Write I = 0, E = 0. Error if this reads back the same.
-  csrr x9, misa # save original value of misa
-  LI(x15, 0b00000000000000000000000000) # Illegal value to write to misa and read back
-  LI(x14, 0b00000000000000000000000000) # bits to check
+  csrr x14, misa # save original value of misa
+  LI(x9, 0b00000000000000000000000000) # Illegal value to write to misa and read back
+  LI(x13, 0b00000000000000000000000000) # bits to check
 Sm_mcsr_cg_cp_misa_dependencies_i0e0:
-  csrw misa, x15 # attempt to write misa
-  csrr x13, misa # read back
-  csrw misa, x9 # restore original value of misa
-  and x13, x13, x14 # Mask off don't care bits
-  xor x13, x13, x15 # Zero result means failing condition observed
-  seqz x13, x13  # 1 indicates illegal outcome.  Ref model should always produce 0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_dependencies_i0e0, Sm_mcsr_cg_cp_misa_dependencies_i0e0_str)
+  csrw misa, x9 # attempt to write misa
+  csrr x8, misa # read back
+  csrw misa, x14 # restore original value of misa
+  and x8, x8, x13 # Mask off don't care bits
+  xor x8, x8, x9 # Zero result means failing condition observed
+  seqz x8, x8  # 1 indicates illegal outcome.  Ref model should always produce 0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_misa_dependencies_i0e0, Sm_mcsr_cg_cp_misa_dependencies_i0e0_str)
 
 # Write F=0, D = 1. Error if this reads back the same.
-  csrr x9, misa # save original value of misa
-  LI(x8, 0b00000000000000000000001000) # Illegal value to write to misa and read back
-  LI(x15, 0b00000000000000000000101000) # bits to check
+  csrr x8, misa # save original value of misa
+  LI(x6, 0b00000000000000000000001000) # Illegal value to write to misa and read back
+  LI(x13, 0b00000000000000000000101000) # bits to check
 Sm_mcsr_cg_cp_misa_dependencies_f0d1:
-  csrw misa, x8 # attempt to write misa
-  csrr x13, misa # read back
-  csrw misa, x9 # restore original value of misa
-  and x13, x13, x15 # Mask off don't care bits
-  xor x13, x13, x8 # Zero result means failing condition observed
-  seqz x13, x13  # 1 indicates illegal outcome.  Ref model should always produce 0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_dependencies_f0d1, Sm_mcsr_cg_cp_misa_dependencies_f0d1_str)
+  csrw misa, x6 # attempt to write misa
+  csrr x14, misa # read back
+  csrw misa, x8 # restore original value of misa
+  and x14, x14, x13 # Mask off don't care bits
+  xor x14, x14, x6 # Zero result means failing condition observed
+  seqz x14, x14  # 1 indicates illegal outcome.  Ref model should always produce 0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_misa_dependencies_f0d1, Sm_mcsr_cg_cp_misa_dependencies_f0d1_str)
 
 # Write F=1, D = 0, Q = 1. Error if this reads back the same.
-  csrr x14, misa # save original value of misa
-  LI(x9, 0b00000000010000000000100000) # Illegal value to write to misa and read back
-  LI(x8, 0b00000000010000000000101000) # bits to check
+  csrr x13, misa # save original value of misa
+  LI(x8, 0b00000000010000000000100000) # Illegal value to write to misa and read back
+  LI(x14, 0b00000000010000000000101000) # bits to check
 Sm_mcsr_cg_cp_misa_dependencies_f1d0q1:
-  csrw misa, x9 # attempt to write misa
-  csrr x13, misa # read back
-  csrw misa, x14 # restore original value of misa
-  and x13, x13, x8 # Mask off don't care bits
-  xor x13, x13, x9 # Zero result means failing condition observed
-  seqz x13, x13  # 1 indicates illegal outcome.  Ref model should always produce 0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_dependencies_f1d0q1, Sm_mcsr_cg_cp_misa_dependencies_f1d0q1_str)
+  csrw misa, x8 # attempt to write misa
+  csrr x9, misa # read back
+  csrw misa, x13 # restore original value of misa
+  and x9, x9, x14 # Mask off don't care bits
+  xor x9, x9, x8 # Zero result means failing condition observed
+  seqz x9, x9  # 1 indicates illegal outcome.  Ref model should always produce 0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_misa_dependencies_f1d0q1, Sm_mcsr_cg_cp_misa_dependencies_f1d0q1_str)
 
 # Write S = 1, U = 0. Error if this reads back the same.
   csrr x9, misa # save original value of misa
-  LI(x8, 0b00000001000000000000000000) # Illegal value to write to misa and read back
-  LI(x15, 0b00000101000000000000000000) # bits to check
+  LI(x14, 0b00000001000000000000000000) # Illegal value to write to misa and read back
+  LI(x13, 0b00000101000000000000000000) # bits to check
 Sm_mcsr_cg_cp_misa_dependencies_s1u0:
+  csrw misa, x14 # attempt to write misa
+  csrr x8, misa # read back
+  csrw misa, x9 # restore original value of misa
+  and x8, x8, x13 # Mask off don't care bits
+  xor x8, x8, x14 # Zero result means failing condition observed
+  seqz x8, x8  # 1 indicates illegal outcome.  Ref model should always produce 0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_misa_dependencies_s1u0, Sm_mcsr_cg_cp_misa_dependencies_s1u0_str)
+
+# Write H = 1, S = 0. Error if this reads back the same.
+  csrr x9, misa # save original value of misa
+  LI(x8, 0b00000000000000000010000000) # Illegal value to write to misa and read back
+  LI(x14, 0b00000001000000000010000000) # bits to check
+Sm_mcsr_cg_cp_misa_dependencies_h1s0:
   csrw misa, x8 # attempt to write misa
   csrr x13, misa # read back
   csrw misa, x9 # restore original value of misa
-  and x13, x13, x15 # Mask off don't care bits
+  and x13, x13, x14 # Mask off don't care bits
   xor x13, x13, x8 # Zero result means failing condition observed
   seqz x13, x13  # 1 indicates illegal outcome.  Ref model should always produce 0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_dependencies_s1u0, Sm_mcsr_cg_cp_misa_dependencies_s1u0_str)
-
-# Write H = 1, S = 0. Error if this reads back the same.
-  csrr x8, misa # save original value of misa
-  LI(x14, 0b00000000000000000010000000) # Illegal value to write to misa and read back
-  LI(x13, 0b00000001000000000010000000) # bits to check
-Sm_mcsr_cg_cp_misa_dependencies_h1s0:
-  csrw misa, x14 # attempt to write misa
-  csrr x15, misa # read back
-  csrw misa, x8 # restore original value of misa
-  and x15, x15, x13 # Mask off don't care bits
-  xor x15, x15, x14 # Zero result means failing condition observed
-  seqz x15, x15  # 1 indicates illegal outcome.  Ref model should always produce 0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_misa_dependencies_h1s0, Sm_mcsr_cg_cp_misa_dependencies_h1s0_str)
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_dependencies_h1s0, Sm_mcsr_cg_cp_misa_dependencies_h1s0_str)
 
 # Write H = 1, S = 1, U = 0. Error if this reads back the same.
-  csrr x13, misa # save original value of misa
-  LI(x8, 0b00000001000000000010000000) # Illegal value to write to misa and read back
-  LI(x15, 0b00000101000000000010000000) # bits to check
+  csrr x6, misa # save original value of misa
+  LI(x13, 0b00000001000000000010000000) # Illegal value to write to misa and read back
+  LI(x14, 0b00000101000000000010000000) # bits to check
 Sm_mcsr_cg_cp_misa_dependencies_h1s1u0:
-  csrw misa, x8 # attempt to write misa
-  csrr x14, misa # read back
-  csrw misa, x13 # restore original value of misa
-  and x14, x14, x15 # Mask off don't care bits
-  xor x14, x14, x8 # Zero result means failing condition observed
-  seqz x14, x14  # 1 indicates illegal outcome.  Ref model should always produce 0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_misa_dependencies_h1s1u0, Sm_mcsr_cg_cp_misa_dependencies_h1s1u0_str)
+  csrw misa, x13 # attempt to write misa
+  csrr x9, misa # read back
+  csrw misa, x6 # restore original value of misa
+  and x9, x9, x14 # Mask off don't care bits
+  xor x9, x9, x13 # Zero result means failing condition observed
+  seqz x9, x9  # 1 indicates illegal outcome.  Ref model should always produce 0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_misa_dependencies_h1s1u0, Sm_mcsr_cg_cp_misa_dependencies_h1s1u0_str)
 
 
 /////////////////////////////////
@@ -195,37 +195,37 @@ Sm_mcsr_cg_cp_misa_dependencies_h1s1u0:
 //   Try to clear misa.C.  Should not change if PC is at 2-byte aligned address
 /////////////////////////////////
 
-  csrr x6, misa   # save misa
+  csrr x15, misa   # save misa
   LI(x13, 0b100)      # bitmask for C extension bit in misa
 
   csrs misa, x13     # set misa.C if possible
-  csrr x9, misa          # read misa to check if misa.C was set
-  and x9, x9, x13 # mask off all but C bit
+  csrr x8, misa          # read misa to check if misa.C was set
+  and x8, x8, x13 # mask off all but C bit
   .p2align 2 # 4-byte alignment
 Sm_mcsr_cg_cp_misa_clear_c_pc_1_0:
   csrc misa, x13      # attempt to clear misa.C with misa.C = 1 and PC 4-byte aligned
-  csrr x15, misa          # read misa to check misa.C changed if writable
-  and x15, x15, x13 # mask off all but C bit
-  xor x15, x15, x9 # check if misa.C differed before and after clear attempt; might be 4 if misa.C is mutable because it is allowed to differ when PC is 4-byte aligned
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_misa_clear_c_pc_1_0, Sm_mcsr_cg_cp_misa_clear_c_pc_1_0_str)
+  csrr x14, misa          # read misa to check misa.C changed if writable
+  and x14, x14, x13 # mask off all but C bit
+  xor x14, x14, x8 # check if misa.C differed before and after clear attempt; might be 4 if misa.C is mutable because it is allowed to differ when PC is 4-byte aligned
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_misa_clear_c_pc_1_0, Sm_mcsr_cg_cp_misa_clear_c_pc_1_0_str)
 
 #ifdef ZCA_SUPPORTED
   csrs misa, x13     # set misa.C if possible
-  csrr x9, misa          # read misa to check if misa.C was set
-  and x9, x9, x13 # mask off all but C bit
+  csrr x8, misa          # read misa to check if misa.C was set
+  and x8, x8, x13 # mask off all but C bit
   .p2align 2 # 4-byte alignment
   .half 0x0001            # c.nop, can't write that directly because Zca not enabled for Sm
 Sm_mcsr_cg_cp_misa_clear_c_pc_1_1:
   csrc misa, x13      # attempt to clear misa.C with misa.C = 1 and PC 2-byte aligned
-  csrr x15, misa          # read misa to check misa.C didn't change
+  csrr x14, misa          # read misa to check misa.C didn't change
   .p2align 2
-  and x15, x15, x13 # mask off all but C bit
-  xor x15, x15, x9 # check if misa.C differed before and after clear attempt; should be 0 because writing misa.C is not allowed to differ when PC is 2-byte aligned
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_misa_clear_c_pc_1_1, Sm_mcsr_cg_cp_misa_clear_c_pc_1_1_str)
+  and x14, x14, x13 # mask off all but C bit
+  xor x14, x14, x8 # check if misa.C differed before and after clear attempt; should be 0 because writing misa.C is not allowed to differ when PC is 2-byte aligned
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_misa_clear_c_pc_1_1, Sm_mcsr_cg_cp_misa_clear_c_pc_1_1_str)
 #endif
-  csrw misa, x6    # restore misa
+  csrw misa, x15    # restore misa
 
 /////////////////////////////////
 // cp_misa_bv
@@ -234,43 +234,43 @@ Sm_mcsr_cg_cp_misa_clear_c_pc_1_1:
 /////////////////////////////////
 
 #ifdef SM1P13P0_OR_LATER_SUPPORTED
-  csrr x15, misa       # save misa before Sm1p13 B/V tests
-  LI(x6, 0x2)                 # bitmask for misa.B (bit 1)
-  LI(x8, 0x200000)            # bitmask for misa.V (bit 21)
+  csrr x8, misa       # save misa before Sm1p13 B/V tests
+  LI(x14, 0x2)                 # bitmask for misa.B (bit 1)
+  LI(x15, 0x200000)            # bitmask for misa.V (bit 21)
 
 # Set misa.B and read back
 Sm_mcsr_cg_cp_misa_bv_set_B:
-  csrs misa, x6              # attempt to set misa.B
-  csrr x9, misa             # read back misa
-  and x9, x9, x6     # isolate misa.B
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_misa_bv_set_B, Sm_mcsr_cg_cp_misa_bv_set_B_str)
+  csrs misa, x14              # attempt to set misa.B
+  csrr x13, misa             # read back misa
+  and x13, x13, x14     # isolate misa.B
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_bv_set_B, Sm_mcsr_cg_cp_misa_bv_set_B_str)
 
 # Clear misa.B and read back
 Sm_mcsr_cg_cp_misa_bv_clr_B:
-  csrc misa, x6              # attempt to clear misa.B
-  csrr x9, misa             # read back misa
-  and x9, x9, x6     # isolate misa.B
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_misa_bv_clr_B, Sm_mcsr_cg_cp_misa_bv_clr_B_str)
+  csrc misa, x14              # attempt to clear misa.B
+  csrr x13, misa             # read back misa
+  and x13, x13, x14     # isolate misa.B
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_bv_clr_B, Sm_mcsr_cg_cp_misa_bv_clr_B_str)
 
 # Set misa.V and read back
 Sm_mcsr_cg_cp_misa_bv_set_V:
-  csrs misa, x8              # attempt to set misa.V
-  csrr x9, misa             # read back misa
-  and x9, x9, x8     # isolate misa.V
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_misa_bv_set_V, Sm_mcsr_cg_cp_misa_bv_set_V_str)
+  csrs misa, x15              # attempt to set misa.V
+  csrr x13, misa             # read back misa
+  and x13, x13, x15     # isolate misa.V
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_bv_set_V, Sm_mcsr_cg_cp_misa_bv_set_V_str)
 
 # Clear misa.V and read back
 Sm_mcsr_cg_cp_misa_bv_clr_V:
-  csrc misa, x8              # attempt to clear misa.V
-  csrr x9, misa             # read back misa
-  and x9, x9, x8     # isolate misa.V
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_misa_bv_clr_V, Sm_mcsr_cg_cp_misa_bv_clr_V_str)
+  csrc misa, x15              # attempt to clear misa.V
+  csrr x13, misa             # read back misa
+  and x13, x13, x15     # isolate misa.V
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_misa_bv_clr_V, Sm_mcsr_cg_cp_misa_bv_clr_V_str)
 
-  csrw misa, x15      # restore misa after B/V tests
+  csrw misa, x8      # restore misa after B/V tests
 
 
 /////////////////////////////////
@@ -325,29 +325,29 @@ RVTEST_DATA_BEGIN
 
 
 // Testcase strings
-Sm_mcsr_cg_cp_misa_mxl_csrc_11_str: .string "\"test: 7789; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrc_11\""
-Sm_mcsr_cg_cp_misa_mxl_csrs_11_str: .string "\"test: 7790; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrs_11\""
-Sm_mcsr_cg_cp_misa_mxl_csrw_00_str: .string "\"test: 7791; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrw_00\""
-Sm_mcsr_cg_cp_misa_mxl_csrw_01_str: .string "\"test: 7792; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrw_01\""
-Sm_mcsr_cg_cp_misa_mxl_csrw_10_str: .string "\"test: 7793; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrw_10\""
-Sm_mcsr_cg_cp_misa_mxl_csrw_11_str: .string "\"test: 7794; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrw_11\""
-Sm_mcsr_cg_cp_misa_dependencies_i1e1_str: .string "\"test: 7795; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: i1e1\""
-Sm_mcsr_cg_cp_misa_dependencies_i0e0_str: .string "\"test: 7796; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: i0e0\""
-Sm_mcsr_cg_cp_misa_dependencies_f0d1_str: .string "\"test: 7797; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: f0d1\""
-Sm_mcsr_cg_cp_misa_dependencies_f1d0q1_str: .string "\"test: 7798; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: f1d0q1\""
-Sm_mcsr_cg_cp_misa_dependencies_s1u0_str: .string "\"test: 7799; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: s1u0\""
-Sm_mcsr_cg_cp_misa_dependencies_h1s0_str: .string "\"test: 7800; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: h1s0\""
-Sm_mcsr_cg_cp_misa_dependencies_h1s1u0_str: .string "\"test: 7801; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: h1s1u0\""
-Sm_mcsr_cg_cp_misa_clear_c_pc_1_0_str: .string "\"test: 7802; cg: Sm_mcsr_cg; cp: cp_misa_clear_c; bin: pc_1_0\""
-Sm_mcsr_cg_cp_misa_clear_c_pc_1_1_str: .string "\"test: 7803; cg: Sm_mcsr_cg; cp: cp_misa_clear_c; bin: pc_1_1\""
-Sm_mcsr_cg_cp_misa_bv_set_B_str: .string "\"test: 7804; cg: Sm_mcsr_cg; cp: cp_misa_bv; bin: set_B\""
-Sm_mcsr_cg_cp_misa_bv_clr_B_str: .string "\"test: 7805; cg: Sm_mcsr_cg; cp: cp_misa_bv; bin: clr_B\""
-Sm_mcsr_cg_cp_misa_bv_set_V_str: .string "\"test: 7806; cg: Sm_mcsr_cg; cp: cp_misa_bv; bin: set_V\""
-Sm_mcsr_cg_cp_misa_bv_clr_V_str: .string "\"test: 7807; cg: Sm_mcsr_cg; cp: cp_misa_bv; bin: clr_V\""
-Sm_mcsr_cg_cp_msip_msip_mmio_1_str: .string "\"test: 7808; cg: Sm_mcsr_cg; cp: cp_msip; bin: msip_mmio_1\""
-Sm_mcsr_cg_cp_msip_msip_set_str: .string "\"test: 7809; cg: Sm_mcsr_cg; cp: cp_msip; bin: msip_set\""
-Sm_mcsr_cg_cp_msip_msip_mmio_0_str: .string "\"test: 7810; cg: Sm_mcsr_cg; cp: cp_msip; bin: msip_mmio_0\""
-Sm_mcsr_cg_cp_msip_msip_clear_str: .string "\"test: 7811; cg: Sm_mcsr_cg; cp: cp_msip; bin: msip_clear\""
+Sm_mcsr_cg_cp_misa_mxl_csrc_11_str: .string "\"test: 9561; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrc_11\""
+Sm_mcsr_cg_cp_misa_mxl_csrs_11_str: .string "\"test: 9562; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrs_11\""
+Sm_mcsr_cg_cp_misa_mxl_csrw_00_str: .string "\"test: 9563; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrw_00\""
+Sm_mcsr_cg_cp_misa_mxl_csrw_01_str: .string "\"test: 9564; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrw_01\""
+Sm_mcsr_cg_cp_misa_mxl_csrw_10_str: .string "\"test: 9565; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrw_10\""
+Sm_mcsr_cg_cp_misa_mxl_csrw_11_str: .string "\"test: 9566; cg: Sm_mcsr_cg; cp: cp_misa_mxl; bin: csrw_11\""
+Sm_mcsr_cg_cp_misa_dependencies_i1e1_str: .string "\"test: 9567; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: i1e1\""
+Sm_mcsr_cg_cp_misa_dependencies_i0e0_str: .string "\"test: 9568; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: i0e0\""
+Sm_mcsr_cg_cp_misa_dependencies_f0d1_str: .string "\"test: 9569; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: f0d1\""
+Sm_mcsr_cg_cp_misa_dependencies_f1d0q1_str: .string "\"test: 9570; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: f1d0q1\""
+Sm_mcsr_cg_cp_misa_dependencies_s1u0_str: .string "\"test: 9571; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: s1u0\""
+Sm_mcsr_cg_cp_misa_dependencies_h1s0_str: .string "\"test: 9572; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: h1s0\""
+Sm_mcsr_cg_cp_misa_dependencies_h1s1u0_str: .string "\"test: 9573; cg: Sm_mcsr_cg; cp: cp_misa_dependencies; bin: h1s1u0\""
+Sm_mcsr_cg_cp_misa_clear_c_pc_1_0_str: .string "\"test: 9574; cg: Sm_mcsr_cg; cp: cp_misa_clear_c; bin: pc_1_0\""
+Sm_mcsr_cg_cp_misa_clear_c_pc_1_1_str: .string "\"test: 9575; cg: Sm_mcsr_cg; cp: cp_misa_clear_c; bin: pc_1_1\""
+Sm_mcsr_cg_cp_misa_bv_set_B_str: .string "\"test: 9576; cg: Sm_mcsr_cg; cp: cp_misa_bv; bin: set_B\""
+Sm_mcsr_cg_cp_misa_bv_clr_B_str: .string "\"test: 9577; cg: Sm_mcsr_cg; cp: cp_misa_bv; bin: clr_B\""
+Sm_mcsr_cg_cp_misa_bv_set_V_str: .string "\"test: 9578; cg: Sm_mcsr_cg; cp: cp_misa_bv; bin: set_V\""
+Sm_mcsr_cg_cp_misa_bv_clr_V_str: .string "\"test: 9579; cg: Sm_mcsr_cg; cp: cp_misa_bv; bin: clr_V\""
+Sm_mcsr_cg_cp_msip_msip_mmio_1_str: .string "\"test: 9580; cg: Sm_mcsr_cg; cp: cp_msip; bin: msip_mmio_1\""
+Sm_mcsr_cg_cp_msip_msip_set_str: .string "\"test: 9581; cg: Sm_mcsr_cg; cp: cp_msip; bin: msip_set\""
+Sm_mcsr_cg_cp_msip_msip_mmio_0_str: .string "\"test: 9582; cg: Sm_mcsr_cg; cp: cp_msip; bin: msip_mmio_0\""
+Sm_mcsr_cg_cp_msip_msip_clear_str: .string "\"test: 9583; cg: Sm_mcsr_cg; cp: cp_msip; bin: msip_clear\""
 
 // End of test data section and model specific data
 RVTEST_DATA_END

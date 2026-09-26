@@ -11,10 +11,12 @@
 from testgen.asm.csr import cntr_access_test, csr_access_test, csr_walk_test, gen_csr_read_sigupd, gen_csr_write_sigupd
 from testgen.asm.helpers import comment_banner, write_sigupd
 from testgen.constants import INDENT
+from testgen.csr import generate as csr_patterns
+from testgen.csr.catalog import CSRS
+from testgen.csr.suites import suite_csr_test
 from testgen.data.state import TestData
 from testgen.data.test_chunk import TestChunk
 from testgen.priv.extensions.PrivCommon import (
-    S_CSR_SENVCFG,
     S_CSRS,
     S_SSTATUS_MASK,
     addr_csr_tests,
@@ -551,36 +553,6 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
 
     # Standard M-mode CSRs
     # Format: (CSR Name, Mask).  Mask specifies a set of bits to check
-    mstatus_mask = (
-        (1 << 1)  # SIE:  Supervisor Interrupt Enable
-        | (1 << 3)  # MIE:  Machine Interrupt Enable
-        | (1 << 5)  # SPIE: Supervisor Previous Interrupt Enable
-        | (0 << 6)  # UBE not yet supported by Sail; test in Endian
-        | (1 << 7)  # MPIE: Machine Previous Interrupt Enable
-        | (1 << 8)  # SPP:  Supervisor Previous Privilege
-        | (3 << 9)  # VS:   Vector Status
-        | (3 << 11)  # MPP:  Machine Previous Privilege
-        | (3 << 13)  # FS:   Floating-Point Status
-        | (3 << 15)  # XS:   User-Mode Extension Status
-        | (1 << 17)  # MPRV: Modify Privilege
-        | (1 << 18)  # SUM:  Supervisor User Memory Access
-        | (1 << 19)  # MXR:  Make eXecutable Readable
-        | (1 << 20)  # TVM:  Trap Virtual Memory
-        | (1 << 21)  # TW:   Timeout Wait
-        | (1 << 22)  # TSR:  Trap SRET
-        | (1 << 23)  # SPELP: Supervisor Previous Expect Landing Pad
-        | (0 << 24)  # SDT: not yet supported by Sail; TODO change to 1 when Ssdbltrp implemented
-        | (1 << 31)  # SD for RV32 (probably shouldn't be tested for RV64, but seems to work ok)
-        | (0 << 32)  # UXL:  User-Mode XLEN not supported by Sail.  Test in xlen suite.
-        | (0 << 34)  # SXL:  Supervisor-Mode XLEN  not supported by Sail.  Test in xlen suite.
-        | (0 << 36)  # SBE not supported by Sail; test in Endian
-        | (0 << 37)  # MBE not supported by Sail; test in Endian
-        | (1 << 38)
-        | (1 << 39)
-        | (1 << 41)  # MPELP: Machine Previous Expect Landing Pad
-        | (0 << 42)  # MDT:   not yet supported by Sail; TODO change to 1 when Smdbltrp implemented
-        | (1 << 63)  # SD for RV64
-    )
     mseccfg_mask = (
         (0 << 0)  # Smepmp MML not supported TODO: change these to 1 when Sail implements & boot code sets it up
         | (0 << 1)  # Smepmp MMWP not supported
@@ -590,21 +562,6 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
         | (1 << 10)  # MLPE Machine landing pads enabled
         | (3 << 32)  # Pointer masking
     )
-    menvcfg_mask = (
-        (1 << 0)  # FIOM: Fence of I/O implies memory
-        | (1 << 2)  # LPE: Landing Pad enable
-        | (1 << 3)  # SSE: Shadow Stack Enable
-        | (3 << 4)  # CBIE: Cache Block Invalidate Enable
-        | (1 << 6)  # CBCFE: Cache Block Clean and Flush Enable
-        | (1 << 7)  # CBZE: Cache Block Zero Enable
-        | (3 << 32)  # PMM: Pointer Masking
-        | (0 << 59)  # Double Trap not supported by Sail; TODO change to 1 when Smdbltrp implemented
-        | (0 << 60)  # Counter Delegation Smcdeleg not supported by Sail; TODO change to 1 when Smcdeleg implemented
-        | (1 << 61)  # ADUE: A/D
-        | (1 << 62)  # PBMTE: Page-Based Memory Type Enable
-        | (1 << 63)  # STCE: Supervisor Timer Compare Enable
-    )
-
     csrm = [
         (
             "medeleg",
@@ -614,7 +571,6 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
         ("mie", 0xFFFF),  # limit to standard interrupt bits
         ("mtvec", 0b10),  # mtvec.MODE[1] must be 0.
         ("mcounteren", None),
-        ("mscratch", None),
         ("mepc", None),  # only accessed here; walked as a valid virtual address in cp_mepc_vaddr_walk*
         #        ("mcause", None), # WLRL fields can't be handled with masks.  Use cp_mcause_* instead
         ("mtval", None),  # only accessed here; walked in cp_mtval_* instead
@@ -652,11 +608,8 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
     # mcountinhibit is optional, so it is accessed under UDB_MCOUNTINHIBIT_IMPLEMENTED
     # TODO: remove mcountinhibit mask when Sail gets parameters for writable bits
     csr_mcountinhibit = ("mcountinhibit", 0b111)
-    csr_menvcfg = ("menvcfg", menvcfg_mask)
     csr_mseccfg = ("mseccfg", mseccfg_mask)
     # RV32-only high CSRs
-    csr_mstatush = ("mstatush", (mstatus_mask >> 32) & 0x7FFFFFFF)  # SD not in bit 31 of mstatush
-    csr_menvcfgh = ("menvcfgh", menvcfg_mask >> 32)
     csr_mseccfgh = ("mseccfgh", mseccfg_mask >> 32)
     # medelegh (0x312) by number: clang 20 does not accept the CSR name (gcc does).  All bits reserved/custom.
     csr_medelegh = ("0x312", 0x00000000)
@@ -677,12 +630,15 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
 
     tc = test_data.new_test_chunk(test_chunks)
     tc.code.extend(
-        csr_access_test(test_data, ("mstatus", mstatus_mask), covergroup, coverpoint_masked, maskedwrites=True)
+        suite_csr_test(test_data, CSRS["mstatus"], csr_patterns.csr_access_test, covergroup, coverpoint_masked)
     )
 
     for csr in csrm:
         tc = test_data.new_test_chunk(test_chunks)
         tc.code.extend(csr_access_test(test_data, csr, covergroup, coverpoint))
+
+    tc = test_data.new_test_chunk(test_chunks)
+    tc.code.extend(csr_patterns.csr_access_test(test_data, CSRS["mscratch"], covergroup, coverpoint))
 
     tc = test_data.new_test_chunk(test_chunks)
     tc.code.append("\n#ifdef UDB_MCOUNTINHIBIT_IMPLEMENTED")
@@ -691,7 +647,9 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
 
     tc = test_data.new_test_chunk(test_chunks)
     tc.code.append("\n#ifdef SM1P12P0_OR_LATER_SUPPORTED")
-    tc.code.extend(csr_access_test(test_data, csr_menvcfg, covergroup, coverpoint_masked, maskedwrites=True))
+    tc.code.extend(
+        suite_csr_test(test_data, CSRS["menvcfg"], csr_patterns.csr_access_test, covergroup, coverpoint_masked)
+    )
     tc.code.append("#endif")
 
     tc.code.append("\n#ifdef MSECCFG_SUPPORTED")
@@ -710,10 +668,14 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
         ]
     )
 
-    tc.code.extend(csr_access_test(test_data, csr_mstatush, covergroup, coverpoint_masked, maskedwrites=True))
+    tc.code.extend(
+        suite_csr_test(test_data, CSRS["mstatush"], csr_patterns.csr_access_test, covergroup, coverpoint_masked)
+    )
 
     tc.code.append("\n#ifdef SM1P12P0_OR_LATER_SUPPORTED")
-    tc.code.extend(csr_access_test(test_data, csr_menvcfgh, covergroup, coverpoint_masked, maskedwrites=True))
+    tc.code.extend(
+        suite_csr_test(test_data, CSRS["menvcfgh"], csr_patterns.csr_access_test, covergroup, coverpoint_masked)
+    )
     tc.code.append("#endif //  SM1P12P0_OR_LATER_SUPPORTED")
     tc.code.append("\n#ifdef MSECCFG_SUPPORTED")
     tc.code.extend(csr_access_test(test_data, csr_mseccfgh, covergroup, coverpoint_masked, maskedwrites=True))
@@ -740,17 +702,8 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
     )
 
     tc = test_data.new_test_chunk(test_chunks)
-    # MPP: 0b10 is always reserved; 0b01 (S-mode) is only legal when the config has S-mode
-    warl_fields = [("mpp", 11, 2, 0b10), ("mpp", 11, 2, 0b01, "S_SUPPORTED")]
     tc.code.extend(
-        csr_walk_test(
-            test_data,
-            ("mstatus", mstatus_mask),
-            covergroup,
-            coverpoint_masked,
-            warl_fields=warl_fields,
-            maskedwrites=True,
-        )
+        suite_csr_test(test_data, CSRS["mstatus"], csr_patterns.csr_bitops_test, covergroup, coverpoint_masked)
     )
 
     for csr in csrm:
@@ -760,14 +713,16 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
         tc.code.extend(csr_walk_test(test_data, csr, covergroup, coverpoint))
 
     tc = test_data.new_test_chunk(test_chunks)
+    tc.code.extend(csr_patterns.csr_bitops_test(test_data, CSRS["mscratch"], covergroup, coverpoint))
+
+    tc = test_data.new_test_chunk(test_chunks)
     tc.code.append("\n#ifdef UDB_MCOUNTINHIBIT_IMPLEMENTED")
     tc.code.extend(csr_walk_test(test_data, csr_mcountinhibit, covergroup, coverpoint))
     tc.code.append("#endif // UDB_MCOUNTINHIBIT_IMPLEMENTED")
 
     tc.code.append("\n#ifdef SM1P12P0_OR_LATER_SUPPORTED")
-    warl_fields = [("cbie", 4, 2, 0b10), ("pmm", 32, 2, 0b01)]
     tc.code.extend(
-        csr_walk_test(test_data, csr_menvcfg, covergroup, coverpoint_masked, warl_fields=warl_fields, maskedwrites=True)
+        suite_csr_test(test_data, CSRS["menvcfg"], csr_patterns.csr_bitops_test, covergroup, coverpoint_masked)
     )
     tc.code.append("#endif")
 
@@ -786,9 +741,13 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
         ]
     )
 
-    tc.code.extend(csr_walk_test(test_data, csr_mstatush, covergroup, coverpoint_masked, maskedwrites=True))
+    tc.code.extend(
+        suite_csr_test(test_data, CSRS["mstatush"], csr_patterns.csr_bitops_test, covergroup, coverpoint_masked)
+    )
     tc.code.append("\n#ifdef SM1P12P0_OR_LATER_SUPPORTED")
-    tc.code.extend(csr_walk_test(test_data, csr_menvcfgh, covergroup, coverpoint_masked, maskedwrites=True))
+    tc.code.extend(
+        suite_csr_test(test_data, CSRS["menvcfgh"], csr_patterns.csr_bitops_test, covergroup, coverpoint_masked)
+    )
     tc.code.append("#endif // SM1P12P0_OR_LATER_SUPPORTED")
     tc.code.append("\n#ifdef MSECCFG_SUPPORTED")
     tc.code.extend(csr_walk_test(test_data, csr_mseccfgh, covergroup, coverpoint_masked, maskedwrites=True))
@@ -829,8 +788,9 @@ def _generate_mcsr_tests(test_data: TestData, test_chunks: list) -> None:
     tc.code.append("#ifdef S_SUPPORTED")
     for csr in S_CSRS:
         tc.code.extend(csr_access_test(test_data, csr, covergroup, coverpoint))
+    tc.code.extend(csr_patterns.csr_access_test(test_data, CSRS["sscratch"], covergroup, coverpoint))
     tc.code.extend(["", "#ifdef S1P12P0_OR_LATER_SUPPORTED"])
-    tc.code.extend(csr_access_test(test_data, S_CSR_SENVCFG, covergroup, coverpoint))
+    tc.code.extend(suite_csr_test(test_data, CSRS["senvcfg"], csr_patterns.csr_access_test, covergroup, coverpoint))
     tc.code.extend(["", "#endif // S1P12P0_OR_LATER_SUPPORTED"])
     tc.code.append("#endif // S_SUPPORTED")
 

@@ -34,16 +34,16 @@ RVTEST_BEGIN
 /////////////////////////////////
 
 #ifdef S_SUPPORTED
-  LI(x14, 0x00100000) # mstatus.TVM (bit 20)
-  csrs mstatus, x14
+  LI(x8, 0x00100000) # mstatus.TVM (bit 20)
+  csrs mstatus, x8
   RVTEST_TSBI_GOTO_SMODE
 Sm_mcsr_cg_cp_satp_from_s_tvm_enabled:
-  csrr x9, satp # read satp from S-mode with mstatus.TVM = 1; expect illegal instruction trap
+  csrr x6, satp # read satp from S-mode with mstatus.TVM = 1; expect illegal instruction trap
   RVTEST_TSBI_GOTO_MMODE
-  csrc mstatus, x14
+  csrc mstatus, x8
   RVTEST_TSBI_GOTO_SMODE
 Sm_mcsr_cg_cp_satp_from_s_tvm_disabled:
-  csrr x9, satp # read satp from S-mode with mstatus.TVM = 0; expect no trap.  Value is WARL and unpredictable so don't sigupd it
+  csrr x6, satp # read satp from S-mode with mstatus.TVM = 0; expect no trap.  Value is WARL and unpredictable so don't sigupd it
   RVTEST_TSBI_GOTO_MMODE
 #endif // S_SUPPORTED
 
@@ -57,8 +57,8 @@ RVTEST_DATA_BEGIN
 
 
 // Testcase strings
-Sm_mcsr_cg_cp_satp_from_s_tvm_enabled_str: .string "\"test: 7735; cg: Sm_mcsr_cg; cp: cp_satp_from_s; bin: tvm_enabled\""
-Sm_mcsr_cg_cp_satp_from_s_tvm_disabled_str: .string "\"test: 7736; cg: Sm_mcsr_cg; cp: cp_satp_from_s; bin: tvm_disabled\""
+Sm_mcsr_cg_cp_satp_from_s_tvm_enabled_str: .string "\"test: 9507; cg: Sm_mcsr_cg; cp: cp_satp_from_s; bin: tvm_enabled\""
+Sm_mcsr_cg_cp_satp_from_s_tvm_disabled_str: .string "\"test: 9508; cg: Sm_mcsr_cg; cp: cp_satp_from_s; bin: tvm_disabled\""
 
 // End of test data section and model specific data
 RVTEST_DATA_END

@@ -36,10 +36,10 @@ RVTEST_BEGIN
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7b0:
-  LI(x14, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x14, 0x7b0    # attempt to read CSR 7b0; should get illegal instruction
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_csr_insufficient_priv_7b0, Sm_mcsr_cg_cp_csr_insufficient_priv_7b0_str)
+  LI(x15, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x15, 0x7b0    # attempt to read CSR 7b0; should get illegal instruction
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_csr_insufficient_priv_7b0, Sm_mcsr_cg_cp_csr_insufficient_priv_7b0_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7b1:
@@ -50,10 +50,10 @@ Sm_mcsr_cg_cp_csr_insufficient_priv_7b1:
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7b2:
-  LI(x9, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x9, 0x7b2    # attempt to read CSR 7b2; should get illegal instruction
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_csr_insufficient_priv_7b2, Sm_mcsr_cg_cp_csr_insufficient_priv_7b2_str)
+  LI(x14, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x14, 0x7b2    # attempt to read CSR 7b2; should get illegal instruction
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_csr_insufficient_priv_7b2, Sm_mcsr_cg_cp_csr_insufficient_priv_7b2_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7b3:
@@ -64,80 +64,80 @@ Sm_mcsr_cg_cp_csr_insufficient_priv_7b3:
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7b4:
-  LI(x13, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x13, 0x7b4    # attempt to read CSR 7b4; should get illegal instruction
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_csr_insufficient_priv_7b4, Sm_mcsr_cg_cp_csr_insufficient_priv_7b4_str)
+  LI(x8, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x8, 0x7b4    # attempt to read CSR 7b4; should get illegal instruction
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_csr_insufficient_priv_7b4, Sm_mcsr_cg_cp_csr_insufficient_priv_7b4_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7b5:
-  LI(x6, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x6, 0x7b5    # attempt to read CSR 7b5; should get illegal instruction
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_csr_insufficient_priv_7b5, Sm_mcsr_cg_cp_csr_insufficient_priv_7b5_str)
+  LI(x8, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x8, 0x7b5    # attempt to read CSR 7b5; should get illegal instruction
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_csr_insufficient_priv_7b5, Sm_mcsr_cg_cp_csr_insufficient_priv_7b5_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7b6:
-  LI(x15, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x15, 0x7b6    # attempt to read CSR 7b6; should get illegal instruction
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_csr_insufficient_priv_7b6, Sm_mcsr_cg_cp_csr_insufficient_priv_7b6_str)
+  LI(x6, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x6, 0x7b6    # attempt to read CSR 7b6; should get illegal instruction
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_csr_insufficient_priv_7b6, Sm_mcsr_cg_cp_csr_insufficient_priv_7b6_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7b7:
-  LI(x9, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x9, 0x7b7    # attempt to read CSR 7b7; should get illegal instruction
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_csr_insufficient_priv_7b7, Sm_mcsr_cg_cp_csr_insufficient_priv_7b7_str)
+  LI(x15, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x15, 0x7b7    # attempt to read CSR 7b7; should get illegal instruction
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_csr_insufficient_priv_7b7, Sm_mcsr_cg_cp_csr_insufficient_priv_7b7_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7b8:
-  LI(x14, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x14, 0x7b8    # attempt to read CSR 7b8; should get illegal instruction
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_csr_insufficient_priv_7b8, Sm_mcsr_cg_cp_csr_insufficient_priv_7b8_str)
+  LI(x8, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x8, 0x7b8    # attempt to read CSR 7b8; should get illegal instruction
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_csr_insufficient_priv_7b8, Sm_mcsr_cg_cp_csr_insufficient_priv_7b8_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7b9:
-  LI(x8, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x8, 0x7b9    # attempt to read CSR 7b9; should get illegal instruction
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_csr_insufficient_priv_7b9, Sm_mcsr_cg_cp_csr_insufficient_priv_7b9_str)
+  LI(x15, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x15, 0x7b9    # attempt to read CSR 7b9; should get illegal instruction
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_csr_insufficient_priv_7b9, Sm_mcsr_cg_cp_csr_insufficient_priv_7b9_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7ba:
-  LI(x8, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x8, 0x7ba    # attempt to read CSR 7ba; should get illegal instruction
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_csr_insufficient_priv_7ba, Sm_mcsr_cg_cp_csr_insufficient_priv_7ba_str)
+  LI(x9, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x9, 0x7ba    # attempt to read CSR 7ba; should get illegal instruction
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_csr_insufficient_priv_7ba, Sm_mcsr_cg_cp_csr_insufficient_priv_7ba_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7bb:
-  LI(x9, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x9, 0x7bb    # attempt to read CSR 7bb; should get illegal instruction
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_csr_insufficient_priv_7bb, Sm_mcsr_cg_cp_csr_insufficient_priv_7bb_str)
+  LI(x13, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x13, 0x7bb    # attempt to read CSR 7bb; should get illegal instruction
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_csr_insufficient_priv_7bb, Sm_mcsr_cg_cp_csr_insufficient_priv_7bb_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7bc:
-  LI(x13, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x13, 0x7bc    # attempt to read CSR 7bc; should get illegal instruction
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_csr_insufficient_priv_7bc, Sm_mcsr_cg_cp_csr_insufficient_priv_7bc_str)
+  LI(x8, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x8, 0x7bc    # attempt to read CSR 7bc; should get illegal instruction
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_csr_insufficient_priv_7bc, Sm_mcsr_cg_cp_csr_insufficient_priv_7bc_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7bd:
-  LI(x14, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x14, 0x7bd    # attempt to read CSR 7bd; should get illegal instruction
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_csr_insufficient_priv_7bd, Sm_mcsr_cg_cp_csr_insufficient_priv_7bd_str)
+  LI(x13, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x13, 0x7bd    # attempt to read CSR 7bd; should get illegal instruction
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_csr_insufficient_priv_7bd, Sm_mcsr_cg_cp_csr_insufficient_priv_7bd_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7be:
-  LI(x13, 42)           # known value; the trapping csrr must leave it unchanged
-  csrr x13, 0x7be    # attempt to read CSR 7be; should get illegal instruction
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_csr_insufficient_priv_7be, Sm_mcsr_cg_cp_csr_insufficient_priv_7be_str)
+  LI(x15, 42)           # known value; the trapping csrr must leave it unchanged
+  csrr x15, 0x7be    # attempt to read CSR 7be; should get illegal instruction
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_csr_insufficient_priv_7be, Sm_mcsr_cg_cp_csr_insufficient_priv_7be_str)
 
 
 Sm_mcsr_cg_cp_csr_insufficient_priv_7bf:
@@ -157,22 +157,22 @@ RVTEST_DATA_BEGIN
 
 
 // Testcase strings
-Sm_mcsr_cg_cp_csr_insufficient_priv_7b0_str: .string "\"test: 6657; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b0\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7b1_str: .string "\"test: 6658; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b1\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7b2_str: .string "\"test: 6659; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b2\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7b3_str: .string "\"test: 6660; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b3\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7b4_str: .string "\"test: 6661; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b4\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7b5_str: .string "\"test: 6662; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b5\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7b6_str: .string "\"test: 6663; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b6\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7b7_str: .string "\"test: 6664; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b7\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7b8_str: .string "\"test: 6665; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b8\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7b9_str: .string "\"test: 6666; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b9\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7ba_str: .string "\"test: 6667; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7ba\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7bb_str: .string "\"test: 6668; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7bb\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7bc_str: .string "\"test: 6669; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7bc\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7bd_str: .string "\"test: 6670; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7bd\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7be_str: .string "\"test: 6671; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7be\""
-Sm_mcsr_cg_cp_csr_insufficient_priv_7bf_str: .string "\"test: 6672; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7bf\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7b0_str: .string "\"test: 8405; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b0\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7b1_str: .string "\"test: 8406; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b1\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7b2_str: .string "\"test: 8407; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b2\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7b3_str: .string "\"test: 8408; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b3\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7b4_str: .string "\"test: 8409; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b4\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7b5_str: .string "\"test: 8410; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b5\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7b6_str: .string "\"test: 8411; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b6\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7b7_str: .string "\"test: 8412; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b7\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7b8_str: .string "\"test: 8413; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b8\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7b9_str: .string "\"test: 8414; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7b9\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7ba_str: .string "\"test: 8415; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7ba\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7bb_str: .string "\"test: 8416; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7bb\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7bc_str: .string "\"test: 8417; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7bc\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7bd_str: .string "\"test: 8418; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7bd\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7be_str: .string "\"test: 8419; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7be\""
+Sm_mcsr_cg_cp_csr_insufficient_priv_7bf_str: .string "\"test: 8420; cg: Sm_mcsr_cg; cp: cp_csr_insufficient_priv; bin: 7bf\""
 
 // End of test data section and model specific data
 RVTEST_DATA_END

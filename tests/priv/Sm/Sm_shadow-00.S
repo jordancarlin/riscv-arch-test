@@ -34,371 +34,371 @@ RVTEST_BEGIN
 /////////////////////////////////
 
 #ifdef S_SUPPORTED
-  LI(x15, 0x007FFFBF) # skip UBE, UXL bits which would cause weird behavior
+  LI(x8, 0x007FFFBF) # skip UBE, UXL bits which would cause weird behavior
 
 # Testcase: shadow CSR test for writing mstatus and reading sstatus with mask 0xcffffffcf
   LI(x14, 0xcffffffcf) # mask specifying bits to keep
-  csrr x13, mstatus       # save original value of mstatus
-  csrw mstatus, x15       # write many 1s to mstatus
+  csrr x9, mstatus       # save original value of mstatus
+  csrw mstatus, x8       # write many 1s to mstatus
 Sm_mcsr_cg_cp_shadow_mstatus_sstatus_1s:
-  # Read sstatus into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sstatus    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0xcffffffcf
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_mstatus_sstatus_1s, Sm_mcsr_cg_cp_shadow_mstatus_sstatus_1s_str)
+  # Read sstatus into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, sstatus    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0xcffffffcf
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_mstatus_sstatus_1s, Sm_mcsr_cg_cp_shadow_mstatus_sstatus_1s_str)
   csrw mstatus, x0       # write all 0s to mstatus
 Sm_mcsr_cg_cp_shadow_mstatus_sstatus_0s:
-  # Read sstatus into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sstatus    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0xcffffffcf
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_mstatus_sstatus_0s, Sm_mcsr_cg_cp_shadow_mstatus_sstatus_0s_str)
-  csrw mstatus, x13       # write back saved value of mstatus
+  # Read sstatus into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, sstatus    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0xcffffffcf
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_mstatus_sstatus_0s, Sm_mcsr_cg_cp_shadow_mstatus_sstatus_0s_str)
+  csrw mstatus, x9       # write back saved value of mstatus
 
 # Testcase: shadow CSR test for writing sstatus and reading mstatus with mask 0xcffffffcf
   LI(x14, 0xcffffffcf) # mask specifying bits to keep
-  csrr x13, sstatus       # save original value of sstatus
-  csrw sstatus, x15       # write many 1s to sstatus
+  csrr x9, sstatus       # save original value of sstatus
+  csrw sstatus, x8       # write many 1s to sstatus
 Sm_mcsr_cg_cp_shadow_sstatus_mstatus_1s:
-  # Read mstatus into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mstatus    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0xcffffffcf
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_sstatus_mstatus_1s, Sm_mcsr_cg_cp_shadow_sstatus_mstatus_1s_str)
+  # Read mstatus into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mstatus    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0xcffffffcf
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_sstatus_mstatus_1s, Sm_mcsr_cg_cp_shadow_sstatus_mstatus_1s_str)
   csrw sstatus, x0       # write all 0s to sstatus
 Sm_mcsr_cg_cp_shadow_sstatus_mstatus_0s:
-  # Read mstatus into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mstatus    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0xcffffffcf
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_sstatus_mstatus_0s, Sm_mcsr_cg_cp_shadow_sstatus_mstatus_0s_str)
-  csrw sstatus, x13       # write back saved value of sstatus
-  LI(x15, 0xFFFF) # all interrupts
+  # Read mstatus into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mstatus    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0xcffffffcf
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_sstatus_mstatus_0s, Sm_mcsr_cg_cp_shadow_sstatus_mstatus_0s_str)
+  csrw sstatus, x9       # write back saved value of sstatus
+  LI(x8, 0xFFFF) # all interrupts
 # Without delegation, S-mode should not see any of the M-mode interrupts
   csrw mideleg, zero # disable delegation
 
 # Testcase: shadow CSR test for writing mie and reading sie with mask 0x3eee
   LI(x14, 0x3eee) # mask specifying bits to keep
-  csrr x13, mie       # save original value of mie
-  csrw mie, x15       # write many 1s to mie
+  csrr x9, mie       # save original value of mie
+  csrw mie, x8       # write many 1s to mie
 Sm_mcsr_cg_cp_shadow_mie_sie_1s:
-  # Read sie into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sie    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_mie_sie_1s, Sm_mcsr_cg_cp_shadow_mie_sie_1s_str)
+  # Read sie into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, sie    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_mie_sie_1s, Sm_mcsr_cg_cp_shadow_mie_sie_1s_str)
   csrw mie, x0       # write all 0s to mie
 Sm_mcsr_cg_cp_shadow_mie_sie_0s:
-  # Read sie into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sie    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_mie_sie_0s, Sm_mcsr_cg_cp_shadow_mie_sie_0s_str)
-  csrw mie, x13       # write back saved value of mie
+  # Read sie into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, sie    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_mie_sie_0s, Sm_mcsr_cg_cp_shadow_mie_sie_0s_str)
+  csrw mie, x9       # write back saved value of mie
 
 # Testcase: shadow CSR test for writing mip and reading sip with mask 0x3eee
   LI(x14, 0x3eee) # mask specifying bits to keep
-  csrr x13, mip       # save original value of mip
-  csrw mip, x15       # write many 1s to mip
+  csrr x9, mip       # save original value of mip
+  csrw mip, x8       # write many 1s to mip
 Sm_mcsr_cg_cp_shadow_mip_sip_1s:
-  # Read sip into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sip    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_mip_sip_1s, Sm_mcsr_cg_cp_shadow_mip_sip_1s_str)
+  # Read sip into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, sip    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_mip_sip_1s, Sm_mcsr_cg_cp_shadow_mip_sip_1s_str)
   csrw mip, x0       # write all 0s to mip
 Sm_mcsr_cg_cp_shadow_mip_sip_0s:
-  # Read sip into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sip    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_mip_sip_0s, Sm_mcsr_cg_cp_shadow_mip_sip_0s_str)
-  csrw mip, x13       # write back saved value of mip
+  # Read sip into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, sip    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_mip_sip_0s, Sm_mcsr_cg_cp_shadow_mip_sip_0s_str)
+  csrw mip, x9       # write back saved value of mip
 
 # Testcase: shadow CSR test for writing sie and reading mie with mask 0x3eee
   LI(x14, 0x3eee) # mask specifying bits to keep
-  csrr x13, sie       # save original value of sie
-  csrw sie, x15       # write many 1s to sie
+  csrr x9, sie       # save original value of sie
+  csrw sie, x8       # write many 1s to sie
 Sm_mcsr_cg_cp_shadow_sie_mie_1s:
-  # Read mie into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mie    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_sie_mie_1s, Sm_mcsr_cg_cp_shadow_sie_mie_1s_str)
+  # Read mie into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mie    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_sie_mie_1s, Sm_mcsr_cg_cp_shadow_sie_mie_1s_str)
   csrw sie, x0       # write all 0s to sie
 Sm_mcsr_cg_cp_shadow_sie_mie_0s:
-  # Read mie into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mie    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_sie_mie_0s, Sm_mcsr_cg_cp_shadow_sie_mie_0s_str)
-  csrw sie, x13       # write back saved value of sie
+  # Read mie into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mie    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_sie_mie_0s, Sm_mcsr_cg_cp_shadow_sie_mie_0s_str)
+  csrw sie, x9       # write back saved value of sie
 
 # Testcase: shadow CSR test for writing sip and reading mip with mask 0x3eee
   LI(x14, 0x3eee) # mask specifying bits to keep
-  csrr x13, sip       # save original value of sip
-  csrw sip, x15       # write many 1s to sip
+  csrr x9, sip       # save original value of sip
+  csrw sip, x8       # write many 1s to sip
 Sm_mcsr_cg_cp_shadow_sip_mip_1s:
-  # Read mip into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mip    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_sip_mip_1s, Sm_mcsr_cg_cp_shadow_sip_mip_1s_str)
+  # Read mip into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mip    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_sip_mip_1s, Sm_mcsr_cg_cp_shadow_sip_mip_1s_str)
   csrw sip, x0       # write all 0s to sip
 Sm_mcsr_cg_cp_shadow_sip_mip_0s:
-  # Read mip into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mip    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_sip_mip_0s, Sm_mcsr_cg_cp_shadow_sip_mip_0s_str)
-  csrw sip, x13       # write back saved value of sip
+  # Read mip into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mip    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_sip_mip_0s, Sm_mcsr_cg_cp_shadow_sip_mip_0s_str)
+  csrw sip, x9       # write back saved value of sip
 # With delegation, S-mode should see the delegated M-mode interrupts
-  csrw mideleg, x15 # delegate all interrupts to S-mode
+  csrw mideleg, x8 # delegate all interrupts to S-mode
 
 # Testcase: shadow CSR test for writing mie and reading sie with mask 0x3eee
   LI(x14, 0x3eee) # mask specifying bits to keep
-  csrr x13, mie       # save original value of mie
-  csrw mie, x15       # write many 1s to mie
+  csrr x9, mie       # save original value of mie
+  csrw mie, x8       # write many 1s to mie
 Sm_mcsr_cg_cp_shadow_mie_sie_1s_deleg:
-  # Read sie into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sie    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_mie_sie_1s_deleg, Sm_mcsr_cg_cp_shadow_mie_sie_1s_deleg_str)
+  # Read sie into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, sie    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_mie_sie_1s_deleg, Sm_mcsr_cg_cp_shadow_mie_sie_1s_deleg_str)
   csrw mie, x0       # write all 0s to mie
 Sm_mcsr_cg_cp_shadow_mie_sie_0s_deleg:
-  # Read sie into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sie    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_mie_sie_0s_deleg, Sm_mcsr_cg_cp_shadow_mie_sie_0s_deleg_str)
-  csrw mie, x13       # write back saved value of mie
+  # Read sie into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, sie    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_mie_sie_0s_deleg, Sm_mcsr_cg_cp_shadow_mie_sie_0s_deleg_str)
+  csrw mie, x9       # write back saved value of mie
 
 # Testcase: shadow CSR test for writing mip and reading sip with mask 0x3eee
   LI(x14, 0x3eee) # mask specifying bits to keep
-  csrr x13, mip       # save original value of mip
-  csrw mip, x15       # write many 1s to mip
+  csrr x9, mip       # save original value of mip
+  csrw mip, x8       # write many 1s to mip
 Sm_mcsr_cg_cp_shadow_mip_sip_1s_deleg:
-  # Read sip into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sip    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_mip_sip_1s_deleg, Sm_mcsr_cg_cp_shadow_mip_sip_1s_deleg_str)
+  # Read sip into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, sip    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_mip_sip_1s_deleg, Sm_mcsr_cg_cp_shadow_mip_sip_1s_deleg_str)
   csrw mip, x0       # write all 0s to mip
 Sm_mcsr_cg_cp_shadow_mip_sip_0s_deleg:
-  # Read sip into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, sip    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_mip_sip_0s_deleg, Sm_mcsr_cg_cp_shadow_mip_sip_0s_deleg_str)
-  csrw mip, x13       # write back saved value of mip
+  # Read sip into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, sip    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_mip_sip_0s_deleg, Sm_mcsr_cg_cp_shadow_mip_sip_0s_deleg_str)
+  csrw mip, x9       # write back saved value of mip
 
 # Testcase: shadow CSR test for writing sie and reading mie with mask 0x3eee
   LI(x14, 0x3eee) # mask specifying bits to keep
-  csrr x13, sie       # save original value of sie
-  csrw sie, x15       # write many 1s to sie
+  csrr x9, sie       # save original value of sie
+  csrw sie, x8       # write many 1s to sie
 Sm_mcsr_cg_cp_shadow_sie_mie_1s_deleg:
-  # Read mie into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mie    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_sie_mie_1s_deleg, Sm_mcsr_cg_cp_shadow_sie_mie_1s_deleg_str)
+  # Read mie into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mie    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_sie_mie_1s_deleg, Sm_mcsr_cg_cp_shadow_sie_mie_1s_deleg_str)
   csrw sie, x0       # write all 0s to sie
 Sm_mcsr_cg_cp_shadow_sie_mie_0s_deleg:
-  # Read mie into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mie    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_sie_mie_0s_deleg, Sm_mcsr_cg_cp_shadow_sie_mie_0s_deleg_str)
-  csrw sie, x13       # write back saved value of sie
+  # Read mie into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mie    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_sie_mie_0s_deleg, Sm_mcsr_cg_cp_shadow_sie_mie_0s_deleg_str)
+  csrw sie, x9       # write back saved value of sie
 
 # Testcase: shadow CSR test for writing sip and reading mip with mask 0x3eee
   LI(x14, 0x3eee) # mask specifying bits to keep
-  csrr x13, sip       # save original value of sip
-  csrw sip, x15       # write many 1s to sip
+  csrr x9, sip       # save original value of sip
+  csrw sip, x8       # write many 1s to sip
 Sm_mcsr_cg_cp_shadow_sip_mip_1s_deleg:
-  # Read mip into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mip    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_sip_mip_1s_deleg, Sm_mcsr_cg_cp_shadow_sip_mip_1s_deleg_str)
+  # Read mip into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mip    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_sip_mip_1s_deleg, Sm_mcsr_cg_cp_shadow_sip_mip_1s_deleg_str)
   csrw sip, x0       # write all 0s to sip
 Sm_mcsr_cg_cp_shadow_sip_mip_0s_deleg:
-  # Read mip into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mip    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x3eee
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_shadow_sip_mip_0s_deleg, Sm_mcsr_cg_cp_shadow_sip_mip_0s_deleg_str)
-  csrw sip, x13       # write back saved value of sip
+  # Read mip into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mip    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x3eee
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_shadow_sip_mip_0s_deleg, Sm_mcsr_cg_cp_shadow_sip_mip_0s_deleg_str)
+  csrw sip, x9       # write back saved value of sip
 # Test mip/sip and mie/sie with delegation on and off
-  LI(x15, 0x3EEE) # all S-, VS-, and M-level interrupts
+  LI(x8, 0x3EEE) # all S-, VS-, and M-level interrupts
   csrw mideleg, zero # delegate nothing
   csrw mie, zero
   csrw mip, zero
 # sip reads zero
 Sm_mcsr_cg_cp_shadow_sip_readback_zero:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_sip_readback_zero, Sm_mcsr_cg_cp_shadow_sip_readback_zero_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_sip_readback_zero, Sm_mcsr_cg_cp_shadow_sip_readback_zero_str)
 # sie reads zero
 Sm_mcsr_cg_cp_shadow_sie_readback_zero:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_sie_readback_zero, Sm_mcsr_cg_cp_shadow_sie_readback_zero_str)
-  csrw mip, x15 # set all writable interrupts in mip
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_sie_readback_zero, Sm_mcsr_cg_cp_shadow_sie_readback_zero_str)
+  csrw mip, x8 # set all writable interrupts in mip
 # sip reads zero because nothing is delegated
 Sm_mcsr_cg_cp_shadow_sip_readback_zero_masked:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_sip_readback_zero_masked, Sm_mcsr_cg_cp_shadow_sip_readback_zero_masked_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_sip_readback_zero_masked, Sm_mcsr_cg_cp_shadow_sip_readback_zero_masked_str)
   csrw sip, zero # ignored because nothing is delegated
 # mip keeps its value because the sip write is ignored
 Sm_mcsr_cg_cp_shadow_mip_readback_nonzero_masked:
-  # Read mip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mip, x6, Sm_mcsr_cg_cp_shadow_mip_readback_nonzero_masked, Sm_mcsr_cg_cp_shadow_mip_readback_nonzero_masked_str)
+  # Read mip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(mip, x13, Sm_mcsr_cg_cp_shadow_mip_readback_nonzero_masked, Sm_mcsr_cg_cp_shadow_mip_readback_nonzero_masked_str)
   csrw mip, zero
-  csrw mie, x15 # set all writable interrupts in mie
+  csrw mie, x8 # set all writable interrupts in mie
 # sie reads zero because nothing is delegated
 Sm_mcsr_cg_cp_shadow_sie_readback_zero_masked:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_sie_readback_zero_masked, Sm_mcsr_cg_cp_shadow_sie_readback_zero_masked_str)
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_sie_readback_zero_masked, Sm_mcsr_cg_cp_shadow_sie_readback_zero_masked_str)
   csrw sie, zero # ignored because nothing is delegated
 # mie keeps its value because the sie write is ignored
 Sm_mcsr_cg_cp_shadow_mie_readback_nonzero_masked:
-  # Read mie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mie, x6, Sm_mcsr_cg_cp_shadow_mie_readback_nonzero_masked, Sm_mcsr_cg_cp_shadow_mie_readback_nonzero_masked_str)
+  # Read mie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(mie, x13, Sm_mcsr_cg_cp_shadow_mie_readback_nonzero_masked, Sm_mcsr_cg_cp_shadow_mie_readback_nonzero_masked_str)
   csrw mie, zero
 
-  csrw mideleg, x15 # delegate all delegable interrupts to S-mode
+  csrw mideleg, x8 # delegate all delegable interrupts to S-mode
 # sip reads zero
 Sm_mcsr_cg_cp_shadow_sip_readback_zero_2:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_sip_readback_zero_2, Sm_mcsr_cg_cp_shadow_sip_readback_zero_2_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_sip_readback_zero_2, Sm_mcsr_cg_cp_shadow_sip_readback_zero_2_str)
 # sie reads zero
 Sm_mcsr_cg_cp_shadow_sie_readback_zero_2:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_sie_readback_zero_2, Sm_mcsr_cg_cp_shadow_sie_readback_zero_2_str)
-  csrw mip, x15 # set all interrupts in mip
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_sie_readback_zero_2, Sm_mcsr_cg_cp_shadow_sie_readback_zero_2_str)
+  csrw mip, x8 # set all interrupts in mip
 # sip reads the delegated bits
 Sm_mcsr_cg_cp_shadow_sip_readback_nonzero:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_sip_readback_nonzero, Sm_mcsr_cg_cp_shadow_sip_readback_nonzero_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_sip_readback_nonzero, Sm_mcsr_cg_cp_shadow_sip_readback_nonzero_str)
   csrw sip, zero # clears SSIP and LCOFIP; STIP and SEIP are read-only in sip
 # mip typically keeps STIP and SEIP
 Sm_mcsr_cg_cp_shadow_mip_readback_partiallyzero:
-  # Read mip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mip, x6, Sm_mcsr_cg_cp_shadow_mip_readback_partiallyzero, Sm_mcsr_cg_cp_shadow_mip_readback_partiallyzero_str)
-  csrw mie, x15 # set all interrupts in mie
+  # Read mip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(mip, x13, Sm_mcsr_cg_cp_shadow_mip_readback_partiallyzero, Sm_mcsr_cg_cp_shadow_mip_readback_partiallyzero_str)
+  csrw mie, x8 # set all interrupts in mie
 # sie reads the delegated bits
 Sm_mcsr_cg_cp_shadow_sie_readback_nonzero_deleg:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_sie_readback_nonzero_deleg, Sm_mcsr_cg_cp_shadow_sie_readback_nonzero_deleg_str)
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_sie_readback_nonzero_deleg, Sm_mcsr_cg_cp_shadow_sie_readback_nonzero_deleg_str)
   csrw sie, zero # clears every delegated S-level enable
 # mie keeps only the M-level enables
 Sm_mcsr_cg_cp_shadow_mie_readback_m_only_deleg:
-  # Read mie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mie, x6, Sm_mcsr_cg_cp_shadow_mie_readback_m_only_deleg, Sm_mcsr_cg_cp_shadow_mie_readback_m_only_deleg_str)
+  # Read mie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(mie, x13, Sm_mcsr_cg_cp_shadow_mie_readback_m_only_deleg, Sm_mcsr_cg_cp_shadow_mie_readback_m_only_deleg_str)
 
 # Delegate one interrupt at a time; sip and sie show just that bit
-  csrw mip, x15 # set all interrupts in mip
-  csrw mie, x15 # set all interrupts in mie
-  LI(x15, 0x2)
-  csrw mideleg, x15 # delegate only SSI
+  csrw mip, x8 # set all interrupts in mip
+  csrw mie, x8 # set all interrupts in mie
+  LI(x8, 0x2)
+  csrw mideleg, x8 # delegate only SSI
 # sip reads only SSIP if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sip_SSI:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_deleg_sip_SSI, Sm_mcsr_cg_cp_shadow_deleg_sip_SSI_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_deleg_sip_SSI, Sm_mcsr_cg_cp_shadow_deleg_sip_SSI_str)
 # sie reads only SSIE if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sie_SSI:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_deleg_sie_SSI, Sm_mcsr_cg_cp_shadow_deleg_sie_SSI_str)
-  LI(x15, 0x20)
-  csrw mideleg, x15 # delegate only STI
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_deleg_sie_SSI, Sm_mcsr_cg_cp_shadow_deleg_sie_SSI_str)
+  LI(x8, 0x20)
+  csrw mideleg, x8 # delegate only STI
 # sip reads only STIP if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sip_STI:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_deleg_sip_STI, Sm_mcsr_cg_cp_shadow_deleg_sip_STI_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_deleg_sip_STI, Sm_mcsr_cg_cp_shadow_deleg_sip_STI_str)
 # sie reads only STIE if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sie_STI:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_deleg_sie_STI, Sm_mcsr_cg_cp_shadow_deleg_sie_STI_str)
-  LI(x15, 0x200)
-  csrw mideleg, x15 # delegate only SEI
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_deleg_sie_STI, Sm_mcsr_cg_cp_shadow_deleg_sie_STI_str)
+  LI(x8, 0x200)
+  csrw mideleg, x8 # delegate only SEI
 # sip reads only SEIP if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sip_SEI:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_deleg_sip_SEI, Sm_mcsr_cg_cp_shadow_deleg_sip_SEI_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_deleg_sip_SEI, Sm_mcsr_cg_cp_shadow_deleg_sip_SEI_str)
 # sie reads only SEIE if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sie_SEI:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_deleg_sie_SEI, Sm_mcsr_cg_cp_shadow_deleg_sie_SEI_str)
-  LI(x15, 0x2000)
-  csrw mideleg, x15 # delegate only LCOFI
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_deleg_sie_SEI, Sm_mcsr_cg_cp_shadow_deleg_sie_SEI_str)
+  LI(x8, 0x2000)
+  csrw mideleg, x8 # delegate only LCOFI
 # sip reads only LCOFIP if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sip_LCOFI:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_deleg_sip_LCOFI, Sm_mcsr_cg_cp_shadow_deleg_sip_LCOFI_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_deleg_sip_LCOFI, Sm_mcsr_cg_cp_shadow_deleg_sip_LCOFI_str)
 # sie reads only LCOFIE if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sie_LCOFI:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_deleg_sie_LCOFI, Sm_mcsr_cg_cp_shadow_deleg_sie_LCOFI_str)
-  LI(x15, 0x8)
-  csrw mideleg, x15 # delegate only MSI
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_deleg_sie_LCOFI, Sm_mcsr_cg_cp_shadow_deleg_sie_LCOFI_str)
+  LI(x8, 0x8)
+  csrw mideleg, x8 # delegate only MSI
 # sip reads only MSIP if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sip_MSI:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_deleg_sip_MSI, Sm_mcsr_cg_cp_shadow_deleg_sip_MSI_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_deleg_sip_MSI, Sm_mcsr_cg_cp_shadow_deleg_sip_MSI_str)
 # sie reads only MSIE if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sie_MSI:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_deleg_sie_MSI, Sm_mcsr_cg_cp_shadow_deleg_sie_MSI_str)
-  LI(x15, 0x80)
-  csrw mideleg, x15 # delegate only MTI
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_deleg_sie_MSI, Sm_mcsr_cg_cp_shadow_deleg_sie_MSI_str)
+  LI(x8, 0x80)
+  csrw mideleg, x8 # delegate only MTI
 # sip reads only MTIP if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sip_MTI:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_deleg_sip_MTI, Sm_mcsr_cg_cp_shadow_deleg_sip_MTI_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_deleg_sip_MTI, Sm_mcsr_cg_cp_shadow_deleg_sip_MTI_str)
 # sie reads only MTIE if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sie_MTI:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_deleg_sie_MTI, Sm_mcsr_cg_cp_shadow_deleg_sie_MTI_str)
-  LI(x15, 0x800)
-  csrw mideleg, x15 # delegate only MEI
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_deleg_sie_MTI, Sm_mcsr_cg_cp_shadow_deleg_sie_MTI_str)
+  LI(x8, 0x800)
+  csrw mideleg, x8 # delegate only MEI
 # sip reads only MEIP if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sip_MEI:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_deleg_sip_MEI, Sm_mcsr_cg_cp_shadow_deleg_sip_MEI_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_deleg_sip_MEI, Sm_mcsr_cg_cp_shadow_deleg_sip_MEI_str)
 # sie reads only MEIE if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sie_MEI:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_deleg_sie_MEI, Sm_mcsr_cg_cp_shadow_deleg_sie_MEI_str)
-  LI(x15, 0x4)
-  csrw mideleg, x15 # delegate only VSSI
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_deleg_sie_MEI, Sm_mcsr_cg_cp_shadow_deleg_sie_MEI_str)
+  LI(x8, 0x4)
+  csrw mideleg, x8 # delegate only VSSI
 # sip reads only VSSIP if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sip_VSSI:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_deleg_sip_VSSI, Sm_mcsr_cg_cp_shadow_deleg_sip_VSSI_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_deleg_sip_VSSI, Sm_mcsr_cg_cp_shadow_deleg_sip_VSSI_str)
 # sie reads only VSSIE if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sie_VSSI:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_deleg_sie_VSSI, Sm_mcsr_cg_cp_shadow_deleg_sie_VSSI_str)
-  LI(x15, 0x40)
-  csrw mideleg, x15 # delegate only VSTI
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_deleg_sie_VSSI, Sm_mcsr_cg_cp_shadow_deleg_sie_VSSI_str)
+  LI(x8, 0x40)
+  csrw mideleg, x8 # delegate only VSTI
 # sip reads only VSTIP if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sip_VSTI:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_deleg_sip_VSTI, Sm_mcsr_cg_cp_shadow_deleg_sip_VSTI_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_deleg_sip_VSTI, Sm_mcsr_cg_cp_shadow_deleg_sip_VSTI_str)
 # sie reads only VSTIE if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sie_VSTI:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_deleg_sie_VSTI, Sm_mcsr_cg_cp_shadow_deleg_sie_VSTI_str)
-  LI(x15, 0x400)
-  csrw mideleg, x15 # delegate only VSEI
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_deleg_sie_VSTI, Sm_mcsr_cg_cp_shadow_deleg_sie_VSTI_str)
+  LI(x8, 0x400)
+  csrw mideleg, x8 # delegate only VSEI
 # sip reads only VSEIP if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sip_VSEI:
-  # Read sip into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sip, x6, Sm_mcsr_cg_cp_shadow_deleg_sip_VSEI, Sm_mcsr_cg_cp_shadow_deleg_sip_VSEI_str)
+  # Read sip into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sip, x13, Sm_mcsr_cg_cp_shadow_deleg_sip_VSEI, Sm_mcsr_cg_cp_shadow_deleg_sip_VSEI_str)
 # sie reads only VSEIE if delegable
 Sm_mcsr_cg_cp_shadow_deleg_sie_VSEI:
-  # Read sie into x6 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(sie, x6, Sm_mcsr_cg_cp_shadow_deleg_sie_VSEI, Sm_mcsr_cg_cp_shadow_deleg_sie_VSEI_str)
+  # Read sie into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(sie, x13, Sm_mcsr_cg_cp_shadow_deleg_sie_VSEI, Sm_mcsr_cg_cp_shadow_deleg_sie_VSEI_str)
   csrw mip, zero # restore mip
   csrw mie, zero # restore mie
   csrw mideleg, zero # restore mideleg
@@ -414,58 +414,58 @@ RVTEST_DATA_BEGIN
 
 
 // Testcase strings
-Sm_mcsr_cg_cp_shadow_mstatus_sstatus_1s_str: .string "\"test: 7737; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mstatus_sstatus_1s\""
-Sm_mcsr_cg_cp_shadow_mstatus_sstatus_0s_str: .string "\"test: 7738; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mstatus_sstatus_0s\""
-Sm_mcsr_cg_cp_shadow_sstatus_mstatus_1s_str: .string "\"test: 7739; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sstatus_mstatus_1s\""
-Sm_mcsr_cg_cp_shadow_sstatus_mstatus_0s_str: .string "\"test: 7740; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sstatus_mstatus_0s\""
-Sm_mcsr_cg_cp_shadow_mie_sie_1s_str: .string "\"test: 7741; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_sie_1s\""
-Sm_mcsr_cg_cp_shadow_mie_sie_0s_str: .string "\"test: 7742; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_sie_0s\""
-Sm_mcsr_cg_cp_shadow_mip_sip_1s_str: .string "\"test: 7743; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_sip_1s\""
-Sm_mcsr_cg_cp_shadow_mip_sip_0s_str: .string "\"test: 7744; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_sip_0s\""
-Sm_mcsr_cg_cp_shadow_sie_mie_1s_str: .string "\"test: 7745; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_mie_1s\""
-Sm_mcsr_cg_cp_shadow_sie_mie_0s_str: .string "\"test: 7746; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_mie_0s\""
-Sm_mcsr_cg_cp_shadow_sip_mip_1s_str: .string "\"test: 7747; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_mip_1s\""
-Sm_mcsr_cg_cp_shadow_sip_mip_0s_str: .string "\"test: 7748; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_mip_0s\""
-Sm_mcsr_cg_cp_shadow_mie_sie_1s_deleg_str: .string "\"test: 7749; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_sie_1s_deleg\""
-Sm_mcsr_cg_cp_shadow_mie_sie_0s_deleg_str: .string "\"test: 7750; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_sie_0s_deleg\""
-Sm_mcsr_cg_cp_shadow_mip_sip_1s_deleg_str: .string "\"test: 7751; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_sip_1s_deleg\""
-Sm_mcsr_cg_cp_shadow_mip_sip_0s_deleg_str: .string "\"test: 7752; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_sip_0s_deleg\""
-Sm_mcsr_cg_cp_shadow_sie_mie_1s_deleg_str: .string "\"test: 7753; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_mie_1s_deleg\""
-Sm_mcsr_cg_cp_shadow_sie_mie_0s_deleg_str: .string "\"test: 7754; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_mie_0s_deleg\""
-Sm_mcsr_cg_cp_shadow_sip_mip_1s_deleg_str: .string "\"test: 7755; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_mip_1s_deleg\""
-Sm_mcsr_cg_cp_shadow_sip_mip_0s_deleg_str: .string "\"test: 7756; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_mip_0s_deleg\""
-Sm_mcsr_cg_cp_shadow_sip_readback_zero_str: .string "\"test: 7757; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_readback_zero\""
-Sm_mcsr_cg_cp_shadow_sie_readback_zero_str: .string "\"test: 7758; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_readback_zero\""
-Sm_mcsr_cg_cp_shadow_sip_readback_zero_masked_str: .string "\"test: 7759; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_readback_zero_masked\""
-Sm_mcsr_cg_cp_shadow_mip_readback_nonzero_masked_str: .string "\"test: 7760; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_readback_nonzero_masked\""
-Sm_mcsr_cg_cp_shadow_sie_readback_zero_masked_str: .string "\"test: 7761; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_readback_zero_masked\""
-Sm_mcsr_cg_cp_shadow_mie_readback_nonzero_masked_str: .string "\"test: 7762; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_readback_nonzero_masked\""
-Sm_mcsr_cg_cp_shadow_sip_readback_zero_2_str: .string "\"test: 7763; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_readback_zero_2\""
-Sm_mcsr_cg_cp_shadow_sie_readback_zero_2_str: .string "\"test: 7764; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_readback_zero_2\""
-Sm_mcsr_cg_cp_shadow_sip_readback_nonzero_str: .string "\"test: 7765; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_readback_nonzero\""
-Sm_mcsr_cg_cp_shadow_mip_readback_partiallyzero_str: .string "\"test: 7766; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_readback_partiallyzero\""
-Sm_mcsr_cg_cp_shadow_sie_readback_nonzero_deleg_str: .string "\"test: 7767; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_readback_nonzero_deleg\""
-Sm_mcsr_cg_cp_shadow_mie_readback_m_only_deleg_str: .string "\"test: 7768; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_readback_m_only_deleg\""
-Sm_mcsr_cg_cp_shadow_deleg_sip_SSI_str: .string "\"test: 7769; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_SSI\""
-Sm_mcsr_cg_cp_shadow_deleg_sie_SSI_str: .string "\"test: 7770; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_SSI\""
-Sm_mcsr_cg_cp_shadow_deleg_sip_STI_str: .string "\"test: 7771; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_STI\""
-Sm_mcsr_cg_cp_shadow_deleg_sie_STI_str: .string "\"test: 7772; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_STI\""
-Sm_mcsr_cg_cp_shadow_deleg_sip_SEI_str: .string "\"test: 7773; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_SEI\""
-Sm_mcsr_cg_cp_shadow_deleg_sie_SEI_str: .string "\"test: 7774; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_SEI\""
-Sm_mcsr_cg_cp_shadow_deleg_sip_LCOFI_str: .string "\"test: 7775; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_LCOFI\""
-Sm_mcsr_cg_cp_shadow_deleg_sie_LCOFI_str: .string "\"test: 7776; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_LCOFI\""
-Sm_mcsr_cg_cp_shadow_deleg_sip_MSI_str: .string "\"test: 7777; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_MSI\""
-Sm_mcsr_cg_cp_shadow_deleg_sie_MSI_str: .string "\"test: 7778; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_MSI\""
-Sm_mcsr_cg_cp_shadow_deleg_sip_MTI_str: .string "\"test: 7779; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_MTI\""
-Sm_mcsr_cg_cp_shadow_deleg_sie_MTI_str: .string "\"test: 7780; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_MTI\""
-Sm_mcsr_cg_cp_shadow_deleg_sip_MEI_str: .string "\"test: 7781; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_MEI\""
-Sm_mcsr_cg_cp_shadow_deleg_sie_MEI_str: .string "\"test: 7782; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_MEI\""
-Sm_mcsr_cg_cp_shadow_deleg_sip_VSSI_str: .string "\"test: 7783; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_VSSI\""
-Sm_mcsr_cg_cp_shadow_deleg_sie_VSSI_str: .string "\"test: 7784; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_VSSI\""
-Sm_mcsr_cg_cp_shadow_deleg_sip_VSTI_str: .string "\"test: 7785; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_VSTI\""
-Sm_mcsr_cg_cp_shadow_deleg_sie_VSTI_str: .string "\"test: 7786; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_VSTI\""
-Sm_mcsr_cg_cp_shadow_deleg_sip_VSEI_str: .string "\"test: 7787; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_VSEI\""
-Sm_mcsr_cg_cp_shadow_deleg_sie_VSEI_str: .string "\"test: 7788; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_VSEI\""
+Sm_mcsr_cg_cp_shadow_mstatus_sstatus_1s_str: .string "\"test: 9509; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mstatus_sstatus_1s\""
+Sm_mcsr_cg_cp_shadow_mstatus_sstatus_0s_str: .string "\"test: 9510; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mstatus_sstatus_0s\""
+Sm_mcsr_cg_cp_shadow_sstatus_mstatus_1s_str: .string "\"test: 9511; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sstatus_mstatus_1s\""
+Sm_mcsr_cg_cp_shadow_sstatus_mstatus_0s_str: .string "\"test: 9512; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sstatus_mstatus_0s\""
+Sm_mcsr_cg_cp_shadow_mie_sie_1s_str: .string "\"test: 9513; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_sie_1s\""
+Sm_mcsr_cg_cp_shadow_mie_sie_0s_str: .string "\"test: 9514; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_sie_0s\""
+Sm_mcsr_cg_cp_shadow_mip_sip_1s_str: .string "\"test: 9515; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_sip_1s\""
+Sm_mcsr_cg_cp_shadow_mip_sip_0s_str: .string "\"test: 9516; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_sip_0s\""
+Sm_mcsr_cg_cp_shadow_sie_mie_1s_str: .string "\"test: 9517; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_mie_1s\""
+Sm_mcsr_cg_cp_shadow_sie_mie_0s_str: .string "\"test: 9518; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_mie_0s\""
+Sm_mcsr_cg_cp_shadow_sip_mip_1s_str: .string "\"test: 9519; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_mip_1s\""
+Sm_mcsr_cg_cp_shadow_sip_mip_0s_str: .string "\"test: 9520; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_mip_0s\""
+Sm_mcsr_cg_cp_shadow_mie_sie_1s_deleg_str: .string "\"test: 9521; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_sie_1s_deleg\""
+Sm_mcsr_cg_cp_shadow_mie_sie_0s_deleg_str: .string "\"test: 9522; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_sie_0s_deleg\""
+Sm_mcsr_cg_cp_shadow_mip_sip_1s_deleg_str: .string "\"test: 9523; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_sip_1s_deleg\""
+Sm_mcsr_cg_cp_shadow_mip_sip_0s_deleg_str: .string "\"test: 9524; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_sip_0s_deleg\""
+Sm_mcsr_cg_cp_shadow_sie_mie_1s_deleg_str: .string "\"test: 9525; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_mie_1s_deleg\""
+Sm_mcsr_cg_cp_shadow_sie_mie_0s_deleg_str: .string "\"test: 9526; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_mie_0s_deleg\""
+Sm_mcsr_cg_cp_shadow_sip_mip_1s_deleg_str: .string "\"test: 9527; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_mip_1s_deleg\""
+Sm_mcsr_cg_cp_shadow_sip_mip_0s_deleg_str: .string "\"test: 9528; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_mip_0s_deleg\""
+Sm_mcsr_cg_cp_shadow_sip_readback_zero_str: .string "\"test: 9529; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_readback_zero\""
+Sm_mcsr_cg_cp_shadow_sie_readback_zero_str: .string "\"test: 9530; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_readback_zero\""
+Sm_mcsr_cg_cp_shadow_sip_readback_zero_masked_str: .string "\"test: 9531; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_readback_zero_masked\""
+Sm_mcsr_cg_cp_shadow_mip_readback_nonzero_masked_str: .string "\"test: 9532; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_readback_nonzero_masked\""
+Sm_mcsr_cg_cp_shadow_sie_readback_zero_masked_str: .string "\"test: 9533; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_readback_zero_masked\""
+Sm_mcsr_cg_cp_shadow_mie_readback_nonzero_masked_str: .string "\"test: 9534; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_readback_nonzero_masked\""
+Sm_mcsr_cg_cp_shadow_sip_readback_zero_2_str: .string "\"test: 9535; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_readback_zero_2\""
+Sm_mcsr_cg_cp_shadow_sie_readback_zero_2_str: .string "\"test: 9536; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_readback_zero_2\""
+Sm_mcsr_cg_cp_shadow_sip_readback_nonzero_str: .string "\"test: 9537; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sip_readback_nonzero\""
+Sm_mcsr_cg_cp_shadow_mip_readback_partiallyzero_str: .string "\"test: 9538; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mip_readback_partiallyzero\""
+Sm_mcsr_cg_cp_shadow_sie_readback_nonzero_deleg_str: .string "\"test: 9539; cg: Sm_mcsr_cg; cp: cp_shadow; bin: sie_readback_nonzero_deleg\""
+Sm_mcsr_cg_cp_shadow_mie_readback_m_only_deleg_str: .string "\"test: 9540; cg: Sm_mcsr_cg; cp: cp_shadow; bin: mie_readback_m_only_deleg\""
+Sm_mcsr_cg_cp_shadow_deleg_sip_SSI_str: .string "\"test: 9541; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_SSI\""
+Sm_mcsr_cg_cp_shadow_deleg_sie_SSI_str: .string "\"test: 9542; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_SSI\""
+Sm_mcsr_cg_cp_shadow_deleg_sip_STI_str: .string "\"test: 9543; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_STI\""
+Sm_mcsr_cg_cp_shadow_deleg_sie_STI_str: .string "\"test: 9544; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_STI\""
+Sm_mcsr_cg_cp_shadow_deleg_sip_SEI_str: .string "\"test: 9545; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_SEI\""
+Sm_mcsr_cg_cp_shadow_deleg_sie_SEI_str: .string "\"test: 9546; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_SEI\""
+Sm_mcsr_cg_cp_shadow_deleg_sip_LCOFI_str: .string "\"test: 9547; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_LCOFI\""
+Sm_mcsr_cg_cp_shadow_deleg_sie_LCOFI_str: .string "\"test: 9548; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_LCOFI\""
+Sm_mcsr_cg_cp_shadow_deleg_sip_MSI_str: .string "\"test: 9549; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_MSI\""
+Sm_mcsr_cg_cp_shadow_deleg_sie_MSI_str: .string "\"test: 9550; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_MSI\""
+Sm_mcsr_cg_cp_shadow_deleg_sip_MTI_str: .string "\"test: 9551; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_MTI\""
+Sm_mcsr_cg_cp_shadow_deleg_sie_MTI_str: .string "\"test: 9552; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_MTI\""
+Sm_mcsr_cg_cp_shadow_deleg_sip_MEI_str: .string "\"test: 9553; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_MEI\""
+Sm_mcsr_cg_cp_shadow_deleg_sie_MEI_str: .string "\"test: 9554; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_MEI\""
+Sm_mcsr_cg_cp_shadow_deleg_sip_VSSI_str: .string "\"test: 9555; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_VSSI\""
+Sm_mcsr_cg_cp_shadow_deleg_sie_VSSI_str: .string "\"test: 9556; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_VSSI\""
+Sm_mcsr_cg_cp_shadow_deleg_sip_VSTI_str: .string "\"test: 9557; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_VSTI\""
+Sm_mcsr_cg_cp_shadow_deleg_sie_VSTI_str: .string "\"test: 9558; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_VSTI\""
+Sm_mcsr_cg_cp_shadow_deleg_sip_VSEI_str: .string "\"test: 9559; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sip_VSEI\""
+Sm_mcsr_cg_cp_shadow_deleg_sie_VSEI_str: .string "\"test: 9560; cg: Sm_mcsr_cg; cp: cp_shadow; bin: deleg_sie_VSEI\""
 
 // End of test data section and model specific data
 RVTEST_DATA_END
