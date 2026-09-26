@@ -27,1757 +27,588 @@
 RVTEST_BEGIN
 
 
-# CSR Walk Tests for mip
-  csrr x6, mip      # Save CSR
-  LI(x13, 1)              # 1 in bit 0
-  LI(x14, 65535)    # Load mask (0xffff)
-  LI(x9, -1)             # x9 = all 1s
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 0
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_0:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_0_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 1
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_1:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_1_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 2
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_2:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_2_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 3
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_3:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_3_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 4
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_4:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_4_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 5
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_5:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_5_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 6
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_6:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_6_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 7
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_7:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_7_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 8
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_8:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_8_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 9
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_9:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_9_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 10
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_10:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_10_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 11
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_11:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_11_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 12
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_12:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_12_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 13
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_13:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_13_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 14
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_14:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_14_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 15
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_15:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_15_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 16
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_16:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_16_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 17
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_17:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_17_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 18
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_18:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_18_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 19
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_19:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_19_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 20
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_20:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_20_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 21
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_21:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_21_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 22
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_22:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_22_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 23
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_23:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_23_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 24
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_24:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_24_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 25
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_25:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_25_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 26
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_26:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_26_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 27
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_27:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_27_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 28
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_28:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_28_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 29
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_29:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_29_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 30
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_30:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_30_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 31
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_31:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_31_str)
-  slli x13, x13, 1      # walk the 1
-
-#if __riscv_xlen == 64
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 32
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_32:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_32_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 33
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_33:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_33_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 34
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_34:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_34_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 35
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_35:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_35_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 36
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_36:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_36_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 37
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_37:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_37_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 38
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_38:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_38_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 39
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_39:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_39_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 40
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_40:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_40_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 41
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_41:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_41_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 42
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_42:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_42_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 43
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_43:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_43_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 44
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_44:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_44_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 45
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_45:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_45_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 46
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_46:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_46_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 47
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_47:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_47_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 48
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_48:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_48_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 49
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_49:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_49_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 50
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_50:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_50_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 51
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_51:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_51_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 52
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_52:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_52_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 53
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_53:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_53_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 54
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_54:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_54_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 55
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_55:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_55_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 56
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_56:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_56_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 57
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_57:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_57_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 58
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_58:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_58_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 59
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_59:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_59_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 60
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_60:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_60_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 61
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_61:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_61_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 62
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_62:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_62_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, zero    # clear all bits
-  csrs mip, x13     # set walking 1 in column 63
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_63:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_63_str)
-  slli x13, x13, 1      # walk the 1
-#endif
-
-  LI(x13, 1)            # 1 in bit 0
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 0
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_0:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_0_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 1
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_1:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_1_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 2
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_2:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_2_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 3
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_3:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_3_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 4
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_4:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_4_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 5
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_5:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_5_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 6
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_6:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_6_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 7
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_7:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_7_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 8
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_8:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_8_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 9
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_9:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_9_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 10
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_10:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_10_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 11
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_11:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_11_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 12
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_12:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_12_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 13
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_13:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_13_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 14
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_14:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_14_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 15
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_15:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_15_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 16
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_16:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_16_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 17
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_17:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_17_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 18
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_18:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_18_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 19
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_19:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_19_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 20
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_20:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_20_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 21
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_21:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_21_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 22
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_22:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_22_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 23
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_23:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_23_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 24
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_24:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_24_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 25
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_25:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_25_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 26
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_26:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_26_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 27
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_27:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_27_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 28
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_28:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_28_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 29
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_29:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_29_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 30
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_30:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_30_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 31
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_31:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_31_str)
-  slli x13, x13, 1      # walk the 1
-
-#if __riscv_xlen == 64
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 32
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_32:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_32_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 33
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_33:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_33_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 34
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_34:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_34_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 35
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_35:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_35_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 36
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_36:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_36_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 37
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_37:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_37_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 38
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_38:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_38_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 39
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_39:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_39_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 40
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_40:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_40_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 41
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_41:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_41_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 42
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_42:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_42_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 43
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_43:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_43_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 44
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_44:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_44_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 45
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_45:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_45_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 46
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_46:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_46_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 47
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_47:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_47_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 48
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_48:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_48_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 49
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_49:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_49_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 50
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_50:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_50_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 51
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_51:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_51_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 52
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_52:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_52_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 53
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_53:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_53_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 54
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_54:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_54_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 55
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_55:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_55_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 56
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_56:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_56_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 57
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_57:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_57_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 58
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_58:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_58_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 59
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_59:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_59_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 60
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_60:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_60_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 61
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_61:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_61_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 62
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_62:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_62_str)
-  slli x13, x13, 1      # walk the 1
-  csrw mip, x9   # set all (possibly masked) bits
-  csrc mip, x13     # clear walking 0 in column 63
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_63:
-  # Read mip into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mip    # Read CSR
-  and x15, x15, x14    # keep only masked bits 0xffff
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_63_str)
-  slli x13, x13, 1      # walk the 1
-#endif
-
-  csrw mip, x6            # restore CSR
-
-
 # CSR Walk Tests for mhpmevent3
   csrr x9, mhpmevent3      # Save CSR
   LI(x6, 1)              # 1 in bit 0
-  LI(x14, 0)    # Load mask (0x0)
+  LI(x8, 0)    # Load mask (0x0)
   LI(x13, -1)             # x13 = all 1s
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 0
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_0:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_0_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_0_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 1
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_1:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_1_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_1_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 2
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_2:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_2_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_2_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 3
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_3:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_3_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_3_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 4
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_4:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_4_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_4_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 5
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_5:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_5_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_5_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 6
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_6:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_6_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_6_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 7
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_7:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_7_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_7_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 8
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_8:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_8_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_8_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 9
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_9:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_9_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_9_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 10
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_10:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_10_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_10_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 11
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_11:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_11_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_11_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 12
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_12:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_12_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_12_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 13
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_13:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_13_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_13_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 14
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_14:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_14_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_14_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 15
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_15:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_15_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_15_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 16
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_16:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_16_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_16_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 17
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_17:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_17_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_17_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 18
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_18:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_18_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_18_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 19
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_19:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_19_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_19_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 20
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_20:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_20_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_20_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 21
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_21:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_21_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_21_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 22
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_22:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_22_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_22_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 23
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_23:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_23_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_23_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 24
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_24:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_24_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_24_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 25
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_25:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_25_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_25_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 26
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_26:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_26_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_26_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 27
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_27:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_27_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_27_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 28
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_28:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_28_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_28_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 29
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_29:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_29_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_29_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 30
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_30:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_30_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_30_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 31
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_31:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_31_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_31_str)
   slli x6, x6, 1      # walk the 1
 
 #if __riscv_xlen == 64
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 32
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_32:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_32_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_32_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 33
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_33:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_33_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_33_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 34
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_34:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_34_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_34_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 35
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_35:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_35_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_35_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 36
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_36:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_36_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_36_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 37
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_37:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_37_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_37_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 38
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_38:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_38_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_38_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 39
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_39:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_39_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_39_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 40
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_40:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_40_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_40_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 41
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_41:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_41_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_41_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 42
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_42:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_42_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_42_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 43
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_43:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_43_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_43_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 44
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_44:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_44_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_44_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 45
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_45:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_45_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_45_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 46
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_46:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_46_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_46_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 47
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_47:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_47_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_47_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 48
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_48:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_48_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_48_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 49
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_49:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_49_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_49_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 50
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_50:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_50_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_50_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 51
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_51:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_51_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_51_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 52
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_52:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_52_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_52_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 53
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_53:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_53_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_53_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 54
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_54:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_54_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_54_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 55
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_55:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_55_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_55_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 56
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_56:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_56_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_56_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 57
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_57:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_57_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_57_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 58
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_58:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_58_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_58_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 59
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_59:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_59_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_59_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 60
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_60:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_60_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_60_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 61
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_61:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_61_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_61_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 62
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_62:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_62_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_62_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, zero    # clear all bits
   csrs mhpmevent3, x6     # set walking 1 in column 63
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_63:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_63_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_63_str)
   slli x6, x6, 1      # walk the 1
 #endif
 
@@ -1785,580 +616,580 @@ Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_63:
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 0
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_0:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_0_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_0_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 1
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_1:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_1_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_1_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 2
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_2:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_2_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_2_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 3
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_3:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_3_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_3_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 4
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_4:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_4_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_4_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 5
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_5:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_5_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_5_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 6
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_6:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_6_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_6_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 7
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_7:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_7_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_7_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 8
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_8:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_8_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_8_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 9
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_9:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_9_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_9_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 10
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_10:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_10_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_10_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 11
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_11:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_11_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_11_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 12
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_12:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_12_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_12_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 13
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_13:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_13_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_13_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 14
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_14:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_14_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_14_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 15
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_15:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_15_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_15_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 16
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_16:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_16_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_16_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 17
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_17:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_17_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_17_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 18
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_18:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_18_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_18_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 19
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_19:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_19_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_19_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 20
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_20:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_20_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_20_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 21
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_21:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_21_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_21_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 22
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_22:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_22_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_22_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 23
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_23:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_23_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_23_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 24
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_24:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_24_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_24_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 25
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_25:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_25_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_25_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 26
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_26:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_26_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_26_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 27
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_27:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_27_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_27_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 28
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_28:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_28_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_28_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 29
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_29:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_29_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_29_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 30
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_30:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_30_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_30_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 31
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_31:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_31_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_31_str)
   slli x6, x6, 1      # walk the 1
 
 #if __riscv_xlen == 64
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 32
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_32:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_32_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_32_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 33
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_33:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_33_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_33_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 34
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_34:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_34_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_34_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 35
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_35:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_35_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_35_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 36
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_36:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_36_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_36_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 37
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_37:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_37_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_37_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 38
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_38:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_38_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_38_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 39
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_39:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_39_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_39_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 40
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_40:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_40_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_40_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 41
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_41:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_41_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_41_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 42
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_42:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_42_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_42_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 43
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_43:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_43_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_43_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 44
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_44:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_44_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_44_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 45
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_45:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_45_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_45_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 46
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_46:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_46_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_46_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 47
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_47:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_47_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_47_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 48
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_48:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_48_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_48_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 49
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_49:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_49_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_49_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 50
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_50:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_50_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_50_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 51
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_51:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_51_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_51_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 52
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_52:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_52_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_52_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 53
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_53:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_53_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_53_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 54
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_54:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_54_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_54_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 55
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_55:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_55_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_55_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 56
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_56:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_56_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_56_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 57
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_57:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_57_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_57_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 58
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_58:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_58_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_58_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 59
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_59:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_59_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_59_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 60
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_60:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_60_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_60_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 61
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_61:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_61_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_61_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 62
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_62:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_62_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_62_str)
   slli x6, x6, 1      # walk the 1
   csrw mhpmevent3, x13   # set all (possibly masked) bits
   csrc mhpmevent3, x6     # clear walking 0 in column 63
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_63:
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_63_str)
+  # Read mhpmevent3 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent3    # Read CSR
+  and x14, x14, x8    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_63_str)
   slli x6, x6, 1      # walk the 1
 #endif
 
@@ -2367,2340 +1198,3509 @@ Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_63:
 
 # CSR Walk Tests for mhpmevent4
   csrr x13, mhpmevent4      # Save CSR
-  LI(x15, 1)              # 1 in bit 0
-  LI(x14, 0)    # Load mask (0x0)
-  LI(x8, -1)             # x8 = all 1s
+  LI(x6, 1)              # 1 in bit 0
+  LI(x15, 0)    # Load mask (0x0)
+  LI(x14, -1)             # x14 = all 1s
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 0
+  csrs mhpmevent4, x6     # set walking 1 in column 0
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_0:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_0_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_0_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 1
+  csrs mhpmevent4, x6     # set walking 1 in column 1
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_1:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_1_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_1_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 2
+  csrs mhpmevent4, x6     # set walking 1 in column 2
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_2:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_2_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_2_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 3
+  csrs mhpmevent4, x6     # set walking 1 in column 3
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_3:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_3_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_3_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 4
+  csrs mhpmevent4, x6     # set walking 1 in column 4
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_4:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_4_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_4_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 5
+  csrs mhpmevent4, x6     # set walking 1 in column 5
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_5:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_5_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_5_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 6
+  csrs mhpmevent4, x6     # set walking 1 in column 6
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_6:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_6_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_6_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 7
+  csrs mhpmevent4, x6     # set walking 1 in column 7
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_7:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_7_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_7_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 8
+  csrs mhpmevent4, x6     # set walking 1 in column 8
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_8:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_8_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_8_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 9
+  csrs mhpmevent4, x6     # set walking 1 in column 9
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_9:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_9_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_9_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 10
+  csrs mhpmevent4, x6     # set walking 1 in column 10
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_10:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_10_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_10_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 11
+  csrs mhpmevent4, x6     # set walking 1 in column 11
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_11:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_11_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_11_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 12
+  csrs mhpmevent4, x6     # set walking 1 in column 12
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_12:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_12_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_12_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 13
+  csrs mhpmevent4, x6     # set walking 1 in column 13
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_13:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_13_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_13_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 14
+  csrs mhpmevent4, x6     # set walking 1 in column 14
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_14:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_14_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_14_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 15
+  csrs mhpmevent4, x6     # set walking 1 in column 15
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_15:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_15_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_15_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 16
+  csrs mhpmevent4, x6     # set walking 1 in column 16
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_16:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_16_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_16_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 17
+  csrs mhpmevent4, x6     # set walking 1 in column 17
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_17:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_17_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_17_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 18
+  csrs mhpmevent4, x6     # set walking 1 in column 18
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_18:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_18_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_18_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 19
+  csrs mhpmevent4, x6     # set walking 1 in column 19
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_19:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_19_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_19_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 20
+  csrs mhpmevent4, x6     # set walking 1 in column 20
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_20:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_20_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_20_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 21
+  csrs mhpmevent4, x6     # set walking 1 in column 21
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_21:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_21_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_21_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 22
+  csrs mhpmevent4, x6     # set walking 1 in column 22
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_22:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_22_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_22_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 23
+  csrs mhpmevent4, x6     # set walking 1 in column 23
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_23:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_23_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_23_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 24
+  csrs mhpmevent4, x6     # set walking 1 in column 24
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_24:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_24_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_24_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 25
+  csrs mhpmevent4, x6     # set walking 1 in column 25
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_25:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_25_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_25_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 26
+  csrs mhpmevent4, x6     # set walking 1 in column 26
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_26:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_26_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_26_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 27
+  csrs mhpmevent4, x6     # set walking 1 in column 27
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_27:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_27_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_27_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 28
+  csrs mhpmevent4, x6     # set walking 1 in column 28
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_28:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_28_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_28_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 29
+  csrs mhpmevent4, x6     # set walking 1 in column 29
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_29:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_29_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_29_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 30
+  csrs mhpmevent4, x6     # set walking 1 in column 30
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_30:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_30_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_30_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 31
+  csrs mhpmevent4, x6     # set walking 1 in column 31
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_31:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_31_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_31_str)
+  slli x6, x6, 1      # walk the 1
 
 #if __riscv_xlen == 64
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 32
+  csrs mhpmevent4, x6     # set walking 1 in column 32
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_32:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_32_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_32_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 33
+  csrs mhpmevent4, x6     # set walking 1 in column 33
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_33:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_33_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_33_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 34
+  csrs mhpmevent4, x6     # set walking 1 in column 34
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_34:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_34_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_34_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 35
+  csrs mhpmevent4, x6     # set walking 1 in column 35
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_35:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_35_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_35_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 36
+  csrs mhpmevent4, x6     # set walking 1 in column 36
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_36:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_36_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_36_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 37
+  csrs mhpmevent4, x6     # set walking 1 in column 37
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_37:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_37_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_37_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 38
+  csrs mhpmevent4, x6     # set walking 1 in column 38
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_38:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_38_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_38_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 39
+  csrs mhpmevent4, x6     # set walking 1 in column 39
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_39:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_39_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_39_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 40
+  csrs mhpmevent4, x6     # set walking 1 in column 40
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_40:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_40_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_40_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 41
+  csrs mhpmevent4, x6     # set walking 1 in column 41
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_41:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_41_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_41_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 42
+  csrs mhpmevent4, x6     # set walking 1 in column 42
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_42:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_42_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_42_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 43
+  csrs mhpmevent4, x6     # set walking 1 in column 43
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_43:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_43_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_43_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 44
+  csrs mhpmevent4, x6     # set walking 1 in column 44
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_44:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_44_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_44_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 45
+  csrs mhpmevent4, x6     # set walking 1 in column 45
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_45:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_45_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_45_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 46
+  csrs mhpmevent4, x6     # set walking 1 in column 46
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_46:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_46_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_46_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 47
+  csrs mhpmevent4, x6     # set walking 1 in column 47
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_47:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_47_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_47_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 48
+  csrs mhpmevent4, x6     # set walking 1 in column 48
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_48:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_48_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_48_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 49
+  csrs mhpmevent4, x6     # set walking 1 in column 49
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_49:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_49_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_49_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 50
+  csrs mhpmevent4, x6     # set walking 1 in column 50
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_50:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_50_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_50_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 51
+  csrs mhpmevent4, x6     # set walking 1 in column 51
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_51:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_51_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_51_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 52
+  csrs mhpmevent4, x6     # set walking 1 in column 52
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_52:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_52_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_52_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 53
+  csrs mhpmevent4, x6     # set walking 1 in column 53
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_53:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_53_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_53_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 54
+  csrs mhpmevent4, x6     # set walking 1 in column 54
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_54:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_54_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_54_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 55
+  csrs mhpmevent4, x6     # set walking 1 in column 55
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_55:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_55_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_55_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 56
+  csrs mhpmevent4, x6     # set walking 1 in column 56
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_56:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_56_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_56_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 57
+  csrs mhpmevent4, x6     # set walking 1 in column 57
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_57:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_57_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_57_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 58
+  csrs mhpmevent4, x6     # set walking 1 in column 58
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_58:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_58_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_58_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 59
+  csrs mhpmevent4, x6     # set walking 1 in column 59
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_59:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_59_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_59_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 60
+  csrs mhpmevent4, x6     # set walking 1 in column 60
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_60:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_60_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_60_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 61
+  csrs mhpmevent4, x6     # set walking 1 in column 61
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_61:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_61_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_61_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 62
+  csrs mhpmevent4, x6     # set walking 1 in column 62
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_62:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_62_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_62_str)
+  slli x6, x6, 1      # walk the 1
   csrw mhpmevent4, zero    # clear all bits
-  csrs mhpmevent4, x15     # set walking 1 in column 63
+  csrs mhpmevent4, x6     # set walking 1 in column 63
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_63:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_63_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_63_str)
+  slli x6, x6, 1      # walk the 1
 #endif
 
-  LI(x15, 1)            # 1 in bit 0
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 0
+  LI(x6, 1)            # 1 in bit 0
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 0
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_0:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_0_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_0_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 1
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_1:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_1_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 2
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_1_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 2
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_2:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_2_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 3
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_2_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 3
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_3:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_3_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 4
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_3_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 4
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_4:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_4_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 5
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_4_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 5
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_5:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_5_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 6
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_5_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 6
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_6:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_6_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 7
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_6_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 7
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_7:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_7_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 8
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_7_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 8
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_8:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_8_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 9
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_8_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 9
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_9:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_9_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 10
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_9_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 10
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_10:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_10_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 11
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_10_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 11
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_11:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_11_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 12
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_11_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 12
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_12:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_12_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 13
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_12_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 13
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_13:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_13_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 14
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_13_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 14
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_14:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_14_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 15
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_14_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 15
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_15:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_15_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 16
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_15_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 16
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_16:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_16_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 17
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_16_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 17
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_17:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_17_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 18
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_17_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 18
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_18:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_18_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 19
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_18_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 19
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_19:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_19_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 20
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_19_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 20
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_20:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_20_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 21
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_20_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 21
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_21:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_21_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 22
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_21_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 22
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_22:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_22_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 23
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_22_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 23
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_23:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_23_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 24
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_23_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 24
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_24:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_24_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 25
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_24_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 25
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_25:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_25_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 26
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_25_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 26
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_26:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_26_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 27
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_26_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 27
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_27:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_27_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 28
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_27_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 28
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_28:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_28_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 29
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_28_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 29
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_29:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_29_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 30
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_29_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 30
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_30:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_30_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 31
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_30_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 31
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_31:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_31_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_31_str)
+  slli x6, x6, 1      # walk the 1
 
 #if __riscv_xlen == 64
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 32
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 32
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_32:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_32_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 33
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_32_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 33
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_33:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_33_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 34
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_33_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 34
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_34:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_34_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 35
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_34_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 35
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_35:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_35_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 36
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_35_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 36
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_36:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_36_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 37
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_36_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 37
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_37:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_37_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 38
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_37_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 38
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_38:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_38_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 39
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_38_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 39
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_39:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_39_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 40
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_39_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 40
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_40:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_40_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 41
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_40_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 41
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_41:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_41_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 42
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_41_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 42
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_42:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_42_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 43
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_42_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 43
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_43:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_43_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 44
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_43_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 44
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_44:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_44_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 45
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_44_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 45
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_45:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_45_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 46
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_45_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 46
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_46:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_46_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 47
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_46_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 47
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_47:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_47_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 48
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_47_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 48
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_48:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_48_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 49
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_48_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 49
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_49:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_49_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 50
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_49_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 50
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_50:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_50_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 51
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_50_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 51
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_51:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_51_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 52
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_51_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 52
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_52:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_52_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 53
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_52_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 53
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_53:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_53_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 54
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_53_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 54
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_54:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_54_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 55
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_54_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 55
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_55:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_55_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 56
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_55_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 56
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_56:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_56_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 57
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_56_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 57
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_57:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_57_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 58
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_57_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 58
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_58:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_58_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 59
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_58_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 59
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_59:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_59_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 60
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_59_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 60
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_60:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_60_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 61
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_60_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 61
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_61:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_61_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 62
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_61_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 62
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_62:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_62_str)
-  slli x15, x15, 1      # walk the 1
-  csrw mhpmevent4, x8   # set all (possibly masked) bits
-  csrc mhpmevent4, x15     # clear walking 0 in column 63
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_62_str)
+  slli x6, x6, 1      # walk the 1
+  csrw mhpmevent4, x14   # set all (possibly masked) bits
+  csrc mhpmevent4, x6     # clear walking 0 in column 63
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_63:
-  # Read mhpmevent4 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent4    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_63_str)
-  slli x15, x15, 1      # walk the 1
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x15    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_63_str)
+  slli x6, x6, 1      # walk the 1
 #endif
 
   csrw mhpmevent4, x13            # restore CSR
 
 
 # CSR Walk Tests for mhpmevent5
-  csrr x14, mhpmevent5      # Save CSR
-  LI(x8, 1)              # 1 in bit 0
-  LI(x6, 0)    # Load mask (0x0)
-  LI(x9, -1)             # x9 = all 1s
+  csrr x13, mhpmevent5      # Save CSR
+  LI(x15, 1)              # 1 in bit 0
+  LI(x14, 0)    # Load mask (0x0)
+  LI(x8, -1)             # x8 = all 1s
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 0
+  csrs mhpmevent5, x15     # set walking 1 in column 0
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_0:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_0_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_0_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 1
+  csrs mhpmevent5, x15     # set walking 1 in column 1
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_1:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_1_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_1_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 2
+  csrs mhpmevent5, x15     # set walking 1 in column 2
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_2:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_2_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_2_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 3
+  csrs mhpmevent5, x15     # set walking 1 in column 3
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_3:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_3_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_3_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 4
+  csrs mhpmevent5, x15     # set walking 1 in column 4
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_4:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_4_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_4_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 5
+  csrs mhpmevent5, x15     # set walking 1 in column 5
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_5:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_5_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_5_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 6
+  csrs mhpmevent5, x15     # set walking 1 in column 6
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_6:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_6_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_6_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 7
+  csrs mhpmevent5, x15     # set walking 1 in column 7
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_7:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_7_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_7_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 8
+  csrs mhpmevent5, x15     # set walking 1 in column 8
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_8:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_8_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_8_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 9
+  csrs mhpmevent5, x15     # set walking 1 in column 9
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_9:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_9_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_9_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 10
+  csrs mhpmevent5, x15     # set walking 1 in column 10
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_10:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_10_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_10_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 11
+  csrs mhpmevent5, x15     # set walking 1 in column 11
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_11:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_11_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_11_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 12
+  csrs mhpmevent5, x15     # set walking 1 in column 12
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_12:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_12_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_12_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 13
+  csrs mhpmevent5, x15     # set walking 1 in column 13
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_13:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_13_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_13_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 14
+  csrs mhpmevent5, x15     # set walking 1 in column 14
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_14:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_14_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_14_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 15
+  csrs mhpmevent5, x15     # set walking 1 in column 15
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_15:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_15_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_15_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 16
+  csrs mhpmevent5, x15     # set walking 1 in column 16
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_16:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_16_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_16_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 17
+  csrs mhpmevent5, x15     # set walking 1 in column 17
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_17:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_17_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_17_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 18
+  csrs mhpmevent5, x15     # set walking 1 in column 18
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_18:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_18_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_18_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 19
+  csrs mhpmevent5, x15     # set walking 1 in column 19
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_19:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_19_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_19_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 20
+  csrs mhpmevent5, x15     # set walking 1 in column 20
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_20:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_20_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_20_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 21
+  csrs mhpmevent5, x15     # set walking 1 in column 21
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_21:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_21_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_21_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 22
+  csrs mhpmevent5, x15     # set walking 1 in column 22
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_22:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_22_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_22_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 23
+  csrs mhpmevent5, x15     # set walking 1 in column 23
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_23:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_23_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_23_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 24
+  csrs mhpmevent5, x15     # set walking 1 in column 24
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_24:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_24_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_24_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 25
+  csrs mhpmevent5, x15     # set walking 1 in column 25
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_25:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_25_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_25_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 26
+  csrs mhpmevent5, x15     # set walking 1 in column 26
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_26:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_26_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_26_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 27
+  csrs mhpmevent5, x15     # set walking 1 in column 27
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_27:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_27_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_27_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 28
+  csrs mhpmevent5, x15     # set walking 1 in column 28
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_28:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_28_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_28_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 29
+  csrs mhpmevent5, x15     # set walking 1 in column 29
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_29:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_29_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_29_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 30
+  csrs mhpmevent5, x15     # set walking 1 in column 30
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_30:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_30_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_30_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 31
+  csrs mhpmevent5, x15     # set walking 1 in column 31
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_31:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_31_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_31_str)
+  slli x15, x15, 1      # walk the 1
 
 #if __riscv_xlen == 64
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 32
+  csrs mhpmevent5, x15     # set walking 1 in column 32
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_32:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_32_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_32_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 33
+  csrs mhpmevent5, x15     # set walking 1 in column 33
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_33:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_33_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_33_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 34
+  csrs mhpmevent5, x15     # set walking 1 in column 34
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_34:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_34_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_34_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 35
+  csrs mhpmevent5, x15     # set walking 1 in column 35
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_35:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_35_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_35_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 36
+  csrs mhpmevent5, x15     # set walking 1 in column 36
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_36:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_36_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_36_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 37
+  csrs mhpmevent5, x15     # set walking 1 in column 37
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_37:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_37_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_37_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 38
+  csrs mhpmevent5, x15     # set walking 1 in column 38
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_38:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_38_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_38_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 39
+  csrs mhpmevent5, x15     # set walking 1 in column 39
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_39:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_39_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_39_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 40
+  csrs mhpmevent5, x15     # set walking 1 in column 40
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_40:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_40_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_40_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 41
+  csrs mhpmevent5, x15     # set walking 1 in column 41
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_41:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_41_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_41_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 42
+  csrs mhpmevent5, x15     # set walking 1 in column 42
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_42:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_42_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_42_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 43
+  csrs mhpmevent5, x15     # set walking 1 in column 43
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_43:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_43_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_43_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 44
+  csrs mhpmevent5, x15     # set walking 1 in column 44
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_44:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_44_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_44_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 45
+  csrs mhpmevent5, x15     # set walking 1 in column 45
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_45:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_45_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_45_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 46
+  csrs mhpmevent5, x15     # set walking 1 in column 46
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_46:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_46_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_46_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 47
+  csrs mhpmevent5, x15     # set walking 1 in column 47
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_47:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_47_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_47_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 48
+  csrs mhpmevent5, x15     # set walking 1 in column 48
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_48:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_48_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_48_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 49
+  csrs mhpmevent5, x15     # set walking 1 in column 49
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_49:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_49_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_49_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 50
+  csrs mhpmevent5, x15     # set walking 1 in column 50
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_50:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_50_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_50_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 51
+  csrs mhpmevent5, x15     # set walking 1 in column 51
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_51:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_51_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_51_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 52
+  csrs mhpmevent5, x15     # set walking 1 in column 52
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_52:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_52_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_52_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 53
+  csrs mhpmevent5, x15     # set walking 1 in column 53
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_53:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_53_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_53_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 54
+  csrs mhpmevent5, x15     # set walking 1 in column 54
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_54:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_54_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_54_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 55
+  csrs mhpmevent5, x15     # set walking 1 in column 55
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_55:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_55_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_55_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 56
+  csrs mhpmevent5, x15     # set walking 1 in column 56
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_56:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_56_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_56_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 57
+  csrs mhpmevent5, x15     # set walking 1 in column 57
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_57:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_57_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_57_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 58
+  csrs mhpmevent5, x15     # set walking 1 in column 58
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_58:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_58_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_58_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 59
+  csrs mhpmevent5, x15     # set walking 1 in column 59
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_59:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_59_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_59_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 60
+  csrs mhpmevent5, x15     # set walking 1 in column 60
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_60:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_60_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_60_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 61
+  csrs mhpmevent5, x15     # set walking 1 in column 61
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_61:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_61_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_61_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 62
+  csrs mhpmevent5, x15     # set walking 1 in column 62
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_62:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_62_str)
-  slli x8, x8, 1      # walk the 1
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_62_str)
+  slli x15, x15, 1      # walk the 1
   csrw mhpmevent5, zero    # clear all bits
-  csrs mhpmevent5, x8     # set walking 1 in column 63
+  csrs mhpmevent5, x15     # set walking 1 in column 63
 Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_63:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_63_str)
+  slli x15, x15, 1      # walk the 1
+#endif
+
+  LI(x15, 1)            # 1 in bit 0
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 0
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_0:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_0_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 1
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_1:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_1_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 2
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_2:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_2_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 3
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_3:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_3_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 4
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_4:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_4_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 5
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_5:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_5_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 6
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_6:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_6_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 7
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_7:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_7_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 8
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_8:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_8_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 9
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_9:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_9_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 10
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_10:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_10_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 11
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_11:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_11_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 12
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_12:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_12_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 13
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_13:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_13_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 14
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_14:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_14_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 15
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_15:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_15_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 16
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_16:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_16_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 17
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_17:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_17_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 18
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_18:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_18_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 19
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_19:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_19_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 20
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_20:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_20_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 21
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_21:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_21_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 22
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_22:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_22_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 23
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_23:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_23_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 24
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_24:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_24_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 25
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_25:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_25_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 26
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_26:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_26_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 27
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_27:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_27_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 28
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_28:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_28_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 29
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_29:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_29_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 30
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_30:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_30_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 31
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_31:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_31_str)
+  slli x15, x15, 1      # walk the 1
+
+#if __riscv_xlen == 64
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 32
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_32:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_32_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 33
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_33:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_33_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 34
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_34:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_34_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 35
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_35:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_35_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 36
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_36:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_36_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 37
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_37:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_37_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 38
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_38:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_38_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 39
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_39:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_39_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 40
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_40:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_40_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 41
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_41:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_41_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 42
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_42:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_42_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 43
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_43:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_43_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 44
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_44:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_44_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 45
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_45:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_45_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 46
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_46:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_46_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 47
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_47:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_47_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 48
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_48:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_48_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 49
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_49:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_49_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 50
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_50:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_50_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 51
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_51:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_51_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 52
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_52:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_52_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 53
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_53:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_53_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 54
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_54:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_54_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 55
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_55:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_55_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 56
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_56:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_56_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 57
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_57:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_57_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 58
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_58:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_58_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 59
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_59:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_59_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 60
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_60:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_60_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 61
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_61:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_61_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 62
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_62:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_62_str)
+  slli x15, x15, 1      # walk the 1
+  csrw mhpmevent5, x8   # set all (possibly masked) bits
+  csrc mhpmevent5, x15     # clear walking 0 in column 63
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_63:
+  # Read mhpmevent5 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent5    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_63_str)
+  slli x15, x15, 1      # walk the 1
+#endif
+
+  csrw mhpmevent5, x13            # restore CSR
+
+
+# CSR Walk Tests for mhpmevent6
+  csrr x14, mhpmevent6      # Save CSR
+  LI(x8, 1)              # 1 in bit 0
+  LI(x6, 0)    # Load mask (0x0)
+  LI(x9, -1)             # x9 = all 1s
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 0
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_0:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_63_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_0_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 1
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_1:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_1_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 2
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_2:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_2_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 3
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_3:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_3_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 4
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_4:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_4_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 5
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_5:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_5_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 6
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_6:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_6_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 7
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_7:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_7_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 8
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_8:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_8_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 9
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_9:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_9_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 10
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_10:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_10_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 11
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_11:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_11_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 12
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_12:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_12_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 13
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_13:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_13_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 14
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_14:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_14_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 15
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_15:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_15_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 16
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_16:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_16_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 17
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_17:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_17_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 18
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_18:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_18_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 19
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_19:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_19_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 20
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_20:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_20_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 21
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_21:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_21_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 22
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_22:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_22_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 23
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_23:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_23_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 24
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_24:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_24_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 25
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_25:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_25_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 26
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_26:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_26_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 27
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_27:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_27_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 28
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_28:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_28_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 29
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_29:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_29_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 30
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_30:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_30_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 31
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_31:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_31_str)
+  slli x8, x8, 1      # walk the 1
+
+#if __riscv_xlen == 64
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 32
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_32:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_32_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 33
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_33:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_33_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 34
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_34:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_34_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 35
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_35:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_35_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 36
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_36:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_36_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 37
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_37:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_37_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 38
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_38:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_38_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 39
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_39:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_39_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 40
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_40:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_40_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 41
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_41:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_41_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 42
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_42:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_42_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 43
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_43:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_43_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 44
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_44:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_44_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 45
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_45:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_45_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 46
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_46:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_46_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 47
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_47:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_47_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 48
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_48:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_48_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 49
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_49:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_49_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 50
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_50:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_50_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 51
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_51:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_51_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 52
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_52:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_52_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 53
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_53:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_53_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 54
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_54:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_54_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 55
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_55:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_55_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 56
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_56:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_56_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 57
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_57:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_57_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 58
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_58:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_58_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 59
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_59:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_59_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 60
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_60:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_60_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 61
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_61:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_61_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 62
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_62:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_62_str)
+  slli x8, x8, 1      # walk the 1
+  csrw mhpmevent6, zero    # clear all bits
+  csrs mhpmevent6, x8     # set walking 1 in column 63
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_63:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_63_str)
   slli x8, x8, 1      # walk the 1
 #endif
 
   LI(x8, 1)            # 1 in bit 0
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 0
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_0:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 0
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_0:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_0_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_0, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_0_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 1
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_1:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 1
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_1:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_1_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_1, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_1_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 2
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_2:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 2
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_2:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_2_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_2, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_2_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 3
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_3:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 3
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_3:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_3_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_3, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_3_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 4
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_4:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 4
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_4:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_4_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_4, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_4_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 5
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_5:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 5
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_5:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_5_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_5, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_5_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 6
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_6:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 6
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_6:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_6_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_6, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_6_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 7
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_7:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 7
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_7:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_7_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_7, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_7_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 8
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_8:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 8
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_8:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_8_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_8, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_8_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 9
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_9:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 9
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_9:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_9_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_9, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_9_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 10
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_10:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 10
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_10:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_10_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_10, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_10_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 11
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_11:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 11
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_11:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_11_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_11, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_11_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 12
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_12:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 12
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_12:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_12_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_12, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_12_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 13
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_13:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 13
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_13:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_13_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_13, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_13_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 14
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_14:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 14
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_14:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_14_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_14, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_14_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 15
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_15:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 15
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_15:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_15_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_15_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 16
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_16:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 16
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_16:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_16_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_16, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_16_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 17
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_17:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 17
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_17:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_17_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_17, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_17_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 18
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_18:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 18
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_18:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_18_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_18, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_18_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 19
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_19:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 19
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_19:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_19_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_19, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_19_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 20
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_20:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 20
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_20:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_20_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_20, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_20_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 21
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_21:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 21
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_21:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_21_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_21, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_21_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 22
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_22:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 22
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_22:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_22_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_22, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_22_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 23
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_23:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 23
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_23:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_23_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_23, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_23_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 24
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_24:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 24
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_24:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_24_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_24, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_24_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 25
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_25:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 25
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_25:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_25_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_25, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_25_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 26
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_26:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 26
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_26:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_26_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_26, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_26_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 27
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_27:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 27
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_27:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_27_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_27, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_27_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 28
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_28:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 28
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_28:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_28_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_28, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_28_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 29
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_29:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 29
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_29:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_29_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_29, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_29_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 30
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_30:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 30
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_30:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_30_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_30, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_30_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 31
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_31:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 31
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_31:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_31_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_31, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_31_str)
   slli x8, x8, 1      # walk the 1
 
 #if __riscv_xlen == 64
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 32
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_32:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 32
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_32:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_32_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_32, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_32_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 33
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_33:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 33
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_33:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_33_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_33, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_33_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 34
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_34:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 34
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_34:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_34_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_34, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_34_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 35
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_35:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 35
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_35:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_35_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_35, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_35_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 36
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_36:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 36
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_36:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_36_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_36, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_36_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 37
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_37:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 37
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_37:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_37_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_37, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_37_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 38
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_38:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 38
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_38:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_38_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_38, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_38_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 39
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_39:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 39
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_39:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_39_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_39, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_39_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 40
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_40:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 40
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_40:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_40_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_40, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_40_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 41
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_41:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 41
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_41:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_41_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_41, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_41_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 42
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_42:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 42
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_42:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_42_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_42, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_42_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 43
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_43:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 43
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_43:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_43_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_43, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_43_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 44
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_44:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 44
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_44:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_44_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_44, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_44_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 45
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_45:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 45
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_45:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_45_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_45, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_45_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 46
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_46:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 46
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_46:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_46_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_46, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_46_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 47
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_47:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 47
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_47:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_47_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_47, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_47_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 48
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_48:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 48
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_48:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_48_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_48, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_48_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 49
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_49:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 49
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_49:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_49_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_49, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_49_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 50
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_50:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 50
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_50:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_50_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_50, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_50_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 51
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_51:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 51
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_51:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_51_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_51, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_51_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 52
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_52:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 52
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_52:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_52_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_52, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_52_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 53
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_53:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 53
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_53:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_53_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_53, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_53_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 54
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_54:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 54
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_54:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_54_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_54, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_54_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 55
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_55:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 55
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_55:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_55_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_55, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_55_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 56
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_56:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 56
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_56:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_56_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_56, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_56_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 57
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_57:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 57
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_57:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_57_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_57, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_57_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 58
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_58:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 58
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_58:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_58_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_58, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_58_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 59
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_59:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 59
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_59:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_59_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_59, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_59_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 60
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_60:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 60
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_60:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_60_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_60, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_60_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 61
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_61:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 61
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_61:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_61_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_61, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_61_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 62
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_62:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 62
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_62:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_62_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_62, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_62_str)
   slli x8, x8, 1      # walk the 1
-  csrw mhpmevent5, x9   # set all (possibly masked) bits
-  csrc mhpmevent5, x8     # clear walking 0 in column 63
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_63:
-  # Read mhpmevent5 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent5    # Read CSR
+  csrw mhpmevent6, x9   # set all (possibly masked) bits
+  csrc mhpmevent6, x8     # clear walking 0 in column 63
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_63:
+  # Read mhpmevent6 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent6    # Read CSR
   and x15, x15, x6    # keep only masked bits 0x0
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_63_str)
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_63, Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_63_str)
   slli x8, x8, 1      # walk the 1
 #endif
 
-  csrw mhpmevent5, x14            # restore CSR
+  csrw mhpmevent6, x14            # restore CSR
 
 // Instantiate trap handlers and other epilog code, call RVMODEL_HALT at end of test
 RVTEST_CODE_END
@@ -4712,518 +4712,518 @@ RVTEST_DATA_BEGIN
 
 
 // Testcase strings
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_0_str: .string "\"test: 1653; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_0\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_1_str: .string "\"test: 1654; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_1\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_2_str: .string "\"test: 1655; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_2\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_3_str: .string "\"test: 1656; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_3\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_4_str: .string "\"test: 1657; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_4\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_5_str: .string "\"test: 1658; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_5\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_6_str: .string "\"test: 1659; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_6\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_7_str: .string "\"test: 1660; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_7\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_8_str: .string "\"test: 1661; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_8\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_9_str: .string "\"test: 1662; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_9\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_10_str: .string "\"test: 1663; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_10\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_11_str: .string "\"test: 1664; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_11\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_12_str: .string "\"test: 1665; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_12\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_13_str: .string "\"test: 1666; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_13\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_14_str: .string "\"test: 1667; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_14\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_15_str: .string "\"test: 1668; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_15\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_16_str: .string "\"test: 1669; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_16\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_17_str: .string "\"test: 1670; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_17\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_18_str: .string "\"test: 1671; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_18\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_19_str: .string "\"test: 1672; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_19\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_20_str: .string "\"test: 1673; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_20\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_21_str: .string "\"test: 1674; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_21\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_22_str: .string "\"test: 1675; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_22\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_23_str: .string "\"test: 1676; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_23\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_24_str: .string "\"test: 1677; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_24\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_25_str: .string "\"test: 1678; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_25\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_26_str: .string "\"test: 1679; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_26\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_27_str: .string "\"test: 1680; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_27\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_28_str: .string "\"test: 1681; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_28\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_29_str: .string "\"test: 1682; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_29\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_30_str: .string "\"test: 1683; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_30\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_31_str: .string "\"test: 1684; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_31\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_32_str: .string "\"test: 1685; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_32\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_33_str: .string "\"test: 1686; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_33\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_34_str: .string "\"test: 1687; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_34\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_35_str: .string "\"test: 1688; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_35\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_36_str: .string "\"test: 1689; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_36\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_37_str: .string "\"test: 1690; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_37\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_38_str: .string "\"test: 1691; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_38\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_39_str: .string "\"test: 1692; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_39\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_40_str: .string "\"test: 1693; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_40\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_41_str: .string "\"test: 1694; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_41\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_42_str: .string "\"test: 1695; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_42\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_43_str: .string "\"test: 1696; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_43\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_44_str: .string "\"test: 1697; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_44\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_45_str: .string "\"test: 1698; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_45\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_46_str: .string "\"test: 1699; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_46\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_47_str: .string "\"test: 1700; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_47\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_48_str: .string "\"test: 1701; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_48\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_49_str: .string "\"test: 1702; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_49\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_50_str: .string "\"test: 1703; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_50\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_51_str: .string "\"test: 1704; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_51\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_52_str: .string "\"test: 1705; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_52\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_53_str: .string "\"test: 1706; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_53\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_54_str: .string "\"test: 1707; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_54\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_55_str: .string "\"test: 1708; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_55\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_56_str: .string "\"test: 1709; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_56\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_57_str: .string "\"test: 1710; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_57\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_58_str: .string "\"test: 1711; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_58\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_59_str: .string "\"test: 1712; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_59\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_60_str: .string "\"test: 1713; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_60\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_61_str: .string "\"test: 1714; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_61\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_62_str: .string "\"test: 1715; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_62\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_set_bit_63_str: .string "\"test: 1716; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_set_bit_63\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_0_str: .string "\"test: 1717; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_0\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_1_str: .string "\"test: 1718; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_1\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_2_str: .string "\"test: 1719; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_2\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_3_str: .string "\"test: 1720; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_3\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_4_str: .string "\"test: 1721; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_4\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_5_str: .string "\"test: 1722; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_5\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_6_str: .string "\"test: 1723; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_6\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_7_str: .string "\"test: 1724; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_7\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_8_str: .string "\"test: 1725; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_8\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_9_str: .string "\"test: 1726; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_9\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_10_str: .string "\"test: 1727; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_10\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_11_str: .string "\"test: 1728; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_11\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_12_str: .string "\"test: 1729; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_12\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_13_str: .string "\"test: 1730; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_13\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_14_str: .string "\"test: 1731; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_14\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_15_str: .string "\"test: 1732; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_15\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_16_str: .string "\"test: 1733; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_16\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_17_str: .string "\"test: 1734; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_17\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_18_str: .string "\"test: 1735; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_18\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_19_str: .string "\"test: 1736; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_19\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_20_str: .string "\"test: 1737; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_20\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_21_str: .string "\"test: 1738; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_21\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_22_str: .string "\"test: 1739; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_22\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_23_str: .string "\"test: 1740; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_23\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_24_str: .string "\"test: 1741; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_24\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_25_str: .string "\"test: 1742; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_25\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_26_str: .string "\"test: 1743; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_26\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_27_str: .string "\"test: 1744; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_27\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_28_str: .string "\"test: 1745; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_28\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_29_str: .string "\"test: 1746; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_29\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_30_str: .string "\"test: 1747; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_30\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_31_str: .string "\"test: 1748; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_31\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_32_str: .string "\"test: 1749; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_32\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_33_str: .string "\"test: 1750; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_33\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_34_str: .string "\"test: 1751; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_34\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_35_str: .string "\"test: 1752; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_35\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_36_str: .string "\"test: 1753; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_36\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_37_str: .string "\"test: 1754; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_37\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_38_str: .string "\"test: 1755; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_38\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_39_str: .string "\"test: 1756; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_39\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_40_str: .string "\"test: 1757; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_40\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_41_str: .string "\"test: 1758; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_41\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_42_str: .string "\"test: 1759; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_42\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_43_str: .string "\"test: 1760; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_43\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_44_str: .string "\"test: 1761; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_44\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_45_str: .string "\"test: 1762; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_45\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_46_str: .string "\"test: 1763; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_46\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_47_str: .string "\"test: 1764; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_47\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_48_str: .string "\"test: 1765; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_48\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_49_str: .string "\"test: 1766; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_49\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_50_str: .string "\"test: 1767; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_50\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_51_str: .string "\"test: 1768; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_51\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_52_str: .string "\"test: 1769; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_52\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_53_str: .string "\"test: 1770; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_53\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_54_str: .string "\"test: 1771; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_54\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_55_str: .string "\"test: 1772; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_55\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_56_str: .string "\"test: 1773; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_56\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_57_str: .string "\"test: 1774; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_57\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_58_str: .string "\"test: 1775; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_58\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_59_str: .string "\"test: 1776; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_59\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_60_str: .string "\"test: 1777; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_60\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_61_str: .string "\"test: 1778; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_61\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_62_str: .string "\"test: 1779; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_62\""
-Sm_mcsr_cg_cp_mcsrwalk_mip_clr_bit_63_str: .string "\"test: 1780; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mip_clr_bit_63\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_0_str: .string "\"test: 1781; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_0\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_1_str: .string "\"test: 1782; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_1\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_2_str: .string "\"test: 1783; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_2\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_3_str: .string "\"test: 1784; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_3\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_4_str: .string "\"test: 1785; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_4\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_5_str: .string "\"test: 1786; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_5\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_6_str: .string "\"test: 1787; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_6\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_7_str: .string "\"test: 1788; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_7\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_8_str: .string "\"test: 1789; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_8\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_9_str: .string "\"test: 1790; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_9\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_10_str: .string "\"test: 1791; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_10\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_11_str: .string "\"test: 1792; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_11\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_12_str: .string "\"test: 1793; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_12\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_13_str: .string "\"test: 1794; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_13\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_14_str: .string "\"test: 1795; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_14\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_15_str: .string "\"test: 1796; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_15\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_16_str: .string "\"test: 1797; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_16\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_17_str: .string "\"test: 1798; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_17\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_18_str: .string "\"test: 1799; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_18\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_19_str: .string "\"test: 1800; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_19\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_20_str: .string "\"test: 1801; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_20\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_21_str: .string "\"test: 1802; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_21\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_22_str: .string "\"test: 1803; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_22\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_23_str: .string "\"test: 1804; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_23\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_24_str: .string "\"test: 1805; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_24\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_25_str: .string "\"test: 1806; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_25\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_26_str: .string "\"test: 1807; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_26\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_27_str: .string "\"test: 1808; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_27\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_28_str: .string "\"test: 1809; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_28\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_29_str: .string "\"test: 1810; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_29\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_30_str: .string "\"test: 1811; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_30\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_31_str: .string "\"test: 1812; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_31\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_32_str: .string "\"test: 1813; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_32\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_33_str: .string "\"test: 1814; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_33\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_34_str: .string "\"test: 1815; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_34\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_35_str: .string "\"test: 1816; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_35\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_36_str: .string "\"test: 1817; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_36\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_37_str: .string "\"test: 1818; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_37\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_38_str: .string "\"test: 1819; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_38\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_39_str: .string "\"test: 1820; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_39\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_40_str: .string "\"test: 1821; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_40\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_41_str: .string "\"test: 1822; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_41\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_42_str: .string "\"test: 1823; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_42\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_43_str: .string "\"test: 1824; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_43\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_44_str: .string "\"test: 1825; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_44\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_45_str: .string "\"test: 1826; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_45\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_46_str: .string "\"test: 1827; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_46\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_47_str: .string "\"test: 1828; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_47\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_48_str: .string "\"test: 1829; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_48\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_49_str: .string "\"test: 1830; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_49\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_50_str: .string "\"test: 1831; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_50\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_51_str: .string "\"test: 1832; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_51\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_52_str: .string "\"test: 1833; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_52\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_53_str: .string "\"test: 1834; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_53\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_54_str: .string "\"test: 1835; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_54\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_55_str: .string "\"test: 1836; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_55\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_56_str: .string "\"test: 1837; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_56\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_57_str: .string "\"test: 1838; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_57\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_58_str: .string "\"test: 1839; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_58\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_59_str: .string "\"test: 1840; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_59\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_60_str: .string "\"test: 1841; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_60\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_61_str: .string "\"test: 1842; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_61\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_62_str: .string "\"test: 1843; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_62\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_63_str: .string "\"test: 1844; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_63\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_0_str: .string "\"test: 1845; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_0\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_1_str: .string "\"test: 1846; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_1\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_2_str: .string "\"test: 1847; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_2\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_3_str: .string "\"test: 1848; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_3\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_4_str: .string "\"test: 1849; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_4\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_5_str: .string "\"test: 1850; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_5\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_6_str: .string "\"test: 1851; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_6\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_7_str: .string "\"test: 1852; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_7\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_8_str: .string "\"test: 1853; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_8\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_9_str: .string "\"test: 1854; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_9\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_10_str: .string "\"test: 1855; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_10\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_11_str: .string "\"test: 1856; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_11\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_12_str: .string "\"test: 1857; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_12\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_13_str: .string "\"test: 1858; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_13\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_14_str: .string "\"test: 1859; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_14\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_15_str: .string "\"test: 1860; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_15\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_16_str: .string "\"test: 1861; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_16\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_17_str: .string "\"test: 1862; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_17\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_18_str: .string "\"test: 1863; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_18\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_19_str: .string "\"test: 1864; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_19\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_20_str: .string "\"test: 1865; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_20\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_21_str: .string "\"test: 1866; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_21\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_22_str: .string "\"test: 1867; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_22\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_23_str: .string "\"test: 1868; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_23\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_24_str: .string "\"test: 1869; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_24\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_25_str: .string "\"test: 1870; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_25\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_26_str: .string "\"test: 1871; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_26\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_27_str: .string "\"test: 1872; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_27\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_28_str: .string "\"test: 1873; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_28\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_29_str: .string "\"test: 1874; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_29\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_30_str: .string "\"test: 1875; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_30\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_31_str: .string "\"test: 1876; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_31\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_32_str: .string "\"test: 1877; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_32\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_33_str: .string "\"test: 1878; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_33\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_34_str: .string "\"test: 1879; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_34\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_35_str: .string "\"test: 1880; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_35\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_36_str: .string "\"test: 1881; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_36\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_37_str: .string "\"test: 1882; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_37\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_38_str: .string "\"test: 1883; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_38\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_39_str: .string "\"test: 1884; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_39\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_40_str: .string "\"test: 1885; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_40\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_41_str: .string "\"test: 1886; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_41\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_42_str: .string "\"test: 1887; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_42\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_43_str: .string "\"test: 1888; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_43\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_44_str: .string "\"test: 1889; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_44\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_45_str: .string "\"test: 1890; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_45\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_46_str: .string "\"test: 1891; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_46\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_47_str: .string "\"test: 1892; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_47\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_48_str: .string "\"test: 1893; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_48\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_49_str: .string "\"test: 1894; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_49\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_50_str: .string "\"test: 1895; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_50\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_51_str: .string "\"test: 1896; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_51\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_52_str: .string "\"test: 1897; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_52\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_53_str: .string "\"test: 1898; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_53\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_54_str: .string "\"test: 1899; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_54\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_55_str: .string "\"test: 1900; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_55\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_56_str: .string "\"test: 1901; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_56\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_57_str: .string "\"test: 1902; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_57\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_58_str: .string "\"test: 1903; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_58\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_59_str: .string "\"test: 1904; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_59\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_60_str: .string "\"test: 1905; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_60\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_61_str: .string "\"test: 1906; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_61\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_62_str: .string "\"test: 1907; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_62\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_63_str: .string "\"test: 1908; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_63\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_0_str: .string "\"test: 1909; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_0\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_1_str: .string "\"test: 1910; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_1\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_2_str: .string "\"test: 1911; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_2\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_3_str: .string "\"test: 1912; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_3\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_4_str: .string "\"test: 1913; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_4\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_5_str: .string "\"test: 1914; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_5\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_6_str: .string "\"test: 1915; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_6\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_7_str: .string "\"test: 1916; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_7\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_8_str: .string "\"test: 1917; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_8\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_9_str: .string "\"test: 1918; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_9\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_10_str: .string "\"test: 1919; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_10\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_11_str: .string "\"test: 1920; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_11\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_12_str: .string "\"test: 1921; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_12\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_13_str: .string "\"test: 1922; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_13\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_14_str: .string "\"test: 1923; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_14\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_15_str: .string "\"test: 1924; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_15\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_16_str: .string "\"test: 1925; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_16\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_17_str: .string "\"test: 1926; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_17\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_18_str: .string "\"test: 1927; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_18\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_19_str: .string "\"test: 1928; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_19\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_20_str: .string "\"test: 1929; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_20\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_21_str: .string "\"test: 1930; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_21\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_22_str: .string "\"test: 1931; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_22\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_23_str: .string "\"test: 1932; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_23\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_24_str: .string "\"test: 1933; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_24\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_25_str: .string "\"test: 1934; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_25\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_26_str: .string "\"test: 1935; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_26\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_27_str: .string "\"test: 1936; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_27\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_28_str: .string "\"test: 1937; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_28\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_29_str: .string "\"test: 1938; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_29\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_30_str: .string "\"test: 1939; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_30\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_31_str: .string "\"test: 1940; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_31\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_32_str: .string "\"test: 1941; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_32\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_33_str: .string "\"test: 1942; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_33\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_34_str: .string "\"test: 1943; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_34\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_35_str: .string "\"test: 1944; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_35\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_36_str: .string "\"test: 1945; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_36\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_37_str: .string "\"test: 1946; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_37\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_38_str: .string "\"test: 1947; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_38\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_39_str: .string "\"test: 1948; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_39\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_40_str: .string "\"test: 1949; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_40\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_41_str: .string "\"test: 1950; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_41\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_42_str: .string "\"test: 1951; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_42\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_43_str: .string "\"test: 1952; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_43\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_44_str: .string "\"test: 1953; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_44\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_45_str: .string "\"test: 1954; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_45\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_46_str: .string "\"test: 1955; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_46\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_47_str: .string "\"test: 1956; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_47\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_48_str: .string "\"test: 1957; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_48\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_49_str: .string "\"test: 1958; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_49\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_50_str: .string "\"test: 1959; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_50\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_51_str: .string "\"test: 1960; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_51\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_52_str: .string "\"test: 1961; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_52\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_53_str: .string "\"test: 1962; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_53\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_54_str: .string "\"test: 1963; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_54\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_55_str: .string "\"test: 1964; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_55\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_56_str: .string "\"test: 1965; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_56\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_57_str: .string "\"test: 1966; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_57\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_58_str: .string "\"test: 1967; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_58\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_59_str: .string "\"test: 1968; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_59\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_60_str: .string "\"test: 1969; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_60\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_61_str: .string "\"test: 1970; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_61\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_62_str: .string "\"test: 1971; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_62\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_63_str: .string "\"test: 1972; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_63\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_0_str: .string "\"test: 1973; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_0\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_1_str: .string "\"test: 1974; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_1\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_2_str: .string "\"test: 1975; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_2\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_3_str: .string "\"test: 1976; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_3\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_4_str: .string "\"test: 1977; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_4\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_5_str: .string "\"test: 1978; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_5\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_6_str: .string "\"test: 1979; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_6\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_7_str: .string "\"test: 1980; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_7\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_8_str: .string "\"test: 1981; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_8\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_9_str: .string "\"test: 1982; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_9\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_10_str: .string "\"test: 1983; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_10\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_11_str: .string "\"test: 1984; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_11\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_12_str: .string "\"test: 1985; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_12\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_13_str: .string "\"test: 1986; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_13\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_14_str: .string "\"test: 1987; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_14\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_15_str: .string "\"test: 1988; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_15\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_16_str: .string "\"test: 1989; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_16\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_17_str: .string "\"test: 1990; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_17\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_18_str: .string "\"test: 1991; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_18\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_19_str: .string "\"test: 1992; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_19\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_20_str: .string "\"test: 1993; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_20\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_21_str: .string "\"test: 1994; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_21\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_22_str: .string "\"test: 1995; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_22\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_23_str: .string "\"test: 1996; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_23\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_24_str: .string "\"test: 1997; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_24\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_25_str: .string "\"test: 1998; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_25\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_26_str: .string "\"test: 1999; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_26\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_27_str: .string "\"test: 2000; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_27\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_28_str: .string "\"test: 2001; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_28\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_29_str: .string "\"test: 2002; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_29\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_30_str: .string "\"test: 2003; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_30\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_31_str: .string "\"test: 2004; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_31\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_32_str: .string "\"test: 2005; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_32\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_33_str: .string "\"test: 2006; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_33\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_34_str: .string "\"test: 2007; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_34\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_35_str: .string "\"test: 2008; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_35\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_36_str: .string "\"test: 2009; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_36\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_37_str: .string "\"test: 2010; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_37\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_38_str: .string "\"test: 2011; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_38\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_39_str: .string "\"test: 2012; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_39\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_40_str: .string "\"test: 2013; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_40\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_41_str: .string "\"test: 2014; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_41\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_42_str: .string "\"test: 2015; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_42\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_43_str: .string "\"test: 2016; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_43\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_44_str: .string "\"test: 2017; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_44\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_45_str: .string "\"test: 2018; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_45\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_46_str: .string "\"test: 2019; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_46\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_47_str: .string "\"test: 2020; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_47\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_48_str: .string "\"test: 2021; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_48\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_49_str: .string "\"test: 2022; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_49\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_50_str: .string "\"test: 2023; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_50\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_51_str: .string "\"test: 2024; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_51\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_52_str: .string "\"test: 2025; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_52\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_53_str: .string "\"test: 2026; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_53\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_54_str: .string "\"test: 2027; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_54\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_55_str: .string "\"test: 2028; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_55\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_56_str: .string "\"test: 2029; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_56\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_57_str: .string "\"test: 2030; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_57\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_58_str: .string "\"test: 2031; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_58\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_59_str: .string "\"test: 2032; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_59\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_60_str: .string "\"test: 2033; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_60\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_61_str: .string "\"test: 2034; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_61\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_62_str: .string "\"test: 2035; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_62\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_63_str: .string "\"test: 2036; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_63\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_0_str: .string "\"test: 2037; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_0\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_1_str: .string "\"test: 2038; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_1\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_2_str: .string "\"test: 2039; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_2\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_3_str: .string "\"test: 2040; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_3\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_4_str: .string "\"test: 2041; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_4\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_5_str: .string "\"test: 2042; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_5\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_6_str: .string "\"test: 2043; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_6\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_7_str: .string "\"test: 2044; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_7\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_8_str: .string "\"test: 2045; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_8\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_9_str: .string "\"test: 2046; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_9\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_10_str: .string "\"test: 2047; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_10\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_11_str: .string "\"test: 2048; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_11\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_12_str: .string "\"test: 2049; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_12\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_13_str: .string "\"test: 2050; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_13\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_14_str: .string "\"test: 2051; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_14\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_15_str: .string "\"test: 2052; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_15\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_16_str: .string "\"test: 2053; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_16\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_17_str: .string "\"test: 2054; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_17\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_18_str: .string "\"test: 2055; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_18\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_19_str: .string "\"test: 2056; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_19\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_20_str: .string "\"test: 2057; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_20\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_21_str: .string "\"test: 2058; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_21\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_22_str: .string "\"test: 2059; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_22\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_23_str: .string "\"test: 2060; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_23\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_24_str: .string "\"test: 2061; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_24\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_25_str: .string "\"test: 2062; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_25\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_26_str: .string "\"test: 2063; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_26\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_27_str: .string "\"test: 2064; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_27\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_28_str: .string "\"test: 2065; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_28\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_29_str: .string "\"test: 2066; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_29\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_30_str: .string "\"test: 2067; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_30\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_31_str: .string "\"test: 2068; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_31\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_32_str: .string "\"test: 2069; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_32\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_33_str: .string "\"test: 2070; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_33\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_34_str: .string "\"test: 2071; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_34\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_35_str: .string "\"test: 2072; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_35\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_36_str: .string "\"test: 2073; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_36\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_37_str: .string "\"test: 2074; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_37\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_38_str: .string "\"test: 2075; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_38\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_39_str: .string "\"test: 2076; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_39\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_40_str: .string "\"test: 2077; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_40\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_41_str: .string "\"test: 2078; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_41\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_42_str: .string "\"test: 2079; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_42\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_43_str: .string "\"test: 2080; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_43\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_44_str: .string "\"test: 2081; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_44\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_45_str: .string "\"test: 2082; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_45\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_46_str: .string "\"test: 2083; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_46\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_47_str: .string "\"test: 2084; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_47\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_48_str: .string "\"test: 2085; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_48\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_49_str: .string "\"test: 2086; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_49\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_50_str: .string "\"test: 2087; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_50\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_51_str: .string "\"test: 2088; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_51\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_52_str: .string "\"test: 2089; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_52\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_53_str: .string "\"test: 2090; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_53\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_54_str: .string "\"test: 2091; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_54\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_55_str: .string "\"test: 2092; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_55\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_56_str: .string "\"test: 2093; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_56\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_57_str: .string "\"test: 2094; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_57\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_58_str: .string "\"test: 2095; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_58\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_59_str: .string "\"test: 2096; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_59\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_60_str: .string "\"test: 2097; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_60\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_61_str: .string "\"test: 2098; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_61\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_62_str: .string "\"test: 2099; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_62\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_63_str: .string "\"test: 2100; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_63\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_0_str: .string "\"test: 2101; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_0\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_1_str: .string "\"test: 2102; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_1\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_2_str: .string "\"test: 2103; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_2\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_3_str: .string "\"test: 2104; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_3\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_4_str: .string "\"test: 2105; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_4\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_5_str: .string "\"test: 2106; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_5\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_6_str: .string "\"test: 2107; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_6\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_7_str: .string "\"test: 2108; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_7\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_8_str: .string "\"test: 2109; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_8\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_9_str: .string "\"test: 2110; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_9\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_10_str: .string "\"test: 2111; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_10\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_11_str: .string "\"test: 2112; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_11\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_12_str: .string "\"test: 2113; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_12\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_13_str: .string "\"test: 2114; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_13\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_14_str: .string "\"test: 2115; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_14\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_15_str: .string "\"test: 2116; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_15\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_16_str: .string "\"test: 2117; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_16\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_17_str: .string "\"test: 2118; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_17\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_18_str: .string "\"test: 2119; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_18\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_19_str: .string "\"test: 2120; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_19\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_20_str: .string "\"test: 2121; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_20\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_21_str: .string "\"test: 2122; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_21\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_22_str: .string "\"test: 2123; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_22\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_23_str: .string "\"test: 2124; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_23\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_24_str: .string "\"test: 2125; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_24\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_25_str: .string "\"test: 2126; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_25\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_26_str: .string "\"test: 2127; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_26\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_27_str: .string "\"test: 2128; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_27\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_28_str: .string "\"test: 2129; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_28\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_29_str: .string "\"test: 2130; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_29\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_30_str: .string "\"test: 2131; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_30\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_31_str: .string "\"test: 2132; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_31\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_32_str: .string "\"test: 2133; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_32\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_33_str: .string "\"test: 2134; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_33\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_34_str: .string "\"test: 2135; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_34\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_35_str: .string "\"test: 2136; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_35\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_36_str: .string "\"test: 2137; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_36\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_37_str: .string "\"test: 2138; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_37\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_38_str: .string "\"test: 2139; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_38\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_39_str: .string "\"test: 2140; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_39\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_40_str: .string "\"test: 2141; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_40\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_41_str: .string "\"test: 2142; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_41\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_42_str: .string "\"test: 2143; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_42\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_43_str: .string "\"test: 2144; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_43\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_44_str: .string "\"test: 2145; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_44\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_45_str: .string "\"test: 2146; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_45\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_46_str: .string "\"test: 2147; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_46\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_47_str: .string "\"test: 2148; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_47\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_48_str: .string "\"test: 2149; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_48\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_49_str: .string "\"test: 2150; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_49\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_50_str: .string "\"test: 2151; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_50\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_51_str: .string "\"test: 2152; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_51\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_52_str: .string "\"test: 2153; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_52\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_53_str: .string "\"test: 2154; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_53\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_54_str: .string "\"test: 2155; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_54\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_55_str: .string "\"test: 2156; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_55\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_56_str: .string "\"test: 2157; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_56\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_57_str: .string "\"test: 2158; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_57\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_58_str: .string "\"test: 2159; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_58\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_59_str: .string "\"test: 2160; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_59\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_60_str: .string "\"test: 2161; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_60\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_61_str: .string "\"test: 2162; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_61\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_62_str: .string "\"test: 2163; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_62\""
-Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_63_str: .string "\"test: 2164; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_63\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_0_str: .string "\"test: 1653; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_0\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_1_str: .string "\"test: 1654; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_1\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_2_str: .string "\"test: 1655; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_2\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_3_str: .string "\"test: 1656; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_3\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_4_str: .string "\"test: 1657; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_4\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_5_str: .string "\"test: 1658; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_5\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_6_str: .string "\"test: 1659; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_6\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_7_str: .string "\"test: 1660; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_7\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_8_str: .string "\"test: 1661; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_8\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_9_str: .string "\"test: 1662; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_9\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_10_str: .string "\"test: 1663; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_10\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_11_str: .string "\"test: 1664; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_11\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_12_str: .string "\"test: 1665; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_12\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_13_str: .string "\"test: 1666; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_13\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_14_str: .string "\"test: 1667; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_14\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_15_str: .string "\"test: 1668; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_15\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_16_str: .string "\"test: 1669; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_16\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_17_str: .string "\"test: 1670; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_17\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_18_str: .string "\"test: 1671; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_18\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_19_str: .string "\"test: 1672; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_19\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_20_str: .string "\"test: 1673; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_20\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_21_str: .string "\"test: 1674; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_21\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_22_str: .string "\"test: 1675; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_22\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_23_str: .string "\"test: 1676; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_23\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_24_str: .string "\"test: 1677; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_24\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_25_str: .string "\"test: 1678; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_25\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_26_str: .string "\"test: 1679; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_26\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_27_str: .string "\"test: 1680; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_27\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_28_str: .string "\"test: 1681; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_28\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_29_str: .string "\"test: 1682; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_29\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_30_str: .string "\"test: 1683; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_30\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_31_str: .string "\"test: 1684; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_31\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_32_str: .string "\"test: 1685; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_32\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_33_str: .string "\"test: 1686; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_33\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_34_str: .string "\"test: 1687; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_34\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_35_str: .string "\"test: 1688; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_35\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_36_str: .string "\"test: 1689; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_36\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_37_str: .string "\"test: 1690; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_37\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_38_str: .string "\"test: 1691; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_38\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_39_str: .string "\"test: 1692; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_39\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_40_str: .string "\"test: 1693; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_40\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_41_str: .string "\"test: 1694; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_41\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_42_str: .string "\"test: 1695; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_42\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_43_str: .string "\"test: 1696; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_43\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_44_str: .string "\"test: 1697; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_44\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_45_str: .string "\"test: 1698; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_45\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_46_str: .string "\"test: 1699; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_46\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_47_str: .string "\"test: 1700; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_47\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_48_str: .string "\"test: 1701; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_48\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_49_str: .string "\"test: 1702; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_49\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_50_str: .string "\"test: 1703; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_50\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_51_str: .string "\"test: 1704; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_51\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_52_str: .string "\"test: 1705; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_52\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_53_str: .string "\"test: 1706; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_53\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_54_str: .string "\"test: 1707; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_54\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_55_str: .string "\"test: 1708; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_55\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_56_str: .string "\"test: 1709; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_56\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_57_str: .string "\"test: 1710; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_57\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_58_str: .string "\"test: 1711; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_58\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_59_str: .string "\"test: 1712; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_59\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_60_str: .string "\"test: 1713; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_60\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_61_str: .string "\"test: 1714; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_61\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_62_str: .string "\"test: 1715; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_62\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_set_bit_63_str: .string "\"test: 1716; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_set_bit_63\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_0_str: .string "\"test: 1717; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_0\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_1_str: .string "\"test: 1718; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_1\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_2_str: .string "\"test: 1719; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_2\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_3_str: .string "\"test: 1720; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_3\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_4_str: .string "\"test: 1721; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_4\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_5_str: .string "\"test: 1722; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_5\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_6_str: .string "\"test: 1723; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_6\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_7_str: .string "\"test: 1724; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_7\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_8_str: .string "\"test: 1725; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_8\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_9_str: .string "\"test: 1726; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_9\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_10_str: .string "\"test: 1727; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_10\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_11_str: .string "\"test: 1728; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_11\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_12_str: .string "\"test: 1729; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_12\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_13_str: .string "\"test: 1730; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_13\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_14_str: .string "\"test: 1731; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_14\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_15_str: .string "\"test: 1732; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_15\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_16_str: .string "\"test: 1733; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_16\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_17_str: .string "\"test: 1734; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_17\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_18_str: .string "\"test: 1735; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_18\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_19_str: .string "\"test: 1736; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_19\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_20_str: .string "\"test: 1737; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_20\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_21_str: .string "\"test: 1738; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_21\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_22_str: .string "\"test: 1739; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_22\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_23_str: .string "\"test: 1740; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_23\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_24_str: .string "\"test: 1741; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_24\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_25_str: .string "\"test: 1742; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_25\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_26_str: .string "\"test: 1743; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_26\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_27_str: .string "\"test: 1744; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_27\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_28_str: .string "\"test: 1745; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_28\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_29_str: .string "\"test: 1746; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_29\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_30_str: .string "\"test: 1747; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_30\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_31_str: .string "\"test: 1748; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_31\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_32_str: .string "\"test: 1749; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_32\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_33_str: .string "\"test: 1750; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_33\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_34_str: .string "\"test: 1751; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_34\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_35_str: .string "\"test: 1752; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_35\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_36_str: .string "\"test: 1753; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_36\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_37_str: .string "\"test: 1754; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_37\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_38_str: .string "\"test: 1755; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_38\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_39_str: .string "\"test: 1756; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_39\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_40_str: .string "\"test: 1757; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_40\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_41_str: .string "\"test: 1758; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_41\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_42_str: .string "\"test: 1759; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_42\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_43_str: .string "\"test: 1760; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_43\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_44_str: .string "\"test: 1761; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_44\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_45_str: .string "\"test: 1762; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_45\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_46_str: .string "\"test: 1763; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_46\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_47_str: .string "\"test: 1764; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_47\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_48_str: .string "\"test: 1765; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_48\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_49_str: .string "\"test: 1766; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_49\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_50_str: .string "\"test: 1767; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_50\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_51_str: .string "\"test: 1768; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_51\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_52_str: .string "\"test: 1769; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_52\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_53_str: .string "\"test: 1770; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_53\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_54_str: .string "\"test: 1771; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_54\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_55_str: .string "\"test: 1772; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_55\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_56_str: .string "\"test: 1773; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_56\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_57_str: .string "\"test: 1774; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_57\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_58_str: .string "\"test: 1775; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_58\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_59_str: .string "\"test: 1776; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_59\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_60_str: .string "\"test: 1777; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_60\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_61_str: .string "\"test: 1778; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_61\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_62_str: .string "\"test: 1779; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_62\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent3_clr_bit_63_str: .string "\"test: 1780; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent3_clr_bit_63\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_0_str: .string "\"test: 1781; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_0\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_1_str: .string "\"test: 1782; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_1\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_2_str: .string "\"test: 1783; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_2\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_3_str: .string "\"test: 1784; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_3\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_4_str: .string "\"test: 1785; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_4\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_5_str: .string "\"test: 1786; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_5\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_6_str: .string "\"test: 1787; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_6\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_7_str: .string "\"test: 1788; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_7\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_8_str: .string "\"test: 1789; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_8\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_9_str: .string "\"test: 1790; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_9\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_10_str: .string "\"test: 1791; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_10\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_11_str: .string "\"test: 1792; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_11\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_12_str: .string "\"test: 1793; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_12\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_13_str: .string "\"test: 1794; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_13\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_14_str: .string "\"test: 1795; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_14\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_15_str: .string "\"test: 1796; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_15\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_16_str: .string "\"test: 1797; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_16\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_17_str: .string "\"test: 1798; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_17\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_18_str: .string "\"test: 1799; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_18\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_19_str: .string "\"test: 1800; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_19\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_20_str: .string "\"test: 1801; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_20\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_21_str: .string "\"test: 1802; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_21\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_22_str: .string "\"test: 1803; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_22\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_23_str: .string "\"test: 1804; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_23\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_24_str: .string "\"test: 1805; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_24\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_25_str: .string "\"test: 1806; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_25\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_26_str: .string "\"test: 1807; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_26\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_27_str: .string "\"test: 1808; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_27\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_28_str: .string "\"test: 1809; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_28\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_29_str: .string "\"test: 1810; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_29\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_30_str: .string "\"test: 1811; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_30\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_31_str: .string "\"test: 1812; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_31\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_32_str: .string "\"test: 1813; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_32\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_33_str: .string "\"test: 1814; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_33\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_34_str: .string "\"test: 1815; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_34\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_35_str: .string "\"test: 1816; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_35\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_36_str: .string "\"test: 1817; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_36\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_37_str: .string "\"test: 1818; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_37\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_38_str: .string "\"test: 1819; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_38\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_39_str: .string "\"test: 1820; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_39\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_40_str: .string "\"test: 1821; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_40\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_41_str: .string "\"test: 1822; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_41\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_42_str: .string "\"test: 1823; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_42\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_43_str: .string "\"test: 1824; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_43\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_44_str: .string "\"test: 1825; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_44\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_45_str: .string "\"test: 1826; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_45\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_46_str: .string "\"test: 1827; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_46\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_47_str: .string "\"test: 1828; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_47\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_48_str: .string "\"test: 1829; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_48\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_49_str: .string "\"test: 1830; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_49\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_50_str: .string "\"test: 1831; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_50\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_51_str: .string "\"test: 1832; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_51\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_52_str: .string "\"test: 1833; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_52\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_53_str: .string "\"test: 1834; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_53\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_54_str: .string "\"test: 1835; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_54\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_55_str: .string "\"test: 1836; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_55\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_56_str: .string "\"test: 1837; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_56\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_57_str: .string "\"test: 1838; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_57\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_58_str: .string "\"test: 1839; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_58\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_59_str: .string "\"test: 1840; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_59\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_60_str: .string "\"test: 1841; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_60\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_61_str: .string "\"test: 1842; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_61\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_62_str: .string "\"test: 1843; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_62\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_set_bit_63_str: .string "\"test: 1844; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_set_bit_63\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_0_str: .string "\"test: 1845; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_0\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_1_str: .string "\"test: 1846; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_1\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_2_str: .string "\"test: 1847; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_2\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_3_str: .string "\"test: 1848; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_3\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_4_str: .string "\"test: 1849; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_4\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_5_str: .string "\"test: 1850; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_5\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_6_str: .string "\"test: 1851; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_6\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_7_str: .string "\"test: 1852; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_7\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_8_str: .string "\"test: 1853; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_8\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_9_str: .string "\"test: 1854; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_9\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_10_str: .string "\"test: 1855; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_10\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_11_str: .string "\"test: 1856; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_11\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_12_str: .string "\"test: 1857; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_12\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_13_str: .string "\"test: 1858; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_13\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_14_str: .string "\"test: 1859; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_14\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_15_str: .string "\"test: 1860; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_15\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_16_str: .string "\"test: 1861; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_16\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_17_str: .string "\"test: 1862; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_17\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_18_str: .string "\"test: 1863; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_18\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_19_str: .string "\"test: 1864; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_19\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_20_str: .string "\"test: 1865; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_20\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_21_str: .string "\"test: 1866; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_21\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_22_str: .string "\"test: 1867; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_22\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_23_str: .string "\"test: 1868; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_23\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_24_str: .string "\"test: 1869; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_24\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_25_str: .string "\"test: 1870; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_25\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_26_str: .string "\"test: 1871; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_26\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_27_str: .string "\"test: 1872; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_27\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_28_str: .string "\"test: 1873; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_28\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_29_str: .string "\"test: 1874; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_29\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_30_str: .string "\"test: 1875; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_30\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_31_str: .string "\"test: 1876; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_31\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_32_str: .string "\"test: 1877; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_32\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_33_str: .string "\"test: 1878; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_33\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_34_str: .string "\"test: 1879; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_34\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_35_str: .string "\"test: 1880; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_35\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_36_str: .string "\"test: 1881; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_36\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_37_str: .string "\"test: 1882; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_37\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_38_str: .string "\"test: 1883; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_38\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_39_str: .string "\"test: 1884; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_39\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_40_str: .string "\"test: 1885; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_40\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_41_str: .string "\"test: 1886; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_41\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_42_str: .string "\"test: 1887; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_42\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_43_str: .string "\"test: 1888; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_43\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_44_str: .string "\"test: 1889; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_44\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_45_str: .string "\"test: 1890; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_45\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_46_str: .string "\"test: 1891; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_46\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_47_str: .string "\"test: 1892; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_47\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_48_str: .string "\"test: 1893; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_48\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_49_str: .string "\"test: 1894; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_49\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_50_str: .string "\"test: 1895; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_50\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_51_str: .string "\"test: 1896; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_51\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_52_str: .string "\"test: 1897; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_52\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_53_str: .string "\"test: 1898; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_53\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_54_str: .string "\"test: 1899; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_54\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_55_str: .string "\"test: 1900; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_55\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_56_str: .string "\"test: 1901; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_56\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_57_str: .string "\"test: 1902; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_57\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_58_str: .string "\"test: 1903; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_58\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_59_str: .string "\"test: 1904; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_59\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_60_str: .string "\"test: 1905; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_60\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_61_str: .string "\"test: 1906; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_61\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_62_str: .string "\"test: 1907; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_62\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent4_clr_bit_63_str: .string "\"test: 1908; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent4_clr_bit_63\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_0_str: .string "\"test: 1909; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_0\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_1_str: .string "\"test: 1910; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_1\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_2_str: .string "\"test: 1911; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_2\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_3_str: .string "\"test: 1912; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_3\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_4_str: .string "\"test: 1913; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_4\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_5_str: .string "\"test: 1914; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_5\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_6_str: .string "\"test: 1915; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_6\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_7_str: .string "\"test: 1916; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_7\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_8_str: .string "\"test: 1917; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_8\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_9_str: .string "\"test: 1918; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_9\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_10_str: .string "\"test: 1919; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_10\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_11_str: .string "\"test: 1920; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_11\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_12_str: .string "\"test: 1921; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_12\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_13_str: .string "\"test: 1922; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_13\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_14_str: .string "\"test: 1923; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_14\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_15_str: .string "\"test: 1924; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_15\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_16_str: .string "\"test: 1925; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_16\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_17_str: .string "\"test: 1926; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_17\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_18_str: .string "\"test: 1927; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_18\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_19_str: .string "\"test: 1928; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_19\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_20_str: .string "\"test: 1929; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_20\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_21_str: .string "\"test: 1930; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_21\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_22_str: .string "\"test: 1931; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_22\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_23_str: .string "\"test: 1932; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_23\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_24_str: .string "\"test: 1933; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_24\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_25_str: .string "\"test: 1934; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_25\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_26_str: .string "\"test: 1935; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_26\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_27_str: .string "\"test: 1936; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_27\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_28_str: .string "\"test: 1937; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_28\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_29_str: .string "\"test: 1938; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_29\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_30_str: .string "\"test: 1939; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_30\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_31_str: .string "\"test: 1940; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_31\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_32_str: .string "\"test: 1941; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_32\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_33_str: .string "\"test: 1942; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_33\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_34_str: .string "\"test: 1943; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_34\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_35_str: .string "\"test: 1944; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_35\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_36_str: .string "\"test: 1945; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_36\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_37_str: .string "\"test: 1946; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_37\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_38_str: .string "\"test: 1947; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_38\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_39_str: .string "\"test: 1948; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_39\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_40_str: .string "\"test: 1949; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_40\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_41_str: .string "\"test: 1950; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_41\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_42_str: .string "\"test: 1951; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_42\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_43_str: .string "\"test: 1952; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_43\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_44_str: .string "\"test: 1953; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_44\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_45_str: .string "\"test: 1954; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_45\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_46_str: .string "\"test: 1955; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_46\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_47_str: .string "\"test: 1956; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_47\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_48_str: .string "\"test: 1957; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_48\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_49_str: .string "\"test: 1958; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_49\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_50_str: .string "\"test: 1959; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_50\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_51_str: .string "\"test: 1960; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_51\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_52_str: .string "\"test: 1961; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_52\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_53_str: .string "\"test: 1962; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_53\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_54_str: .string "\"test: 1963; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_54\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_55_str: .string "\"test: 1964; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_55\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_56_str: .string "\"test: 1965; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_56\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_57_str: .string "\"test: 1966; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_57\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_58_str: .string "\"test: 1967; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_58\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_59_str: .string "\"test: 1968; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_59\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_60_str: .string "\"test: 1969; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_60\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_61_str: .string "\"test: 1970; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_61\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_62_str: .string "\"test: 1971; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_62\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_set_bit_63_str: .string "\"test: 1972; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_set_bit_63\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_0_str: .string "\"test: 1973; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_0\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_1_str: .string "\"test: 1974; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_1\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_2_str: .string "\"test: 1975; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_2\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_3_str: .string "\"test: 1976; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_3\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_4_str: .string "\"test: 1977; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_4\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_5_str: .string "\"test: 1978; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_5\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_6_str: .string "\"test: 1979; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_6\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_7_str: .string "\"test: 1980; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_7\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_8_str: .string "\"test: 1981; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_8\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_9_str: .string "\"test: 1982; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_9\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_10_str: .string "\"test: 1983; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_10\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_11_str: .string "\"test: 1984; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_11\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_12_str: .string "\"test: 1985; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_12\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_13_str: .string "\"test: 1986; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_13\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_14_str: .string "\"test: 1987; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_14\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_15_str: .string "\"test: 1988; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_15\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_16_str: .string "\"test: 1989; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_16\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_17_str: .string "\"test: 1990; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_17\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_18_str: .string "\"test: 1991; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_18\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_19_str: .string "\"test: 1992; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_19\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_20_str: .string "\"test: 1993; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_20\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_21_str: .string "\"test: 1994; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_21\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_22_str: .string "\"test: 1995; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_22\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_23_str: .string "\"test: 1996; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_23\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_24_str: .string "\"test: 1997; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_24\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_25_str: .string "\"test: 1998; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_25\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_26_str: .string "\"test: 1999; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_26\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_27_str: .string "\"test: 2000; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_27\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_28_str: .string "\"test: 2001; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_28\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_29_str: .string "\"test: 2002; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_29\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_30_str: .string "\"test: 2003; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_30\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_31_str: .string "\"test: 2004; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_31\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_32_str: .string "\"test: 2005; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_32\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_33_str: .string "\"test: 2006; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_33\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_34_str: .string "\"test: 2007; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_34\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_35_str: .string "\"test: 2008; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_35\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_36_str: .string "\"test: 2009; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_36\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_37_str: .string "\"test: 2010; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_37\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_38_str: .string "\"test: 2011; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_38\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_39_str: .string "\"test: 2012; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_39\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_40_str: .string "\"test: 2013; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_40\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_41_str: .string "\"test: 2014; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_41\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_42_str: .string "\"test: 2015; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_42\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_43_str: .string "\"test: 2016; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_43\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_44_str: .string "\"test: 2017; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_44\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_45_str: .string "\"test: 2018; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_45\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_46_str: .string "\"test: 2019; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_46\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_47_str: .string "\"test: 2020; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_47\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_48_str: .string "\"test: 2021; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_48\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_49_str: .string "\"test: 2022; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_49\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_50_str: .string "\"test: 2023; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_50\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_51_str: .string "\"test: 2024; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_51\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_52_str: .string "\"test: 2025; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_52\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_53_str: .string "\"test: 2026; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_53\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_54_str: .string "\"test: 2027; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_54\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_55_str: .string "\"test: 2028; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_55\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_56_str: .string "\"test: 2029; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_56\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_57_str: .string "\"test: 2030; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_57\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_58_str: .string "\"test: 2031; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_58\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_59_str: .string "\"test: 2032; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_59\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_60_str: .string "\"test: 2033; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_60\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_61_str: .string "\"test: 2034; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_61\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_62_str: .string "\"test: 2035; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_62\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent5_clr_bit_63_str: .string "\"test: 2036; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent5_clr_bit_63\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_0_str: .string "\"test: 2037; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_0\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_1_str: .string "\"test: 2038; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_1\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_2_str: .string "\"test: 2039; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_2\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_3_str: .string "\"test: 2040; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_3\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_4_str: .string "\"test: 2041; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_4\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_5_str: .string "\"test: 2042; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_5\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_6_str: .string "\"test: 2043; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_6\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_7_str: .string "\"test: 2044; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_7\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_8_str: .string "\"test: 2045; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_8\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_9_str: .string "\"test: 2046; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_9\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_10_str: .string "\"test: 2047; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_10\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_11_str: .string "\"test: 2048; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_11\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_12_str: .string "\"test: 2049; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_12\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_13_str: .string "\"test: 2050; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_13\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_14_str: .string "\"test: 2051; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_14\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_15_str: .string "\"test: 2052; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_15\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_16_str: .string "\"test: 2053; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_16\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_17_str: .string "\"test: 2054; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_17\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_18_str: .string "\"test: 2055; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_18\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_19_str: .string "\"test: 2056; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_19\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_20_str: .string "\"test: 2057; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_20\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_21_str: .string "\"test: 2058; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_21\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_22_str: .string "\"test: 2059; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_22\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_23_str: .string "\"test: 2060; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_23\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_24_str: .string "\"test: 2061; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_24\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_25_str: .string "\"test: 2062; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_25\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_26_str: .string "\"test: 2063; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_26\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_27_str: .string "\"test: 2064; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_27\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_28_str: .string "\"test: 2065; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_28\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_29_str: .string "\"test: 2066; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_29\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_30_str: .string "\"test: 2067; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_30\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_31_str: .string "\"test: 2068; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_31\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_32_str: .string "\"test: 2069; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_32\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_33_str: .string "\"test: 2070; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_33\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_34_str: .string "\"test: 2071; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_34\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_35_str: .string "\"test: 2072; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_35\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_36_str: .string "\"test: 2073; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_36\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_37_str: .string "\"test: 2074; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_37\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_38_str: .string "\"test: 2075; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_38\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_39_str: .string "\"test: 2076; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_39\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_40_str: .string "\"test: 2077; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_40\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_41_str: .string "\"test: 2078; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_41\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_42_str: .string "\"test: 2079; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_42\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_43_str: .string "\"test: 2080; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_43\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_44_str: .string "\"test: 2081; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_44\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_45_str: .string "\"test: 2082; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_45\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_46_str: .string "\"test: 2083; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_46\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_47_str: .string "\"test: 2084; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_47\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_48_str: .string "\"test: 2085; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_48\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_49_str: .string "\"test: 2086; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_49\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_50_str: .string "\"test: 2087; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_50\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_51_str: .string "\"test: 2088; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_51\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_52_str: .string "\"test: 2089; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_52\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_53_str: .string "\"test: 2090; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_53\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_54_str: .string "\"test: 2091; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_54\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_55_str: .string "\"test: 2092; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_55\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_56_str: .string "\"test: 2093; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_56\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_57_str: .string "\"test: 2094; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_57\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_58_str: .string "\"test: 2095; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_58\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_59_str: .string "\"test: 2096; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_59\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_60_str: .string "\"test: 2097; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_60\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_61_str: .string "\"test: 2098; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_61\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_62_str: .string "\"test: 2099; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_62\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_set_bit_63_str: .string "\"test: 2100; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_set_bit_63\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_0_str: .string "\"test: 2101; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_0\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_1_str: .string "\"test: 2102; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_1\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_2_str: .string "\"test: 2103; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_2\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_3_str: .string "\"test: 2104; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_3\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_4_str: .string "\"test: 2105; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_4\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_5_str: .string "\"test: 2106; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_5\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_6_str: .string "\"test: 2107; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_6\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_7_str: .string "\"test: 2108; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_7\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_8_str: .string "\"test: 2109; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_8\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_9_str: .string "\"test: 2110; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_9\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_10_str: .string "\"test: 2111; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_10\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_11_str: .string "\"test: 2112; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_11\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_12_str: .string "\"test: 2113; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_12\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_13_str: .string "\"test: 2114; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_13\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_14_str: .string "\"test: 2115; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_14\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_15_str: .string "\"test: 2116; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_15\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_16_str: .string "\"test: 2117; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_16\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_17_str: .string "\"test: 2118; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_17\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_18_str: .string "\"test: 2119; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_18\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_19_str: .string "\"test: 2120; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_19\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_20_str: .string "\"test: 2121; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_20\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_21_str: .string "\"test: 2122; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_21\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_22_str: .string "\"test: 2123; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_22\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_23_str: .string "\"test: 2124; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_23\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_24_str: .string "\"test: 2125; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_24\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_25_str: .string "\"test: 2126; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_25\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_26_str: .string "\"test: 2127; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_26\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_27_str: .string "\"test: 2128; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_27\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_28_str: .string "\"test: 2129; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_28\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_29_str: .string "\"test: 2130; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_29\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_30_str: .string "\"test: 2131; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_30\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_31_str: .string "\"test: 2132; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_31\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_32_str: .string "\"test: 2133; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_32\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_33_str: .string "\"test: 2134; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_33\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_34_str: .string "\"test: 2135; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_34\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_35_str: .string "\"test: 2136; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_35\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_36_str: .string "\"test: 2137; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_36\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_37_str: .string "\"test: 2138; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_37\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_38_str: .string "\"test: 2139; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_38\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_39_str: .string "\"test: 2140; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_39\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_40_str: .string "\"test: 2141; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_40\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_41_str: .string "\"test: 2142; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_41\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_42_str: .string "\"test: 2143; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_42\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_43_str: .string "\"test: 2144; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_43\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_44_str: .string "\"test: 2145; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_44\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_45_str: .string "\"test: 2146; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_45\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_46_str: .string "\"test: 2147; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_46\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_47_str: .string "\"test: 2148; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_47\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_48_str: .string "\"test: 2149; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_48\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_49_str: .string "\"test: 2150; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_49\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_50_str: .string "\"test: 2151; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_50\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_51_str: .string "\"test: 2152; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_51\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_52_str: .string "\"test: 2153; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_52\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_53_str: .string "\"test: 2154; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_53\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_54_str: .string "\"test: 2155; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_54\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_55_str: .string "\"test: 2156; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_55\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_56_str: .string "\"test: 2157; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_56\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_57_str: .string "\"test: 2158; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_57\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_58_str: .string "\"test: 2159; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_58\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_59_str: .string "\"test: 2160; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_59\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_60_str: .string "\"test: 2161; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_60\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_61_str: .string "\"test: 2162; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_61\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_62_str: .string "\"test: 2163; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_62\""
+Sm_mcsr_cg_cp_mcsrwalk_mhpmevent6_clr_bit_63_str: .string "\"test: 2164; cg: Sm_mcsr_cg; cp: cp_mcsrwalk; bin: mhpmevent6_clr_bit_63\""
 
 // End of test data section and model specific data
 RVTEST_DATA_END

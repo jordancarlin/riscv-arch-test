@@ -255,33 +255,8 @@ Sm_mcsr_cg_cp_mcsr_access_mcounteren_csrrc_all:
   csrw mcounteren, x14       # Restore CSR
 
 
-# CSR Access Tests for mscratch
-  csrr x15, mscratch    # Save CSR
-  LI(x14, -1)             # write all 1s
-Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrw1:
-  csrw mscratch, x14    # Write all 1s to CSR
-  # Read mscratch into x13 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mscratch, x13, Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrw1_str)
-
-Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrw0:
-  csrw mscratch, zero   # Write all 0s to CSR
-  # Read mscratch into x13 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mscratch, x13, Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrw0_str)
-
-Sm_mcsr_cg_cp_mcsr_access_mscratch_csrs_all:
-  csrs mscratch, x14    # Set all 1s
-  # Read mscratch into x13 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mscratch, x13, Sm_mcsr_cg_cp_mcsr_access_mscratch_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mscratch_csrs_all_str)
-
-Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrc_all:
-  csrc mscratch, x14    # Clear all 1s
-  # Read mscratch into x13 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mscratch, x13, Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrc_all_str)
-  csrw mscratch, x15       # Restore CSR
-
-
 # CSR Access Tests for mepc
-  csrr x6, mepc    # Save CSR
+  csrr x15, mepc    # Save CSR
   LI(x14, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mepc_csrrw1:
   csrw mepc, x14    # Write all 1s to CSR
@@ -302,993 +277,993 @@ Sm_mcsr_cg_cp_mcsr_access_mepc_csrrc_all:
   csrc mepc, x14    # Clear all 1s
   # Read mepc into x13 and check against expected.
   RVTEST_SIGUPD_CSR_READ(mepc, x13, Sm_mcsr_cg_cp_mcsr_access_mepc_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mepc_csrrc_all_str)
-  csrw mepc, x6       # Restore CSR
+  csrw mepc, x15       # Restore CSR
 
 
 # CSR Access Tests for mtval
-  csrr x9, mtval    # Save CSR
-  LI(x13, -1)             # write all 1s
+  csrr x6, mtval    # Save CSR
+  LI(x14, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw1:
-  csrw mtval, x13    # Write all 1s to CSR
-  # Read mtval into x15 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mtval, x15, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw1_str)
+  csrw mtval, x14    # Write all 1s to CSR
+  # Read mtval into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(mtval, x13, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw0:
   csrw mtval, zero   # Write all 0s to CSR
-  # Read mtval into x15 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mtval, x15, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw0_str)
+  # Read mtval into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(mtval, x13, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mtval_csrs_all:
-  csrs mtval, x13    # Set all 1s
-  # Read mtval into x15 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mtval, x15, Sm_mcsr_cg_cp_mcsr_access_mtval_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mtval_csrs_all_str)
+  csrs mtval, x14    # Set all 1s
+  # Read mtval into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(mtval, x13, Sm_mcsr_cg_cp_mcsr_access_mtval_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mtval_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mtval_csrrc_all:
-  csrc mtval, x13    # Clear all 1s
-  # Read mtval into x15 and check against expected.
-  RVTEST_SIGUPD_CSR_READ(mtval, x15, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrc_all_str)
-  csrw mtval, x9       # Restore CSR
+  csrc mtval, x14    # Clear all 1s
+  # Read mtval into x13 and check against expected.
+  RVTEST_SIGUPD_CSR_READ(mtval, x13, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mtval_csrrc_all_str)
+  csrw mtval, x6       # Restore CSR
 
 
 # CSR Access Tests for mip
-  csrr x13, mip    # Save CSR
-  LI(x15, 65535)    # Load mask (0xffff)
-  LI(x6, -1)             # write all 1s
+  csrr x9, mip    # Save CSR
+  LI(x8, 65535)    # Load mask (0xffff)
+  LI(x13, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mip_csrrw1:
-  csrw mip, x6    # Write all 1s to CSR
-  # Read mip into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mip    # Read CSR
-  and x14, x14, x15    # keep only masked bits 0xffff
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mip_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mip_csrrw1_str)
+  csrw mip, x13    # Write all 1s to CSR
+  # Read mip into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mip    # Read CSR
+  and x15, x15, x8    # keep only masked bits 0xffff
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mip_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mip_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mip_csrrw0:
   csrw mip, zero   # Write all 0s to CSR
-  # Read mip into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mip    # Read CSR
-  and x14, x14, x15    # keep only masked bits 0xffff
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mip_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mip_csrrw0_str)
+  # Read mip into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mip    # Read CSR
+  and x15, x15, x8    # keep only masked bits 0xffff
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mip_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mip_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mip_csrs_all:
-  csrs mip, x6    # Set all 1s
-  # Read mip into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mip    # Read CSR
-  and x14, x14, x15    # keep only masked bits 0xffff
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mip_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mip_csrs_all_str)
+  csrs mip, x13    # Set all 1s
+  # Read mip into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mip    # Read CSR
+  and x15, x15, x8    # keep only masked bits 0xffff
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mip_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mip_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mip_csrrc_all:
-  csrc mip, x6    # Clear all 1s
-  # Read mip into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mip    # Read CSR
-  and x14, x14, x15    # keep only masked bits 0xffff
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mip_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mip_csrrc_all_str)
-  csrw mip, x13       # Restore CSR
+  csrc mip, x13    # Clear all 1s
+  # Read mip into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mip    # Read CSR
+  and x15, x15, x8    # keep only masked bits 0xffff
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mip_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mip_csrrc_all_str)
+  csrw mip, x9       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent3
-  csrr x14, mhpmevent3    # Save CSR
+  csrr x6, mhpmevent3    # Save CSR
   LI(x13, 0)    # Load mask (0x0)
-  LI(x9, -1)             # write all 1s
+  LI(x14, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw1:
-  csrw mhpmevent3, x9    # Write all 1s to CSR
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw1_str)
+  csrw mhpmevent3, x14    # Write all 1s to CSR
+  # Read mhpmevent3 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent3    # Read CSR
+  and x15, x15, x13    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw0:
   csrw mhpmevent3, zero   # Write all 0s to CSR
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw0_str)
+  # Read mhpmevent3 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent3    # Read CSR
+  and x15, x15, x13    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrs_all:
-  csrs mhpmevent3, x9    # Set all 1s
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrs_all_str)
+  csrs mhpmevent3, x14    # Set all 1s
+  # Read mhpmevent3 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent3    # Read CSR
+  and x15, x15, x13    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrc_all:
-  csrc mhpmevent3, x9    # Clear all 1s
-  # Read mhpmevent3 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent3    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrc_all_str)
-  csrw mhpmevent3, x14       # Restore CSR
+  csrc mhpmevent3, x14    # Clear all 1s
+  # Read mhpmevent3 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent3    # Read CSR
+  and x15, x15, x13    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrc_all_str)
+  csrw mhpmevent3, x6       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent4
-  csrr x6, mhpmevent4    # Save CSR
-  LI(x15, 0)    # Load mask (0x0)
-  LI(x13, -1)             # write all 1s
+  csrr x14, mhpmevent4    # Save CSR
+  LI(x13, 0)    # Load mask (0x0)
+  LI(x9, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw1:
-  csrw mhpmevent4, x13    # Write all 1s to CSR
-  # Read mhpmevent4 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent4    # Read CSR
-  and x14, x14, x15    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw1_str)
+  csrw mhpmevent4, x9    # Write all 1s to CSR
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw0:
   csrw mhpmevent4, zero   # Write all 0s to CSR
-  # Read mhpmevent4 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent4    # Read CSR
-  and x14, x14, x15    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw0_str)
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrs_all:
-  csrs mhpmevent4, x13    # Set all 1s
-  # Read mhpmevent4 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent4    # Read CSR
-  and x14, x14, x15    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrs_all_str)
+  csrs mhpmevent4, x9    # Set all 1s
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrc_all:
-  csrc mhpmevent4, x13    # Clear all 1s
-  # Read mhpmevent4 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent4    # Read CSR
-  and x14, x14, x15    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrc_all_str)
-  csrw mhpmevent4, x6       # Restore CSR
+  csrc mhpmevent4, x9    # Clear all 1s
+  # Read mhpmevent4 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent4    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrc_all_str)
+  csrw mhpmevent4, x14       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent5
-  csrr x15, mhpmevent5    # Save CSR
-  LI(x6, 0)    # Load mask (0x0)
-  LI(x9, -1)             # write all 1s
+  csrr x6, mhpmevent5    # Save CSR
+  LI(x15, 0)    # Load mask (0x0)
+  LI(x13, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw1:
-  csrw mhpmevent5, x9    # Write all 1s to CSR
-  # Read mhpmevent5 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent5    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw1_str)
+  csrw mhpmevent5, x13    # Write all 1s to CSR
+  # Read mhpmevent5 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent5    # Read CSR
+  and x14, x14, x15    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw0:
   csrw mhpmevent5, zero   # Write all 0s to CSR
-  # Read mhpmevent5 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent5    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw0_str)
+  # Read mhpmevent5 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent5    # Read CSR
+  and x14, x14, x15    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrs_all:
-  csrs mhpmevent5, x9    # Set all 1s
-  # Read mhpmevent5 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent5    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrs_all_str)
+  csrs mhpmevent5, x13    # Set all 1s
+  # Read mhpmevent5 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent5    # Read CSR
+  and x14, x14, x15    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrc_all:
-  csrc mhpmevent5, x9    # Clear all 1s
-  # Read mhpmevent5 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent5    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrc_all_str)
-  csrw mhpmevent5, x15       # Restore CSR
+  csrc mhpmevent5, x13    # Clear all 1s
+  # Read mhpmevent5 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent5    # Read CSR
+  and x14, x14, x15    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrc_all_str)
+  csrw mhpmevent5, x6       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent6
-  csrr x8, mhpmevent6    # Save CSR
-  LI(x13, 0)    # Load mask (0x0)
+  csrr x15, mhpmevent6    # Save CSR
+  LI(x6, 0)    # Load mask (0x0)
   LI(x9, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw1:
   csrw mhpmevent6, x9    # Write all 1s to CSR
-  # Read mhpmevent6 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent6    # Read CSR
-  and x14, x14, x13    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw1_str)
+  # Read mhpmevent6 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent6    # Read CSR
+  and x13, x13, x6    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw0:
   csrw mhpmevent6, zero   # Write all 0s to CSR
-  # Read mhpmevent6 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent6    # Read CSR
-  and x14, x14, x13    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw0_str)
+  # Read mhpmevent6 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent6    # Read CSR
+  and x13, x13, x6    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrs_all:
   csrs mhpmevent6, x9    # Set all 1s
-  # Read mhpmevent6 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent6    # Read CSR
-  and x14, x14, x13    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrs_all_str)
+  # Read mhpmevent6 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent6    # Read CSR
+  and x13, x13, x6    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrc_all:
   csrc mhpmevent6, x9    # Clear all 1s
-  # Read mhpmevent6 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent6    # Read CSR
-  and x14, x14, x13    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrc_all_str)
-  csrw mhpmevent6, x8       # Restore CSR
+  # Read mhpmevent6 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent6    # Read CSR
+  and x13, x13, x6    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrc_all_str)
+  csrw mhpmevent6, x15       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent7
-  csrr x6, mhpmevent7    # Save CSR
+  csrr x8, mhpmevent7    # Save CSR
   LI(x13, 0)    # Load mask (0x0)
-  LI(x14, -1)             # write all 1s
+  LI(x9, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw1:
-  csrw mhpmevent7, x14    # Write all 1s to CSR
-  # Read mhpmevent7 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent7    # Read CSR
-  and x15, x15, x13    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw1_str)
+  csrw mhpmevent7, x9    # Write all 1s to CSR
+  # Read mhpmevent7 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent7    # Read CSR
+  and x14, x14, x13    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw0:
   csrw mhpmevent7, zero   # Write all 0s to CSR
-  # Read mhpmevent7 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent7    # Read CSR
-  and x15, x15, x13    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw0_str)
+  # Read mhpmevent7 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent7    # Read CSR
+  and x14, x14, x13    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrs_all:
-  csrs mhpmevent7, x14    # Set all 1s
-  # Read mhpmevent7 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent7    # Read CSR
-  and x15, x15, x13    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrs_all_str)
+  csrs mhpmevent7, x9    # Set all 1s
+  # Read mhpmevent7 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent7    # Read CSR
+  and x14, x14, x13    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrc_all:
-  csrc mhpmevent7, x14    # Clear all 1s
-  # Read mhpmevent7 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent7    # Read CSR
-  and x15, x15, x13    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrc_all_str)
-  csrw mhpmevent7, x6       # Restore CSR
+  csrc mhpmevent7, x9    # Clear all 1s
+  # Read mhpmevent7 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent7    # Read CSR
+  and x14, x14, x13    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrc_all_str)
+  csrw mhpmevent7, x8       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent8
   csrr x6, mhpmevent8    # Save CSR
-  LI(x15, 0)    # Load mask (0x0)
-  LI(x9, -1)             # write all 1s
+  LI(x13, 0)    # Load mask (0x0)
+  LI(x14, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw1:
-  csrw mhpmevent8, x9    # Write all 1s to CSR
-  # Read mhpmevent8 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent8    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw1_str)
+  csrw mhpmevent8, x14    # Write all 1s to CSR
+  # Read mhpmevent8 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent8    # Read CSR
+  and x15, x15, x13    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw0:
   csrw mhpmevent8, zero   # Write all 0s to CSR
-  # Read mhpmevent8 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent8    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw0_str)
+  # Read mhpmevent8 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent8    # Read CSR
+  and x15, x15, x13    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrs_all:
-  csrs mhpmevent8, x9    # Set all 1s
-  # Read mhpmevent8 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent8    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrs_all_str)
+  csrs mhpmevent8, x14    # Set all 1s
+  # Read mhpmevent8 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent8    # Read CSR
+  and x15, x15, x13    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrc_all:
-  csrc mhpmevent8, x9    # Clear all 1s
-  # Read mhpmevent8 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent8    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrc_all_str)
+  csrc mhpmevent8, x14    # Clear all 1s
+  # Read mhpmevent8 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent8    # Read CSR
+  and x15, x15, x13    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrc_all_str)
   csrw mhpmevent8, x6       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent9
-  csrr x13, mhpmevent9    # Save CSR
-  LI(x14, 0)    # Load mask (0x0)
-  LI(x6, -1)             # write all 1s
+  csrr x6, mhpmevent9    # Save CSR
+  LI(x15, 0)    # Load mask (0x0)
+  LI(x9, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw1:
-  csrw mhpmevent9, x6    # Write all 1s to CSR
-  # Read mhpmevent9 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent9    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw1_str)
+  csrw mhpmevent9, x9    # Write all 1s to CSR
+  # Read mhpmevent9 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent9    # Read CSR
+  and x13, x13, x15    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw0:
   csrw mhpmevent9, zero   # Write all 0s to CSR
-  # Read mhpmevent9 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent9    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw0_str)
+  # Read mhpmevent9 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent9    # Read CSR
+  and x13, x13, x15    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrs_all:
-  csrs mhpmevent9, x6    # Set all 1s
-  # Read mhpmevent9 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent9    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrs_all_str)
+  csrs mhpmevent9, x9    # Set all 1s
+  # Read mhpmevent9 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent9    # Read CSR
+  and x13, x13, x15    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrc_all:
-  csrc mhpmevent9, x6    # Clear all 1s
-  # Read mhpmevent9 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent9    # Read CSR
-  and x8, x8, x14    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrc_all_str)
-  csrw mhpmevent9, x13       # Restore CSR
+  csrc mhpmevent9, x9    # Clear all 1s
+  # Read mhpmevent9 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent9    # Read CSR
+  and x13, x13, x15    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrc_all_str)
+  csrw mhpmevent9, x6       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent10
-  csrr x15, mhpmevent10    # Save CSR
-  LI(x9, 0)    # Load mask (0x0)
-  LI(x13, -1)             # write all 1s
+  csrr x13, mhpmevent10    # Save CSR
+  LI(x14, 0)    # Load mask (0x0)
+  LI(x6, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw1:
-  csrw mhpmevent10, x13    # Write all 1s to CSR
-  # Read mhpmevent10 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent10    # Read CSR
-  and x6, x6, x9    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw1_str)
+  csrw mhpmevent10, x6    # Write all 1s to CSR
+  # Read mhpmevent10 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent10    # Read CSR
+  and x8, x8, x14    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw0:
   csrw mhpmevent10, zero   # Write all 0s to CSR
-  # Read mhpmevent10 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent10    # Read CSR
-  and x6, x6, x9    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw0_str)
+  # Read mhpmevent10 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent10    # Read CSR
+  and x8, x8, x14    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrs_all:
-  csrs mhpmevent10, x13    # Set all 1s
-  # Read mhpmevent10 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent10    # Read CSR
-  and x6, x6, x9    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrs_all_str)
+  csrs mhpmevent10, x6    # Set all 1s
+  # Read mhpmevent10 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent10    # Read CSR
+  and x8, x8, x14    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrc_all:
-  csrc mhpmevent10, x13    # Clear all 1s
-  # Read mhpmevent10 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent10    # Read CSR
-  and x6, x6, x9    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrc_all_str)
-  csrw mhpmevent10, x15       # Restore CSR
+  csrc mhpmevent10, x6    # Clear all 1s
+  # Read mhpmevent10 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent10    # Read CSR
+  and x8, x8, x14    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrc_all_str)
+  csrw mhpmevent10, x13       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent11
-  csrr x14, mhpmevent11    # Save CSR
-  LI(x13, 0)    # Load mask (0x0)
-  LI(x6, -1)             # write all 1s
+  csrr x15, mhpmevent11    # Save CSR
+  LI(x9, 0)    # Load mask (0x0)
+  LI(x13, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw1:
-  csrw mhpmevent11, x6    # Write all 1s to CSR
-  # Read mhpmevent11 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent11    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw1_str)
+  csrw mhpmevent11, x13    # Write all 1s to CSR
+  # Read mhpmevent11 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent11    # Read CSR
+  and x6, x6, x9    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw0:
   csrw mhpmevent11, zero   # Write all 0s to CSR
-  # Read mhpmevent11 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent11    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw0_str)
+  # Read mhpmevent11 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent11    # Read CSR
+  and x6, x6, x9    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrs_all:
-  csrs mhpmevent11, x6    # Set all 1s
-  # Read mhpmevent11 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent11    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrs_all_str)
+  csrs mhpmevent11, x13    # Set all 1s
+  # Read mhpmevent11 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent11    # Read CSR
+  and x6, x6, x9    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrc_all:
-  csrc mhpmevent11, x6    # Clear all 1s
-  # Read mhpmevent11 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent11    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrc_all_str)
-  csrw mhpmevent11, x14       # Restore CSR
+  csrc mhpmevent11, x13    # Clear all 1s
+  # Read mhpmevent11 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent11    # Read CSR
+  and x6, x6, x9    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrc_all_str)
+  csrw mhpmevent11, x15       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent12
-  csrr x15, mhpmevent12    # Save CSR
-  LI(x6, 0)    # Load mask (0x0)
-  LI(x13, -1)             # write all 1s
+  csrr x14, mhpmevent12    # Save CSR
+  LI(x13, 0)    # Load mask (0x0)
+  LI(x6, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw1:
-  csrw mhpmevent12, x13    # Write all 1s to CSR
-  # Read mhpmevent12 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent12    # Read CSR
-  and x14, x14, x6    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw1_str)
+  csrw mhpmevent12, x6    # Write all 1s to CSR
+  # Read mhpmevent12 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent12    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw0:
   csrw mhpmevent12, zero   # Write all 0s to CSR
-  # Read mhpmevent12 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent12    # Read CSR
-  and x14, x14, x6    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw0_str)
+  # Read mhpmevent12 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent12    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrs_all:
-  csrs mhpmevent12, x13    # Set all 1s
-  # Read mhpmevent12 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent12    # Read CSR
-  and x14, x14, x6    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrs_all_str)
+  csrs mhpmevent12, x6    # Set all 1s
+  # Read mhpmevent12 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent12    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrc_all:
-  csrc mhpmevent12, x13    # Clear all 1s
-  # Read mhpmevent12 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent12    # Read CSR
-  and x14, x14, x6    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrc_all_str)
-  csrw mhpmevent12, x15       # Restore CSR
+  csrc mhpmevent12, x6    # Clear all 1s
+  # Read mhpmevent12 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent12    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrc_all_str)
+  csrw mhpmevent12, x14       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent13
-  csrr x13, mhpmevent13    # Save CSR
-  LI(x9, 0)    # Load mask (0x0)
-  LI(x15, -1)             # write all 1s
+  csrr x15, mhpmevent13    # Save CSR
+  LI(x6, 0)    # Load mask (0x0)
+  LI(x13, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw1:
-  csrw mhpmevent13, x15    # Write all 1s to CSR
-  # Read mhpmevent13 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent13    # Read CSR
-  and x8, x8, x9    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw1_str)
+  csrw mhpmevent13, x13    # Write all 1s to CSR
+  # Read mhpmevent13 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent13    # Read CSR
+  and x14, x14, x6    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw0:
   csrw mhpmevent13, zero   # Write all 0s to CSR
-  # Read mhpmevent13 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent13    # Read CSR
-  and x8, x8, x9    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw0_str)
+  # Read mhpmevent13 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent13    # Read CSR
+  and x14, x14, x6    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrs_all:
-  csrs mhpmevent13, x15    # Set all 1s
-  # Read mhpmevent13 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent13    # Read CSR
-  and x8, x8, x9    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrs_all_str)
+  csrs mhpmevent13, x13    # Set all 1s
+  # Read mhpmevent13 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent13    # Read CSR
+  and x14, x14, x6    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrc_all:
-  csrc mhpmevent13, x15    # Clear all 1s
-  # Read mhpmevent13 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent13    # Read CSR
-  and x8, x8, x9    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrc_all_str)
-  csrw mhpmevent13, x13       # Restore CSR
+  csrc mhpmevent13, x13    # Clear all 1s
+  # Read mhpmevent13 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent13    # Read CSR
+  and x14, x14, x6    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrc_all_str)
+  csrw mhpmevent13, x15       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent14
-  csrr x15, mhpmevent14    # Save CSR
-  LI(x14, 0)    # Load mask (0x0)
-  LI(x9, -1)             # write all 1s
+  csrr x13, mhpmevent14    # Save CSR
+  LI(x9, 0)    # Load mask (0x0)
+  LI(x15, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw1:
-  csrw mhpmevent14, x9    # Write all 1s to CSR
-  # Read mhpmevent14 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent14    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw1_str)
+  csrw mhpmevent14, x15    # Write all 1s to CSR
+  # Read mhpmevent14 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent14    # Read CSR
+  and x8, x8, x9    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw0:
   csrw mhpmevent14, zero   # Write all 0s to CSR
-  # Read mhpmevent14 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent14    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw0_str)
+  # Read mhpmevent14 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent14    # Read CSR
+  and x8, x8, x9    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrs_all:
-  csrs mhpmevent14, x9    # Set all 1s
-  # Read mhpmevent14 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent14    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrs_all_str)
+  csrs mhpmevent14, x15    # Set all 1s
+  # Read mhpmevent14 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent14    # Read CSR
+  and x8, x8, x9    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrc_all:
-  csrc mhpmevent14, x9    # Clear all 1s
-  # Read mhpmevent14 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent14    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrc_all_str)
-  csrw mhpmevent14, x15       # Restore CSR
+  csrc mhpmevent14, x15    # Clear all 1s
+  # Read mhpmevent14 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent14    # Read CSR
+  and x8, x8, x9    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrc_all_str)
+  csrw mhpmevent14, x13       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent15
-  csrr x8, mhpmevent15    # Save CSR
-  LI(x6, 0)    # Load mask (0x0)
-  LI(x14, -1)             # write all 1s
+  csrr x15, mhpmevent15    # Save CSR
+  LI(x14, 0)    # Load mask (0x0)
+  LI(x9, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw1:
-  csrw mhpmevent15, x14    # Write all 1s to CSR
-  # Read mhpmevent15 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent15    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw1_str)
+  csrw mhpmevent15, x9    # Write all 1s to CSR
+  # Read mhpmevent15 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent15    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw0:
   csrw mhpmevent15, zero   # Write all 0s to CSR
-  # Read mhpmevent15 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent15    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw0_str)
+  # Read mhpmevent15 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent15    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrs_all:
-  csrs mhpmevent15, x14    # Set all 1s
-  # Read mhpmevent15 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent15    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrs_all_str)
+  csrs mhpmevent15, x9    # Set all 1s
+  # Read mhpmevent15 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent15    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrc_all:
-  csrc mhpmevent15, x14    # Clear all 1s
-  # Read mhpmevent15 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent15    # Read CSR
-  and x15, x15, x6    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrc_all_str)
-  csrw mhpmevent15, x8       # Restore CSR
+  csrc mhpmevent15, x9    # Clear all 1s
+  # Read mhpmevent15 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent15    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrc_all_str)
+  csrw mhpmevent15, x15       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent16
   csrr x8, mhpmevent16    # Save CSR
   LI(x6, 0)    # Load mask (0x0)
-  LI(x9, -1)             # write all 1s
+  LI(x14, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw1:
-  csrw mhpmevent16, x9    # Write all 1s to CSR
-  # Read mhpmevent16 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent16    # Read CSR
-  and x14, x14, x6    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw1_str)
+  csrw mhpmevent16, x14    # Write all 1s to CSR
+  # Read mhpmevent16 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent16    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw0:
   csrw mhpmevent16, zero   # Write all 0s to CSR
-  # Read mhpmevent16 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent16    # Read CSR
-  and x14, x14, x6    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw0_str)
+  # Read mhpmevent16 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent16    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrs_all:
-  csrs mhpmevent16, x9    # Set all 1s
-  # Read mhpmevent16 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent16    # Read CSR
-  and x14, x14, x6    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrs_all_str)
+  csrs mhpmevent16, x14    # Set all 1s
+  # Read mhpmevent16 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent16    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrc_all:
-  csrc mhpmevent16, x9    # Clear all 1s
-  # Read mhpmevent16 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent16    # Read CSR
-  and x14, x14, x6    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrc_all_str)
+  csrc mhpmevent16, x14    # Clear all 1s
+  # Read mhpmevent16 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent16    # Read CSR
+  and x15, x15, x6    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrc_all_str)
   csrw mhpmevent16, x8       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent17
   csrr x8, mhpmevent17    # Save CSR
-  LI(x15, 0)    # Load mask (0x0)
-  LI(x14, -1)             # write all 1s
+  LI(x6, 0)    # Load mask (0x0)
+  LI(x9, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw1:
-  csrw mhpmevent17, x14    # Write all 1s to CSR
-  # Read mhpmevent17 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent17    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw1_str)
+  csrw mhpmevent17, x9    # Write all 1s to CSR
+  # Read mhpmevent17 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent17    # Read CSR
+  and x14, x14, x6    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw0:
   csrw mhpmevent17, zero   # Write all 0s to CSR
-  # Read mhpmevent17 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent17    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw0_str)
+  # Read mhpmevent17 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent17    # Read CSR
+  and x14, x14, x6    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrs_all:
-  csrs mhpmevent17, x14    # Set all 1s
-  # Read mhpmevent17 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent17    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrs_all_str)
+  csrs mhpmevent17, x9    # Set all 1s
+  # Read mhpmevent17 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent17    # Read CSR
+  and x14, x14, x6    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrc_all:
-  csrc mhpmevent17, x14    # Clear all 1s
-  # Read mhpmevent17 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent17    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrc_all_str)
+  csrc mhpmevent17, x9    # Clear all 1s
+  # Read mhpmevent17 into x14, keep only bits specified by mask, and check against expected.
+  csrr x14, mhpmevent17    # Read CSR
+  and x14, x14, x6    # keep only masked bits 0x0
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrc_all_str)
   csrw mhpmevent17, x8       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent18
-  csrr x6, mhpmevent18    # Save CSR
-  LI(x8, 0)    # Load mask (0x0)
-  LI(x9, -1)             # write all 1s
+  csrr x8, mhpmevent18    # Save CSR
+  LI(x15, 0)    # Load mask (0x0)
+  LI(x14, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw1:
-  csrw mhpmevent18, x9    # Write all 1s to CSR
-  # Read mhpmevent18 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent18    # Read CSR
-  and x15, x15, x8    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw1_str)
+  csrw mhpmevent18, x14    # Write all 1s to CSR
+  # Read mhpmevent18 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent18    # Read CSR
+  and x13, x13, x15    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw0:
   csrw mhpmevent18, zero   # Write all 0s to CSR
-  # Read mhpmevent18 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent18    # Read CSR
-  and x15, x15, x8    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw0_str)
+  # Read mhpmevent18 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent18    # Read CSR
+  and x13, x13, x15    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrs_all:
-  csrs mhpmevent18, x9    # Set all 1s
-  # Read mhpmevent18 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent18    # Read CSR
-  and x15, x15, x8    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrs_all_str)
+  csrs mhpmevent18, x14    # Set all 1s
+  # Read mhpmevent18 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent18    # Read CSR
+  and x13, x13, x15    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrc_all:
-  csrc mhpmevent18, x9    # Clear all 1s
-  # Read mhpmevent18 into x15, keep only bits specified by mask, and check against expected.
-  csrr x15, mhpmevent18    # Read CSR
-  and x15, x15, x8    # keep only masked bits 0x0
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrc_all_str)
-  csrw mhpmevent18, x6       # Restore CSR
+  csrc mhpmevent18, x14    # Clear all 1s
+  # Read mhpmevent18 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent18    # Read CSR
+  and x13, x13, x15    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrc_all_str)
+  csrw mhpmevent18, x8       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent19
-  csrr x14, mhpmevent19    # Save CSR
-  LI(x9, 0)    # Load mask (0x0)
-  LI(x6, -1)             # write all 1s
+  csrr x6, mhpmevent19    # Save CSR
+  LI(x8, 0)    # Load mask (0x0)
+  LI(x9, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw1:
-  csrw mhpmevent19, x6    # Write all 1s to CSR
-  # Read mhpmevent19 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent19    # Read CSR
-  and x13, x13, x9    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw1_str)
+  csrw mhpmevent19, x9    # Write all 1s to CSR
+  # Read mhpmevent19 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent19    # Read CSR
+  and x15, x15, x8    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw0:
   csrw mhpmevent19, zero   # Write all 0s to CSR
-  # Read mhpmevent19 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent19    # Read CSR
-  and x13, x13, x9    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw0_str)
+  # Read mhpmevent19 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent19    # Read CSR
+  and x15, x15, x8    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrs_all:
-  csrs mhpmevent19, x6    # Set all 1s
-  # Read mhpmevent19 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent19    # Read CSR
-  and x13, x13, x9    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrs_all_str)
+  csrs mhpmevent19, x9    # Set all 1s
+  # Read mhpmevent19 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent19    # Read CSR
+  and x15, x15, x8    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrc_all:
-  csrc mhpmevent19, x6    # Clear all 1s
-  # Read mhpmevent19 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent19    # Read CSR
-  and x13, x13, x9    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrc_all_str)
-  csrw mhpmevent19, x14       # Restore CSR
+  csrc mhpmevent19, x9    # Clear all 1s
+  # Read mhpmevent19 into x15, keep only bits specified by mask, and check against expected.
+  csrr x15, mhpmevent19    # Read CSR
+  and x15, x15, x8    # keep only masked bits 0x0
+  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x15, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrc_all_str)
+  csrw mhpmevent19, x6       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent20
-  csrr x6, mhpmevent20    # Save CSR
-  LI(x14, 0)    # Load mask (0x0)
-  LI(x15, -1)             # write all 1s
+  csrr x14, mhpmevent20    # Save CSR
+  LI(x9, 0)    # Load mask (0x0)
+  LI(x6, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw1:
-  csrw mhpmevent20, x15    # Write all 1s to CSR
-  # Read mhpmevent20 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent20    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw1_str)
+  csrw mhpmevent20, x6    # Write all 1s to CSR
+  # Read mhpmevent20 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent20    # Read CSR
+  and x13, x13, x9    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw0:
   csrw mhpmevent20, zero   # Write all 0s to CSR
-  # Read mhpmevent20 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent20    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw0_str)
+  # Read mhpmevent20 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent20    # Read CSR
+  and x13, x13, x9    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrs_all:
-  csrs mhpmevent20, x15    # Set all 1s
-  # Read mhpmevent20 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent20    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrs_all_str)
+  csrs mhpmevent20, x6    # Set all 1s
+  # Read mhpmevent20 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent20    # Read CSR
+  and x13, x13, x9    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrc_all:
-  csrc mhpmevent20, x15    # Clear all 1s
-  # Read mhpmevent20 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent20    # Read CSR
-  and x9, x9, x14    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrc_all_str)
-  csrw mhpmevent20, x6       # Restore CSR
+  csrc mhpmevent20, x6    # Clear all 1s
+  # Read mhpmevent20 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent20    # Read CSR
+  and x13, x13, x9    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrc_all_str)
+  csrw mhpmevent20, x14       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent21
-  csrr x14, mhpmevent21    # Save CSR
-  LI(x6, 0)    # Load mask (0x0)
-  LI(x9, -1)             # write all 1s
+  csrr x6, mhpmevent21    # Save CSR
+  LI(x14, 0)    # Load mask (0x0)
+  LI(x15, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw1:
-  csrw mhpmevent21, x9    # Write all 1s to CSR
-  # Read mhpmevent21 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent21    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw1_str)
+  csrw mhpmevent21, x15    # Write all 1s to CSR
+  # Read mhpmevent21 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent21    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw0:
   csrw mhpmevent21, zero   # Write all 0s to CSR
-  # Read mhpmevent21 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent21    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw0_str)
+  # Read mhpmevent21 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent21    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrs_all:
-  csrs mhpmevent21, x9    # Set all 1s
-  # Read mhpmevent21 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent21    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrs_all_str)
+  csrs mhpmevent21, x15    # Set all 1s
+  # Read mhpmevent21 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent21    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrc_all:
-  csrc mhpmevent21, x9    # Clear all 1s
-  # Read mhpmevent21 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent21    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrc_all_str)
-  csrw mhpmevent21, x14       # Restore CSR
+  csrc mhpmevent21, x15    # Clear all 1s
+  # Read mhpmevent21 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent21    # Read CSR
+  and x9, x9, x14    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrc_all_str)
+  csrw mhpmevent21, x6       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent22
-  csrr x6, mhpmevent22    # Save CSR
-  LI(x15, 0)    # Load mask (0x0)
-  LI(x13, -1)             # write all 1s
+  csrr x14, mhpmevent22    # Save CSR
+  LI(x6, 0)    # Load mask (0x0)
+  LI(x9, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw1:
-  csrw mhpmevent22, x13    # Write all 1s to CSR
-  # Read mhpmevent22 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent22    # Read CSR
-  and x9, x9, x15    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw1_str)
+  csrw mhpmevent22, x9    # Write all 1s to CSR
+  # Read mhpmevent22 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent22    # Read CSR
+  and x13, x13, x6    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw0:
   csrw mhpmevent22, zero   # Write all 0s to CSR
-  # Read mhpmevent22 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent22    # Read CSR
-  and x9, x9, x15    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw0_str)
+  # Read mhpmevent22 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent22    # Read CSR
+  and x13, x13, x6    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrs_all:
-  csrs mhpmevent22, x13    # Set all 1s
-  # Read mhpmevent22 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent22    # Read CSR
-  and x9, x9, x15    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrs_all_str)
+  csrs mhpmevent22, x9    # Set all 1s
+  # Read mhpmevent22 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent22    # Read CSR
+  and x13, x13, x6    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrc_all:
-  csrc mhpmevent22, x13    # Clear all 1s
-  # Read mhpmevent22 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent22    # Read CSR
-  and x9, x9, x15    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrc_all_str)
-  csrw mhpmevent22, x6       # Restore CSR
+  csrc mhpmevent22, x9    # Clear all 1s
+  # Read mhpmevent22 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent22    # Read CSR
+  and x13, x13, x6    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrc_all_str)
+  csrw mhpmevent22, x14       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent23
   csrr x6, mhpmevent23    # Save CSR
-  LI(x13, 0)    # Load mask (0x0)
-  LI(x14, -1)             # write all 1s
+  LI(x15, 0)    # Load mask (0x0)
+  LI(x13, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw1:
-  csrw mhpmevent23, x14    # Write all 1s to CSR
-  # Read mhpmevent23 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent23    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw1_str)
+  csrw mhpmevent23, x13    # Write all 1s to CSR
+  # Read mhpmevent23 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent23    # Read CSR
+  and x9, x9, x15    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw0:
   csrw mhpmevent23, zero   # Write all 0s to CSR
-  # Read mhpmevent23 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent23    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw0_str)
+  # Read mhpmevent23 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent23    # Read CSR
+  and x9, x9, x15    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrs_all:
-  csrs mhpmevent23, x14    # Set all 1s
-  # Read mhpmevent23 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent23    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrs_all_str)
+  csrs mhpmevent23, x13    # Set all 1s
+  # Read mhpmevent23 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent23    # Read CSR
+  and x9, x9, x15    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrc_all:
-  csrc mhpmevent23, x14    # Clear all 1s
-  # Read mhpmevent23 into x8, keep only bits specified by mask, and check against expected.
-  csrr x8, mhpmevent23    # Read CSR
-  and x8, x8, x13    # keep only masked bits 0x0
-  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrc_all_str)
+  csrc mhpmevent23, x13    # Clear all 1s
+  # Read mhpmevent23 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent23    # Read CSR
+  and x9, x9, x15    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrc_all_str)
   csrw mhpmevent23, x6       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent24
-  csrr x13, mhpmevent24    # Save CSR
-  LI(x15, 0)    # Load mask (0x0)
-  LI(x6, -1)             # write all 1s
+  csrr x6, mhpmevent24    # Save CSR
+  LI(x13, 0)    # Load mask (0x0)
+  LI(x14, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw1:
-  csrw mhpmevent24, x6    # Write all 1s to CSR
-  # Read mhpmevent24 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent24    # Read CSR
-  and x9, x9, x15    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw1_str)
+  csrw mhpmevent24, x14    # Write all 1s to CSR
+  # Read mhpmevent24 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent24    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw0:
   csrw mhpmevent24, zero   # Write all 0s to CSR
-  # Read mhpmevent24 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent24    # Read CSR
-  and x9, x9, x15    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw0_str)
+  # Read mhpmevent24 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent24    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrs_all:
-  csrs mhpmevent24, x6    # Set all 1s
-  # Read mhpmevent24 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent24    # Read CSR
-  and x9, x9, x15    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrs_all_str)
+  csrs mhpmevent24, x14    # Set all 1s
+  # Read mhpmevent24 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent24    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrc_all:
-  csrc mhpmevent24, x6    # Clear all 1s
-  # Read mhpmevent24 into x9, keep only bits specified by mask, and check against expected.
-  csrr x9, mhpmevent24    # Read CSR
-  and x9, x9, x15    # keep only masked bits 0x0
-  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrc_all_str)
-  csrw mhpmevent24, x13       # Restore CSR
+  csrc mhpmevent24, x14    # Clear all 1s
+  # Read mhpmevent24 into x8, keep only bits specified by mask, and check against expected.
+  csrr x8, mhpmevent24    # Read CSR
+  and x8, x8, x13    # keep only masked bits 0x0
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrc_all_str)
+  csrw mhpmevent24, x6       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent25
-  csrr x9, mhpmevent25    # Save CSR
-  LI(x14, 0)    # Load mask (0x0)
-  LI(x15, -1)             # write all 1s
+  csrr x13, mhpmevent25    # Save CSR
+  LI(x15, 0)    # Load mask (0x0)
+  LI(x6, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw1:
-  csrw mhpmevent25, x15    # Write all 1s to CSR
-  # Read mhpmevent25 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent25    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw1_str)
+  csrw mhpmevent25, x6    # Write all 1s to CSR
+  # Read mhpmevent25 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent25    # Read CSR
+  and x9, x9, x15    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw0:
   csrw mhpmevent25, zero   # Write all 0s to CSR
-  # Read mhpmevent25 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent25    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw0_str)
+  # Read mhpmevent25 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent25    # Read CSR
+  and x9, x9, x15    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrs_all:
-  csrs mhpmevent25, x15    # Set all 1s
-  # Read mhpmevent25 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent25    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrs_all_str)
+  csrs mhpmevent25, x6    # Set all 1s
+  # Read mhpmevent25 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent25    # Read CSR
+  and x9, x9, x15    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrc_all:
-  csrc mhpmevent25, x15    # Clear all 1s
-  # Read mhpmevent25 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent25    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrc_all_str)
-  csrw mhpmevent25, x9       # Restore CSR
+  csrc mhpmevent25, x6    # Clear all 1s
+  # Read mhpmevent25 into x9, keep only bits specified by mask, and check against expected.
+  csrr x9, mhpmevent25    # Read CSR
+  and x9, x9, x15    # keep only masked bits 0x0
+  # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x9, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrc_all_str)
+  csrw mhpmevent25, x13       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent26
-  csrr x6, mhpmevent26    # Save CSR
-  LI(x15, 0)    # Load mask (0x0)
-  LI(x9, -1)             # write all 1s
+  csrr x9, mhpmevent26    # Save CSR
+  LI(x14, 0)    # Load mask (0x0)
+  LI(x15, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw1:
-  csrw mhpmevent26, x9    # Write all 1s to CSR
-  # Read mhpmevent26 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent26    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw1_str)
+  csrw mhpmevent26, x15    # Write all 1s to CSR
+  # Read mhpmevent26 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent26    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw0:
   csrw mhpmevent26, zero   # Write all 0s to CSR
-  # Read mhpmevent26 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent26    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw0_str)
+  # Read mhpmevent26 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent26    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrs_all:
-  csrs mhpmevent26, x9    # Set all 1s
-  # Read mhpmevent26 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent26    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrs_all_str)
+  csrs mhpmevent26, x15    # Set all 1s
+  # Read mhpmevent26 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent26    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrc_all:
-  csrc mhpmevent26, x9    # Clear all 1s
-  # Read mhpmevent26 into x13, keep only bits specified by mask, and check against expected.
-  csrr x13, mhpmevent26    # Read CSR
-  and x13, x13, x15    # keep only masked bits 0x0
-  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrc_all_str)
-  csrw mhpmevent26, x6       # Restore CSR
+  csrc mhpmevent26, x15    # Clear all 1s
+  # Read mhpmevent26 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent26    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrc_all_str)
+  csrw mhpmevent26, x9       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent27
-  csrr x15, mhpmevent27    # Save CSR
-  LI(x9, 0)    # Load mask (0x0)
-  LI(x6, -1)             # write all 1s
+  csrr x6, mhpmevent27    # Save CSR
+  LI(x15, 0)    # Load mask (0x0)
+  LI(x9, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrw1:
-  csrw mhpmevent27, x6    # Write all 1s to CSR
+  csrw mhpmevent27, x9    # Write all 1s to CSR
   # Read mhpmevent27 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent27    # Read CSR
-  and x13, x13, x9    # keep only masked bits 0x0
+  and x13, x13, x15    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrw1_str)
 
@@ -1296,37 +1271,37 @@ Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrw0:
   csrw mhpmevent27, zero   # Write all 0s to CSR
   # Read mhpmevent27 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent27    # Read CSR
-  and x13, x13, x9    # keep only masked bits 0x0
+  and x13, x13, x15    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrs_all:
-  csrs mhpmevent27, x6    # Set all 1s
+  csrs mhpmevent27, x9    # Set all 1s
   # Read mhpmevent27 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent27    # Read CSR
-  and x13, x13, x9    # keep only masked bits 0x0
+  and x13, x13, x15    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrc_all:
-  csrc mhpmevent27, x6    # Clear all 1s
+  csrc mhpmevent27, x9    # Clear all 1s
   # Read mhpmevent27 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent27    # Read CSR
-  and x13, x13, x9    # keep only masked bits 0x0
+  and x13, x13, x15    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrc_all_str)
-  csrw mhpmevent27, x15       # Restore CSR
+  csrw mhpmevent27, x6       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent28
-  csrr x8, mhpmevent28    # Save CSR
-  LI(x6, 0)    # Load mask (0x0)
-  LI(x14, -1)             # write all 1s
+  csrr x15, mhpmevent28    # Save CSR
+  LI(x9, 0)    # Load mask (0x0)
+  LI(x6, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrw1:
-  csrw mhpmevent28, x14    # Write all 1s to CSR
+  csrw mhpmevent28, x6    # Write all 1s to CSR
   # Read mhpmevent28 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent28    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
+  and x13, x13, x9    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrw1_str)
 
@@ -1334,37 +1309,37 @@ Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrw0:
   csrw mhpmevent28, zero   # Write all 0s to CSR
   # Read mhpmevent28 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent28    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
+  and x13, x13, x9    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrs_all:
-  csrs mhpmevent28, x14    # Set all 1s
+  csrs mhpmevent28, x6    # Set all 1s
   # Read mhpmevent28 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent28    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
+  and x13, x13, x9    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrc_all:
-  csrc mhpmevent28, x14    # Clear all 1s
+  csrc mhpmevent28, x6    # Clear all 1s
   # Read mhpmevent28 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent28    # Read CSR
-  and x13, x13, x6    # keep only masked bits 0x0
+  and x13, x13, x9    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrc_all_str)
-  csrw mhpmevent28, x8       # Restore CSR
+  csrw mhpmevent28, x15       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent29
-  csrr x9, mhpmevent29    # Save CSR
-  LI(x14, 0)    # Load mask (0x0)
-  LI(x8, -1)             # write all 1s
+  csrr x8, mhpmevent29    # Save CSR
+  LI(x6, 0)    # Load mask (0x0)
+  LI(x14, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrw1:
-  csrw mhpmevent29, x8    # Write all 1s to CSR
+  csrw mhpmevent29, x14    # Write all 1s to CSR
   # Read mhpmevent29 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent29    # Read CSR
-  and x13, x13, x14    # keep only masked bits 0x0
+  and x13, x13, x6    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrw1_str)
 
@@ -1372,102 +1347,144 @@ Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrw0:
   csrw mhpmevent29, zero   # Write all 0s to CSR
   # Read mhpmevent29 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent29    # Read CSR
-  and x13, x13, x14    # keep only masked bits 0x0
+  and x13, x13, x6    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrs_all:
-  csrs mhpmevent29, x8    # Set all 1s
+  csrs mhpmevent29, x14    # Set all 1s
   # Read mhpmevent29 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent29    # Read CSR
-  and x13, x13, x14    # keep only masked bits 0x0
+  and x13, x13, x6    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrc_all:
-  csrc mhpmevent29, x8    # Clear all 1s
+  csrc mhpmevent29, x14    # Clear all 1s
   # Read mhpmevent29 into x13, keep only bits specified by mask, and check against expected.
   csrr x13, mhpmevent29    # Read CSR
-  and x13, x13, x14    # keep only masked bits 0x0
+  and x13, x13, x6    # keep only masked bits 0x0
   # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrc_all_str)
-  csrw mhpmevent29, x9       # Restore CSR
+  csrw mhpmevent29, x8       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent30
-  csrr x13, mhpmevent30    # Save CSR
+  csrr x9, mhpmevent30    # Save CSR
   LI(x14, 0)    # Load mask (0x0)
   LI(x8, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw1:
   csrw mhpmevent30, x8    # Write all 1s to CSR
-  # Read mhpmevent30 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent30    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw1_str)
+  # Read mhpmevent30 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent30    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw0:
   csrw mhpmevent30, zero   # Write all 0s to CSR
-  # Read mhpmevent30 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent30    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw0_str)
+  # Read mhpmevent30 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent30    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrs_all:
   csrs mhpmevent30, x8    # Set all 1s
-  # Read mhpmevent30 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent30    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrs_all_str)
+  # Read mhpmevent30 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent30    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrc_all:
   csrc mhpmevent30, x8    # Clear all 1s
-  # Read mhpmevent30 into x6, keep only bits specified by mask, and check against expected.
-  csrr x6, mhpmevent30    # Read CSR
-  and x6, x6, x14    # keep only masked bits 0x0
-  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrc_all_str)
-  csrw mhpmevent30, x13       # Restore CSR
+  # Read mhpmevent30 into x13, keep only bits specified by mask, and check against expected.
+  csrr x13, mhpmevent30    # Read CSR
+  and x13, x13, x14    # keep only masked bits 0x0
+  # Check if x13 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x13, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrc_all_str)
+  csrw mhpmevent30, x9       # Restore CSR
 
 
 # CSR Access Tests for mhpmevent31
-  csrr x15, mhpmevent31    # Save CSR
-  LI(x9, 0)    # Load mask (0x0)
+  csrr x13, mhpmevent31    # Save CSR
+  LI(x14, 0)    # Load mask (0x0)
   LI(x8, -1)             # write all 1s
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw1:
   csrw mhpmevent31, x8    # Write all 1s to CSR
-  # Read mhpmevent31 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent31    # Read CSR
-  and x14, x14, x9    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw1_str)
+  # Read mhpmevent31 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent31    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw1, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw1_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw0:
   csrw mhpmevent31, zero   # Write all 0s to CSR
-  # Read mhpmevent31 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent31    # Read CSR
-  and x14, x14, x9    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw0_str)
+  # Read mhpmevent31 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent31    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw0, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw0_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrs_all:
   csrs mhpmevent31, x8    # Set all 1s
-  # Read mhpmevent31 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent31    # Read CSR
-  and x14, x14, x9    # keep only masked bits 0x0
-  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrs_all_str)
+  # Read mhpmevent31 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent31    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrs_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrs_all_str)
 
 Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrc_all:
   csrc mhpmevent31, x8    # Clear all 1s
-  # Read mhpmevent31 into x14, keep only bits specified by mask, and check against expected.
-  csrr x14, mhpmevent31    # Read CSR
-  and x14, x14, x9    # keep only masked bits 0x0
+  # Read mhpmevent31 into x6, keep only bits specified by mask, and check against expected.
+  csrr x6, mhpmevent31    # Read CSR
+  and x6, x6, x14    # keep only masked bits 0x0
+  # Check if x6 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x6, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrc_all_str)
+  csrw mhpmevent31, x13       # Restore CSR
+
+
+# =============================================================================
+# mscratch CSR access tests
+# =============================================================================
+# Save mscratch.
+  csrr x15, mscratch
+
+# mscratch: write ones
+  LI(x8, -1)
+Sm_mcsr_cg_cp_mcsr_access_mscratch_write_ones_VALUE:
+  csrw mscratch, x8
+  csrr x14, mscratch
   # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrc_all, Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrc_all_str)
-  csrw mhpmevent31, x15       # Restore CSR
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mscratch_write_ones_VALUE, Sm_mcsr_cg_cp_mcsr_access_mscratch_write_ones_VALUE_str)
+
+# mscratch: write zeros
+Sm_mcsr_cg_cp_mcsr_access_mscratch_write_zeros_VALUE:
+  csrw mscratch, zero
+  csrr x14, mscratch
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mscratch_write_zeros_VALUE, Sm_mcsr_cg_cp_mcsr_access_mscratch_write_zeros_VALUE_str)
+
+# mscratch: set ones
+  LI(x8, -1)
+Sm_mcsr_cg_cp_mcsr_access_mscratch_set_ones_VALUE:
+  csrs mscratch, x8
+  csrr x14, mscratch
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mscratch_set_ones_VALUE, Sm_mcsr_cg_cp_mcsr_access_mscratch_set_ones_VALUE_str)
+
+# mscratch: clear ones
+  LI(x8, -1)
+Sm_mcsr_cg_cp_mcsr_access_mscratch_clear_ones_VALUE:
+  csrc mscratch, x8
+  csrr x14, mscratch
+  # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x14, Sm_mcsr_cg_cp_mcsr_access_mscratch_clear_ones_VALUE, Sm_mcsr_cg_cp_mcsr_access_mscratch_clear_ones_VALUE_str)
+
+# Restore mscratch.
+  csrw mscratch, x15
+
 
 
 #ifdef UDB_MCOUNTINHIBIT_IMPLEMENTED
@@ -1916,138 +1933,138 @@ Sm_mcsr_cg_cp_mcsr_access_mcounteren_csrrw1_str: .string "\"test: 567; cg: Sm_mc
 Sm_mcsr_cg_cp_mcsr_access_mcounteren_csrrw0_str: .string "\"test: 568; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mcounteren_csrrw0\""
 Sm_mcsr_cg_cp_mcsr_access_mcounteren_csrs_all_str: .string "\"test: 569; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mcounteren_csrs_all\""
 Sm_mcsr_cg_cp_mcsr_access_mcounteren_csrrc_all_str: .string "\"test: 570; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mcounteren_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrw1_str: .string "\"test: 571; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mscratch_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrw0_str: .string "\"test: 572; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mscratch_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mscratch_csrs_all_str: .string "\"test: 573; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mscratch_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mscratch_csrrc_all_str: .string "\"test: 574; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mscratch_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mepc_csrrw1_str: .string "\"test: 575; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mepc_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mepc_csrrw0_str: .string "\"test: 576; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mepc_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mepc_csrs_all_str: .string "\"test: 577; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mepc_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mepc_csrrc_all_str: .string "\"test: 578; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mepc_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw1_str: .string "\"test: 579; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mtval_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw0_str: .string "\"test: 580; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mtval_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mtval_csrs_all_str: .string "\"test: 581; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mtval_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mtval_csrrc_all_str: .string "\"test: 582; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mtval_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mip_csrrw1_str: .string "\"test: 583; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mip_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mip_csrrw0_str: .string "\"test: 584; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mip_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mip_csrs_all_str: .string "\"test: 585; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mip_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mip_csrrc_all_str: .string "\"test: 586; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mip_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw1_str: .string "\"test: 587; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent3_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw0_str: .string "\"test: 588; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent3_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrs_all_str: .string "\"test: 589; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent3_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrc_all_str: .string "\"test: 590; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent3_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw1_str: .string "\"test: 591; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent4_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw0_str: .string "\"test: 592; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent4_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrs_all_str: .string "\"test: 593; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent4_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrc_all_str: .string "\"test: 594; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent4_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw1_str: .string "\"test: 595; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent5_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw0_str: .string "\"test: 596; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent5_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrs_all_str: .string "\"test: 597; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent5_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrc_all_str: .string "\"test: 598; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent5_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw1_str: .string "\"test: 599; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent6_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw0_str: .string "\"test: 600; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent6_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrs_all_str: .string "\"test: 601; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent6_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrc_all_str: .string "\"test: 602; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent6_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw1_str: .string "\"test: 603; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent7_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw0_str: .string "\"test: 604; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent7_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrs_all_str: .string "\"test: 605; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent7_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrc_all_str: .string "\"test: 606; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent7_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw1_str: .string "\"test: 607; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent8_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw0_str: .string "\"test: 608; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent8_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrs_all_str: .string "\"test: 609; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent8_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrc_all_str: .string "\"test: 610; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent8_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw1_str: .string "\"test: 611; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent9_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw0_str: .string "\"test: 612; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent9_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrs_all_str: .string "\"test: 613; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent9_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrc_all_str: .string "\"test: 614; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent9_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw1_str: .string "\"test: 615; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent10_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw0_str: .string "\"test: 616; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent10_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrs_all_str: .string "\"test: 617; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent10_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrc_all_str: .string "\"test: 618; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent10_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw1_str: .string "\"test: 619; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent11_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw0_str: .string "\"test: 620; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent11_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrs_all_str: .string "\"test: 621; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent11_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrc_all_str: .string "\"test: 622; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent11_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw1_str: .string "\"test: 623; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent12_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw0_str: .string "\"test: 624; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent12_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrs_all_str: .string "\"test: 625; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent12_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrc_all_str: .string "\"test: 626; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent12_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw1_str: .string "\"test: 627; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent13_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw0_str: .string "\"test: 628; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent13_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrs_all_str: .string "\"test: 629; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent13_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrc_all_str: .string "\"test: 630; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent13_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw1_str: .string "\"test: 631; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent14_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw0_str: .string "\"test: 632; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent14_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrs_all_str: .string "\"test: 633; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent14_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrc_all_str: .string "\"test: 634; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent14_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw1_str: .string "\"test: 635; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent15_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw0_str: .string "\"test: 636; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent15_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrs_all_str: .string "\"test: 637; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent15_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrc_all_str: .string "\"test: 638; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent15_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw1_str: .string "\"test: 639; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent16_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw0_str: .string "\"test: 640; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent16_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrs_all_str: .string "\"test: 641; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent16_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrc_all_str: .string "\"test: 642; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent16_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw1_str: .string "\"test: 643; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent17_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw0_str: .string "\"test: 644; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent17_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrs_all_str: .string "\"test: 645; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent17_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrc_all_str: .string "\"test: 646; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent17_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw1_str: .string "\"test: 647; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent18_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw0_str: .string "\"test: 648; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent18_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrs_all_str: .string "\"test: 649; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent18_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrc_all_str: .string "\"test: 650; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent18_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw1_str: .string "\"test: 651; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent19_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw0_str: .string "\"test: 652; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent19_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrs_all_str: .string "\"test: 653; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent19_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrc_all_str: .string "\"test: 654; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent19_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw1_str: .string "\"test: 655; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent20_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw0_str: .string "\"test: 656; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent20_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrs_all_str: .string "\"test: 657; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent20_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrc_all_str: .string "\"test: 658; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent20_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw1_str: .string "\"test: 659; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent21_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw0_str: .string "\"test: 660; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent21_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrs_all_str: .string "\"test: 661; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent21_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrc_all_str: .string "\"test: 662; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent21_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw1_str: .string "\"test: 663; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent22_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw0_str: .string "\"test: 664; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent22_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrs_all_str: .string "\"test: 665; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent22_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrc_all_str: .string "\"test: 666; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent22_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw1_str: .string "\"test: 667; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent23_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw0_str: .string "\"test: 668; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent23_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrs_all_str: .string "\"test: 669; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent23_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrc_all_str: .string "\"test: 670; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent23_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw1_str: .string "\"test: 671; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent24_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw0_str: .string "\"test: 672; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent24_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrs_all_str: .string "\"test: 673; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent24_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrc_all_str: .string "\"test: 674; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent24_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw1_str: .string "\"test: 675; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent25_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw0_str: .string "\"test: 676; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent25_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrs_all_str: .string "\"test: 677; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent25_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrc_all_str: .string "\"test: 678; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent25_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw1_str: .string "\"test: 679; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent26_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw0_str: .string "\"test: 680; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent26_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrs_all_str: .string "\"test: 681; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent26_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrc_all_str: .string "\"test: 682; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent26_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrw1_str: .string "\"test: 683; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent27_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrw0_str: .string "\"test: 684; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent27_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrs_all_str: .string "\"test: 685; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent27_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrc_all_str: .string "\"test: 686; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent27_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrw1_str: .string "\"test: 687; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent28_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrw0_str: .string "\"test: 688; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent28_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrs_all_str: .string "\"test: 689; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent28_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrc_all_str: .string "\"test: 690; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent28_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrw1_str: .string "\"test: 691; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent29_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrw0_str: .string "\"test: 692; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent29_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrs_all_str: .string "\"test: 693; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent29_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrc_all_str: .string "\"test: 694; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent29_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw1_str: .string "\"test: 695; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent30_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw0_str: .string "\"test: 696; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent30_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrs_all_str: .string "\"test: 697; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent30_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrc_all_str: .string "\"test: 698; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent30_csrrc_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw1_str: .string "\"test: 699; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent31_csrrw1\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw0_str: .string "\"test: 700; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent31_csrrw0\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrs_all_str: .string "\"test: 701; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent31_csrs_all\""
-Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrc_all_str: .string "\"test: 702; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent31_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mepc_csrrw1_str: .string "\"test: 571; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mepc_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mepc_csrrw0_str: .string "\"test: 572; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mepc_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mepc_csrs_all_str: .string "\"test: 573; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mepc_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mepc_csrrc_all_str: .string "\"test: 574; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mepc_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw1_str: .string "\"test: 575; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mtval_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mtval_csrrw0_str: .string "\"test: 576; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mtval_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mtval_csrs_all_str: .string "\"test: 577; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mtval_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mtval_csrrc_all_str: .string "\"test: 578; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mtval_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mip_csrrw1_str: .string "\"test: 579; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mip_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mip_csrrw0_str: .string "\"test: 580; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mip_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mip_csrs_all_str: .string "\"test: 581; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mip_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mip_csrrc_all_str: .string "\"test: 582; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mip_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw1_str: .string "\"test: 583; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent3_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrw0_str: .string "\"test: 584; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent3_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrs_all_str: .string "\"test: 585; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent3_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent3_csrrc_all_str: .string "\"test: 586; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent3_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw1_str: .string "\"test: 587; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent4_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrw0_str: .string "\"test: 588; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent4_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrs_all_str: .string "\"test: 589; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent4_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent4_csrrc_all_str: .string "\"test: 590; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent4_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw1_str: .string "\"test: 591; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent5_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrw0_str: .string "\"test: 592; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent5_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrs_all_str: .string "\"test: 593; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent5_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent5_csrrc_all_str: .string "\"test: 594; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent5_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw1_str: .string "\"test: 595; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent6_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrw0_str: .string "\"test: 596; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent6_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrs_all_str: .string "\"test: 597; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent6_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent6_csrrc_all_str: .string "\"test: 598; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent6_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw1_str: .string "\"test: 599; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent7_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrw0_str: .string "\"test: 600; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent7_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrs_all_str: .string "\"test: 601; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent7_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent7_csrrc_all_str: .string "\"test: 602; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent7_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw1_str: .string "\"test: 603; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent8_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrw0_str: .string "\"test: 604; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent8_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrs_all_str: .string "\"test: 605; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent8_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent8_csrrc_all_str: .string "\"test: 606; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent8_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw1_str: .string "\"test: 607; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent9_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrw0_str: .string "\"test: 608; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent9_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrs_all_str: .string "\"test: 609; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent9_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent9_csrrc_all_str: .string "\"test: 610; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent9_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw1_str: .string "\"test: 611; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent10_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrw0_str: .string "\"test: 612; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent10_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrs_all_str: .string "\"test: 613; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent10_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent10_csrrc_all_str: .string "\"test: 614; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent10_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw1_str: .string "\"test: 615; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent11_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrw0_str: .string "\"test: 616; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent11_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrs_all_str: .string "\"test: 617; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent11_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent11_csrrc_all_str: .string "\"test: 618; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent11_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw1_str: .string "\"test: 619; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent12_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrw0_str: .string "\"test: 620; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent12_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrs_all_str: .string "\"test: 621; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent12_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent12_csrrc_all_str: .string "\"test: 622; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent12_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw1_str: .string "\"test: 623; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent13_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrw0_str: .string "\"test: 624; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent13_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrs_all_str: .string "\"test: 625; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent13_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent13_csrrc_all_str: .string "\"test: 626; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent13_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw1_str: .string "\"test: 627; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent14_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrw0_str: .string "\"test: 628; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent14_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrs_all_str: .string "\"test: 629; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent14_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent14_csrrc_all_str: .string "\"test: 630; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent14_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw1_str: .string "\"test: 631; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent15_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrw0_str: .string "\"test: 632; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent15_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrs_all_str: .string "\"test: 633; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent15_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent15_csrrc_all_str: .string "\"test: 634; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent15_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw1_str: .string "\"test: 635; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent16_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrw0_str: .string "\"test: 636; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent16_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrs_all_str: .string "\"test: 637; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent16_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent16_csrrc_all_str: .string "\"test: 638; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent16_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw1_str: .string "\"test: 639; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent17_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrw0_str: .string "\"test: 640; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent17_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrs_all_str: .string "\"test: 641; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent17_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent17_csrrc_all_str: .string "\"test: 642; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent17_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw1_str: .string "\"test: 643; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent18_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrw0_str: .string "\"test: 644; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent18_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrs_all_str: .string "\"test: 645; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent18_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent18_csrrc_all_str: .string "\"test: 646; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent18_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw1_str: .string "\"test: 647; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent19_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrw0_str: .string "\"test: 648; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent19_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrs_all_str: .string "\"test: 649; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent19_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent19_csrrc_all_str: .string "\"test: 650; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent19_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw1_str: .string "\"test: 651; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent20_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrw0_str: .string "\"test: 652; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent20_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrs_all_str: .string "\"test: 653; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent20_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent20_csrrc_all_str: .string "\"test: 654; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent20_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw1_str: .string "\"test: 655; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent21_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrw0_str: .string "\"test: 656; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent21_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrs_all_str: .string "\"test: 657; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent21_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent21_csrrc_all_str: .string "\"test: 658; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent21_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw1_str: .string "\"test: 659; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent22_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrw0_str: .string "\"test: 660; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent22_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrs_all_str: .string "\"test: 661; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent22_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent22_csrrc_all_str: .string "\"test: 662; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent22_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw1_str: .string "\"test: 663; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent23_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrw0_str: .string "\"test: 664; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent23_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrs_all_str: .string "\"test: 665; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent23_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent23_csrrc_all_str: .string "\"test: 666; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent23_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw1_str: .string "\"test: 667; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent24_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrw0_str: .string "\"test: 668; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent24_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrs_all_str: .string "\"test: 669; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent24_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent24_csrrc_all_str: .string "\"test: 670; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent24_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw1_str: .string "\"test: 671; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent25_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrw0_str: .string "\"test: 672; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent25_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrs_all_str: .string "\"test: 673; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent25_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent25_csrrc_all_str: .string "\"test: 674; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent25_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw1_str: .string "\"test: 675; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent26_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrw0_str: .string "\"test: 676; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent26_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrs_all_str: .string "\"test: 677; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent26_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent26_csrrc_all_str: .string "\"test: 678; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent26_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrw1_str: .string "\"test: 679; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent27_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrw0_str: .string "\"test: 680; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent27_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrs_all_str: .string "\"test: 681; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent27_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent27_csrrc_all_str: .string "\"test: 682; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent27_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrw1_str: .string "\"test: 683; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent28_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrw0_str: .string "\"test: 684; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent28_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrs_all_str: .string "\"test: 685; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent28_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent28_csrrc_all_str: .string "\"test: 686; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent28_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrw1_str: .string "\"test: 687; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent29_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrw0_str: .string "\"test: 688; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent29_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrs_all_str: .string "\"test: 689; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent29_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent29_csrrc_all_str: .string "\"test: 690; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent29_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw1_str: .string "\"test: 691; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent30_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrw0_str: .string "\"test: 692; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent30_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrs_all_str: .string "\"test: 693; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent30_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent30_csrrc_all_str: .string "\"test: 694; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent30_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw1_str: .string "\"test: 695; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent31_csrrw1\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrw0_str: .string "\"test: 696; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent31_csrrw0\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrs_all_str: .string "\"test: 697; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent31_csrs_all\""
+Sm_mcsr_cg_cp_mcsr_access_mhpmevent31_csrrc_all_str: .string "\"test: 698; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mhpmevent31_csrrc_all\""
+Sm_mcsr_cg_cp_mcsr_access_mscratch_write_ones_VALUE_str: .string "\"test: 699; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mscratch_write_ones_VALUE\""
+Sm_mcsr_cg_cp_mcsr_access_mscratch_write_zeros_VALUE_str: .string "\"test: 700; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mscratch_write_zeros_VALUE\""
+Sm_mcsr_cg_cp_mcsr_access_mscratch_set_ones_VALUE_str: .string "\"test: 701; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mscratch_set_ones_VALUE\""
+Sm_mcsr_cg_cp_mcsr_access_mscratch_clear_ones_VALUE_str: .string "\"test: 702; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mscratch_clear_ones_VALUE\""
 Sm_mcsr_cg_cp_mcsr_access_mcountinhibit_csrrw1_str: .string "\"test: 703; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mcountinhibit_csrrw1\""
 Sm_mcsr_cg_cp_mcsr_access_mcountinhibit_csrrw0_str: .string "\"test: 704; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mcountinhibit_csrrw0\""
 Sm_mcsr_cg_cp_mcsr_access_mcountinhibit_csrs_all_str: .string "\"test: 705; cg: Sm_mcsr_cg; cp: cp_mcsr_access; bin: mcountinhibit_csrs_all\""
