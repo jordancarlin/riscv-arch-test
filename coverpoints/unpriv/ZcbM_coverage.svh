@@ -18,7 +18,7 @@ covergroup ZcbM_c_mul_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.mul"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -107,8 +107,8 @@ endgroup
 // ---------------------
 function void zcbm_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "c.mul"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_C_MUL     : begin
             ZcbM_c_mul_cg.sample(ins);
         end
     endcase

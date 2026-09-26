@@ -30,7 +30,7 @@ covergroup Zbkx_xperm4_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "xperm4"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -139,7 +139,7 @@ covergroup Zbkx_xperm8_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "xperm8"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -232,11 +232,11 @@ endgroup
 // ---------------------
 function void zbkx_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "xperm4"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_XPERM4     : begin
             Zbkx_xperm4_cg.sample(ins);
         end
-        "xperm8"     : begin
+        INSTR_XPERM8     : begin
             Zbkx_xperm8_cg.sample(ins);
         end
     endcase

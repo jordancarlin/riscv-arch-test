@@ -54,7 +54,7 @@ covergroup Zacas_amocas_w_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amocas.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -165,7 +165,7 @@ covergroup Zacas_amocas_d_cg with function sample(ins_t ins);
         bins reg_pair[] = {[$:$]} with (item % 2 == 0);
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amocas.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -265,7 +265,7 @@ covergroup Zacas_amocas_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amocas.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -375,7 +375,7 @@ covergroup Zacas_amocas_q_cg with function sample(ins_t ins);
         bins reg_pair[] = {[$:$]} with (item % 2 == 0);
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amocas.q"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -434,20 +434,20 @@ endgroup
 `endif
 function void zacas_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "amocas.w"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_AMOCAS_W     : begin
             Zacas_amocas_w_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_32
-        "amocas.d"     : begin
+        INSTR_AMOCAS_D     : begin
             Zacas_amocas_d_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
-        "amocas.d"     : begin
+        INSTR_AMOCAS_D     : begin
             Zacas_amocas_d_cg.sample(ins);
         end
-        "amocas.q"     : begin
+        INSTR_AMOCAS_Q     : begin
             Zacas_amocas_q_cg.sample(ins);
         end
 `endif

@@ -61,7 +61,7 @@ covergroup Zvbc64_vclmul_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vclmul.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -103,7 +103,7 @@ covergroup Zvbc64_vclmul_vv_cg with function sample(ins_t ins);
     // cp_vs1_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs1_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs1, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -135,7 +135,7 @@ covergroup Zvbc64_vclmul_vv_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -230,7 +230,7 @@ covergroup Zvbc64_vclmul_vx_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vclmul.vx"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -310,7 +310,7 @@ covergroup Zvbc64_vclmul_vx_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -435,7 +435,7 @@ covergroup Zvbc64_vclmulh_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vclmulh.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -477,7 +477,7 @@ covergroup Zvbc64_vclmulh_vv_cg with function sample(ins_t ins);
     // cp_vs1_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs1_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs1, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -509,7 +509,7 @@ covergroup Zvbc64_vclmulh_vv_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -604,7 +604,7 @@ covergroup Zvbc64_vclmulh_vx_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vclmulh.vx"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -684,7 +684,7 @@ covergroup Zvbc64_vclmulh_vx_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -773,17 +773,17 @@ function void zvbc64_sample(int hart, int issue, ins_t ins);
     // associated sew with these tests
     if (get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew") == 3 ||
         get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vill") == 1) begin
-        case (traceDataQ[hart][issue][0].inst_name)
-        "vclmul.vv"     : begin
+        case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_VCLMUL_VV     : begin
             Zvbc64_vclmul_vv_cg.sample(ins);
         end
-        "vclmul.vx"     : begin
+        INSTR_VCLMUL_VX     : begin
             Zvbc64_vclmul_vx_cg.sample(ins);
         end
-        "vclmulh.vv"     : begin
+        INSTR_VCLMULH_VV     : begin
             Zvbc64_vclmulh_vv_cg.sample(ins);
         end
-        "vclmulh.vx"     : begin
+        INSTR_VCLMULH_VX     : begin
             Zvbc64_vclmulh_vx_cg.sample(ins);
         end
         endcase

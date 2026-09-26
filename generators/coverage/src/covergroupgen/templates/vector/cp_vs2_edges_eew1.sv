@@ -2,7 +2,7 @@
     // cp_vs2_edges_eew1
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges_eew1 : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "m")  iff (ins.trap == 0 )  {
+    cp_vs2_edges_eew1 : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_MASK)  iff (ins.trap == 0 )  {
         // Edges values of vs2 (eew = 1), assuming vl = 8
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},

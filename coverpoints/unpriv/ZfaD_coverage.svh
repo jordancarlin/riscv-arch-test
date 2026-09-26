@@ -14,7 +14,7 @@
 `define COVER_ZFAD
 covergroup ZfaD_fcvtmod_w_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fcvtmod.w.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -72,7 +72,7 @@ endgroup
 // ---------------------
 covergroup ZfaD_fleq_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fleq.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -202,7 +202,7 @@ endgroup
 // ---------------------
 covergroup ZfaD_fli_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fli.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -228,7 +228,7 @@ endgroup
 // ---------------------
 covergroup ZfaD_fltq_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fltq.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -366,7 +366,7 @@ covergroup ZfaD_fmaxm_d_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmaxm.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -509,7 +509,7 @@ covergroup ZfaD_fminm_d_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fminm.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -644,7 +644,7 @@ endgroup
 // ---------------------
 covergroup ZfaD_fround_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -652,7 +652,7 @@ covergroup ZfaD_fround_d_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fround.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -743,7 +743,7 @@ endgroup
 // ---------------------
 covergroup ZfaD_froundnx_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -751,7 +751,7 @@ covergroup ZfaD_froundnx_d_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "froundnx.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -845,7 +845,7 @@ endgroup
 `ifdef UDB_MXLEN_32
 covergroup ZfaD_fmvh_x_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fmvh.x.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -892,7 +892,7 @@ endgroup
 // ---------------------
 covergroup ZfaD_fmvp_d_x_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fmvp.d.x"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -984,57 +984,57 @@ endgroup
 `endif
 function void zfad_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fcvtmod.w.d"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FCVTMOD_W_D     : begin
             ZfaD_fcvtmod_w_d_cg.sample(ins);
         end
-        "fleq.d"     : begin
+        INSTR_FLEQ_D     : begin
             ZfaD_fleq_d_cg.sample(ins);
         end
-        "fleq.s"     : begin
+        INSTR_FLEQ_S     : begin
             ZfaD_fleq_s_cg.sample(ins);
         end
-        "fli.d"     : begin
+        INSTR_FLI_D     : begin
             ZfaD_fli_d_cg.sample(ins);
         end
-        "fli.s"     : begin
+        INSTR_FLI_S     : begin
             ZfaD_fli_s_cg.sample(ins);
         end
-        "fltq.d"     : begin
+        INSTR_FLTQ_D     : begin
             ZfaD_fltq_d_cg.sample(ins);
         end
-        "fltq.s"     : begin
+        INSTR_FLTQ_S     : begin
             ZfaD_fltq_s_cg.sample(ins);
         end
-        "fmaxm.d"     : begin
+        INSTR_FMAXM_D     : begin
             ZfaD_fmaxm_d_cg.sample(ins);
         end
-        "fmaxm.s"     : begin
+        INSTR_FMAXM_S     : begin
             ZfaD_fmaxm_s_cg.sample(ins);
         end
-        "fminm.d"     : begin
+        INSTR_FMINM_D     : begin
             ZfaD_fminm_d_cg.sample(ins);
         end
-        "fminm.s"     : begin
+        INSTR_FMINM_S     : begin
             ZfaD_fminm_s_cg.sample(ins);
         end
-        "fround.d"     : begin
+        INSTR_FROUND_D     : begin
             ZfaD_fround_d_cg.sample(ins);
         end
-        "fround.s"     : begin
+        INSTR_FROUND_S     : begin
             ZfaD_fround_s_cg.sample(ins);
         end
-        "froundnx.d"     : begin
+        INSTR_FROUNDNX_D     : begin
             ZfaD_froundnx_d_cg.sample(ins);
         end
-        "froundnx.s"     : begin
+        INSTR_FROUNDNX_S     : begin
             ZfaD_froundnx_s_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_32
-        "fmvh.x.d"     : begin
+        INSTR_FMVH_X_D     : begin
             ZfaD_fmvh_x_d_cg.sample(ins);
         end
-        "fmvp.d.x"     : begin
+        INSTR_FMVP_D_X     : begin
             ZfaD_fmvp_d_x_cg.sample(ins);
         end
 `endif

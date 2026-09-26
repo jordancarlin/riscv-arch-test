@@ -328,11 +328,11 @@ endgroup
 // ---------------------
 function void exceptionsvfmin_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "vfncvt.f.f.w"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_VFNCVT_F_F_W     : begin
             ExceptionsVfmin_vfncvt_f_f_w_cg.sample(ins);
         end
-        "vfwcvt.f.f.v"     : begin
+        INSTR_VFWCVT_F_F_V     : begin
             ExceptionsVfmin_vfwcvt_f_f_v_cg.sample(ins);
         end
     endcase

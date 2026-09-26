@@ -15,7 +15,7 @@
 `ifdef UDB_MXLEN_32
 covergroup Zcf_c_flw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.flw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -37,7 +37,7 @@ endgroup
 // ---------------------
 covergroup Zcf_c_flwsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.flwsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -55,7 +55,7 @@ endgroup
 // ---------------------
 covergroup Zcf_c_fsw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fsw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -77,7 +77,7 @@ endgroup
 // ---------------------
 covergroup Zcf_c_fswsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fswsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -96,18 +96,18 @@ endgroup
 `endif
 function void zcf_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
+    case (traceDataQ[hart][issue][0].inst_id)
 `ifdef UDB_MXLEN_32
-        "c.flw"     : begin
+        INSTR_C_FLW     : begin
             Zcf_c_flw_cg.sample(ins);
         end
-        "c.flwsp"     : begin
+        INSTR_C_FLWSP     : begin
             Zcf_c_flwsp_cg.sample(ins);
         end
-        "c.fsw"     : begin
+        INSTR_C_FSW     : begin
             Zcf_c_fsw_cg.sample(ins);
         end
-        "c.fswsp"     : begin
+        INSTR_C_FSWSP     : begin
             Zcf_c_fswsp_cg.sample(ins);
         end
 `endif

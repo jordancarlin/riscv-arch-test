@@ -19,7 +19,7 @@ covergroup Zalrsc_lr_w_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "lr.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -72,7 +72,7 @@ covergroup Zalrsc_sc_w_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sc.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -80,7 +80,7 @@ covergroup Zalrsc_sc_w_cg with function sample(ins_t ins);
     // Custom coverpoints for Store Conditional
 
 
-    cp_prev_lr : coverpoint ((ins.prev.inst_name == "lr.w" & ins.current.inst_name == "sc.w") | (ins.prev.inst_name == "lr.d" & ins.current.inst_name == "sc.d")) {
+    cp_prev_lr : coverpoint ((ins.prev.inst_id == sc.w_LR_W & ins.current.inst_id == sc.w_SC_W) | (ins.prev.inst_id == sc.w_LR_D & ins.current.inst_id == sc.w_SC_D)) {
         bins lr_sc_size_match = {1};
     }
 
@@ -95,7 +95,7 @@ covergroup Zalrsc_sc_w_cg with function sample(ins_t ins);
         // Combinations of acquire and release
         ignore_bins aq_norl = {2'b10};
     }
-    cp_custom_sc_after_sc : coverpoint (ins.prev.inst_name == "sc.w" | ins.prev.inst_name == "sc.d") {
+    cp_custom_sc_after_sc : coverpoint (ins.prev.inst_id == sc.w_SC_W | ins.prev.inst_id == sc.w_SC_D) {
         // previous instruction was store conditional
     }
     cp_custom_sc_lr : cross cp_prev_lr, cp_sc_pass_fail;
@@ -158,7 +158,7 @@ covergroup Zalrsc_lr_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "lr.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -211,7 +211,7 @@ covergroup Zalrsc_sc_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sc.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -219,7 +219,7 @@ covergroup Zalrsc_sc_d_cg with function sample(ins_t ins);
     // Custom coverpoints for Store Conditional
 
 
-    cp_prev_lr : coverpoint ((ins.prev.inst_name == "lr.w" & ins.current.inst_name == "sc.w") | (ins.prev.inst_name == "lr.d" & ins.current.inst_name == "sc.d")) {
+    cp_prev_lr : coverpoint ((ins.prev.inst_id == sc.d_LR_W & ins.current.inst_id == sc.d_SC_W) | (ins.prev.inst_id == sc.d_LR_D & ins.current.inst_id == sc.d_SC_D)) {
         bins lr_sc_size_match = {1};
     }
 
@@ -234,7 +234,7 @@ covergroup Zalrsc_sc_d_cg with function sample(ins_t ins);
         // Combinations of acquire and release
         ignore_bins aq_norl = {2'b10};
     }
-    cp_custom_sc_after_sc : coverpoint (ins.prev.inst_name == "sc.w" | ins.prev.inst_name == "sc.d") {
+    cp_custom_sc_after_sc : coverpoint (ins.prev.inst_id == sc.d_SC_W | ins.prev.inst_id == sc.d_SC_D) {
         // previous instruction was store conditional
     }
     cp_custom_sc_lr : cross cp_prev_lr, cp_sc_pass_fail;
@@ -292,18 +292,18 @@ endgroup
 `endif
 function void zalrsc_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "lr.w"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_LR_W     : begin
             Zalrsc_lr_w_cg.sample(ins);
         end
-        "sc.w"     : begin
+        INSTR_SC_W     : begin
             Zalrsc_sc_w_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "lr.d"     : begin
+        INSTR_LR_D     : begin
             Zalrsc_lr_d_cg.sample(ins);
         end
-        "sc.d"     : begin
+        INSTR_SC_D     : begin
             Zalrsc_sc_d_cg.sample(ins);
         end
 `endif

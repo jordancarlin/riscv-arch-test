@@ -15,7 +15,7 @@
 `ifdef UDB_MXLEN_64
 covergroup ZcbZba_c_zext_w_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.zext.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -63,9 +63,9 @@ endgroup
 `endif
 function void zcbzba_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
+    case (traceDataQ[hart][issue][0].inst_id)
 `ifdef UDB_MXLEN_64
-        "c.zext.w"     : begin
+        INSTR_C_ZEXT_W     : begin
             ZcbZba_c_zext_w_cg.sample(ins);
         end
 `endif

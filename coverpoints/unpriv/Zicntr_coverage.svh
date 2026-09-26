@@ -44,11 +44,11 @@ endgroup
 // ---------------------
 function void zicntr_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "csrrc"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_CSRRC     : begin
             Zicntr_csrrc_cg.sample(ins);
         end
-        "csrrs"     : begin
+        INSTR_CSRRS     : begin
             Zicntr_csrrs_cg.sample(ins);
         end
     endcase

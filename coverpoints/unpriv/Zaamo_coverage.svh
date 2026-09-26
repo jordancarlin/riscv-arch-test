@@ -36,7 +36,7 @@ covergroup Zaamo_amoadd_w_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amoadd.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -114,7 +114,7 @@ covergroup Zaamo_amoand_w_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amoand.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -192,7 +192,7 @@ covergroup Zaamo_amomax_w_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amomax.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -270,7 +270,7 @@ covergroup Zaamo_amomaxu_w_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amomaxu.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -348,7 +348,7 @@ covergroup Zaamo_amomin_w_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amomin.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -426,7 +426,7 @@ covergroup Zaamo_amominu_w_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amominu.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -504,7 +504,7 @@ covergroup Zaamo_amoor_w_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amoor.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -582,7 +582,7 @@ covergroup Zaamo_amoswap_w_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amoswap.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -660,7 +660,7 @@ covergroup Zaamo_amoxor_w_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amoxor.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -736,7 +736,7 @@ covergroup Zaamo_amoadd_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amoadd.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -811,7 +811,7 @@ covergroup Zaamo_amoand_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amoand.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -886,7 +886,7 @@ covergroup Zaamo_amomax_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amomax.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -961,7 +961,7 @@ covergroup Zaamo_amomaxu_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amomaxu.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1036,7 +1036,7 @@ covergroup Zaamo_amomin_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amomin.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1111,7 +1111,7 @@ covergroup Zaamo_amominu_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amominu.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1186,7 +1186,7 @@ covergroup Zaamo_amoor_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amoor.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1261,7 +1261,7 @@ covergroup Zaamo_amoswap_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amoswap.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1336,7 +1336,7 @@ covergroup Zaamo_amoxor_d_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amoxor.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1393,60 +1393,60 @@ endgroup
 `endif
 function void zaamo_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "amoadd.w"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_AMOADD_W     : begin
             Zaamo_amoadd_w_cg.sample(ins);
         end
-        "amoand.w"     : begin
+        INSTR_AMOAND_W     : begin
             Zaamo_amoand_w_cg.sample(ins);
         end
-        "amomax.w"     : begin
+        INSTR_AMOMAX_W     : begin
             Zaamo_amomax_w_cg.sample(ins);
         end
-        "amomaxu.w"     : begin
+        INSTR_AMOMAXU_W     : begin
             Zaamo_amomaxu_w_cg.sample(ins);
         end
-        "amomin.w"     : begin
+        INSTR_AMOMIN_W     : begin
             Zaamo_amomin_w_cg.sample(ins);
         end
-        "amominu.w"     : begin
+        INSTR_AMOMINU_W     : begin
             Zaamo_amominu_w_cg.sample(ins);
         end
-        "amoor.w"     : begin
+        INSTR_AMOOR_W     : begin
             Zaamo_amoor_w_cg.sample(ins);
         end
-        "amoswap.w"     : begin
+        INSTR_AMOSWAP_W     : begin
             Zaamo_amoswap_w_cg.sample(ins);
         end
-        "amoxor.w"     : begin
+        INSTR_AMOXOR_W     : begin
             Zaamo_amoxor_w_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "amoadd.d"     : begin
+        INSTR_AMOADD_D     : begin
             Zaamo_amoadd_d_cg.sample(ins);
         end
-        "amoand.d"     : begin
+        INSTR_AMOAND_D     : begin
             Zaamo_amoand_d_cg.sample(ins);
         end
-        "amomax.d"     : begin
+        INSTR_AMOMAX_D     : begin
             Zaamo_amomax_d_cg.sample(ins);
         end
-        "amomaxu.d"     : begin
+        INSTR_AMOMAXU_D     : begin
             Zaamo_amomaxu_d_cg.sample(ins);
         end
-        "amomin.d"     : begin
+        INSTR_AMOMIN_D     : begin
             Zaamo_amomin_d_cg.sample(ins);
         end
-        "amominu.d"     : begin
+        INSTR_AMOMINU_D     : begin
             Zaamo_amominu_d_cg.sample(ins);
         end
-        "amoor.d"     : begin
+        INSTR_AMOOR_D     : begin
             Zaamo_amoor_d_cg.sample(ins);
         end
-        "amoswap.d"     : begin
+        INSTR_AMOSWAP_D     : begin
             Zaamo_amoswap_d_cg.sample(ins);
         end
-        "amoxor.d"     : begin
+        INSTR_AMOXOR_D     : begin
             Zaamo_amoxor_d_cg.sample(ins);
         end
 `endif

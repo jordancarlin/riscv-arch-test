@@ -61,7 +61,7 @@ covergroup Zvkb16_vandn_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vandn.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -103,7 +103,7 @@ covergroup Zvkb16_vandn_vv_cg with function sample(ins_t ins);
     // cp_vs1_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs1_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs1, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -135,7 +135,7 @@ covergroup Zvkb16_vandn_vv_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -236,7 +236,7 @@ covergroup Zvkb16_vandn_vx_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vandn.vx"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -316,7 +316,7 @@ covergroup Zvkb16_vandn_vx_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -417,7 +417,7 @@ covergroup Zvkb16_vbrev8_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vbrev8.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -459,7 +459,7 @@ covergroup Zvkb16_vbrev8_v_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -550,7 +550,7 @@ covergroup Zvkb16_vrev8_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vrev8.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -592,7 +592,7 @@ covergroup Zvkb16_vrev8_v_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -713,7 +713,7 @@ covergroup Zvkb16_vrol_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vrol.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -755,7 +755,7 @@ covergroup Zvkb16_vrol_vv_cg with function sample(ins_t ins);
     // cp_vs1_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs1_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs1, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -787,7 +787,7 @@ covergroup Zvkb16_vrol_vv_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -888,7 +888,7 @@ covergroup Zvkb16_vrol_vx_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vrol.vx"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -968,7 +968,7 @@ covergroup Zvkb16_vrol_vx_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -1069,7 +1069,7 @@ covergroup Zvkb16_vror_vi_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vror.vi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1115,7 +1115,7 @@ covergroup Zvkb16_vror_vi_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -1256,7 +1256,7 @@ covergroup Zvkb16_vror_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vror.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1298,7 +1298,7 @@ covergroup Zvkb16_vror_vv_cg with function sample(ins_t ins);
     // cp_vs1_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs1_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs1, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -1330,7 +1330,7 @@ covergroup Zvkb16_vror_vv_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -1431,7 +1431,7 @@ covergroup Zvkb16_vror_vx_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vror.vx"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1511,7 +1511,7 @@ covergroup Zvkb16_vror_vx_cg with function sample(ins_t ins);
     // cp_vs2_edges
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, "1")  iff (ins.trap == 0 )  {
+    cp_vs2_edges : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs2_val, SEW_SAME)  iff (ins.trap == 0 )  {
         // Edges values of vs2, assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},
@@ -1606,32 +1606,32 @@ function void zvkb16_sample(int hart, int issue, ins_t ins);
     // associated sew with these tests
     if (get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew") == 1 ||
         get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vill") == 1) begin
-        case (traceDataQ[hart][issue][0].inst_name)
-        "vandn.vv"     : begin
+        case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_VANDN_VV     : begin
             Zvkb16_vandn_vv_cg.sample(ins);
         end
-        "vandn.vx"     : begin
+        INSTR_VANDN_VX     : begin
             Zvkb16_vandn_vx_cg.sample(ins);
         end
-        "vbrev8.v"     : begin
+        INSTR_VBREV8_V     : begin
             Zvkb16_vbrev8_v_cg.sample(ins);
         end
-        "vrev8.v"     : begin
+        INSTR_VREV8_V     : begin
             Zvkb16_vrev8_v_cg.sample(ins);
         end
-        "vrol.vv"     : begin
+        INSTR_VROL_VV     : begin
             Zvkb16_vrol_vv_cg.sample(ins);
         end
-        "vrol.vx"     : begin
+        INSTR_VROL_VX     : begin
             Zvkb16_vrol_vx_cg.sample(ins);
         end
-        "vror.vi"     : begin
+        INSTR_VROR_VI     : begin
             Zvkb16_vror_vi_cg.sample(ins);
         end
-        "vror.vv"     : begin
+        INSTR_VROR_VV     : begin
             Zvkb16_vror_vv_cg.sample(ins);
         end
-        "vror.vx"     : begin
+        INSTR_VROR_VX     : begin
             Zvkb16_vror_vx_cg.sample(ins);
         end
         endcase

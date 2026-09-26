@@ -30,7 +30,7 @@ covergroup Zbs_bclr_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "bclr"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -127,7 +127,7 @@ covergroup Zbs_bclri_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "bclri"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -216,7 +216,7 @@ covergroup Zbs_bext_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "bext"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -313,7 +313,7 @@ covergroup Zbs_bexti_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "bexti"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -402,7 +402,7 @@ covergroup Zbs_binv_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "binv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -499,7 +499,7 @@ covergroup Zbs_binvi_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "binvi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -588,7 +588,7 @@ covergroup Zbs_bset_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "bset"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -685,7 +685,7 @@ covergroup Zbs_bseti_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "bseti"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -758,29 +758,29 @@ endgroup
 // ---------------------
 function void zbs_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "bclr"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_BCLR     : begin
             Zbs_bclr_cg.sample(ins);
         end
-        "bclri"     : begin
+        INSTR_BCLRI     : begin
             Zbs_bclri_cg.sample(ins);
         end
-        "bext"     : begin
+        INSTR_BEXT     : begin
             Zbs_bext_cg.sample(ins);
         end
-        "bexti"     : begin
+        INSTR_BEXTI     : begin
             Zbs_bexti_cg.sample(ins);
         end
-        "binv"     : begin
+        INSTR_BINV     : begin
             Zbs_binv_cg.sample(ins);
         end
-        "binvi"     : begin
+        INSTR_BINVI     : begin
             Zbs_binvi_cg.sample(ins);
         end
-        "bset"     : begin
+        INSTR_BSET     : begin
             Zbs_bset_cg.sample(ins);
         end
-        "bseti"     : begin
+        INSTR_BSETI     : begin
             Zbs_bseti_cg.sample(ins);
         end
     endcase

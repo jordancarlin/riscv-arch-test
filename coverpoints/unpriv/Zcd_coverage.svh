@@ -14,7 +14,7 @@
 `define COVER_ZCD
 covergroup Zcd_c_fld_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fld"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -36,7 +36,7 @@ endgroup
 // ---------------------
 covergroup Zcd_c_fldsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fldsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -54,7 +54,7 @@ endgroup
 // ---------------------
 covergroup Zcd_c_fsd_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fsd"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -76,7 +76,7 @@ endgroup
 // ---------------------
 covergroup Zcd_c_fsdsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fsdsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -94,17 +94,17 @@ endgroup
 // ---------------------
 function void zcd_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "c.fld"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_C_FLD     : begin
             Zcd_c_fld_cg.sample(ins);
         end
-        "c.fldsp"     : begin
+        INSTR_C_FLDSP     : begin
             Zcd_c_fldsp_cg.sample(ins);
         end
-        "c.fsd"     : begin
+        INSTR_C_FSD     : begin
             Zcd_c_fsd_cg.sample(ins);
         end
-        "c.fsdsp"     : begin
+        INSTR_C_FSDSP     : begin
             Zcd_c_fsdsp_cg.sample(ins);
         end
     endcase

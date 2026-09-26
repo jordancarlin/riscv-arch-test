@@ -21,7 +21,7 @@
 `endif
 covergroup Zvfbfwma_vfwmaccbf16_vf_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "vfwmaccbf16.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -246,7 +246,7 @@ covergroup Zvfbfwma_vfwmaccbf16_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfwmaccbf16.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -471,7 +471,7 @@ function void zvfbfwma_sample(int hart, int issue, ins_t ins);
     // associated sew with these tests
     if (get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew") == 1 ||
         get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vill") == 1) begin
-        case (traceDataQ[hart][issue][0].inst_name)
+        case (traceDataQ[hart][issue][0].inst_id)
             "vfwmaccbf16.vf"     : begin
                 Zvfbfwma_vfwmaccbf16_vf_cg.sample(ins);
             end

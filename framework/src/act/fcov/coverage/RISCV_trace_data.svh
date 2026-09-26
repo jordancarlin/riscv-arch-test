@@ -88,8 +88,7 @@ class riscvTraceData
   int                         hart;
   int                         issue;
   // Decoded instruction info
-  string                      disass;
-  string                      inst_name;
+  instruction_id_t            inst_id;
 
   int                         inst_category;
 
@@ -105,22 +104,21 @@ class riscvTraceData
   bit                       has_vs1;
   bit                       has_vs2;
   bit                       has_vs3;
-  bit                       has_v0;
 
-  string                    rd;
-  string                    rs1;
-  string                    rs2;
-  string                    rs3;
+  bit [4:0]                 rd;
+  bit [4:0]                 rs1;
+  bit [4:0]                 rs2;
+  bit [4:0]                 rs3;
 
-  string                    fd;
-  string                    fs1;
-  string                    fs2;
-  string                    fs3;
+  bit [4:0]                 fd;
+  bit [4:0]                 fs1;
+  bit [4:0]                 fs2;
+  bit [4:0]                 fs3;
 
-  string                    vd;
-  string                    vs1;
-  string                    vs2;
-  string                    vs3;
+  bit [4:0]                 vd;
+  bit [4:0]                 vs1;
+  bit [4:0]                 vs2;
+  bit [4:0]                 vs3;
 
   bit [(XLEN-1):0]          rd_val;
   bit [(XLEN-1):0]          rd_upper_pair_val;
@@ -145,12 +143,5 @@ class riscvTraceData
   bit                       vm;
 
   bit [(XLEN-1):0]          imm;
-  bit [(XLEN-1):0]          imm2;
-  bit [(XLEN-1):0]          imm3;
   bit [(XLEN-1):0]          mem_addr;
-
-  bit [2:0]                 eSEW;
-  bit [2:0]                 mLMUL;
-  bit                       ta;
-  bit                       ma;
 endclass

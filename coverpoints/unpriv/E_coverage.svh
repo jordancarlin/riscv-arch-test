@@ -30,7 +30,7 @@ covergroup E_add_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "add"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -127,7 +127,7 @@ covergroup E_addi_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "addi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -221,7 +221,7 @@ covergroup E_and_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "and"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -318,7 +318,7 @@ covergroup E_andi_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "andi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -396,7 +396,7 @@ endgroup
 // ---------------------
 covergroup E_auipc_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "auipc"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -444,7 +444,7 @@ covergroup E_beq_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "beq"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -555,7 +555,7 @@ covergroup E_bge_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "bge"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -666,7 +666,7 @@ covergroup E_bgeu_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "bgeu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -777,7 +777,7 @@ covergroup E_blt_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "blt"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -888,7 +888,7 @@ covergroup E_bltu_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "bltu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -999,7 +999,7 @@ covergroup E_bne_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "bne"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1106,7 +1106,7 @@ endgroup
 // ---------------------
 covergroup E_fence_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fence"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1133,7 +1133,7 @@ endgroup
 // ---------------------
 covergroup E_jal_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "jal"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1185,7 +1185,7 @@ covergroup E_jalr_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "jalr"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1243,7 +1243,7 @@ covergroup E_lb_cg with function sample(ins_t ins);
     cp_align_byte : coverpoint {ins.current.rs1_val + ins.current.imm}[2:0] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "lb"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1300,7 +1300,7 @@ covergroup E_lbu_cg with function sample(ins_t ins);
     cp_align_byte : coverpoint {ins.current.rs1_val + ins.current.imm}[2:0] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "lbu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1357,7 +1357,7 @@ covergroup E_lh_cg with function sample(ins_t ins);
     cp_align_hword : coverpoint {ins.current.rs1_val + ins.current.imm}[2:1] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "lh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1414,7 +1414,7 @@ covergroup E_lhu_cg with function sample(ins_t ins);
     cp_align_hword : coverpoint {ins.current.rs1_val + ins.current.imm}[2:1] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "lhu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1463,7 +1463,7 @@ endgroup
 // ---------------------
 covergroup E_lui_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "lui"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1515,7 +1515,7 @@ covergroup E_lw_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "lw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1564,7 +1564,7 @@ endgroup
 // ---------------------
 covergroup E_nop_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "nop"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1589,7 +1589,7 @@ covergroup E_or_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "or"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1686,7 +1686,7 @@ covergroup E_ori_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "ori"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1767,7 +1767,7 @@ covergroup E_sb_cg with function sample(ins_t ins);
     cp_align_byte : coverpoint {ins.current.rs1_val + ins.current.imm}[2:0] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sb"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1845,7 +1845,7 @@ covergroup E_sh_cg with function sample(ins_t ins);
     cp_align_hword : coverpoint {ins.current.rs1_val + ins.current.imm}[2:1] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1936,7 +1936,7 @@ covergroup E_sll_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sll"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2034,7 +2034,7 @@ covergroup E_slli_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "slli"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2127,7 +2127,7 @@ covergroup E_slt_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "slt"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2226,7 +2226,7 @@ covergroup E_slti_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "slti"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2310,7 +2310,7 @@ covergroup E_sltiu_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sltiu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2408,7 +2408,7 @@ covergroup E_sltu_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sltu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2518,7 +2518,7 @@ covergroup E_sra_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sra"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2616,7 +2616,7 @@ covergroup E_srai_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "srai"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2706,7 +2706,7 @@ covergroup E_srl_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "srl"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2804,7 +2804,7 @@ covergroup E_srli_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "srli"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2894,7 +2894,7 @@ covergroup E_sub_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sub"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2990,7 +2990,7 @@ covergroup E_sw_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3081,7 +3081,7 @@ covergroup E_xor_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "xor"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3178,7 +3178,7 @@ covergroup E_xori_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "xori"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3261,7 +3261,7 @@ covergroup E_addiw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "addiw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3355,7 +3355,7 @@ covergroup E_addw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "addw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3453,7 +3453,7 @@ covergroup E_ld_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "ld"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3510,7 +3510,7 @@ covergroup E_lwu_cg with function sample(ins_t ins);
     cp_align_word : coverpoint {ins.current.rs1_val + ins.current.imm}[2] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "lwu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3559,7 +3559,7 @@ endgroup
 // ---------------------
 covergroup E_sd_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "sd"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3639,7 +3639,7 @@ covergroup E_slliw_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "slliw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3722,7 +3722,7 @@ covergroup E_sllw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sllw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3820,7 +3820,7 @@ covergroup E_sraiw_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sraiw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3903,7 +3903,7 @@ covergroup E_sraw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sraw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -4001,7 +4001,7 @@ covergroup E_srliw_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "srliw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -4084,7 +4084,7 @@ covergroup E_srlw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "srlw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -4193,7 +4193,7 @@ covergroup E_subw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "subw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -4287,7 +4287,7 @@ endgroup
 `endif
 function void e_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
+    case (traceDataQ[hart][issue][0].inst_id)
 `ifdef UDB_MXLEN_64
 `endif
     endcase

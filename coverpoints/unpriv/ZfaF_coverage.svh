@@ -14,7 +14,7 @@
 `define COVER_ZFAF
 covergroup ZfaF_fleq_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fleq.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -108,7 +108,7 @@ endgroup
 // ---------------------
 covergroup ZfaF_fli_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fli.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -125,7 +125,7 @@ endgroup
 // ---------------------
 covergroup ZfaF_fltq_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fltq.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -227,7 +227,7 @@ covergroup ZfaF_fmaxm_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmaxm.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -329,7 +329,7 @@ covergroup ZfaF_fminm_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fminm.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -423,7 +423,7 @@ endgroup
 // ---------------------
 covergroup ZfaF_fround_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -431,7 +431,7 @@ covergroup ZfaF_fround_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fround.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -497,7 +497,7 @@ endgroup
 // ---------------------
 covergroup ZfaF_froundnx_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -505,7 +505,7 @@ covergroup ZfaF_froundnx_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "froundnx.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -573,26 +573,26 @@ endgroup
 // ---------------------
 function void zfaf_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fleq.s"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FLEQ_S     : begin
             ZfaF_fleq_s_cg.sample(ins);
         end
-        "fli.s"     : begin
+        INSTR_FLI_S     : begin
             ZfaF_fli_s_cg.sample(ins);
         end
-        "fltq.s"     : begin
+        INSTR_FLTQ_S     : begin
             ZfaF_fltq_s_cg.sample(ins);
         end
-        "fmaxm.s"     : begin
+        INSTR_FMAXM_S     : begin
             ZfaF_fmaxm_s_cg.sample(ins);
         end
-        "fminm.s"     : begin
+        INSTR_FMINM_S     : begin
             ZfaF_fminm_s_cg.sample(ins);
         end
-        "fround.s"     : begin
+        INSTR_FROUND_S     : begin
             ZfaF_fround_s_cg.sample(ins);
         end
-        "froundnx.s"     : begin
+        INSTR_FROUNDNX_S     : begin
             ZfaF_froundnx_s_cg.sample(ins);
         end
     endcase

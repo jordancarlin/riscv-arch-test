@@ -18,7 +18,7 @@ covergroup Zknh_sha256sig0_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha256sig0"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -73,7 +73,7 @@ covergroup Zknh_sha256sig1_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha256sig1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -128,7 +128,7 @@ covergroup Zknh_sha256sum0_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha256sum0"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -183,7 +183,7 @@ covergroup Zknh_sha256sum1_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha256sum1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -251,7 +251,7 @@ covergroup Zknh_sha512sig0h_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig0h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -360,7 +360,7 @@ covergroup Zknh_sha512sig0l_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig0l"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -469,7 +469,7 @@ covergroup Zknh_sha512sig1h_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig1h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -578,7 +578,7 @@ covergroup Zknh_sha512sig1l_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig1l"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -687,7 +687,7 @@ covergroup Zknh_sha512sum0r_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sum0r"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -796,7 +796,7 @@ covergroup Zknh_sha512sum1r_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sum1r"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -895,7 +895,7 @@ covergroup Zknh_sha512sig0_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig0"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -950,7 +950,7 @@ covergroup Zknh_sha512sig1_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1005,7 +1005,7 @@ covergroup Zknh_sha512sum0_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sum0"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1060,7 +1060,7 @@ covergroup Zknh_sha512sum1_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sum1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1112,50 +1112,50 @@ endgroup
 `endif
 function void zknh_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "sha256sig0"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_SHA256SIG0     : begin
             Zknh_sha256sig0_cg.sample(ins);
         end
-        "sha256sig1"     : begin
+        INSTR_SHA256SIG1     : begin
             Zknh_sha256sig1_cg.sample(ins);
         end
-        "sha256sum0"     : begin
+        INSTR_SHA256SUM0     : begin
             Zknh_sha256sum0_cg.sample(ins);
         end
-        "sha256sum1"     : begin
+        INSTR_SHA256SUM1     : begin
             Zknh_sha256sum1_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_32
-        "sha512sig0h"     : begin
+        INSTR_SHA512SIG0H     : begin
             Zknh_sha512sig0h_cg.sample(ins);
         end
-        "sha512sig0l"     : begin
+        INSTR_SHA512SIG0L     : begin
             Zknh_sha512sig0l_cg.sample(ins);
         end
-        "sha512sig1h"     : begin
+        INSTR_SHA512SIG1H     : begin
             Zknh_sha512sig1h_cg.sample(ins);
         end
-        "sha512sig1l"     : begin
+        INSTR_SHA512SIG1L     : begin
             Zknh_sha512sig1l_cg.sample(ins);
         end
-        "sha512sum0r"     : begin
+        INSTR_SHA512SUM0R     : begin
             Zknh_sha512sum0r_cg.sample(ins);
         end
-        "sha512sum1r"     : begin
+        INSTR_SHA512SUM1R     : begin
             Zknh_sha512sum1r_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
-        "sha512sig0"     : begin
+        INSTR_SHA512SIG0     : begin
             Zknh_sha512sig0_cg.sample(ins);
         end
-        "sha512sig1"     : begin
+        INSTR_SHA512SIG1     : begin
             Zknh_sha512sig1_cg.sample(ins);
         end
-        "sha512sum0"     : begin
+        INSTR_SHA512SUM0     : begin
             Zknh_sha512sum0_cg.sample(ins);
         end
-        "sha512sum1"     : begin
+        INSTR_SHA512SUM1     : begin
             Zknh_sha512sum1_cg.sample(ins);
         end
 `endif

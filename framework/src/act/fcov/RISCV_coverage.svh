@@ -37,8 +37,8 @@ class coverage #(
     super.new(rvvi);
   endfunction
 
-  function void sample(bit trap, int hart, int issue, string disass);
-    save_rvvi_data(trap, hart, issue, disass);
+  function void sample(int hart, int issue);
+    save_rvvi_data(hart, issue);
     sample_extensions(hart, issue);
   endfunction
 endclass

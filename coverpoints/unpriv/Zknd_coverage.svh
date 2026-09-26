@@ -31,7 +31,7 @@ covergroup Zknd_aes32dsi_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes32dsi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -149,7 +149,7 @@ covergroup Zknd_aes32dsmi_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes32dsmi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -269,7 +269,7 @@ covergroup Zknd_aes64ds_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes64ds"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -383,7 +383,7 @@ covergroup Zknd_aes64dsm_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes64dsm"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -485,7 +485,7 @@ covergroup Zknd_aes64im_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes64im"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -540,7 +540,7 @@ covergroup Zknd_aes64ks1i_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes64ks1i"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -618,7 +618,7 @@ covergroup Zknd_aes64ks2_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes64ks2"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -712,29 +712,29 @@ endgroup
 `endif
 function void zknd_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
+    case (traceDataQ[hart][issue][0].inst_id)
 `ifdef UDB_MXLEN_32
-        "aes32dsi"     : begin
+        INSTR_AES32DSI     : begin
             Zknd_aes32dsi_cg.sample(ins);
         end
-        "aes32dsmi"     : begin
+        INSTR_AES32DSMI     : begin
             Zknd_aes32dsmi_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
-        "aes64ds"     : begin
+        INSTR_AES64DS     : begin
             Zknd_aes64ds_cg.sample(ins);
         end
-        "aes64dsm"     : begin
+        INSTR_AES64DSM     : begin
             Zknd_aes64dsm_cg.sample(ins);
         end
-        "aes64im"     : begin
+        INSTR_AES64IM     : begin
             Zknd_aes64im_cg.sample(ins);
         end
-        "aes64ks1i"     : begin
+        INSTR_AES64KS1I     : begin
             Zknd_aes64ks1i_cg.sample(ins);
         end
-        "aes64ks2"     : begin
+        INSTR_AES64KS2     : begin
             Zknd_aes64ks2_cg.sample(ins);
         end
 `endif

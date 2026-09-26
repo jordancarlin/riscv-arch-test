@@ -14,7 +14,7 @@
 `define COVER_ZIFENCEI
 covergroup Zifencei_fence_i_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fence.i"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -36,8 +36,8 @@ endgroup
 // ---------------------
 function void zifencei_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fence.i"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FENCE_I     : begin
             Zifencei_fence_i_cg.sample(ins);
         end
     endcase

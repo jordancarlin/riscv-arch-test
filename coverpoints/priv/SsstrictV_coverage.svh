@@ -42611,1877 +42611,1877 @@ endgroup
 // ---------------------
 function void ssstrictv_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "vaadd.vv"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_VAADD_VV     : begin
             SsstrictV_vaadd_vv_cg.sample(ins);
         end
-        "vaadd.vx"     : begin
+        INSTR_VAADD_VX     : begin
             SsstrictV_vaadd_vx_cg.sample(ins);
         end
-        "vaaddu.vv"     : begin
+        INSTR_VAADDU_VV     : begin
             SsstrictV_vaaddu_vv_cg.sample(ins);
         end
-        "vaaddu.vx"     : begin
+        INSTR_VAADDU_VX     : begin
             SsstrictV_vaaddu_vx_cg.sample(ins);
         end
-        "vadc.vim"     : begin
+        INSTR_VADC_VIM     : begin
             SsstrictV_vadc_vim_cg.sample(ins);
         end
-        "vadc.vvm"     : begin
+        INSTR_VADC_VVM     : begin
             SsstrictV_vadc_vvm_cg.sample(ins);
         end
-        "vadc.vxm"     : begin
+        INSTR_VADC_VXM     : begin
             SsstrictV_vadc_vxm_cg.sample(ins);
         end
-        "vadd.vi"     : begin
+        INSTR_VADD_VI     : begin
             SsstrictV_vadd_vi_cg.sample(ins);
         end
-        "vadd.vv"     : begin
+        INSTR_VADD_VV     : begin
             SsstrictV_vadd_vv_cg.sample(ins);
         end
-        "vadd.vx"     : begin
+        INSTR_VADD_VX     : begin
             SsstrictV_vadd_vx_cg.sample(ins);
         end
-        "vand.vi"     : begin
+        INSTR_VAND_VI     : begin
             SsstrictV_vand_vi_cg.sample(ins);
         end
-        "vand.vv"     : begin
+        INSTR_VAND_VV     : begin
             SsstrictV_vand_vv_cg.sample(ins);
         end
-        "vand.vx"     : begin
+        INSTR_VAND_VX     : begin
             SsstrictV_vand_vx_cg.sample(ins);
         end
-        "vasub.vv"     : begin
+        INSTR_VASUB_VV     : begin
             SsstrictV_vasub_vv_cg.sample(ins);
         end
-        "vasub.vx"     : begin
+        INSTR_VASUB_VX     : begin
             SsstrictV_vasub_vx_cg.sample(ins);
         end
-        "vasubu.vv"     : begin
+        INSTR_VASUBU_VV     : begin
             SsstrictV_vasubu_vv_cg.sample(ins);
         end
-        "vasubu.vx"     : begin
+        INSTR_VASUBU_VX     : begin
             SsstrictV_vasubu_vx_cg.sample(ins);
         end
-        "vcompress.vm"     : begin
+        INSTR_VCOMPRESS_VM     : begin
             SsstrictV_vcompress_vm_cg.sample(ins);
         end
-        "vcpop.m"     : begin
+        INSTR_VCPOP_M     : begin
             SsstrictV_vcpop_m_cg.sample(ins);
         end
-        "vdiv.vv"     : begin
+        INSTR_VDIV_VV     : begin
             SsstrictV_vdiv_vv_cg.sample(ins);
         end
-        "vdiv.vx"     : begin
+        INSTR_VDIV_VX     : begin
             SsstrictV_vdiv_vx_cg.sample(ins);
         end
-        "vdivu.vv"     : begin
+        INSTR_VDIVU_VV     : begin
             SsstrictV_vdivu_vv_cg.sample(ins);
         end
-        "vdivu.vx"     : begin
+        INSTR_VDIVU_VX     : begin
             SsstrictV_vdivu_vx_cg.sample(ins);
         end
-        "vfadd.vf"     : begin
+        INSTR_VFADD_VF     : begin
             SsstrictV_vfadd_vf_cg.sample(ins);
         end
-        "vfadd.vv"     : begin
+        INSTR_VFADD_VV     : begin
             SsstrictV_vfadd_vv_cg.sample(ins);
         end
-        "vfclass.v"     : begin
+        INSTR_VFCLASS_V     : begin
             SsstrictV_vfclass_v_cg.sample(ins);
         end
-        "vfcvt.f.x.v"     : begin
+        INSTR_VFCVT_F_X_V     : begin
             SsstrictV_vfcvt_f_x_v_cg.sample(ins);
         end
-        "vfcvt.f.xu.v"     : begin
+        INSTR_VFCVT_F_XU_V     : begin
             SsstrictV_vfcvt_f_xu_v_cg.sample(ins);
         end
-        "vfcvt.rtz.x.f.v"     : begin
+        INSTR_VFCVT_RTZ_X_F_V     : begin
             SsstrictV_vfcvt_rtz_x_f_v_cg.sample(ins);
         end
-        "vfcvt.rtz.xu.f.v"     : begin
+        INSTR_VFCVT_RTZ_XU_F_V     : begin
             SsstrictV_vfcvt_rtz_xu_f_v_cg.sample(ins);
         end
-        "vfcvt.x.f.v"     : begin
+        INSTR_VFCVT_X_F_V     : begin
             SsstrictV_vfcvt_x_f_v_cg.sample(ins);
         end
-        "vfcvt.xu.f.v"     : begin
+        INSTR_VFCVT_XU_F_V     : begin
             SsstrictV_vfcvt_xu_f_v_cg.sample(ins);
         end
-        "vfdiv.vf"     : begin
+        INSTR_VFDIV_VF     : begin
             SsstrictV_vfdiv_vf_cg.sample(ins);
         end
-        "vfdiv.vv"     : begin
+        INSTR_VFDIV_VV     : begin
             SsstrictV_vfdiv_vv_cg.sample(ins);
         end
-        "vfirst.m"     : begin
+        INSTR_VFIRST_M     : begin
             SsstrictV_vfirst_m_cg.sample(ins);
         end
-        "vfmacc.vf"     : begin
+        INSTR_VFMACC_VF     : begin
             SsstrictV_vfmacc_vf_cg.sample(ins);
         end
-        "vfmacc.vv"     : begin
+        INSTR_VFMACC_VV     : begin
             SsstrictV_vfmacc_vv_cg.sample(ins);
         end
-        "vfmadd.vf"     : begin
+        INSTR_VFMADD_VF     : begin
             SsstrictV_vfmadd_vf_cg.sample(ins);
         end
-        "vfmadd.vv"     : begin
+        INSTR_VFMADD_VV     : begin
             SsstrictV_vfmadd_vv_cg.sample(ins);
         end
-        "vfmax.vf"     : begin
+        INSTR_VFMAX_VF     : begin
             SsstrictV_vfmax_vf_cg.sample(ins);
         end
-        "vfmax.vv"     : begin
+        INSTR_VFMAX_VV     : begin
             SsstrictV_vfmax_vv_cg.sample(ins);
         end
-        "vfmerge.vfm"     : begin
+        INSTR_VFMERGE_VFM     : begin
             SsstrictV_vfmerge_vfm_cg.sample(ins);
         end
-        "vfmin.vf"     : begin
+        INSTR_VFMIN_VF     : begin
             SsstrictV_vfmin_vf_cg.sample(ins);
         end
-        "vfmin.vv"     : begin
+        INSTR_VFMIN_VV     : begin
             SsstrictV_vfmin_vv_cg.sample(ins);
         end
-        "vfmsac.vf"     : begin
+        INSTR_VFMSAC_VF     : begin
             SsstrictV_vfmsac_vf_cg.sample(ins);
         end
-        "vfmsac.vv"     : begin
+        INSTR_VFMSAC_VV     : begin
             SsstrictV_vfmsac_vv_cg.sample(ins);
         end
-        "vfmsub.vf"     : begin
+        INSTR_VFMSUB_VF     : begin
             SsstrictV_vfmsub_vf_cg.sample(ins);
         end
-        "vfmsub.vv"     : begin
+        INSTR_VFMSUB_VV     : begin
             SsstrictV_vfmsub_vv_cg.sample(ins);
         end
-        "vfmul.vf"     : begin
+        INSTR_VFMUL_VF     : begin
             SsstrictV_vfmul_vf_cg.sample(ins);
         end
-        "vfmul.vv"     : begin
+        INSTR_VFMUL_VV     : begin
             SsstrictV_vfmul_vv_cg.sample(ins);
         end
-        "vfmv.f.s"     : begin
+        INSTR_VFMV_F_S     : begin
             SsstrictV_vfmv_f_s_cg.sample(ins);
         end
-        "vfmv.s.f"     : begin
+        INSTR_VFMV_S_F     : begin
             SsstrictV_vfmv_s_f_cg.sample(ins);
         end
-        "vfmv.v.f"     : begin
+        INSTR_VFMV_V_F     : begin
             SsstrictV_vfmv_v_f_cg.sample(ins);
         end
-        "vfncvt.f.f.w"     : begin
+        INSTR_VFNCVT_F_F_W     : begin
             SsstrictV_vfncvt_f_f_w_cg.sample(ins);
         end
-        "vfncvt.f.x.w"     : begin
+        INSTR_VFNCVT_F_X_W     : begin
             SsstrictV_vfncvt_f_x_w_cg.sample(ins);
         end
-        "vfncvt.f.xu.w"     : begin
+        INSTR_VFNCVT_F_XU_W     : begin
             SsstrictV_vfncvt_f_xu_w_cg.sample(ins);
         end
-        "vfncvt.rod.f.f.w"     : begin
+        INSTR_VFNCVT_ROD_F_F_W     : begin
             SsstrictV_vfncvt_rod_f_f_w_cg.sample(ins);
         end
-        "vfncvt.rtz.x.f.w"     : begin
+        INSTR_VFNCVT_RTZ_X_F_W     : begin
             SsstrictV_vfncvt_rtz_x_f_w_cg.sample(ins);
         end
-        "vfncvt.rtz.xu.f.w"     : begin
+        INSTR_VFNCVT_RTZ_XU_F_W     : begin
             SsstrictV_vfncvt_rtz_xu_f_w_cg.sample(ins);
         end
-        "vfncvt.x.f.w"     : begin
+        INSTR_VFNCVT_X_F_W     : begin
             SsstrictV_vfncvt_x_f_w_cg.sample(ins);
         end
-        "vfncvt.xu.f.w"     : begin
+        INSTR_VFNCVT_XU_F_W     : begin
             SsstrictV_vfncvt_xu_f_w_cg.sample(ins);
         end
-        "vfnmacc.vf"     : begin
+        INSTR_VFNMACC_VF     : begin
             SsstrictV_vfnmacc_vf_cg.sample(ins);
         end
-        "vfnmacc.vv"     : begin
+        INSTR_VFNMACC_VV     : begin
             SsstrictV_vfnmacc_vv_cg.sample(ins);
         end
-        "vfnmadd.vf"     : begin
+        INSTR_VFNMADD_VF     : begin
             SsstrictV_vfnmadd_vf_cg.sample(ins);
         end
-        "vfnmadd.vv"     : begin
+        INSTR_VFNMADD_VV     : begin
             SsstrictV_vfnmadd_vv_cg.sample(ins);
         end
-        "vfnmsac.vf"     : begin
+        INSTR_VFNMSAC_VF     : begin
             SsstrictV_vfnmsac_vf_cg.sample(ins);
         end
-        "vfnmsac.vv"     : begin
+        INSTR_VFNMSAC_VV     : begin
             SsstrictV_vfnmsac_vv_cg.sample(ins);
         end
-        "vfnmsub.vf"     : begin
+        INSTR_VFNMSUB_VF     : begin
             SsstrictV_vfnmsub_vf_cg.sample(ins);
         end
-        "vfnmsub.vv"     : begin
+        INSTR_VFNMSUB_VV     : begin
             SsstrictV_vfnmsub_vv_cg.sample(ins);
         end
-        "vfrdiv.vf"     : begin
+        INSTR_VFRDIV_VF     : begin
             SsstrictV_vfrdiv_vf_cg.sample(ins);
         end
-        "vfrec7.v"     : begin
+        INSTR_VFREC7_V     : begin
             SsstrictV_vfrec7_v_cg.sample(ins);
         end
-        "vfredmax.vs"     : begin
+        INSTR_VFREDMAX_VS     : begin
             SsstrictV_vfredmax_vs_cg.sample(ins);
         end
-        "vfredmin.vs"     : begin
+        INSTR_VFREDMIN_VS     : begin
             SsstrictV_vfredmin_vs_cg.sample(ins);
         end
-        "vfredosum.vs"     : begin
+        INSTR_VFREDOSUM_VS     : begin
             SsstrictV_vfredosum_vs_cg.sample(ins);
         end
-        "vfredusum.vs"     : begin
+        INSTR_VFREDUSUM_VS     : begin
             SsstrictV_vfredusum_vs_cg.sample(ins);
         end
-        "vfrsqrt7.v"     : begin
+        INSTR_VFRSQRT7_V     : begin
             SsstrictV_vfrsqrt7_v_cg.sample(ins);
         end
-        "vfrsub.vf"     : begin
+        INSTR_VFRSUB_VF     : begin
             SsstrictV_vfrsub_vf_cg.sample(ins);
         end
-        "vfsgnj.vf"     : begin
+        INSTR_VFSGNJ_VF     : begin
             SsstrictV_vfsgnj_vf_cg.sample(ins);
         end
-        "vfsgnj.vv"     : begin
+        INSTR_VFSGNJ_VV     : begin
             SsstrictV_vfsgnj_vv_cg.sample(ins);
         end
-        "vfsgnjn.vf"     : begin
+        INSTR_VFSGNJN_VF     : begin
             SsstrictV_vfsgnjn_vf_cg.sample(ins);
         end
-        "vfsgnjn.vv"     : begin
+        INSTR_VFSGNJN_VV     : begin
             SsstrictV_vfsgnjn_vv_cg.sample(ins);
         end
-        "vfsgnjx.vf"     : begin
+        INSTR_VFSGNJX_VF     : begin
             SsstrictV_vfsgnjx_vf_cg.sample(ins);
         end
-        "vfsgnjx.vv"     : begin
+        INSTR_VFSGNJX_VV     : begin
             SsstrictV_vfsgnjx_vv_cg.sample(ins);
         end
-        "vfslide1down.vf"     : begin
+        INSTR_VFSLIDE1DOWN_VF     : begin
             SsstrictV_vfslide1down_vf_cg.sample(ins);
         end
-        "vfslide1up.vf"     : begin
+        INSTR_VFSLIDE1UP_VF     : begin
             SsstrictV_vfslide1up_vf_cg.sample(ins);
         end
-        "vfsqrt.v"     : begin
+        INSTR_VFSQRT_V     : begin
             SsstrictV_vfsqrt_v_cg.sample(ins);
         end
-        "vfsub.vf"     : begin
+        INSTR_VFSUB_VF     : begin
             SsstrictV_vfsub_vf_cg.sample(ins);
         end
-        "vfsub.vv"     : begin
+        INSTR_VFSUB_VV     : begin
             SsstrictV_vfsub_vv_cg.sample(ins);
         end
-        "vfwadd.vf"     : begin
+        INSTR_VFWADD_VF     : begin
             SsstrictV_vfwadd_vf_cg.sample(ins);
         end
-        "vfwadd.vv"     : begin
+        INSTR_VFWADD_VV     : begin
             SsstrictV_vfwadd_vv_cg.sample(ins);
         end
-        "vfwadd.wf"     : begin
+        INSTR_VFWADD_WF     : begin
             SsstrictV_vfwadd_wf_cg.sample(ins);
         end
-        "vfwadd.wv"     : begin
+        INSTR_VFWADD_WV     : begin
             SsstrictV_vfwadd_wv_cg.sample(ins);
         end
-        "vfwcvt.f.f.v"     : begin
+        INSTR_VFWCVT_F_F_V     : begin
             SsstrictV_vfwcvt_f_f_v_cg.sample(ins);
         end
-        "vfwcvt.f.x.v"     : begin
+        INSTR_VFWCVT_F_X_V     : begin
             SsstrictV_vfwcvt_f_x_v_cg.sample(ins);
         end
-        "vfwcvt.f.xu.v"     : begin
+        INSTR_VFWCVT_F_XU_V     : begin
             SsstrictV_vfwcvt_f_xu_v_cg.sample(ins);
         end
-        "vfwcvt.rtz.x.f.v"     : begin
+        INSTR_VFWCVT_RTZ_X_F_V     : begin
             SsstrictV_vfwcvt_rtz_x_f_v_cg.sample(ins);
         end
-        "vfwcvt.rtz.xu.f.v"     : begin
+        INSTR_VFWCVT_RTZ_XU_F_V     : begin
             SsstrictV_vfwcvt_rtz_xu_f_v_cg.sample(ins);
         end
-        "vfwcvt.x.f.v"     : begin
+        INSTR_VFWCVT_X_F_V     : begin
             SsstrictV_vfwcvt_x_f_v_cg.sample(ins);
         end
-        "vfwcvt.xu.f.v"     : begin
+        INSTR_VFWCVT_XU_F_V     : begin
             SsstrictV_vfwcvt_xu_f_v_cg.sample(ins);
         end
-        "vfwmacc.vf"     : begin
+        INSTR_VFWMACC_VF     : begin
             SsstrictV_vfwmacc_vf_cg.sample(ins);
         end
-        "vfwmacc.vv"     : begin
+        INSTR_VFWMACC_VV     : begin
             SsstrictV_vfwmacc_vv_cg.sample(ins);
         end
-        "vfwmsac.vf"     : begin
+        INSTR_VFWMSAC_VF     : begin
             SsstrictV_vfwmsac_vf_cg.sample(ins);
         end
-        "vfwmsac.vv"     : begin
+        INSTR_VFWMSAC_VV     : begin
             SsstrictV_vfwmsac_vv_cg.sample(ins);
         end
-        "vfwmul.vf"     : begin
+        INSTR_VFWMUL_VF     : begin
             SsstrictV_vfwmul_vf_cg.sample(ins);
         end
-        "vfwmul.vv"     : begin
+        INSTR_VFWMUL_VV     : begin
             SsstrictV_vfwmul_vv_cg.sample(ins);
         end
-        "vfwnmacc.vf"     : begin
+        INSTR_VFWNMACC_VF     : begin
             SsstrictV_vfwnmacc_vf_cg.sample(ins);
         end
-        "vfwnmacc.vv"     : begin
+        INSTR_VFWNMACC_VV     : begin
             SsstrictV_vfwnmacc_vv_cg.sample(ins);
         end
-        "vfwnmsac.vf"     : begin
+        INSTR_VFWNMSAC_VF     : begin
             SsstrictV_vfwnmsac_vf_cg.sample(ins);
         end
-        "vfwnmsac.vv"     : begin
+        INSTR_VFWNMSAC_VV     : begin
             SsstrictV_vfwnmsac_vv_cg.sample(ins);
         end
-        "vfwredosum.vs"     : begin
+        INSTR_VFWREDOSUM_VS     : begin
             SsstrictV_vfwredosum_vs_cg.sample(ins);
         end
-        "vfwredusum.vs"     : begin
+        INSTR_VFWREDUSUM_VS     : begin
             SsstrictV_vfwredusum_vs_cg.sample(ins);
         end
-        "vfwsub.vf"     : begin
+        INSTR_VFWSUB_VF     : begin
             SsstrictV_vfwsub_vf_cg.sample(ins);
         end
-        "vfwsub.vv"     : begin
+        INSTR_VFWSUB_VV     : begin
             SsstrictV_vfwsub_vv_cg.sample(ins);
         end
-        "vfwsub.wf"     : begin
+        INSTR_VFWSUB_WF     : begin
             SsstrictV_vfwsub_wf_cg.sample(ins);
         end
-        "vfwsub.wv"     : begin
+        INSTR_VFWSUB_WV     : begin
             SsstrictV_vfwsub_wv_cg.sample(ins);
         end
-        "vid.v"     : begin
+        INSTR_VID_V     : begin
             SsstrictV_vid_v_cg.sample(ins);
         end
-        "viota.m"     : begin
+        INSTR_VIOTA_M     : begin
             SsstrictV_viota_m_cg.sample(ins);
         end
-        "vl1re16.v"     : begin
+        INSTR_VL1RE16_V     : begin
             SsstrictV_vl1re16_v_cg.sample(ins);
         end
-        "vl1re32.v"     : begin
+        INSTR_VL1RE32_V     : begin
             SsstrictV_vl1re32_v_cg.sample(ins);
         end
-        "vl1re64.v"     : begin
+        INSTR_VL1RE64_V     : begin
             SsstrictV_vl1re64_v_cg.sample(ins);
         end
-        "vl1re8.v"     : begin
+        INSTR_VL1RE8_V     : begin
             SsstrictV_vl1re8_v_cg.sample(ins);
         end
-        "vl2re16.v"     : begin
+        INSTR_VL2RE16_V     : begin
             SsstrictV_vl2re16_v_cg.sample(ins);
         end
-        "vl2re32.v"     : begin
+        INSTR_VL2RE32_V     : begin
             SsstrictV_vl2re32_v_cg.sample(ins);
         end
-        "vl2re64.v"     : begin
+        INSTR_VL2RE64_V     : begin
             SsstrictV_vl2re64_v_cg.sample(ins);
         end
-        "vl2re8.v"     : begin
+        INSTR_VL2RE8_V     : begin
             SsstrictV_vl2re8_v_cg.sample(ins);
         end
-        "vl4re16.v"     : begin
+        INSTR_VL4RE16_V     : begin
             SsstrictV_vl4re16_v_cg.sample(ins);
         end
-        "vl4re32.v"     : begin
+        INSTR_VL4RE32_V     : begin
             SsstrictV_vl4re32_v_cg.sample(ins);
         end
-        "vl4re64.v"     : begin
+        INSTR_VL4RE64_V     : begin
             SsstrictV_vl4re64_v_cg.sample(ins);
         end
-        "vl4re8.v"     : begin
+        INSTR_VL4RE8_V     : begin
             SsstrictV_vl4re8_v_cg.sample(ins);
         end
-        "vl8re16.v"     : begin
+        INSTR_VL8RE16_V     : begin
             SsstrictV_vl8re16_v_cg.sample(ins);
         end
-        "vl8re32.v"     : begin
+        INSTR_VL8RE32_V     : begin
             SsstrictV_vl8re32_v_cg.sample(ins);
         end
-        "vl8re64.v"     : begin
+        INSTR_VL8RE64_V     : begin
             SsstrictV_vl8re64_v_cg.sample(ins);
         end
-        "vl8re8.v"     : begin
+        INSTR_VL8RE8_V     : begin
             SsstrictV_vl8re8_v_cg.sample(ins);
         end
-        "vle16.v"     : begin
+        INSTR_VLE16_V     : begin
             SsstrictV_vle16_v_cg.sample(ins);
         end
-        "vle16ff.v"     : begin
+        INSTR_VLE16FF_V     : begin
             SsstrictV_vle16ff_v_cg.sample(ins);
         end
-        "vle32.v"     : begin
+        INSTR_VLE32_V     : begin
             SsstrictV_vle32_v_cg.sample(ins);
         end
-        "vle32ff.v"     : begin
+        INSTR_VLE32FF_V     : begin
             SsstrictV_vle32ff_v_cg.sample(ins);
         end
-        "vle64.v"     : begin
+        INSTR_VLE64_V     : begin
             SsstrictV_vle64_v_cg.sample(ins);
         end
-        "vle64ff.v"     : begin
+        INSTR_VLE64FF_V     : begin
             SsstrictV_vle64ff_v_cg.sample(ins);
         end
-        "vle8.v"     : begin
+        INSTR_VLE8_V     : begin
             SsstrictV_vle8_v_cg.sample(ins);
         end
-        "vle8ff.v"     : begin
+        INSTR_VLE8FF_V     : begin
             SsstrictV_vle8ff_v_cg.sample(ins);
         end
-        "vlm.v"     : begin
+        INSTR_VLM_V     : begin
             SsstrictV_vlm_v_cg.sample(ins);
         end
-        "vloxei16.v"     : begin
+        INSTR_VLOXEI16_V     : begin
             SsstrictV_vloxei16_v_cg.sample(ins);
         end
-        "vloxei32.v"     : begin
+        INSTR_VLOXEI32_V     : begin
             SsstrictV_vloxei32_v_cg.sample(ins);
         end
-        "vloxei64.v"     : begin
+        INSTR_VLOXEI64_V     : begin
             SsstrictV_vloxei64_v_cg.sample(ins);
         end
-        "vloxei8.v"     : begin
+        INSTR_VLOXEI8_V     : begin
             SsstrictV_vloxei8_v_cg.sample(ins);
         end
-        "vloxseg2ei16.v"     : begin
+        INSTR_VLOXSEG2EI16_V     : begin
             SsstrictV_vloxseg2ei16_v_cg.sample(ins);
         end
-        "vloxseg2ei32.v"     : begin
+        INSTR_VLOXSEG2EI32_V     : begin
             SsstrictV_vloxseg2ei32_v_cg.sample(ins);
         end
-        "vloxseg2ei64.v"     : begin
+        INSTR_VLOXSEG2EI64_V     : begin
             SsstrictV_vloxseg2ei64_v_cg.sample(ins);
         end
-        "vloxseg2ei8.v"     : begin
+        INSTR_VLOXSEG2EI8_V     : begin
             SsstrictV_vloxseg2ei8_v_cg.sample(ins);
         end
-        "vloxseg3ei16.v"     : begin
+        INSTR_VLOXSEG3EI16_V     : begin
             SsstrictV_vloxseg3ei16_v_cg.sample(ins);
         end
-        "vloxseg3ei32.v"     : begin
+        INSTR_VLOXSEG3EI32_V     : begin
             SsstrictV_vloxseg3ei32_v_cg.sample(ins);
         end
-        "vloxseg3ei64.v"     : begin
+        INSTR_VLOXSEG3EI64_V     : begin
             SsstrictV_vloxseg3ei64_v_cg.sample(ins);
         end
-        "vloxseg3ei8.v"     : begin
+        INSTR_VLOXSEG3EI8_V     : begin
             SsstrictV_vloxseg3ei8_v_cg.sample(ins);
         end
-        "vloxseg4ei16.v"     : begin
+        INSTR_VLOXSEG4EI16_V     : begin
             SsstrictV_vloxseg4ei16_v_cg.sample(ins);
         end
-        "vloxseg4ei32.v"     : begin
+        INSTR_VLOXSEG4EI32_V     : begin
             SsstrictV_vloxseg4ei32_v_cg.sample(ins);
         end
-        "vloxseg4ei64.v"     : begin
+        INSTR_VLOXSEG4EI64_V     : begin
             SsstrictV_vloxseg4ei64_v_cg.sample(ins);
         end
-        "vloxseg4ei8.v"     : begin
+        INSTR_VLOXSEG4EI8_V     : begin
             SsstrictV_vloxseg4ei8_v_cg.sample(ins);
         end
-        "vloxseg5ei16.v"     : begin
+        INSTR_VLOXSEG5EI16_V     : begin
             SsstrictV_vloxseg5ei16_v_cg.sample(ins);
         end
-        "vloxseg5ei32.v"     : begin
+        INSTR_VLOXSEG5EI32_V     : begin
             SsstrictV_vloxseg5ei32_v_cg.sample(ins);
         end
-        "vloxseg5ei64.v"     : begin
+        INSTR_VLOXSEG5EI64_V     : begin
             SsstrictV_vloxseg5ei64_v_cg.sample(ins);
         end
-        "vloxseg5ei8.v"     : begin
+        INSTR_VLOXSEG5EI8_V     : begin
             SsstrictV_vloxseg5ei8_v_cg.sample(ins);
         end
-        "vloxseg6ei16.v"     : begin
+        INSTR_VLOXSEG6EI16_V     : begin
             SsstrictV_vloxseg6ei16_v_cg.sample(ins);
         end
-        "vloxseg6ei32.v"     : begin
+        INSTR_VLOXSEG6EI32_V     : begin
             SsstrictV_vloxseg6ei32_v_cg.sample(ins);
         end
-        "vloxseg6ei64.v"     : begin
+        INSTR_VLOXSEG6EI64_V     : begin
             SsstrictV_vloxseg6ei64_v_cg.sample(ins);
         end
-        "vloxseg6ei8.v"     : begin
+        INSTR_VLOXSEG6EI8_V     : begin
             SsstrictV_vloxseg6ei8_v_cg.sample(ins);
         end
-        "vloxseg7ei16.v"     : begin
+        INSTR_VLOXSEG7EI16_V     : begin
             SsstrictV_vloxseg7ei16_v_cg.sample(ins);
         end
-        "vloxseg7ei32.v"     : begin
+        INSTR_VLOXSEG7EI32_V     : begin
             SsstrictV_vloxseg7ei32_v_cg.sample(ins);
         end
-        "vloxseg7ei64.v"     : begin
+        INSTR_VLOXSEG7EI64_V     : begin
             SsstrictV_vloxseg7ei64_v_cg.sample(ins);
         end
-        "vloxseg7ei8.v"     : begin
+        INSTR_VLOXSEG7EI8_V     : begin
             SsstrictV_vloxseg7ei8_v_cg.sample(ins);
         end
-        "vloxseg8ei16.v"     : begin
+        INSTR_VLOXSEG8EI16_V     : begin
             SsstrictV_vloxseg8ei16_v_cg.sample(ins);
         end
-        "vloxseg8ei32.v"     : begin
+        INSTR_VLOXSEG8EI32_V     : begin
             SsstrictV_vloxseg8ei32_v_cg.sample(ins);
         end
-        "vloxseg8ei64.v"     : begin
+        INSTR_VLOXSEG8EI64_V     : begin
             SsstrictV_vloxseg8ei64_v_cg.sample(ins);
         end
-        "vloxseg8ei8.v"     : begin
+        INSTR_VLOXSEG8EI8_V     : begin
             SsstrictV_vloxseg8ei8_v_cg.sample(ins);
         end
-        "vlse16.v"     : begin
+        INSTR_VLSE16_V     : begin
             SsstrictV_vlse16_v_cg.sample(ins);
         end
-        "vlse32.v"     : begin
+        INSTR_VLSE32_V     : begin
             SsstrictV_vlse32_v_cg.sample(ins);
         end
-        "vlse64.v"     : begin
+        INSTR_VLSE64_V     : begin
             SsstrictV_vlse64_v_cg.sample(ins);
         end
-        "vlse8.v"     : begin
+        INSTR_VLSE8_V     : begin
             SsstrictV_vlse8_v_cg.sample(ins);
         end
-        "vlseg2e16.v"     : begin
+        INSTR_VLSEG2E16_V     : begin
             SsstrictV_vlseg2e16_v_cg.sample(ins);
         end
-        "vlseg2e16ff.v"     : begin
+        INSTR_VLSEG2E16FF_V     : begin
             SsstrictV_vlseg2e16ff_v_cg.sample(ins);
         end
-        "vlseg2e32.v"     : begin
+        INSTR_VLSEG2E32_V     : begin
             SsstrictV_vlseg2e32_v_cg.sample(ins);
         end
-        "vlseg2e32ff.v"     : begin
+        INSTR_VLSEG2E32FF_V     : begin
             SsstrictV_vlseg2e32ff_v_cg.sample(ins);
         end
-        "vlseg2e64.v"     : begin
+        INSTR_VLSEG2E64_V     : begin
             SsstrictV_vlseg2e64_v_cg.sample(ins);
         end
-        "vlseg2e64ff.v"     : begin
+        INSTR_VLSEG2E64FF_V     : begin
             SsstrictV_vlseg2e64ff_v_cg.sample(ins);
         end
-        "vlseg2e8.v"     : begin
+        INSTR_VLSEG2E8_V     : begin
             SsstrictV_vlseg2e8_v_cg.sample(ins);
         end
-        "vlseg2e8ff.v"     : begin
+        INSTR_VLSEG2E8FF_V     : begin
             SsstrictV_vlseg2e8ff_v_cg.sample(ins);
         end
-        "vlseg3e16.v"     : begin
+        INSTR_VLSEG3E16_V     : begin
             SsstrictV_vlseg3e16_v_cg.sample(ins);
         end
-        "vlseg3e16ff.v"     : begin
+        INSTR_VLSEG3E16FF_V     : begin
             SsstrictV_vlseg3e16ff_v_cg.sample(ins);
         end
-        "vlseg3e32.v"     : begin
+        INSTR_VLSEG3E32_V     : begin
             SsstrictV_vlseg3e32_v_cg.sample(ins);
         end
-        "vlseg3e32ff.v"     : begin
+        INSTR_VLSEG3E32FF_V     : begin
             SsstrictV_vlseg3e32ff_v_cg.sample(ins);
         end
-        "vlseg3e64.v"     : begin
+        INSTR_VLSEG3E64_V     : begin
             SsstrictV_vlseg3e64_v_cg.sample(ins);
         end
-        "vlseg3e64ff.v"     : begin
+        INSTR_VLSEG3E64FF_V     : begin
             SsstrictV_vlseg3e64ff_v_cg.sample(ins);
         end
-        "vlseg3e8.v"     : begin
+        INSTR_VLSEG3E8_V     : begin
             SsstrictV_vlseg3e8_v_cg.sample(ins);
         end
-        "vlseg3e8ff.v"     : begin
+        INSTR_VLSEG3E8FF_V     : begin
             SsstrictV_vlseg3e8ff_v_cg.sample(ins);
         end
-        "vlseg4e16.v"     : begin
+        INSTR_VLSEG4E16_V     : begin
             SsstrictV_vlseg4e16_v_cg.sample(ins);
         end
-        "vlseg4e16ff.v"     : begin
+        INSTR_VLSEG4E16FF_V     : begin
             SsstrictV_vlseg4e16ff_v_cg.sample(ins);
         end
-        "vlseg4e32.v"     : begin
+        INSTR_VLSEG4E32_V     : begin
             SsstrictV_vlseg4e32_v_cg.sample(ins);
         end
-        "vlseg4e32ff.v"     : begin
+        INSTR_VLSEG4E32FF_V     : begin
             SsstrictV_vlseg4e32ff_v_cg.sample(ins);
         end
-        "vlseg4e64.v"     : begin
+        INSTR_VLSEG4E64_V     : begin
             SsstrictV_vlseg4e64_v_cg.sample(ins);
         end
-        "vlseg4e64ff.v"     : begin
+        INSTR_VLSEG4E64FF_V     : begin
             SsstrictV_vlseg4e64ff_v_cg.sample(ins);
         end
-        "vlseg4e8.v"     : begin
+        INSTR_VLSEG4E8_V     : begin
             SsstrictV_vlseg4e8_v_cg.sample(ins);
         end
-        "vlseg4e8ff.v"     : begin
+        INSTR_VLSEG4E8FF_V     : begin
             SsstrictV_vlseg4e8ff_v_cg.sample(ins);
         end
-        "vlseg5e16.v"     : begin
+        INSTR_VLSEG5E16_V     : begin
             SsstrictV_vlseg5e16_v_cg.sample(ins);
         end
-        "vlseg5e16ff.v"     : begin
+        INSTR_VLSEG5E16FF_V     : begin
             SsstrictV_vlseg5e16ff_v_cg.sample(ins);
         end
-        "vlseg5e32.v"     : begin
+        INSTR_VLSEG5E32_V     : begin
             SsstrictV_vlseg5e32_v_cg.sample(ins);
         end
-        "vlseg5e32ff.v"     : begin
+        INSTR_VLSEG5E32FF_V     : begin
             SsstrictV_vlseg5e32ff_v_cg.sample(ins);
         end
-        "vlseg5e64.v"     : begin
+        INSTR_VLSEG5E64_V     : begin
             SsstrictV_vlseg5e64_v_cg.sample(ins);
         end
-        "vlseg5e64ff.v"     : begin
+        INSTR_VLSEG5E64FF_V     : begin
             SsstrictV_vlseg5e64ff_v_cg.sample(ins);
         end
-        "vlseg5e8.v"     : begin
+        INSTR_VLSEG5E8_V     : begin
             SsstrictV_vlseg5e8_v_cg.sample(ins);
         end
-        "vlseg5e8ff.v"     : begin
+        INSTR_VLSEG5E8FF_V     : begin
             SsstrictV_vlseg5e8ff_v_cg.sample(ins);
         end
-        "vlseg6e16.v"     : begin
+        INSTR_VLSEG6E16_V     : begin
             SsstrictV_vlseg6e16_v_cg.sample(ins);
         end
-        "vlseg6e16ff.v"     : begin
+        INSTR_VLSEG6E16FF_V     : begin
             SsstrictV_vlseg6e16ff_v_cg.sample(ins);
         end
-        "vlseg6e32.v"     : begin
+        INSTR_VLSEG6E32_V     : begin
             SsstrictV_vlseg6e32_v_cg.sample(ins);
         end
-        "vlseg6e32ff.v"     : begin
+        INSTR_VLSEG6E32FF_V     : begin
             SsstrictV_vlseg6e32ff_v_cg.sample(ins);
         end
-        "vlseg6e64.v"     : begin
+        INSTR_VLSEG6E64_V     : begin
             SsstrictV_vlseg6e64_v_cg.sample(ins);
         end
-        "vlseg6e64ff.v"     : begin
+        INSTR_VLSEG6E64FF_V     : begin
             SsstrictV_vlseg6e64ff_v_cg.sample(ins);
         end
-        "vlseg6e8.v"     : begin
+        INSTR_VLSEG6E8_V     : begin
             SsstrictV_vlseg6e8_v_cg.sample(ins);
         end
-        "vlseg6e8ff.v"     : begin
+        INSTR_VLSEG6E8FF_V     : begin
             SsstrictV_vlseg6e8ff_v_cg.sample(ins);
         end
-        "vlseg7e16.v"     : begin
+        INSTR_VLSEG7E16_V     : begin
             SsstrictV_vlseg7e16_v_cg.sample(ins);
         end
-        "vlseg7e16ff.v"     : begin
+        INSTR_VLSEG7E16FF_V     : begin
             SsstrictV_vlseg7e16ff_v_cg.sample(ins);
         end
-        "vlseg7e32.v"     : begin
+        INSTR_VLSEG7E32_V     : begin
             SsstrictV_vlseg7e32_v_cg.sample(ins);
         end
-        "vlseg7e32ff.v"     : begin
+        INSTR_VLSEG7E32FF_V     : begin
             SsstrictV_vlseg7e32ff_v_cg.sample(ins);
         end
-        "vlseg7e64.v"     : begin
+        INSTR_VLSEG7E64_V     : begin
             SsstrictV_vlseg7e64_v_cg.sample(ins);
         end
-        "vlseg7e64ff.v"     : begin
+        INSTR_VLSEG7E64FF_V     : begin
             SsstrictV_vlseg7e64ff_v_cg.sample(ins);
         end
-        "vlseg7e8.v"     : begin
+        INSTR_VLSEG7E8_V     : begin
             SsstrictV_vlseg7e8_v_cg.sample(ins);
         end
-        "vlseg7e8ff.v"     : begin
+        INSTR_VLSEG7E8FF_V     : begin
             SsstrictV_vlseg7e8ff_v_cg.sample(ins);
         end
-        "vlseg8e16.v"     : begin
+        INSTR_VLSEG8E16_V     : begin
             SsstrictV_vlseg8e16_v_cg.sample(ins);
         end
-        "vlseg8e16ff.v"     : begin
+        INSTR_VLSEG8E16FF_V     : begin
             SsstrictV_vlseg8e16ff_v_cg.sample(ins);
         end
-        "vlseg8e32.v"     : begin
+        INSTR_VLSEG8E32_V     : begin
             SsstrictV_vlseg8e32_v_cg.sample(ins);
         end
-        "vlseg8e32ff.v"     : begin
+        INSTR_VLSEG8E32FF_V     : begin
             SsstrictV_vlseg8e32ff_v_cg.sample(ins);
         end
-        "vlseg8e64.v"     : begin
+        INSTR_VLSEG8E64_V     : begin
             SsstrictV_vlseg8e64_v_cg.sample(ins);
         end
-        "vlseg8e64ff.v"     : begin
+        INSTR_VLSEG8E64FF_V     : begin
             SsstrictV_vlseg8e64ff_v_cg.sample(ins);
         end
-        "vlseg8e8.v"     : begin
+        INSTR_VLSEG8E8_V     : begin
             SsstrictV_vlseg8e8_v_cg.sample(ins);
         end
-        "vlseg8e8ff.v"     : begin
+        INSTR_VLSEG8E8FF_V     : begin
             SsstrictV_vlseg8e8ff_v_cg.sample(ins);
         end
-        "vlsseg2e16.v"     : begin
+        INSTR_VLSSEG2E16_V     : begin
             SsstrictV_vlsseg2e16_v_cg.sample(ins);
         end
-        "vlsseg2e32.v"     : begin
+        INSTR_VLSSEG2E32_V     : begin
             SsstrictV_vlsseg2e32_v_cg.sample(ins);
         end
-        "vlsseg2e64.v"     : begin
+        INSTR_VLSSEG2E64_V     : begin
             SsstrictV_vlsseg2e64_v_cg.sample(ins);
         end
-        "vlsseg2e8.v"     : begin
+        INSTR_VLSSEG2E8_V     : begin
             SsstrictV_vlsseg2e8_v_cg.sample(ins);
         end
-        "vlsseg3e16.v"     : begin
+        INSTR_VLSSEG3E16_V     : begin
             SsstrictV_vlsseg3e16_v_cg.sample(ins);
         end
-        "vlsseg3e32.v"     : begin
+        INSTR_VLSSEG3E32_V     : begin
             SsstrictV_vlsseg3e32_v_cg.sample(ins);
         end
-        "vlsseg3e64.v"     : begin
+        INSTR_VLSSEG3E64_V     : begin
             SsstrictV_vlsseg3e64_v_cg.sample(ins);
         end
-        "vlsseg3e8.v"     : begin
+        INSTR_VLSSEG3E8_V     : begin
             SsstrictV_vlsseg3e8_v_cg.sample(ins);
         end
-        "vlsseg4e16.v"     : begin
+        INSTR_VLSSEG4E16_V     : begin
             SsstrictV_vlsseg4e16_v_cg.sample(ins);
         end
-        "vlsseg4e32.v"     : begin
+        INSTR_VLSSEG4E32_V     : begin
             SsstrictV_vlsseg4e32_v_cg.sample(ins);
         end
-        "vlsseg4e64.v"     : begin
+        INSTR_VLSSEG4E64_V     : begin
             SsstrictV_vlsseg4e64_v_cg.sample(ins);
         end
-        "vlsseg4e8.v"     : begin
+        INSTR_VLSSEG4E8_V     : begin
             SsstrictV_vlsseg4e8_v_cg.sample(ins);
         end
-        "vlsseg5e16.v"     : begin
+        INSTR_VLSSEG5E16_V     : begin
             SsstrictV_vlsseg5e16_v_cg.sample(ins);
         end
-        "vlsseg5e32.v"     : begin
+        INSTR_VLSSEG5E32_V     : begin
             SsstrictV_vlsseg5e32_v_cg.sample(ins);
         end
-        "vlsseg5e64.v"     : begin
+        INSTR_VLSSEG5E64_V     : begin
             SsstrictV_vlsseg5e64_v_cg.sample(ins);
         end
-        "vlsseg5e8.v"     : begin
+        INSTR_VLSSEG5E8_V     : begin
             SsstrictV_vlsseg5e8_v_cg.sample(ins);
         end
-        "vlsseg6e16.v"     : begin
+        INSTR_VLSSEG6E16_V     : begin
             SsstrictV_vlsseg6e16_v_cg.sample(ins);
         end
-        "vlsseg6e32.v"     : begin
+        INSTR_VLSSEG6E32_V     : begin
             SsstrictV_vlsseg6e32_v_cg.sample(ins);
         end
-        "vlsseg6e64.v"     : begin
+        INSTR_VLSSEG6E64_V     : begin
             SsstrictV_vlsseg6e64_v_cg.sample(ins);
         end
-        "vlsseg6e8.v"     : begin
+        INSTR_VLSSEG6E8_V     : begin
             SsstrictV_vlsseg6e8_v_cg.sample(ins);
         end
-        "vlsseg7e16.v"     : begin
+        INSTR_VLSSEG7E16_V     : begin
             SsstrictV_vlsseg7e16_v_cg.sample(ins);
         end
-        "vlsseg7e32.v"     : begin
+        INSTR_VLSSEG7E32_V     : begin
             SsstrictV_vlsseg7e32_v_cg.sample(ins);
         end
-        "vlsseg7e64.v"     : begin
+        INSTR_VLSSEG7E64_V     : begin
             SsstrictV_vlsseg7e64_v_cg.sample(ins);
         end
-        "vlsseg7e8.v"     : begin
+        INSTR_VLSSEG7E8_V     : begin
             SsstrictV_vlsseg7e8_v_cg.sample(ins);
         end
-        "vlsseg8e16.v"     : begin
+        INSTR_VLSSEG8E16_V     : begin
             SsstrictV_vlsseg8e16_v_cg.sample(ins);
         end
-        "vlsseg8e32.v"     : begin
+        INSTR_VLSSEG8E32_V     : begin
             SsstrictV_vlsseg8e32_v_cg.sample(ins);
         end
-        "vlsseg8e64.v"     : begin
+        INSTR_VLSSEG8E64_V     : begin
             SsstrictV_vlsseg8e64_v_cg.sample(ins);
         end
-        "vlsseg8e8.v"     : begin
+        INSTR_VLSSEG8E8_V     : begin
             SsstrictV_vlsseg8e8_v_cg.sample(ins);
         end
-        "vluxei16.v"     : begin
+        INSTR_VLUXEI16_V     : begin
             SsstrictV_vluxei16_v_cg.sample(ins);
         end
-        "vluxei32.v"     : begin
+        INSTR_VLUXEI32_V     : begin
             SsstrictV_vluxei32_v_cg.sample(ins);
         end
-        "vluxei64.v"     : begin
+        INSTR_VLUXEI64_V     : begin
             SsstrictV_vluxei64_v_cg.sample(ins);
         end
-        "vluxei8.v"     : begin
+        INSTR_VLUXEI8_V     : begin
             SsstrictV_vluxei8_v_cg.sample(ins);
         end
-        "vluxseg2ei16.v"     : begin
+        INSTR_VLUXSEG2EI16_V     : begin
             SsstrictV_vluxseg2ei16_v_cg.sample(ins);
         end
-        "vluxseg2ei32.v"     : begin
+        INSTR_VLUXSEG2EI32_V     : begin
             SsstrictV_vluxseg2ei32_v_cg.sample(ins);
         end
-        "vluxseg2ei64.v"     : begin
+        INSTR_VLUXSEG2EI64_V     : begin
             SsstrictV_vluxseg2ei64_v_cg.sample(ins);
         end
-        "vluxseg2ei8.v"     : begin
+        INSTR_VLUXSEG2EI8_V     : begin
             SsstrictV_vluxseg2ei8_v_cg.sample(ins);
         end
-        "vluxseg3ei16.v"     : begin
+        INSTR_VLUXSEG3EI16_V     : begin
             SsstrictV_vluxseg3ei16_v_cg.sample(ins);
         end
-        "vluxseg3ei32.v"     : begin
+        INSTR_VLUXSEG3EI32_V     : begin
             SsstrictV_vluxseg3ei32_v_cg.sample(ins);
         end
-        "vluxseg3ei64.v"     : begin
+        INSTR_VLUXSEG3EI64_V     : begin
             SsstrictV_vluxseg3ei64_v_cg.sample(ins);
         end
-        "vluxseg3ei8.v"     : begin
+        INSTR_VLUXSEG3EI8_V     : begin
             SsstrictV_vluxseg3ei8_v_cg.sample(ins);
         end
-        "vluxseg4ei16.v"     : begin
+        INSTR_VLUXSEG4EI16_V     : begin
             SsstrictV_vluxseg4ei16_v_cg.sample(ins);
         end
-        "vluxseg4ei32.v"     : begin
+        INSTR_VLUXSEG4EI32_V     : begin
             SsstrictV_vluxseg4ei32_v_cg.sample(ins);
         end
-        "vluxseg4ei64.v"     : begin
+        INSTR_VLUXSEG4EI64_V     : begin
             SsstrictV_vluxseg4ei64_v_cg.sample(ins);
         end
-        "vluxseg4ei8.v"     : begin
+        INSTR_VLUXSEG4EI8_V     : begin
             SsstrictV_vluxseg4ei8_v_cg.sample(ins);
         end
-        "vluxseg5ei16.v"     : begin
+        INSTR_VLUXSEG5EI16_V     : begin
             SsstrictV_vluxseg5ei16_v_cg.sample(ins);
         end
-        "vluxseg5ei32.v"     : begin
+        INSTR_VLUXSEG5EI32_V     : begin
             SsstrictV_vluxseg5ei32_v_cg.sample(ins);
         end
-        "vluxseg5ei64.v"     : begin
+        INSTR_VLUXSEG5EI64_V     : begin
             SsstrictV_vluxseg5ei64_v_cg.sample(ins);
         end
-        "vluxseg5ei8.v"     : begin
+        INSTR_VLUXSEG5EI8_V     : begin
             SsstrictV_vluxseg5ei8_v_cg.sample(ins);
         end
-        "vluxseg6ei16.v"     : begin
+        INSTR_VLUXSEG6EI16_V     : begin
             SsstrictV_vluxseg6ei16_v_cg.sample(ins);
         end
-        "vluxseg6ei32.v"     : begin
+        INSTR_VLUXSEG6EI32_V     : begin
             SsstrictV_vluxseg6ei32_v_cg.sample(ins);
         end
-        "vluxseg6ei64.v"     : begin
+        INSTR_VLUXSEG6EI64_V     : begin
             SsstrictV_vluxseg6ei64_v_cg.sample(ins);
         end
-        "vluxseg6ei8.v"     : begin
+        INSTR_VLUXSEG6EI8_V     : begin
             SsstrictV_vluxseg6ei8_v_cg.sample(ins);
         end
-        "vluxseg7ei16.v"     : begin
+        INSTR_VLUXSEG7EI16_V     : begin
             SsstrictV_vluxseg7ei16_v_cg.sample(ins);
         end
-        "vluxseg7ei32.v"     : begin
+        INSTR_VLUXSEG7EI32_V     : begin
             SsstrictV_vluxseg7ei32_v_cg.sample(ins);
         end
-        "vluxseg7ei64.v"     : begin
+        INSTR_VLUXSEG7EI64_V     : begin
             SsstrictV_vluxseg7ei64_v_cg.sample(ins);
         end
-        "vluxseg7ei8.v"     : begin
+        INSTR_VLUXSEG7EI8_V     : begin
             SsstrictV_vluxseg7ei8_v_cg.sample(ins);
         end
-        "vluxseg8ei16.v"     : begin
+        INSTR_VLUXSEG8EI16_V     : begin
             SsstrictV_vluxseg8ei16_v_cg.sample(ins);
         end
-        "vluxseg8ei32.v"     : begin
+        INSTR_VLUXSEG8EI32_V     : begin
             SsstrictV_vluxseg8ei32_v_cg.sample(ins);
         end
-        "vluxseg8ei64.v"     : begin
+        INSTR_VLUXSEG8EI64_V     : begin
             SsstrictV_vluxseg8ei64_v_cg.sample(ins);
         end
-        "vluxseg8ei8.v"     : begin
+        INSTR_VLUXSEG8EI8_V     : begin
             SsstrictV_vluxseg8ei8_v_cg.sample(ins);
         end
-        "vmacc.vv"     : begin
+        INSTR_VMACC_VV     : begin
             SsstrictV_vmacc_vv_cg.sample(ins);
         end
-        "vmacc.vx"     : begin
+        INSTR_VMACC_VX     : begin
             SsstrictV_vmacc_vx_cg.sample(ins);
         end
-        "vmadc.vi"     : begin
+        INSTR_VMADC_VI     : begin
             SsstrictV_vmadc_vi_cg.sample(ins);
         end
-        "vmadc.vim"     : begin
+        INSTR_VMADC_VIM     : begin
             SsstrictV_vmadc_vim_cg.sample(ins);
         end
-        "vmadc.vv"     : begin
+        INSTR_VMADC_VV     : begin
             SsstrictV_vmadc_vv_cg.sample(ins);
         end
-        "vmadc.vvm"     : begin
+        INSTR_VMADC_VVM     : begin
             SsstrictV_vmadc_vvm_cg.sample(ins);
         end
-        "vmadc.vx"     : begin
+        INSTR_VMADC_VX     : begin
             SsstrictV_vmadc_vx_cg.sample(ins);
         end
-        "vmadc.vxm"     : begin
+        INSTR_VMADC_VXM     : begin
             SsstrictV_vmadc_vxm_cg.sample(ins);
         end
-        "vmadd.vv"     : begin
+        INSTR_VMADD_VV     : begin
             SsstrictV_vmadd_vv_cg.sample(ins);
         end
-        "vmadd.vx"     : begin
+        INSTR_VMADD_VX     : begin
             SsstrictV_vmadd_vx_cg.sample(ins);
         end
-        "vmand.mm"     : begin
+        INSTR_VMAND_MM     : begin
             SsstrictV_vmand_mm_cg.sample(ins);
         end
-        "vmandn.mm"     : begin
+        INSTR_VMANDN_MM     : begin
             SsstrictV_vmandn_mm_cg.sample(ins);
         end
-        "vmax.vv"     : begin
+        INSTR_VMAX_VV     : begin
             SsstrictV_vmax_vv_cg.sample(ins);
         end
-        "vmax.vx"     : begin
+        INSTR_VMAX_VX     : begin
             SsstrictV_vmax_vx_cg.sample(ins);
         end
-        "vmaxu.vv"     : begin
+        INSTR_VMAXU_VV     : begin
             SsstrictV_vmaxu_vv_cg.sample(ins);
         end
-        "vmaxu.vx"     : begin
+        INSTR_VMAXU_VX     : begin
             SsstrictV_vmaxu_vx_cg.sample(ins);
         end
-        "vmerge.vim"     : begin
+        INSTR_VMERGE_VIM     : begin
             SsstrictV_vmerge_vim_cg.sample(ins);
         end
-        "vmerge.vvm"     : begin
+        INSTR_VMERGE_VVM     : begin
             SsstrictV_vmerge_vvm_cg.sample(ins);
         end
-        "vmerge.vxm"     : begin
+        INSTR_VMERGE_VXM     : begin
             SsstrictV_vmerge_vxm_cg.sample(ins);
         end
-        "vmfeq.vf"     : begin
+        INSTR_VMFEQ_VF     : begin
             SsstrictV_vmfeq_vf_cg.sample(ins);
         end
-        "vmfeq.vv"     : begin
+        INSTR_VMFEQ_VV     : begin
             SsstrictV_vmfeq_vv_cg.sample(ins);
         end
-        "vmfge.vf"     : begin
+        INSTR_VMFGE_VF     : begin
             SsstrictV_vmfge_vf_cg.sample(ins);
         end
-        "vmfgt.vf"     : begin
+        INSTR_VMFGT_VF     : begin
             SsstrictV_vmfgt_vf_cg.sample(ins);
         end
-        "vmfle.vf"     : begin
+        INSTR_VMFLE_VF     : begin
             SsstrictV_vmfle_vf_cg.sample(ins);
         end
-        "vmfle.vv"     : begin
+        INSTR_VMFLE_VV     : begin
             SsstrictV_vmfle_vv_cg.sample(ins);
         end
-        "vmflt.vf"     : begin
+        INSTR_VMFLT_VF     : begin
             SsstrictV_vmflt_vf_cg.sample(ins);
         end
-        "vmflt.vv"     : begin
+        INSTR_VMFLT_VV     : begin
             SsstrictV_vmflt_vv_cg.sample(ins);
         end
-        "vmfne.vf"     : begin
+        INSTR_VMFNE_VF     : begin
             SsstrictV_vmfne_vf_cg.sample(ins);
         end
-        "vmfne.vv"     : begin
+        INSTR_VMFNE_VV     : begin
             SsstrictV_vmfne_vv_cg.sample(ins);
         end
-        "vmin.vv"     : begin
+        INSTR_VMIN_VV     : begin
             SsstrictV_vmin_vv_cg.sample(ins);
         end
-        "vmin.vx"     : begin
+        INSTR_VMIN_VX     : begin
             SsstrictV_vmin_vx_cg.sample(ins);
         end
-        "vminu.vv"     : begin
+        INSTR_VMINU_VV     : begin
             SsstrictV_vminu_vv_cg.sample(ins);
         end
-        "vminu.vx"     : begin
+        INSTR_VMINU_VX     : begin
             SsstrictV_vminu_vx_cg.sample(ins);
         end
-        "vmnand.mm"     : begin
+        INSTR_VMNAND_MM     : begin
             SsstrictV_vmnand_mm_cg.sample(ins);
         end
-        "vmnor.mm"     : begin
+        INSTR_VMNOR_MM     : begin
             SsstrictV_vmnor_mm_cg.sample(ins);
         end
-        "vmor.mm"     : begin
+        INSTR_VMOR_MM     : begin
             SsstrictV_vmor_mm_cg.sample(ins);
         end
-        "vmorn.mm"     : begin
+        INSTR_VMORN_MM     : begin
             SsstrictV_vmorn_mm_cg.sample(ins);
         end
-        "vmsbc.vv"     : begin
+        INSTR_VMSBC_VV     : begin
             SsstrictV_vmsbc_vv_cg.sample(ins);
         end
-        "vmsbc.vvm"     : begin
+        INSTR_VMSBC_VVM     : begin
             SsstrictV_vmsbc_vvm_cg.sample(ins);
         end
-        "vmsbc.vx"     : begin
+        INSTR_VMSBC_VX     : begin
             SsstrictV_vmsbc_vx_cg.sample(ins);
         end
-        "vmsbc.vxm"     : begin
+        INSTR_VMSBC_VXM     : begin
             SsstrictV_vmsbc_vxm_cg.sample(ins);
         end
-        "vmsbf.m"     : begin
+        INSTR_VMSBF_M     : begin
             SsstrictV_vmsbf_m_cg.sample(ins);
         end
-        "vmseq.vi"     : begin
+        INSTR_VMSEQ_VI     : begin
             SsstrictV_vmseq_vi_cg.sample(ins);
         end
-        "vmseq.vv"     : begin
+        INSTR_VMSEQ_VV     : begin
             SsstrictV_vmseq_vv_cg.sample(ins);
         end
-        "vmseq.vx"     : begin
+        INSTR_VMSEQ_VX     : begin
             SsstrictV_vmseq_vx_cg.sample(ins);
         end
-        "vmsgt.vi"     : begin
+        INSTR_VMSGT_VI     : begin
             SsstrictV_vmsgt_vi_cg.sample(ins);
         end
-        "vmsgt.vx"     : begin
+        INSTR_VMSGT_VX     : begin
             SsstrictV_vmsgt_vx_cg.sample(ins);
         end
-        "vmsgtu.vi"     : begin
+        INSTR_VMSGTU_VI     : begin
             SsstrictV_vmsgtu_vi_cg.sample(ins);
         end
-        "vmsgtu.vx"     : begin
+        INSTR_VMSGTU_VX     : begin
             SsstrictV_vmsgtu_vx_cg.sample(ins);
         end
-        "vmsif.m"     : begin
+        INSTR_VMSIF_M     : begin
             SsstrictV_vmsif_m_cg.sample(ins);
         end
-        "vmsle.vi"     : begin
+        INSTR_VMSLE_VI     : begin
             SsstrictV_vmsle_vi_cg.sample(ins);
         end
-        "vmsle.vv"     : begin
+        INSTR_VMSLE_VV     : begin
             SsstrictV_vmsle_vv_cg.sample(ins);
         end
-        "vmsle.vx"     : begin
+        INSTR_VMSLE_VX     : begin
             SsstrictV_vmsle_vx_cg.sample(ins);
         end
-        "vmsleu.vi"     : begin
+        INSTR_VMSLEU_VI     : begin
             SsstrictV_vmsleu_vi_cg.sample(ins);
         end
-        "vmsleu.vv"     : begin
+        INSTR_VMSLEU_VV     : begin
             SsstrictV_vmsleu_vv_cg.sample(ins);
         end
-        "vmsleu.vx"     : begin
+        INSTR_VMSLEU_VX     : begin
             SsstrictV_vmsleu_vx_cg.sample(ins);
         end
-        "vmslt.vv"     : begin
+        INSTR_VMSLT_VV     : begin
             SsstrictV_vmslt_vv_cg.sample(ins);
         end
-        "vmslt.vx"     : begin
+        INSTR_VMSLT_VX     : begin
             SsstrictV_vmslt_vx_cg.sample(ins);
         end
-        "vmsltu.vv"     : begin
+        INSTR_VMSLTU_VV     : begin
             SsstrictV_vmsltu_vv_cg.sample(ins);
         end
-        "vmsltu.vx"     : begin
+        INSTR_VMSLTU_VX     : begin
             SsstrictV_vmsltu_vx_cg.sample(ins);
         end
-        "vmsne.vi"     : begin
+        INSTR_VMSNE_VI     : begin
             SsstrictV_vmsne_vi_cg.sample(ins);
         end
-        "vmsne.vv"     : begin
+        INSTR_VMSNE_VV     : begin
             SsstrictV_vmsne_vv_cg.sample(ins);
         end
-        "vmsne.vx"     : begin
+        INSTR_VMSNE_VX     : begin
             SsstrictV_vmsne_vx_cg.sample(ins);
         end
-        "vmsof.m"     : begin
+        INSTR_VMSOF_M     : begin
             SsstrictV_vmsof_m_cg.sample(ins);
         end
-        "vmul.vv"     : begin
+        INSTR_VMUL_VV     : begin
             SsstrictV_vmul_vv_cg.sample(ins);
         end
-        "vmul.vx"     : begin
+        INSTR_VMUL_VX     : begin
             SsstrictV_vmul_vx_cg.sample(ins);
         end
-        "vmulh.vv"     : begin
+        INSTR_VMULH_VV     : begin
             SsstrictV_vmulh_vv_cg.sample(ins);
         end
-        "vmulh.vx"     : begin
+        INSTR_VMULH_VX     : begin
             SsstrictV_vmulh_vx_cg.sample(ins);
         end
-        "vmulhsu.vv"     : begin
+        INSTR_VMULHSU_VV     : begin
             SsstrictV_vmulhsu_vv_cg.sample(ins);
         end
-        "vmulhsu.vx"     : begin
+        INSTR_VMULHSU_VX     : begin
             SsstrictV_vmulhsu_vx_cg.sample(ins);
         end
-        "vmulhu.vv"     : begin
+        INSTR_VMULHU_VV     : begin
             SsstrictV_vmulhu_vv_cg.sample(ins);
         end
-        "vmulhu.vx"     : begin
+        INSTR_VMULHU_VX     : begin
             SsstrictV_vmulhu_vx_cg.sample(ins);
         end
-        "vmv.s.x"     : begin
+        INSTR_VMV_S_X     : begin
             SsstrictV_vmv_s_x_cg.sample(ins);
         end
-        "vmv.v.i"     : begin
+        INSTR_VMV_V_I     : begin
             SsstrictV_vmv_v_i_cg.sample(ins);
         end
-        "vmv.v.v"     : begin
+        INSTR_VMV_V_V     : begin
             SsstrictV_vmv_v_v_cg.sample(ins);
         end
-        "vmv.v.x"     : begin
+        INSTR_VMV_V_X     : begin
             SsstrictV_vmv_v_x_cg.sample(ins);
         end
-        "vmv.x.s"     : begin
+        INSTR_VMV_X_S     : begin
             SsstrictV_vmv_x_s_cg.sample(ins);
         end
-        "vmv1r.v"     : begin
+        INSTR_VMV1R_V     : begin
             SsstrictV_vmv1r_v_cg.sample(ins);
         end
-        "vmv2r.v"     : begin
+        INSTR_VMV2R_V     : begin
             SsstrictV_vmv2r_v_cg.sample(ins);
         end
-        "vmv4r.v"     : begin
+        INSTR_VMV4R_V     : begin
             SsstrictV_vmv4r_v_cg.sample(ins);
         end
-        "vmv8r.v"     : begin
+        INSTR_VMV8R_V     : begin
             SsstrictV_vmv8r_v_cg.sample(ins);
         end
-        "vmxnor.mm"     : begin
+        INSTR_VMXNOR_MM     : begin
             SsstrictV_vmxnor_mm_cg.sample(ins);
         end
-        "vmxor.mm"     : begin
+        INSTR_VMXOR_MM     : begin
             SsstrictV_vmxor_mm_cg.sample(ins);
         end
-        "vnclip.wi"     : begin
+        INSTR_VNCLIP_WI     : begin
             SsstrictV_vnclip_wi_cg.sample(ins);
         end
-        "vnclip.wv"     : begin
+        INSTR_VNCLIP_WV     : begin
             SsstrictV_vnclip_wv_cg.sample(ins);
         end
-        "vnclip.wx"     : begin
+        INSTR_VNCLIP_WX     : begin
             SsstrictV_vnclip_wx_cg.sample(ins);
         end
-        "vnclipu.wi"     : begin
+        INSTR_VNCLIPU_WI     : begin
             SsstrictV_vnclipu_wi_cg.sample(ins);
         end
-        "vnclipu.wv"     : begin
+        INSTR_VNCLIPU_WV     : begin
             SsstrictV_vnclipu_wv_cg.sample(ins);
         end
-        "vnclipu.wx"     : begin
+        INSTR_VNCLIPU_WX     : begin
             SsstrictV_vnclipu_wx_cg.sample(ins);
         end
-        "vnmsac.vv"     : begin
+        INSTR_VNMSAC_VV     : begin
             SsstrictV_vnmsac_vv_cg.sample(ins);
         end
-        "vnmsac.vx"     : begin
+        INSTR_VNMSAC_VX     : begin
             SsstrictV_vnmsac_vx_cg.sample(ins);
         end
-        "vnmsub.vv"     : begin
+        INSTR_VNMSUB_VV     : begin
             SsstrictV_vnmsub_vv_cg.sample(ins);
         end
-        "vnmsub.vx"     : begin
+        INSTR_VNMSUB_VX     : begin
             SsstrictV_vnmsub_vx_cg.sample(ins);
         end
-        "vnsra.wi"     : begin
+        INSTR_VNSRA_WI     : begin
             SsstrictV_vnsra_wi_cg.sample(ins);
         end
-        "vnsra.wv"     : begin
+        INSTR_VNSRA_WV     : begin
             SsstrictV_vnsra_wv_cg.sample(ins);
         end
-        "vnsra.wx"     : begin
+        INSTR_VNSRA_WX     : begin
             SsstrictV_vnsra_wx_cg.sample(ins);
         end
-        "vnsrl.wi"     : begin
+        INSTR_VNSRL_WI     : begin
             SsstrictV_vnsrl_wi_cg.sample(ins);
         end
-        "vnsrl.wv"     : begin
+        INSTR_VNSRL_WV     : begin
             SsstrictV_vnsrl_wv_cg.sample(ins);
         end
-        "vnsrl.wx"     : begin
+        INSTR_VNSRL_WX     : begin
             SsstrictV_vnsrl_wx_cg.sample(ins);
         end
-        "vor.vi"     : begin
+        INSTR_VOR_VI     : begin
             SsstrictV_vor_vi_cg.sample(ins);
         end
-        "vor.vv"     : begin
+        INSTR_VOR_VV     : begin
             SsstrictV_vor_vv_cg.sample(ins);
         end
-        "vor.vx"     : begin
+        INSTR_VOR_VX     : begin
             SsstrictV_vor_vx_cg.sample(ins);
         end
-        "vredand.vs"     : begin
+        INSTR_VREDAND_VS     : begin
             SsstrictV_vredand_vs_cg.sample(ins);
         end
-        "vredmax.vs"     : begin
+        INSTR_VREDMAX_VS     : begin
             SsstrictV_vredmax_vs_cg.sample(ins);
         end
-        "vredmaxu.vs"     : begin
+        INSTR_VREDMAXU_VS     : begin
             SsstrictV_vredmaxu_vs_cg.sample(ins);
         end
-        "vredmin.vs"     : begin
+        INSTR_VREDMIN_VS     : begin
             SsstrictV_vredmin_vs_cg.sample(ins);
         end
-        "vredminu.vs"     : begin
+        INSTR_VREDMINU_VS     : begin
             SsstrictV_vredminu_vs_cg.sample(ins);
         end
-        "vredor.vs"     : begin
+        INSTR_VREDOR_VS     : begin
             SsstrictV_vredor_vs_cg.sample(ins);
         end
-        "vredsum.vs"     : begin
+        INSTR_VREDSUM_VS     : begin
             SsstrictV_vredsum_vs_cg.sample(ins);
         end
-        "vredxor.vs"     : begin
+        INSTR_VREDXOR_VS     : begin
             SsstrictV_vredxor_vs_cg.sample(ins);
         end
-        "vrem.vv"     : begin
+        INSTR_VREM_VV     : begin
             SsstrictV_vrem_vv_cg.sample(ins);
         end
-        "vrem.vx"     : begin
+        INSTR_VREM_VX     : begin
             SsstrictV_vrem_vx_cg.sample(ins);
         end
-        "vremu.vv"     : begin
+        INSTR_VREMU_VV     : begin
             SsstrictV_vremu_vv_cg.sample(ins);
         end
-        "vremu.vx"     : begin
+        INSTR_VREMU_VX     : begin
             SsstrictV_vremu_vx_cg.sample(ins);
         end
-        "vrgather.vi"     : begin
+        INSTR_VRGATHER_VI     : begin
             SsstrictV_vrgather_vi_cg.sample(ins);
         end
-        "vrgather.vv"     : begin
+        INSTR_VRGATHER_VV     : begin
             SsstrictV_vrgather_vv_cg.sample(ins);
         end
-        "vrgather.vx"     : begin
+        INSTR_VRGATHER_VX     : begin
             SsstrictV_vrgather_vx_cg.sample(ins);
         end
-        "vrgatherei16.vv"     : begin
+        INSTR_VRGATHEREI16_VV     : begin
             SsstrictV_vrgatherei16_vv_cg.sample(ins);
         end
-        "vrsub.vi"     : begin
+        INSTR_VRSUB_VI     : begin
             SsstrictV_vrsub_vi_cg.sample(ins);
         end
-        "vrsub.vx"     : begin
+        INSTR_VRSUB_VX     : begin
             SsstrictV_vrsub_vx_cg.sample(ins);
         end
-        "vs1r.v"     : begin
+        INSTR_VS1R_V     : begin
             SsstrictV_vs1r_v_cg.sample(ins);
         end
-        "vs2r.v"     : begin
+        INSTR_VS2R_V     : begin
             SsstrictV_vs2r_v_cg.sample(ins);
         end
-        "vs4r.v"     : begin
+        INSTR_VS4R_V     : begin
             SsstrictV_vs4r_v_cg.sample(ins);
         end
-        "vs8r.v"     : begin
+        INSTR_VS8R_V     : begin
             SsstrictV_vs8r_v_cg.sample(ins);
         end
-        "vsadd.vi"     : begin
+        INSTR_VSADD_VI     : begin
             SsstrictV_vsadd_vi_cg.sample(ins);
         end
-        "vsadd.vv"     : begin
+        INSTR_VSADD_VV     : begin
             SsstrictV_vsadd_vv_cg.sample(ins);
         end
-        "vsadd.vx"     : begin
+        INSTR_VSADD_VX     : begin
             SsstrictV_vsadd_vx_cg.sample(ins);
         end
-        "vsaddu.vi"     : begin
+        INSTR_VSADDU_VI     : begin
             SsstrictV_vsaddu_vi_cg.sample(ins);
         end
-        "vsaddu.vv"     : begin
+        INSTR_VSADDU_VV     : begin
             SsstrictV_vsaddu_vv_cg.sample(ins);
         end
-        "vsaddu.vx"     : begin
+        INSTR_VSADDU_VX     : begin
             SsstrictV_vsaddu_vx_cg.sample(ins);
         end
-        "vsbc.vvm"     : begin
+        INSTR_VSBC_VVM     : begin
             SsstrictV_vsbc_vvm_cg.sample(ins);
         end
-        "vsbc.vxm"     : begin
+        INSTR_VSBC_VXM     : begin
             SsstrictV_vsbc_vxm_cg.sample(ins);
         end
-        "vse16.v"     : begin
+        INSTR_VSE16_V     : begin
             SsstrictV_vse16_v_cg.sample(ins);
         end
-        "vse32.v"     : begin
+        INSTR_VSE32_V     : begin
             SsstrictV_vse32_v_cg.sample(ins);
         end
-        "vse64.v"     : begin
+        INSTR_VSE64_V     : begin
             SsstrictV_vse64_v_cg.sample(ins);
         end
-        "vse8.v"     : begin
+        INSTR_VSE8_V     : begin
             SsstrictV_vse8_v_cg.sample(ins);
         end
-        "vsext.vf2"     : begin
+        INSTR_VSEXT_VF2     : begin
             SsstrictV_vsext_vf2_cg.sample(ins);
         end
-        "vsext.vf4"     : begin
+        INSTR_VSEXT_VF4     : begin
             SsstrictV_vsext_vf4_cg.sample(ins);
         end
-        "vsext.vf8"     : begin
+        INSTR_VSEXT_VF8     : begin
             SsstrictV_vsext_vf8_cg.sample(ins);
         end
-        "vslide1down.vx"     : begin
+        INSTR_VSLIDE1DOWN_VX     : begin
             SsstrictV_vslide1down_vx_cg.sample(ins);
         end
-        "vslide1up.vx"     : begin
+        INSTR_VSLIDE1UP_VX     : begin
             SsstrictV_vslide1up_vx_cg.sample(ins);
         end
-        "vslidedown.vi"     : begin
+        INSTR_VSLIDEDOWN_VI     : begin
             SsstrictV_vslidedown_vi_cg.sample(ins);
         end
-        "vslidedown.vx"     : begin
+        INSTR_VSLIDEDOWN_VX     : begin
             SsstrictV_vslidedown_vx_cg.sample(ins);
         end
-        "vslideup.vi"     : begin
+        INSTR_VSLIDEUP_VI     : begin
             SsstrictV_vslideup_vi_cg.sample(ins);
         end
-        "vslideup.vx"     : begin
+        INSTR_VSLIDEUP_VX     : begin
             SsstrictV_vslideup_vx_cg.sample(ins);
         end
-        "vsll.vi"     : begin
+        INSTR_VSLL_VI     : begin
             SsstrictV_vsll_vi_cg.sample(ins);
         end
-        "vsll.vv"     : begin
+        INSTR_VSLL_VV     : begin
             SsstrictV_vsll_vv_cg.sample(ins);
         end
-        "vsll.vx"     : begin
+        INSTR_VSLL_VX     : begin
             SsstrictV_vsll_vx_cg.sample(ins);
         end
-        "vsm.v"     : begin
+        INSTR_VSM_V     : begin
             SsstrictV_vsm_v_cg.sample(ins);
         end
-        "vsmul.vv"     : begin
+        INSTR_VSMUL_VV     : begin
             SsstrictV_vsmul_vv_cg.sample(ins);
         end
-        "vsmul.vx"     : begin
+        INSTR_VSMUL_VX     : begin
             SsstrictV_vsmul_vx_cg.sample(ins);
         end
-        "vsoxei16.v"     : begin
+        INSTR_VSOXEI16_V     : begin
             SsstrictV_vsoxei16_v_cg.sample(ins);
         end
-        "vsoxei32.v"     : begin
+        INSTR_VSOXEI32_V     : begin
             SsstrictV_vsoxei32_v_cg.sample(ins);
         end
-        "vsoxei64.v"     : begin
+        INSTR_VSOXEI64_V     : begin
             SsstrictV_vsoxei64_v_cg.sample(ins);
         end
-        "vsoxei8.v"     : begin
+        INSTR_VSOXEI8_V     : begin
             SsstrictV_vsoxei8_v_cg.sample(ins);
         end
-        "vsoxseg2ei16.v"     : begin
+        INSTR_VSOXSEG2EI16_V     : begin
             SsstrictV_vsoxseg2ei16_v_cg.sample(ins);
         end
-        "vsoxseg2ei32.v"     : begin
+        INSTR_VSOXSEG2EI32_V     : begin
             SsstrictV_vsoxseg2ei32_v_cg.sample(ins);
         end
-        "vsoxseg2ei64.v"     : begin
+        INSTR_VSOXSEG2EI64_V     : begin
             SsstrictV_vsoxseg2ei64_v_cg.sample(ins);
         end
-        "vsoxseg2ei8.v"     : begin
+        INSTR_VSOXSEG2EI8_V     : begin
             SsstrictV_vsoxseg2ei8_v_cg.sample(ins);
         end
-        "vsoxseg3ei16.v"     : begin
+        INSTR_VSOXSEG3EI16_V     : begin
             SsstrictV_vsoxseg3ei16_v_cg.sample(ins);
         end
-        "vsoxseg3ei32.v"     : begin
+        INSTR_VSOXSEG3EI32_V     : begin
             SsstrictV_vsoxseg3ei32_v_cg.sample(ins);
         end
-        "vsoxseg3ei64.v"     : begin
+        INSTR_VSOXSEG3EI64_V     : begin
             SsstrictV_vsoxseg3ei64_v_cg.sample(ins);
         end
-        "vsoxseg3ei8.v"     : begin
+        INSTR_VSOXSEG3EI8_V     : begin
             SsstrictV_vsoxseg3ei8_v_cg.sample(ins);
         end
-        "vsoxseg4ei16.v"     : begin
+        INSTR_VSOXSEG4EI16_V     : begin
             SsstrictV_vsoxseg4ei16_v_cg.sample(ins);
         end
-        "vsoxseg4ei32.v"     : begin
+        INSTR_VSOXSEG4EI32_V     : begin
             SsstrictV_vsoxseg4ei32_v_cg.sample(ins);
         end
-        "vsoxseg4ei64.v"     : begin
+        INSTR_VSOXSEG4EI64_V     : begin
             SsstrictV_vsoxseg4ei64_v_cg.sample(ins);
         end
-        "vsoxseg4ei8.v"     : begin
+        INSTR_VSOXSEG4EI8_V     : begin
             SsstrictV_vsoxseg4ei8_v_cg.sample(ins);
         end
-        "vsoxseg5ei16.v"     : begin
+        INSTR_VSOXSEG5EI16_V     : begin
             SsstrictV_vsoxseg5ei16_v_cg.sample(ins);
         end
-        "vsoxseg5ei32.v"     : begin
+        INSTR_VSOXSEG5EI32_V     : begin
             SsstrictV_vsoxseg5ei32_v_cg.sample(ins);
         end
-        "vsoxseg5ei64.v"     : begin
+        INSTR_VSOXSEG5EI64_V     : begin
             SsstrictV_vsoxseg5ei64_v_cg.sample(ins);
         end
-        "vsoxseg5ei8.v"     : begin
+        INSTR_VSOXSEG5EI8_V     : begin
             SsstrictV_vsoxseg5ei8_v_cg.sample(ins);
         end
-        "vsoxseg6ei16.v"     : begin
+        INSTR_VSOXSEG6EI16_V     : begin
             SsstrictV_vsoxseg6ei16_v_cg.sample(ins);
         end
-        "vsoxseg6ei32.v"     : begin
+        INSTR_VSOXSEG6EI32_V     : begin
             SsstrictV_vsoxseg6ei32_v_cg.sample(ins);
         end
-        "vsoxseg6ei64.v"     : begin
+        INSTR_VSOXSEG6EI64_V     : begin
             SsstrictV_vsoxseg6ei64_v_cg.sample(ins);
         end
-        "vsoxseg6ei8.v"     : begin
+        INSTR_VSOXSEG6EI8_V     : begin
             SsstrictV_vsoxseg6ei8_v_cg.sample(ins);
         end
-        "vsoxseg7ei16.v"     : begin
+        INSTR_VSOXSEG7EI16_V     : begin
             SsstrictV_vsoxseg7ei16_v_cg.sample(ins);
         end
-        "vsoxseg7ei32.v"     : begin
+        INSTR_VSOXSEG7EI32_V     : begin
             SsstrictV_vsoxseg7ei32_v_cg.sample(ins);
         end
-        "vsoxseg7ei64.v"     : begin
+        INSTR_VSOXSEG7EI64_V     : begin
             SsstrictV_vsoxseg7ei64_v_cg.sample(ins);
         end
-        "vsoxseg7ei8.v"     : begin
+        INSTR_VSOXSEG7EI8_V     : begin
             SsstrictV_vsoxseg7ei8_v_cg.sample(ins);
         end
-        "vsoxseg8ei16.v"     : begin
+        INSTR_VSOXSEG8EI16_V     : begin
             SsstrictV_vsoxseg8ei16_v_cg.sample(ins);
         end
-        "vsoxseg8ei32.v"     : begin
+        INSTR_VSOXSEG8EI32_V     : begin
             SsstrictV_vsoxseg8ei32_v_cg.sample(ins);
         end
-        "vsoxseg8ei64.v"     : begin
+        INSTR_VSOXSEG8EI64_V     : begin
             SsstrictV_vsoxseg8ei64_v_cg.sample(ins);
         end
-        "vsoxseg8ei8.v"     : begin
+        INSTR_VSOXSEG8EI8_V     : begin
             SsstrictV_vsoxseg8ei8_v_cg.sample(ins);
         end
-        "vsra.vi"     : begin
+        INSTR_VSRA_VI     : begin
             SsstrictV_vsra_vi_cg.sample(ins);
         end
-        "vsra.vv"     : begin
+        INSTR_VSRA_VV     : begin
             SsstrictV_vsra_vv_cg.sample(ins);
         end
-        "vsra.vx"     : begin
+        INSTR_VSRA_VX     : begin
             SsstrictV_vsra_vx_cg.sample(ins);
         end
-        "vsrl.vi"     : begin
+        INSTR_VSRL_VI     : begin
             SsstrictV_vsrl_vi_cg.sample(ins);
         end
-        "vsrl.vv"     : begin
+        INSTR_VSRL_VV     : begin
             SsstrictV_vsrl_vv_cg.sample(ins);
         end
-        "vsrl.vx"     : begin
+        INSTR_VSRL_VX     : begin
             SsstrictV_vsrl_vx_cg.sample(ins);
         end
-        "vsse16.v"     : begin
+        INSTR_VSSE16_V     : begin
             SsstrictV_vsse16_v_cg.sample(ins);
         end
-        "vsse32.v"     : begin
+        INSTR_VSSE32_V     : begin
             SsstrictV_vsse32_v_cg.sample(ins);
         end
-        "vsse64.v"     : begin
+        INSTR_VSSE64_V     : begin
             SsstrictV_vsse64_v_cg.sample(ins);
         end
-        "vsse8.v"     : begin
+        INSTR_VSSE8_V     : begin
             SsstrictV_vsse8_v_cg.sample(ins);
         end
-        "vsseg2e16.v"     : begin
+        INSTR_VSSEG2E16_V     : begin
             SsstrictV_vsseg2e16_v_cg.sample(ins);
         end
-        "vsseg2e32.v"     : begin
+        INSTR_VSSEG2E32_V     : begin
             SsstrictV_vsseg2e32_v_cg.sample(ins);
         end
-        "vsseg2e64.v"     : begin
+        INSTR_VSSEG2E64_V     : begin
             SsstrictV_vsseg2e64_v_cg.sample(ins);
         end
-        "vsseg2e8.v"     : begin
+        INSTR_VSSEG2E8_V     : begin
             SsstrictV_vsseg2e8_v_cg.sample(ins);
         end
-        "vsseg3e16.v"     : begin
+        INSTR_VSSEG3E16_V     : begin
             SsstrictV_vsseg3e16_v_cg.sample(ins);
         end
-        "vsseg3e32.v"     : begin
+        INSTR_VSSEG3E32_V     : begin
             SsstrictV_vsseg3e32_v_cg.sample(ins);
         end
-        "vsseg3e64.v"     : begin
+        INSTR_VSSEG3E64_V     : begin
             SsstrictV_vsseg3e64_v_cg.sample(ins);
         end
-        "vsseg3e8.v"     : begin
+        INSTR_VSSEG3E8_V     : begin
             SsstrictV_vsseg3e8_v_cg.sample(ins);
         end
-        "vsseg4e16.v"     : begin
+        INSTR_VSSEG4E16_V     : begin
             SsstrictV_vsseg4e16_v_cg.sample(ins);
         end
-        "vsseg4e32.v"     : begin
+        INSTR_VSSEG4E32_V     : begin
             SsstrictV_vsseg4e32_v_cg.sample(ins);
         end
-        "vsseg4e64.v"     : begin
+        INSTR_VSSEG4E64_V     : begin
             SsstrictV_vsseg4e64_v_cg.sample(ins);
         end
-        "vsseg4e8.v"     : begin
+        INSTR_VSSEG4E8_V     : begin
             SsstrictV_vsseg4e8_v_cg.sample(ins);
         end
-        "vsseg5e16.v"     : begin
+        INSTR_VSSEG5E16_V     : begin
             SsstrictV_vsseg5e16_v_cg.sample(ins);
         end
-        "vsseg5e32.v"     : begin
+        INSTR_VSSEG5E32_V     : begin
             SsstrictV_vsseg5e32_v_cg.sample(ins);
         end
-        "vsseg5e64.v"     : begin
+        INSTR_VSSEG5E64_V     : begin
             SsstrictV_vsseg5e64_v_cg.sample(ins);
         end
-        "vsseg5e8.v"     : begin
+        INSTR_VSSEG5E8_V     : begin
             SsstrictV_vsseg5e8_v_cg.sample(ins);
         end
-        "vsseg6e16.v"     : begin
+        INSTR_VSSEG6E16_V     : begin
             SsstrictV_vsseg6e16_v_cg.sample(ins);
         end
-        "vsseg6e32.v"     : begin
+        INSTR_VSSEG6E32_V     : begin
             SsstrictV_vsseg6e32_v_cg.sample(ins);
         end
-        "vsseg6e64.v"     : begin
+        INSTR_VSSEG6E64_V     : begin
             SsstrictV_vsseg6e64_v_cg.sample(ins);
         end
-        "vsseg6e8.v"     : begin
+        INSTR_VSSEG6E8_V     : begin
             SsstrictV_vsseg6e8_v_cg.sample(ins);
         end
-        "vsseg7e16.v"     : begin
+        INSTR_VSSEG7E16_V     : begin
             SsstrictV_vsseg7e16_v_cg.sample(ins);
         end
-        "vsseg7e32.v"     : begin
+        INSTR_VSSEG7E32_V     : begin
             SsstrictV_vsseg7e32_v_cg.sample(ins);
         end
-        "vsseg7e64.v"     : begin
+        INSTR_VSSEG7E64_V     : begin
             SsstrictV_vsseg7e64_v_cg.sample(ins);
         end
-        "vsseg7e8.v"     : begin
+        INSTR_VSSEG7E8_V     : begin
             SsstrictV_vsseg7e8_v_cg.sample(ins);
         end
-        "vsseg8e16.v"     : begin
+        INSTR_VSSEG8E16_V     : begin
             SsstrictV_vsseg8e16_v_cg.sample(ins);
         end
-        "vsseg8e32.v"     : begin
+        INSTR_VSSEG8E32_V     : begin
             SsstrictV_vsseg8e32_v_cg.sample(ins);
         end
-        "vsseg8e64.v"     : begin
+        INSTR_VSSEG8E64_V     : begin
             SsstrictV_vsseg8e64_v_cg.sample(ins);
         end
-        "vsseg8e8.v"     : begin
+        INSTR_VSSEG8E8_V     : begin
             SsstrictV_vsseg8e8_v_cg.sample(ins);
         end
-        "vssra.vi"     : begin
+        INSTR_VSSRA_VI     : begin
             SsstrictV_vssra_vi_cg.sample(ins);
         end
-        "vssra.vv"     : begin
+        INSTR_VSSRA_VV     : begin
             SsstrictV_vssra_vv_cg.sample(ins);
         end
-        "vssra.vx"     : begin
+        INSTR_VSSRA_VX     : begin
             SsstrictV_vssra_vx_cg.sample(ins);
         end
-        "vssrl.vi"     : begin
+        INSTR_VSSRL_VI     : begin
             SsstrictV_vssrl_vi_cg.sample(ins);
         end
-        "vssrl.vv"     : begin
+        INSTR_VSSRL_VV     : begin
             SsstrictV_vssrl_vv_cg.sample(ins);
         end
-        "vssrl.vx"     : begin
+        INSTR_VSSRL_VX     : begin
             SsstrictV_vssrl_vx_cg.sample(ins);
         end
-        "vssseg2e16.v"     : begin
+        INSTR_VSSSEG2E16_V     : begin
             SsstrictV_vssseg2e16_v_cg.sample(ins);
         end
-        "vssseg2e32.v"     : begin
+        INSTR_VSSSEG2E32_V     : begin
             SsstrictV_vssseg2e32_v_cg.sample(ins);
         end
-        "vssseg2e64.v"     : begin
+        INSTR_VSSSEG2E64_V     : begin
             SsstrictV_vssseg2e64_v_cg.sample(ins);
         end
-        "vssseg2e8.v"     : begin
+        INSTR_VSSSEG2E8_V     : begin
             SsstrictV_vssseg2e8_v_cg.sample(ins);
         end
-        "vssseg3e16.v"     : begin
+        INSTR_VSSSEG3E16_V     : begin
             SsstrictV_vssseg3e16_v_cg.sample(ins);
         end
-        "vssseg3e32.v"     : begin
+        INSTR_VSSSEG3E32_V     : begin
             SsstrictV_vssseg3e32_v_cg.sample(ins);
         end
-        "vssseg3e64.v"     : begin
+        INSTR_VSSSEG3E64_V     : begin
             SsstrictV_vssseg3e64_v_cg.sample(ins);
         end
-        "vssseg3e8.v"     : begin
+        INSTR_VSSSEG3E8_V     : begin
             SsstrictV_vssseg3e8_v_cg.sample(ins);
         end
-        "vssseg4e16.v"     : begin
+        INSTR_VSSSEG4E16_V     : begin
             SsstrictV_vssseg4e16_v_cg.sample(ins);
         end
-        "vssseg4e32.v"     : begin
+        INSTR_VSSSEG4E32_V     : begin
             SsstrictV_vssseg4e32_v_cg.sample(ins);
         end
-        "vssseg4e64.v"     : begin
+        INSTR_VSSSEG4E64_V     : begin
             SsstrictV_vssseg4e64_v_cg.sample(ins);
         end
-        "vssseg4e8.v"     : begin
+        INSTR_VSSSEG4E8_V     : begin
             SsstrictV_vssseg4e8_v_cg.sample(ins);
         end
-        "vssseg5e16.v"     : begin
+        INSTR_VSSSEG5E16_V     : begin
             SsstrictV_vssseg5e16_v_cg.sample(ins);
         end
-        "vssseg5e32.v"     : begin
+        INSTR_VSSSEG5E32_V     : begin
             SsstrictV_vssseg5e32_v_cg.sample(ins);
         end
-        "vssseg5e64.v"     : begin
+        INSTR_VSSSEG5E64_V     : begin
             SsstrictV_vssseg5e64_v_cg.sample(ins);
         end
-        "vssseg5e8.v"     : begin
+        INSTR_VSSSEG5E8_V     : begin
             SsstrictV_vssseg5e8_v_cg.sample(ins);
         end
-        "vssseg6e16.v"     : begin
+        INSTR_VSSSEG6E16_V     : begin
             SsstrictV_vssseg6e16_v_cg.sample(ins);
         end
-        "vssseg6e32.v"     : begin
+        INSTR_VSSSEG6E32_V     : begin
             SsstrictV_vssseg6e32_v_cg.sample(ins);
         end
-        "vssseg6e64.v"     : begin
+        INSTR_VSSSEG6E64_V     : begin
             SsstrictV_vssseg6e64_v_cg.sample(ins);
         end
-        "vssseg6e8.v"     : begin
+        INSTR_VSSSEG6E8_V     : begin
             SsstrictV_vssseg6e8_v_cg.sample(ins);
         end
-        "vssseg7e16.v"     : begin
+        INSTR_VSSSEG7E16_V     : begin
             SsstrictV_vssseg7e16_v_cg.sample(ins);
         end
-        "vssseg7e32.v"     : begin
+        INSTR_VSSSEG7E32_V     : begin
             SsstrictV_vssseg7e32_v_cg.sample(ins);
         end
-        "vssseg7e64.v"     : begin
+        INSTR_VSSSEG7E64_V     : begin
             SsstrictV_vssseg7e64_v_cg.sample(ins);
         end
-        "vssseg7e8.v"     : begin
+        INSTR_VSSSEG7E8_V     : begin
             SsstrictV_vssseg7e8_v_cg.sample(ins);
         end
-        "vssseg8e16.v"     : begin
+        INSTR_VSSSEG8E16_V     : begin
             SsstrictV_vssseg8e16_v_cg.sample(ins);
         end
-        "vssseg8e32.v"     : begin
+        INSTR_VSSSEG8E32_V     : begin
             SsstrictV_vssseg8e32_v_cg.sample(ins);
         end
-        "vssseg8e64.v"     : begin
+        INSTR_VSSSEG8E64_V     : begin
             SsstrictV_vssseg8e64_v_cg.sample(ins);
         end
-        "vssseg8e8.v"     : begin
+        INSTR_VSSSEG8E8_V     : begin
             SsstrictV_vssseg8e8_v_cg.sample(ins);
         end
-        "vssub.vv"     : begin
+        INSTR_VSSUB_VV     : begin
             SsstrictV_vssub_vv_cg.sample(ins);
         end
-        "vssub.vx"     : begin
+        INSTR_VSSUB_VX     : begin
             SsstrictV_vssub_vx_cg.sample(ins);
         end
-        "vssubu.vv"     : begin
+        INSTR_VSSUBU_VV     : begin
             SsstrictV_vssubu_vv_cg.sample(ins);
         end
-        "vssubu.vx"     : begin
+        INSTR_VSSUBU_VX     : begin
             SsstrictV_vssubu_vx_cg.sample(ins);
         end
-        "vsub.vv"     : begin
+        INSTR_VSUB_VV     : begin
             SsstrictV_vsub_vv_cg.sample(ins);
         end
-        "vsub.vx"     : begin
+        INSTR_VSUB_VX     : begin
             SsstrictV_vsub_vx_cg.sample(ins);
         end
-        "vsuxei16.v"     : begin
+        INSTR_VSUXEI16_V     : begin
             SsstrictV_vsuxei16_v_cg.sample(ins);
         end
-        "vsuxei32.v"     : begin
+        INSTR_VSUXEI32_V     : begin
             SsstrictV_vsuxei32_v_cg.sample(ins);
         end
-        "vsuxei64.v"     : begin
+        INSTR_VSUXEI64_V     : begin
             SsstrictV_vsuxei64_v_cg.sample(ins);
         end
-        "vsuxei8.v"     : begin
+        INSTR_VSUXEI8_V     : begin
             SsstrictV_vsuxei8_v_cg.sample(ins);
         end
-        "vsuxseg2ei16.v"     : begin
+        INSTR_VSUXSEG2EI16_V     : begin
             SsstrictV_vsuxseg2ei16_v_cg.sample(ins);
         end
-        "vsuxseg2ei32.v"     : begin
+        INSTR_VSUXSEG2EI32_V     : begin
             SsstrictV_vsuxseg2ei32_v_cg.sample(ins);
         end
-        "vsuxseg2ei64.v"     : begin
+        INSTR_VSUXSEG2EI64_V     : begin
             SsstrictV_vsuxseg2ei64_v_cg.sample(ins);
         end
-        "vsuxseg2ei8.v"     : begin
+        INSTR_VSUXSEG2EI8_V     : begin
             SsstrictV_vsuxseg2ei8_v_cg.sample(ins);
         end
-        "vsuxseg3ei16.v"     : begin
+        INSTR_VSUXSEG3EI16_V     : begin
             SsstrictV_vsuxseg3ei16_v_cg.sample(ins);
         end
-        "vsuxseg3ei32.v"     : begin
+        INSTR_VSUXSEG3EI32_V     : begin
             SsstrictV_vsuxseg3ei32_v_cg.sample(ins);
         end
-        "vsuxseg3ei64.v"     : begin
+        INSTR_VSUXSEG3EI64_V     : begin
             SsstrictV_vsuxseg3ei64_v_cg.sample(ins);
         end
-        "vsuxseg3ei8.v"     : begin
+        INSTR_VSUXSEG3EI8_V     : begin
             SsstrictV_vsuxseg3ei8_v_cg.sample(ins);
         end
-        "vsuxseg4ei16.v"     : begin
+        INSTR_VSUXSEG4EI16_V     : begin
             SsstrictV_vsuxseg4ei16_v_cg.sample(ins);
         end
-        "vsuxseg4ei32.v"     : begin
+        INSTR_VSUXSEG4EI32_V     : begin
             SsstrictV_vsuxseg4ei32_v_cg.sample(ins);
         end
-        "vsuxseg4ei64.v"     : begin
+        INSTR_VSUXSEG4EI64_V     : begin
             SsstrictV_vsuxseg4ei64_v_cg.sample(ins);
         end
-        "vsuxseg4ei8.v"     : begin
+        INSTR_VSUXSEG4EI8_V     : begin
             SsstrictV_vsuxseg4ei8_v_cg.sample(ins);
         end
-        "vsuxseg5ei16.v"     : begin
+        INSTR_VSUXSEG5EI16_V     : begin
             SsstrictV_vsuxseg5ei16_v_cg.sample(ins);
         end
-        "vsuxseg5ei32.v"     : begin
+        INSTR_VSUXSEG5EI32_V     : begin
             SsstrictV_vsuxseg5ei32_v_cg.sample(ins);
         end
-        "vsuxseg5ei64.v"     : begin
+        INSTR_VSUXSEG5EI64_V     : begin
             SsstrictV_vsuxseg5ei64_v_cg.sample(ins);
         end
-        "vsuxseg5ei8.v"     : begin
+        INSTR_VSUXSEG5EI8_V     : begin
             SsstrictV_vsuxseg5ei8_v_cg.sample(ins);
         end
-        "vsuxseg6ei16.v"     : begin
+        INSTR_VSUXSEG6EI16_V     : begin
             SsstrictV_vsuxseg6ei16_v_cg.sample(ins);
         end
-        "vsuxseg6ei32.v"     : begin
+        INSTR_VSUXSEG6EI32_V     : begin
             SsstrictV_vsuxseg6ei32_v_cg.sample(ins);
         end
-        "vsuxseg6ei64.v"     : begin
+        INSTR_VSUXSEG6EI64_V     : begin
             SsstrictV_vsuxseg6ei64_v_cg.sample(ins);
         end
-        "vsuxseg6ei8.v"     : begin
+        INSTR_VSUXSEG6EI8_V     : begin
             SsstrictV_vsuxseg6ei8_v_cg.sample(ins);
         end
-        "vsuxseg7ei16.v"     : begin
+        INSTR_VSUXSEG7EI16_V     : begin
             SsstrictV_vsuxseg7ei16_v_cg.sample(ins);
         end
-        "vsuxseg7ei32.v"     : begin
+        INSTR_VSUXSEG7EI32_V     : begin
             SsstrictV_vsuxseg7ei32_v_cg.sample(ins);
         end
-        "vsuxseg7ei64.v"     : begin
+        INSTR_VSUXSEG7EI64_V     : begin
             SsstrictV_vsuxseg7ei64_v_cg.sample(ins);
         end
-        "vsuxseg7ei8.v"     : begin
+        INSTR_VSUXSEG7EI8_V     : begin
             SsstrictV_vsuxseg7ei8_v_cg.sample(ins);
         end
-        "vsuxseg8ei16.v"     : begin
+        INSTR_VSUXSEG8EI16_V     : begin
             SsstrictV_vsuxseg8ei16_v_cg.sample(ins);
         end
-        "vsuxseg8ei32.v"     : begin
+        INSTR_VSUXSEG8EI32_V     : begin
             SsstrictV_vsuxseg8ei32_v_cg.sample(ins);
         end
-        "vsuxseg8ei64.v"     : begin
+        INSTR_VSUXSEG8EI64_V     : begin
             SsstrictV_vsuxseg8ei64_v_cg.sample(ins);
         end
-        "vsuxseg8ei8.v"     : begin
+        INSTR_VSUXSEG8EI8_V     : begin
             SsstrictV_vsuxseg8ei8_v_cg.sample(ins);
         end
-        "vwadd.vv"     : begin
+        INSTR_VWADD_VV     : begin
             SsstrictV_vwadd_vv_cg.sample(ins);
         end
-        "vwadd.vx"     : begin
+        INSTR_VWADD_VX     : begin
             SsstrictV_vwadd_vx_cg.sample(ins);
         end
-        "vwadd.wv"     : begin
+        INSTR_VWADD_WV     : begin
             SsstrictV_vwadd_wv_cg.sample(ins);
         end
-        "vwadd.wx"     : begin
+        INSTR_VWADD_WX     : begin
             SsstrictV_vwadd_wx_cg.sample(ins);
         end
-        "vwaddu.vv"     : begin
+        INSTR_VWADDU_VV     : begin
             SsstrictV_vwaddu_vv_cg.sample(ins);
         end
-        "vwaddu.vx"     : begin
+        INSTR_VWADDU_VX     : begin
             SsstrictV_vwaddu_vx_cg.sample(ins);
         end
-        "vwaddu.wv"     : begin
+        INSTR_VWADDU_WV     : begin
             SsstrictV_vwaddu_wv_cg.sample(ins);
         end
-        "vwaddu.wx"     : begin
+        INSTR_VWADDU_WX     : begin
             SsstrictV_vwaddu_wx_cg.sample(ins);
         end
-        "vwmacc.vv"     : begin
+        INSTR_VWMACC_VV     : begin
             SsstrictV_vwmacc_vv_cg.sample(ins);
         end
-        "vwmacc.vx"     : begin
+        INSTR_VWMACC_VX     : begin
             SsstrictV_vwmacc_vx_cg.sample(ins);
         end
-        "vwmaccsu.vv"     : begin
+        INSTR_VWMACCSU_VV     : begin
             SsstrictV_vwmaccsu_vv_cg.sample(ins);
         end
-        "vwmaccsu.vx"     : begin
+        INSTR_VWMACCSU_VX     : begin
             SsstrictV_vwmaccsu_vx_cg.sample(ins);
         end
-        "vwmaccu.vv"     : begin
+        INSTR_VWMACCU_VV     : begin
             SsstrictV_vwmaccu_vv_cg.sample(ins);
         end
-        "vwmaccu.vx"     : begin
+        INSTR_VWMACCU_VX     : begin
             SsstrictV_vwmaccu_vx_cg.sample(ins);
         end
-        "vwmaccus.vx"     : begin
+        INSTR_VWMACCUS_VX     : begin
             SsstrictV_vwmaccus_vx_cg.sample(ins);
         end
-        "vwmul.vv"     : begin
+        INSTR_VWMUL_VV     : begin
             SsstrictV_vwmul_vv_cg.sample(ins);
         end
-        "vwmul.vx"     : begin
+        INSTR_VWMUL_VX     : begin
             SsstrictV_vwmul_vx_cg.sample(ins);
         end
-        "vwmulsu.vv"     : begin
+        INSTR_VWMULSU_VV     : begin
             SsstrictV_vwmulsu_vv_cg.sample(ins);
         end
-        "vwmulsu.vx"     : begin
+        INSTR_VWMULSU_VX     : begin
             SsstrictV_vwmulsu_vx_cg.sample(ins);
         end
-        "vwmulu.vv"     : begin
+        INSTR_VWMULU_VV     : begin
             SsstrictV_vwmulu_vv_cg.sample(ins);
         end
-        "vwmulu.vx"     : begin
+        INSTR_VWMULU_VX     : begin
             SsstrictV_vwmulu_vx_cg.sample(ins);
         end
-        "vwredsum.vs"     : begin
+        INSTR_VWREDSUM_VS     : begin
             SsstrictV_vwredsum_vs_cg.sample(ins);
         end
-        "vwredsumu.vs"     : begin
+        INSTR_VWREDSUMU_VS     : begin
             SsstrictV_vwredsumu_vs_cg.sample(ins);
         end
-        "vwsub.vv"     : begin
+        INSTR_VWSUB_VV     : begin
             SsstrictV_vwsub_vv_cg.sample(ins);
         end
-        "vwsub.vx"     : begin
+        INSTR_VWSUB_VX     : begin
             SsstrictV_vwsub_vx_cg.sample(ins);
         end
-        "vwsub.wv"     : begin
+        INSTR_VWSUB_WV     : begin
             SsstrictV_vwsub_wv_cg.sample(ins);
         end
-        "vwsub.wx"     : begin
+        INSTR_VWSUB_WX     : begin
             SsstrictV_vwsub_wx_cg.sample(ins);
         end
-        "vwsubu.vv"     : begin
+        INSTR_VWSUBU_VV     : begin
             SsstrictV_vwsubu_vv_cg.sample(ins);
         end
-        "vwsubu.vx"     : begin
+        INSTR_VWSUBU_VX     : begin
             SsstrictV_vwsubu_vx_cg.sample(ins);
         end
-        "vwsubu.wv"     : begin
+        INSTR_VWSUBU_WV     : begin
             SsstrictV_vwsubu_wv_cg.sample(ins);
         end
-        "vwsubu.wx"     : begin
+        INSTR_VWSUBU_WX     : begin
             SsstrictV_vwsubu_wx_cg.sample(ins);
         end
-        "vxor.vi"     : begin
+        INSTR_VXOR_VI     : begin
             SsstrictV_vxor_vi_cg.sample(ins);
         end
-        "vxor.vv"     : begin
+        INSTR_VXOR_VV     : begin
             SsstrictV_vxor_vv_cg.sample(ins);
         end
-        "vxor.vx"     : begin
+        INSTR_VXOR_VX     : begin
             SsstrictV_vxor_vx_cg.sample(ins);
         end
-        "vzext.vf2"     : begin
+        INSTR_VZEXT_VF2     : begin
             SsstrictV_vzext_vf2_cg.sample(ins);
         end
-        "vzext.vf4"     : begin
+        INSTR_VZEXT_VF4     : begin
             SsstrictV_vzext_vf4_cg.sample(ins);
         end
-        "vzext.vf8"     : begin
+        INSTR_VZEXT_VF8     : begin
             SsstrictV_vzext_vf8_cg.sample(ins);
         end
     endcase

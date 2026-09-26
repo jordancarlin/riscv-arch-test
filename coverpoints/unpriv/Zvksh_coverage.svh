@@ -21,7 +21,7 @@
 `endif
 covergroup Zvksh_vsm3c_vi_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "vsm3c.vi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -369,7 +369,7 @@ covergroup Zvksh_vsm3me_vv_cg with function sample(ins_t ins);
 
     //// end cmp_vs1_vs2_egs8 ////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vsm3me.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -672,11 +672,11 @@ function void zvksh_sample(int hart, int issue, ins_t ins);
     // associated sew with these tests
     if (get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew") == 2 ||
         get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vill") == 1) begin
-        case (traceDataQ[hart][issue][0].inst_name)
-        "vsm3c.vi"     : begin
+        case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_VSM3C_VI     : begin
             Zvksh_vsm3c_vi_cg.sample(ins);
         end
-        "vsm3me.vv"     : begin
+        INSTR_VSM3ME_VV     : begin
             Zvksh_vsm3me_vv_cg.sample(ins);
         end
         endcase

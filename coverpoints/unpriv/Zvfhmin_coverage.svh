@@ -21,7 +21,7 @@
 `endif
 covergroup Zvfhmin_vfncvt_f_f_w_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "vfncvt.f.f.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -192,7 +192,7 @@ endgroup
 // ---------------------
 covergroup Zvfhmin_vfwcvt_f_f_v_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "vfwcvt.f.f.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -351,7 +351,7 @@ function void zvfhmin_sample(int hart, int issue, ins_t ins);
     // associated sew with these tests
     if (get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew") == 1 ||
         get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vill") == 1) begin
-        case (traceDataQ[hart][issue][0].inst_name)
+        case (traceDataQ[hart][issue][0].inst_id)
             "vfncvt.f.f.w"     : begin
                 Zvfhmin_vfncvt_f_f_w_cg.sample(ins);
             end

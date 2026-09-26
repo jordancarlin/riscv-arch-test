@@ -18,7 +18,7 @@ covergroup ZfhminD_fcvt_d_h_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.d.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -90,7 +90,7 @@ endgroup
 // ---------------------
 covergroup ZfhminD_fcvt_h_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -103,7 +103,7 @@ covergroup ZfhminD_fcvt_h_d_cg with function sample(ins_t ins);
         bins NaNBox = {48'hffffffffffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.h.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -266,29 +266,29 @@ endgroup
 // ---------------------
 function void zfhmind_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fcvt.d.h"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FCVT_D_H     : begin
             ZfhminD_fcvt_d_h_cg.sample(ins);
         end
-        "fcvt.h.d"     : begin
+        INSTR_FCVT_H_D     : begin
             ZfhminD_fcvt_h_d_cg.sample(ins);
         end
-        "fcvt.h.s"     : begin
+        INSTR_FCVT_H_S     : begin
             ZfhminD_fcvt_h_s_cg.sample(ins);
         end
-        "fcvt.s.h"     : begin
+        INSTR_FCVT_S_H     : begin
             ZfhminD_fcvt_s_h_cg.sample(ins);
         end
-        "flh"     : begin
+        INSTR_FLH     : begin
             ZfhminD_flh_cg.sample(ins);
         end
-        "fmv.h.x"     : begin
+        INSTR_FMV_H_X     : begin
             ZfhminD_fmv_h_x_cg.sample(ins);
         end
-        "fmv.x.h"     : begin
+        INSTR_FMV_X_H     : begin
             ZfhminD_fmv_x_h_cg.sample(ins);
         end
-        "fsh"     : begin
+        INSTR_FSH     : begin
             ZfhminD_fsh_cg.sample(ins);
         end
     endcase

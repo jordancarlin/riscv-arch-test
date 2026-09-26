@@ -87,7 +87,7 @@ typedef enum {
 } csr_name_t;
 
 function `XLEN_BITS get_csr_val(int hart, int issue, int prev, string name, string field);
-  int addr = get_csr_addr(hart, name);
+  int addr = get_csr_addr(name);
   return get_csr_val_addr(hart, issue, prev, addr, name, field);
 endfunction
 

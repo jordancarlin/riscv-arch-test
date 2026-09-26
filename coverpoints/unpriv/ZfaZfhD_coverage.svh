@@ -227,26 +227,26 @@ endgroup
 // ---------------------
 function void zfazfhd_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fleq.h"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FLEQ_H     : begin
             ZfaZfhD_fleq_h_cg.sample(ins);
         end
-        "fli.h"     : begin
+        INSTR_FLI_H     : begin
             ZfaZfhD_fli_h_cg.sample(ins);
         end
-        "fltq.h"     : begin
+        INSTR_FLTQ_H     : begin
             ZfaZfhD_fltq_h_cg.sample(ins);
         end
-        "fmaxm.h"     : begin
+        INSTR_FMAXM_H     : begin
             ZfaZfhD_fmaxm_h_cg.sample(ins);
         end
-        "fminm.h"     : begin
+        INSTR_FMINM_H     : begin
             ZfaZfhD_fminm_h_cg.sample(ins);
         end
-        "fround.h"     : begin
+        INSTR_FROUND_H     : begin
             ZfaZfhD_fround_h_cg.sample(ins);
         end
-        "froundnx.h"     : begin
+        INSTR_FROUNDNX_H     : begin
             ZfaZfhD_froundnx_h_cg.sample(ins);
         end
     endcase

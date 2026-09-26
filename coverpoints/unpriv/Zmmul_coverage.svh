@@ -30,7 +30,7 @@ covergroup Zmmul_mul_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "mul"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -139,7 +139,7 @@ covergroup Zmmul_mulh_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "mulh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -248,7 +248,7 @@ covergroup Zmmul_mulhsu_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "mulhsu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -357,7 +357,7 @@ covergroup Zmmul_mulhu_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "mulhu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -467,7 +467,7 @@ covergroup Zmmul_mulw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "mulw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -561,21 +561,21 @@ endgroup
 `endif
 function void zmmul_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "mul"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_MUL     : begin
             Zmmul_mul_cg.sample(ins);
         end
-        "mulh"     : begin
+        INSTR_MULH     : begin
             Zmmul_mulh_cg.sample(ins);
         end
-        "mulhsu"     : begin
+        INSTR_MULHSU     : begin
             Zmmul_mulhsu_cg.sample(ins);
         end
-        "mulhu"     : begin
+        INSTR_MULHU     : begin
             Zmmul_mulhu_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "mulw"     : begin
+        INSTR_MULW     : begin
             Zmmul_mulw_cg.sample(ins);
         end
 `endif

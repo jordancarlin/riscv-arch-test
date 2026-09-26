@@ -30,7 +30,7 @@ covergroup Zicond_czero_eqz_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "czero.eqz"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -139,7 +139,7 @@ covergroup Zicond_czero_nez_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "czero.nez"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -232,11 +232,11 @@ endgroup
 // ---------------------
 function void zicond_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "czero.eqz"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_CZERO_EQZ     : begin
             Zicond_czero_eqz_cg.sample(ins);
         end
-        "czero.nez"     : begin
+        INSTR_CZERO_NEZ     : begin
             Zicond_czero_nez_cg.sample(ins);
         end
     endcase

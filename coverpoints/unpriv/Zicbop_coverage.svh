@@ -14,7 +14,7 @@
 `define COVER_ZICBOP
 covergroup Zicbop_prefetch_i_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "prefetch.i"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -34,7 +34,7 @@ endgroup
 // ---------------------
 covergroup Zicbop_prefetch_r_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "prefetch.r"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -54,7 +54,7 @@ endgroup
 // ---------------------
 covergroup Zicbop_prefetch_w_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "prefetch.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -74,14 +74,14 @@ endgroup
 // ---------------------
 function void zicbop_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "prefetch.i"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_PREFETCH_I     : begin
             Zicbop_prefetch_i_cg.sample(ins);
         end
-        "prefetch.r"     : begin
+        INSTR_PREFETCH_R     : begin
             Zicbop_prefetch_r_cg.sample(ins);
         end
-        "prefetch.w"     : begin
+        INSTR_PREFETCH_W     : begin
             Zicbop_prefetch_w_cg.sample(ins);
         end
     endcase

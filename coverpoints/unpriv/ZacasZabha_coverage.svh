@@ -36,7 +36,7 @@ covergroup ZacasZabha_amocas_b_cg with function sample(ins_t ins);
     cp_align_byte : coverpoint {ins.current.rs1_val + ins.current.imm}[2:0] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amocas.b"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -114,7 +114,7 @@ covergroup ZacasZabha_amocas_h_cg with function sample(ins_t ins);
     cp_align_hword : coverpoint {ins.current.rs1_val + ins.current.imm}[2:1] iff (ins.trap == 0) {
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "amocas.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -170,11 +170,11 @@ endgroup
 // ---------------------
 function void zacaszabha_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "amocas.b"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_AMOCAS_B     : begin
             ZacasZabha_amocas_b_cg.sample(ins);
         end
-        "amocas.h"     : begin
+        INSTR_AMOCAS_H     : begin
             ZacasZabha_amocas_h_cg.sample(ins);
         end
     endcase

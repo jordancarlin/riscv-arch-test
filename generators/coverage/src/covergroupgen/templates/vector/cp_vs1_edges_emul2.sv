@@ -2,7 +2,7 @@
     // cp_vs1_edges_emul2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_edges_emul2 : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, "2")  iff (ins.trap == 0 )  {
+    cp_vs1_edges_emul2 : coverpoint vs_edges_check(ins.hart, ins.issue, ins.current.vs1_val, SEW_MUL2)  iff (ins.trap == 0 )  {
         // Edges values of vs1 (emul = 2), assuming vl = 1
         bins zero       = {vs_zero      };   //  = {(`SEW){1'b0}},
         bins one        = {vs_one       };   //  = {(`SEW-1){1'b0}, {1'b1}},

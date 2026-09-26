@@ -30,7 +30,7 @@ covergroup Zba_sh1add_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sh1add"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -139,7 +139,7 @@ covergroup Zba_sh2add_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sh2add"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -248,7 +248,7 @@ covergroup Zba_sh3add_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sh3add"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -358,7 +358,7 @@ covergroup Zba_add_uw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "add.uw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -467,7 +467,7 @@ covergroup Zba_sh1add_uw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sh1add.uw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -576,7 +576,7 @@ covergroup Zba_sh2add_uw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sh2add.uw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -685,7 +685,7 @@ covergroup Zba_sh3add_uw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sh3add.uw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -782,7 +782,7 @@ covergroup Zba_slli_uw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "slli.uw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -856,30 +856,30 @@ endgroup
 `endif
 function void zba_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "sh1add"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_SH1ADD     : begin
             Zba_sh1add_cg.sample(ins);
         end
-        "sh2add"     : begin
+        INSTR_SH2ADD     : begin
             Zba_sh2add_cg.sample(ins);
         end
-        "sh3add"     : begin
+        INSTR_SH3ADD     : begin
             Zba_sh3add_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "add.uw"     : begin
+        INSTR_ADD_UW     : begin
             Zba_add_uw_cg.sample(ins);
         end
-        "sh1add.uw"     : begin
+        INSTR_SH1ADD_UW     : begin
             Zba_sh1add_uw_cg.sample(ins);
         end
-        "sh2add.uw"     : begin
+        INSTR_SH2ADD_UW     : begin
             Zba_sh2add_uw_cg.sample(ins);
         end
-        "sh3add.uw"     : begin
+        INSTR_SH3ADD_UW     : begin
             Zba_sh3add_uw_cg.sample(ins);
         end
-        "slli.uw"     : begin
+        INSTR_SLLI_UW     : begin
             Zba_slli_uw_cg.sample(ins);
         end
 `endif

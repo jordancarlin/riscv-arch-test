@@ -15725,305 +15725,305 @@ function void exceptionsvf16_sample(int hart, int issue, ins_t ins);
     // associated sew with these tests
     if (get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew") == 1 ||
         get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vill") == 1) begin
-        case (traceDataQ[hart][issue][0].inst_name)
-        "vfadd.vf"     : begin
+        case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_VFADD_VF     : begin
             ExceptionsVf16_vfadd_vf_cg.sample(ins);
         end
-        "vfadd.vv"     : begin
+        INSTR_VFADD_VV     : begin
             ExceptionsVf16_vfadd_vv_cg.sample(ins);
         end
-        "vfclass.v"     : begin
+        INSTR_VFCLASS_V     : begin
             ExceptionsVf16_vfclass_v_cg.sample(ins);
         end
-        "vfcvt.f.x.v"     : begin
+        INSTR_VFCVT_F_X_V     : begin
             ExceptionsVf16_vfcvt_f_x_v_cg.sample(ins);
         end
-        "vfcvt.f.xu.v"     : begin
+        INSTR_VFCVT_F_XU_V     : begin
             ExceptionsVf16_vfcvt_f_xu_v_cg.sample(ins);
         end
-        "vfcvt.rtz.x.f.v"     : begin
+        INSTR_VFCVT_RTZ_X_F_V     : begin
             ExceptionsVf16_vfcvt_rtz_x_f_v_cg.sample(ins);
         end
-        "vfcvt.rtz.xu.f.v"     : begin
+        INSTR_VFCVT_RTZ_XU_F_V     : begin
             ExceptionsVf16_vfcvt_rtz_xu_f_v_cg.sample(ins);
         end
-        "vfcvt.x.f.v"     : begin
+        INSTR_VFCVT_X_F_V     : begin
             ExceptionsVf16_vfcvt_x_f_v_cg.sample(ins);
         end
-        "vfcvt.xu.f.v"     : begin
+        INSTR_VFCVT_XU_F_V     : begin
             ExceptionsVf16_vfcvt_xu_f_v_cg.sample(ins);
         end
-        "vfdiv.vf"     : begin
+        INSTR_VFDIV_VF     : begin
             ExceptionsVf16_vfdiv_vf_cg.sample(ins);
         end
-        "vfdiv.vv"     : begin
+        INSTR_VFDIV_VV     : begin
             ExceptionsVf16_vfdiv_vv_cg.sample(ins);
         end
-        "vfmacc.vf"     : begin
+        INSTR_VFMACC_VF     : begin
             ExceptionsVf16_vfmacc_vf_cg.sample(ins);
         end
-        "vfmacc.vv"     : begin
+        INSTR_VFMACC_VV     : begin
             ExceptionsVf16_vfmacc_vv_cg.sample(ins);
         end
-        "vfmadd.vf"     : begin
+        INSTR_VFMADD_VF     : begin
             ExceptionsVf16_vfmadd_vf_cg.sample(ins);
         end
-        "vfmadd.vv"     : begin
+        INSTR_VFMADD_VV     : begin
             ExceptionsVf16_vfmadd_vv_cg.sample(ins);
         end
-        "vfmax.vf"     : begin
+        INSTR_VFMAX_VF     : begin
             ExceptionsVf16_vfmax_vf_cg.sample(ins);
         end
-        "vfmax.vv"     : begin
+        INSTR_VFMAX_VV     : begin
             ExceptionsVf16_vfmax_vv_cg.sample(ins);
         end
-        "vfmerge.vfm"     : begin
+        INSTR_VFMERGE_VFM     : begin
             ExceptionsVf16_vfmerge_vfm_cg.sample(ins);
         end
-        "vfmin.vf"     : begin
+        INSTR_VFMIN_VF     : begin
             ExceptionsVf16_vfmin_vf_cg.sample(ins);
         end
-        "vfmin.vv"     : begin
+        INSTR_VFMIN_VV     : begin
             ExceptionsVf16_vfmin_vv_cg.sample(ins);
         end
-        "vfmsac.vf"     : begin
+        INSTR_VFMSAC_VF     : begin
             ExceptionsVf16_vfmsac_vf_cg.sample(ins);
         end
-        "vfmsac.vv"     : begin
+        INSTR_VFMSAC_VV     : begin
             ExceptionsVf16_vfmsac_vv_cg.sample(ins);
         end
-        "vfmsub.vf"     : begin
+        INSTR_VFMSUB_VF     : begin
             ExceptionsVf16_vfmsub_vf_cg.sample(ins);
         end
-        "vfmsub.vv"     : begin
+        INSTR_VFMSUB_VV     : begin
             ExceptionsVf16_vfmsub_vv_cg.sample(ins);
         end
-        "vfmul.vf"     : begin
+        INSTR_VFMUL_VF     : begin
             ExceptionsVf16_vfmul_vf_cg.sample(ins);
         end
-        "vfmul.vv"     : begin
+        INSTR_VFMUL_VV     : begin
             ExceptionsVf16_vfmul_vv_cg.sample(ins);
         end
-        "vfmv.f.s"     : begin
+        INSTR_VFMV_F_S     : begin
             ExceptionsVf16_vfmv_f_s_cg.sample(ins);
         end
-        "vfmv.s.f"     : begin
+        INSTR_VFMV_S_F     : begin
             ExceptionsVf16_vfmv_s_f_cg.sample(ins);
         end
-        "vfmv.v.f"     : begin
+        INSTR_VFMV_V_F     : begin
             ExceptionsVf16_vfmv_v_f_cg.sample(ins);
         end
-        "vfncvt.f.x.w"     : begin
+        INSTR_VFNCVT_F_X_W     : begin
             ExceptionsVf16_vfncvt_f_x_w_cg.sample(ins);
         end
-        "vfncvt.f.xu.w"     : begin
+        INSTR_VFNCVT_F_XU_W     : begin
             ExceptionsVf16_vfncvt_f_xu_w_cg.sample(ins);
         end
-        "vfncvt.rod.f.f.w"     : begin
+        INSTR_VFNCVT_ROD_F_F_W     : begin
             ExceptionsVf16_vfncvt_rod_f_f_w_cg.sample(ins);
         end
-        "vfncvt.rtz.x.f.w"     : begin
+        INSTR_VFNCVT_RTZ_X_F_W     : begin
             ExceptionsVf16_vfncvt_rtz_x_f_w_cg.sample(ins);
         end
-        "vfncvt.rtz.xu.f.w"     : begin
+        INSTR_VFNCVT_RTZ_XU_F_W     : begin
             ExceptionsVf16_vfncvt_rtz_xu_f_w_cg.sample(ins);
         end
-        "vfncvt.x.f.w"     : begin
+        INSTR_VFNCVT_X_F_W     : begin
             ExceptionsVf16_vfncvt_x_f_w_cg.sample(ins);
         end
-        "vfncvt.xu.f.w"     : begin
+        INSTR_VFNCVT_XU_F_W     : begin
             ExceptionsVf16_vfncvt_xu_f_w_cg.sample(ins);
         end
-        "vfnmacc.vf"     : begin
+        INSTR_VFNMACC_VF     : begin
             ExceptionsVf16_vfnmacc_vf_cg.sample(ins);
         end
-        "vfnmacc.vv"     : begin
+        INSTR_VFNMACC_VV     : begin
             ExceptionsVf16_vfnmacc_vv_cg.sample(ins);
         end
-        "vfnmadd.vf"     : begin
+        INSTR_VFNMADD_VF     : begin
             ExceptionsVf16_vfnmadd_vf_cg.sample(ins);
         end
-        "vfnmadd.vv"     : begin
+        INSTR_VFNMADD_VV     : begin
             ExceptionsVf16_vfnmadd_vv_cg.sample(ins);
         end
-        "vfnmsac.vf"     : begin
+        INSTR_VFNMSAC_VF     : begin
             ExceptionsVf16_vfnmsac_vf_cg.sample(ins);
         end
-        "vfnmsac.vv"     : begin
+        INSTR_VFNMSAC_VV     : begin
             ExceptionsVf16_vfnmsac_vv_cg.sample(ins);
         end
-        "vfnmsub.vf"     : begin
+        INSTR_VFNMSUB_VF     : begin
             ExceptionsVf16_vfnmsub_vf_cg.sample(ins);
         end
-        "vfnmsub.vv"     : begin
+        INSTR_VFNMSUB_VV     : begin
             ExceptionsVf16_vfnmsub_vv_cg.sample(ins);
         end
-        "vfrdiv.vf"     : begin
+        INSTR_VFRDIV_VF     : begin
             ExceptionsVf16_vfrdiv_vf_cg.sample(ins);
         end
-        "vfrec7.v"     : begin
+        INSTR_VFREC7_V     : begin
             ExceptionsVf16_vfrec7_v_cg.sample(ins);
         end
-        "vfredmax.vs"     : begin
+        INSTR_VFREDMAX_VS     : begin
             ExceptionsVf16_vfredmax_vs_cg.sample(ins);
         end
-        "vfredmin.vs"     : begin
+        INSTR_VFREDMIN_VS     : begin
             ExceptionsVf16_vfredmin_vs_cg.sample(ins);
         end
-        "vfredosum.vs"     : begin
+        INSTR_VFREDOSUM_VS     : begin
             ExceptionsVf16_vfredosum_vs_cg.sample(ins);
         end
-        "vfredusum.vs"     : begin
+        INSTR_VFREDUSUM_VS     : begin
             ExceptionsVf16_vfredusum_vs_cg.sample(ins);
         end
-        "vfrsqrt7.v"     : begin
+        INSTR_VFRSQRT7_V     : begin
             ExceptionsVf16_vfrsqrt7_v_cg.sample(ins);
         end
-        "vfrsub.vf"     : begin
+        INSTR_VFRSUB_VF     : begin
             ExceptionsVf16_vfrsub_vf_cg.sample(ins);
         end
-        "vfsgnj.vf"     : begin
+        INSTR_VFSGNJ_VF     : begin
             ExceptionsVf16_vfsgnj_vf_cg.sample(ins);
         end
-        "vfsgnj.vv"     : begin
+        INSTR_VFSGNJ_VV     : begin
             ExceptionsVf16_vfsgnj_vv_cg.sample(ins);
         end
-        "vfsgnjn.vf"     : begin
+        INSTR_VFSGNJN_VF     : begin
             ExceptionsVf16_vfsgnjn_vf_cg.sample(ins);
         end
-        "vfsgnjn.vv"     : begin
+        INSTR_VFSGNJN_VV     : begin
             ExceptionsVf16_vfsgnjn_vv_cg.sample(ins);
         end
-        "vfsgnjx.vf"     : begin
+        INSTR_VFSGNJX_VF     : begin
             ExceptionsVf16_vfsgnjx_vf_cg.sample(ins);
         end
-        "vfsgnjx.vv"     : begin
+        INSTR_VFSGNJX_VV     : begin
             ExceptionsVf16_vfsgnjx_vv_cg.sample(ins);
         end
-        "vfslide1down.vf"     : begin
+        INSTR_VFSLIDE1DOWN_VF     : begin
             ExceptionsVf16_vfslide1down_vf_cg.sample(ins);
         end
-        "vfslide1up.vf"     : begin
+        INSTR_VFSLIDE1UP_VF     : begin
             ExceptionsVf16_vfslide1up_vf_cg.sample(ins);
         end
-        "vfsqrt.v"     : begin
+        INSTR_VFSQRT_V     : begin
             ExceptionsVf16_vfsqrt_v_cg.sample(ins);
         end
-        "vfsub.vf"     : begin
+        INSTR_VFSUB_VF     : begin
             ExceptionsVf16_vfsub_vf_cg.sample(ins);
         end
-        "vfsub.vv"     : begin
+        INSTR_VFSUB_VV     : begin
             ExceptionsVf16_vfsub_vv_cg.sample(ins);
         end
-        "vfwadd.vf"     : begin
+        INSTR_VFWADD_VF     : begin
             ExceptionsVf16_vfwadd_vf_cg.sample(ins);
         end
-        "vfwadd.vv"     : begin
+        INSTR_VFWADD_VV     : begin
             ExceptionsVf16_vfwadd_vv_cg.sample(ins);
         end
-        "vfwadd.wf"     : begin
+        INSTR_VFWADD_WF     : begin
             ExceptionsVf16_vfwadd_wf_cg.sample(ins);
         end
-        "vfwadd.wv"     : begin
+        INSTR_VFWADD_WV     : begin
             ExceptionsVf16_vfwadd_wv_cg.sample(ins);
         end
-        "vfwcvt.f.f.v"     : begin
+        INSTR_VFWCVT_F_F_V     : begin
             ExceptionsVf16_vfwcvt_f_f_v_cg.sample(ins);
         end
-        "vfwcvt.f.x.v"     : begin
+        INSTR_VFWCVT_F_X_V     : begin
             ExceptionsVf16_vfwcvt_f_x_v_cg.sample(ins);
         end
-        "vfwcvt.f.xu.v"     : begin
+        INSTR_VFWCVT_F_XU_V     : begin
             ExceptionsVf16_vfwcvt_f_xu_v_cg.sample(ins);
         end
-        "vfwcvt.rtz.x.f.v"     : begin
+        INSTR_VFWCVT_RTZ_X_F_V     : begin
             ExceptionsVf16_vfwcvt_rtz_x_f_v_cg.sample(ins);
         end
-        "vfwcvt.rtz.xu.f.v"     : begin
+        INSTR_VFWCVT_RTZ_XU_F_V     : begin
             ExceptionsVf16_vfwcvt_rtz_xu_f_v_cg.sample(ins);
         end
-        "vfwcvt.x.f.v"     : begin
+        INSTR_VFWCVT_X_F_V     : begin
             ExceptionsVf16_vfwcvt_x_f_v_cg.sample(ins);
         end
-        "vfwcvt.xu.f.v"     : begin
+        INSTR_VFWCVT_XU_F_V     : begin
             ExceptionsVf16_vfwcvt_xu_f_v_cg.sample(ins);
         end
-        "vfwmacc.vf"     : begin
+        INSTR_VFWMACC_VF     : begin
             ExceptionsVf16_vfwmacc_vf_cg.sample(ins);
         end
-        "vfwmacc.vv"     : begin
+        INSTR_VFWMACC_VV     : begin
             ExceptionsVf16_vfwmacc_vv_cg.sample(ins);
         end
-        "vfwmsac.vf"     : begin
+        INSTR_VFWMSAC_VF     : begin
             ExceptionsVf16_vfwmsac_vf_cg.sample(ins);
         end
-        "vfwmsac.vv"     : begin
+        INSTR_VFWMSAC_VV     : begin
             ExceptionsVf16_vfwmsac_vv_cg.sample(ins);
         end
-        "vfwmul.vf"     : begin
+        INSTR_VFWMUL_VF     : begin
             ExceptionsVf16_vfwmul_vf_cg.sample(ins);
         end
-        "vfwmul.vv"     : begin
+        INSTR_VFWMUL_VV     : begin
             ExceptionsVf16_vfwmul_vv_cg.sample(ins);
         end
-        "vfwnmacc.vf"     : begin
+        INSTR_VFWNMACC_VF     : begin
             ExceptionsVf16_vfwnmacc_vf_cg.sample(ins);
         end
-        "vfwnmacc.vv"     : begin
+        INSTR_VFWNMACC_VV     : begin
             ExceptionsVf16_vfwnmacc_vv_cg.sample(ins);
         end
-        "vfwnmsac.vf"     : begin
+        INSTR_VFWNMSAC_VF     : begin
             ExceptionsVf16_vfwnmsac_vf_cg.sample(ins);
         end
-        "vfwnmsac.vv"     : begin
+        INSTR_VFWNMSAC_VV     : begin
             ExceptionsVf16_vfwnmsac_vv_cg.sample(ins);
         end
-        "vfwredosum.vs"     : begin
+        INSTR_VFWREDOSUM_VS     : begin
             ExceptionsVf16_vfwredosum_vs_cg.sample(ins);
         end
-        "vfwredusum.vs"     : begin
+        INSTR_VFWREDUSUM_VS     : begin
             ExceptionsVf16_vfwredusum_vs_cg.sample(ins);
         end
-        "vfwsub.vf"     : begin
+        INSTR_VFWSUB_VF     : begin
             ExceptionsVf16_vfwsub_vf_cg.sample(ins);
         end
-        "vfwsub.vv"     : begin
+        INSTR_VFWSUB_VV     : begin
             ExceptionsVf16_vfwsub_vv_cg.sample(ins);
         end
-        "vfwsub.wf"     : begin
+        INSTR_VFWSUB_WF     : begin
             ExceptionsVf16_vfwsub_wf_cg.sample(ins);
         end
-        "vfwsub.wv"     : begin
+        INSTR_VFWSUB_WV     : begin
             ExceptionsVf16_vfwsub_wv_cg.sample(ins);
         end
-        "vmfeq.vf"     : begin
+        INSTR_VMFEQ_VF     : begin
             ExceptionsVf16_vmfeq_vf_cg.sample(ins);
         end
-        "vmfeq.vv"     : begin
+        INSTR_VMFEQ_VV     : begin
             ExceptionsVf16_vmfeq_vv_cg.sample(ins);
         end
-        "vmfge.vf"     : begin
+        INSTR_VMFGE_VF     : begin
             ExceptionsVf16_vmfge_vf_cg.sample(ins);
         end
-        "vmfgt.vf"     : begin
+        INSTR_VMFGT_VF     : begin
             ExceptionsVf16_vmfgt_vf_cg.sample(ins);
         end
-        "vmfle.vf"     : begin
+        INSTR_VMFLE_VF     : begin
             ExceptionsVf16_vmfle_vf_cg.sample(ins);
         end
-        "vmfle.vv"     : begin
+        INSTR_VMFLE_VV     : begin
             ExceptionsVf16_vmfle_vv_cg.sample(ins);
         end
-        "vmflt.vf"     : begin
+        INSTR_VMFLT_VF     : begin
             ExceptionsVf16_vmflt_vf_cg.sample(ins);
         end
-        "vmflt.vv"     : begin
+        INSTR_VMFLT_VV     : begin
             ExceptionsVf16_vmflt_vv_cg.sample(ins);
         end
-        "vmfne.vf"     : begin
+        INSTR_VMFNE_VF     : begin
             ExceptionsVf16_vmfne_vf_cg.sample(ins);
         end
-        "vmfne.vv"     : begin
+        INSTR_VMFNE_VV     : begin
             ExceptionsVf16_vmfne_vv_cg.sample(ins);
         end
         endcase

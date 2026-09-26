@@ -30,7 +30,7 @@ covergroup M_div_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "div"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -139,7 +139,7 @@ covergroup M_divu_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "divu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -248,7 +248,7 @@ covergroup M_mul_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "mul"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -357,7 +357,7 @@ covergroup M_mulh_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "mulh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -466,7 +466,7 @@ covergroup M_mulhsu_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "mulhsu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -575,7 +575,7 @@ covergroup M_mulhu_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "mulhu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -684,7 +684,7 @@ covergroup M_rem_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "rem"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -793,7 +793,7 @@ covergroup M_remu_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "remu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -903,7 +903,7 @@ covergroup M_divuw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "divuw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1012,7 +1012,7 @@ covergroup M_divw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "divw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1121,7 +1121,7 @@ covergroup M_mulw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "mulw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1230,7 +1230,7 @@ covergroup M_remuw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "remuw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1339,7 +1339,7 @@ covergroup M_remw_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "remw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1433,45 +1433,45 @@ endgroup
 `endif
 function void m_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "div"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_DIV     : begin
             M_div_cg.sample(ins);
         end
-        "divu"     : begin
+        INSTR_DIVU     : begin
             M_divu_cg.sample(ins);
         end
-        "mul"     : begin
+        INSTR_MUL     : begin
             M_mul_cg.sample(ins);
         end
-        "mulh"     : begin
+        INSTR_MULH     : begin
             M_mulh_cg.sample(ins);
         end
-        "mulhsu"     : begin
+        INSTR_MULHSU     : begin
             M_mulhsu_cg.sample(ins);
         end
-        "mulhu"     : begin
+        INSTR_MULHU     : begin
             M_mulhu_cg.sample(ins);
         end
-        "rem"     : begin
+        INSTR_REM     : begin
             M_rem_cg.sample(ins);
         end
-        "remu"     : begin
+        INSTR_REMU     : begin
             M_remu_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "divuw"     : begin
+        INSTR_DIVUW     : begin
             M_divuw_cg.sample(ins);
         end
-        "divw"     : begin
+        INSTR_DIVW     : begin
             M_divw_cg.sample(ins);
         end
-        "mulw"     : begin
+        INSTR_MULW     : begin
             M_mulw_cg.sample(ins);
         end
-        "remuw"     : begin
+        INSTR_REMUW     : begin
             M_remuw_cg.sample(ins);
         end
-        "remw"     : begin
+        INSTR_REMW     : begin
             M_remw_cg.sample(ins);
         end
 `endif

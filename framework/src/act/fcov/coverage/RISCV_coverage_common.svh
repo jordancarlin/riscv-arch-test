@@ -135,12 +135,6 @@
 `define VLEN_BITS         bit        [`UDB_VLEN-1:0]
 `define SIGNED_VLEN_BITS  bit signed [`UDB_VLEN-1:0]
 
-// Instruction operand data structure
-typedef struct {
-  string key;
-  string val;
-} ops_t;
-
 // Register data structures for GPRs and FPRs
 typedef enum {
   x0,
@@ -273,154 +267,6 @@ typedef enum {
 } fpr_reduced_name_t;
 
 
-// Register name conversion functions
-function int get_gpr_num(string key);
-  case(key)
-    "x0": return 0;
-    "zero": return 0;
-    "x1": return 1;
-    "ra": return 1;
-    "x2": return 2;
-    "sp": return 2;
-    "x3": return 3;
-    "gp": return 3;
-    "x4": return 4;
-    "tp": return 4;
-    "x5": return 5;
-    "t0": return 5;
-    "x6": return 6;
-    "t1": return 6;
-    "x7": return 7;
-    "t2": return 7;
-    "x8": return 8;
-    "s0": return 8;
-    "x9": return 9;
-    "s1": return 9;
-    "x10": return 10;
-    "a0": return 10;
-    "x11": return 11;
-    "a1": return 11;
-    "x12": return 12;
-    "a2": return 12;
-    "x13": return 13;
-    "a3": return 13;
-    "x14": return 14;
-    "a4": return 14;
-    "x15": return 15;
-    "a5": return 15;
-    "x16": return 16;
-    "a6": return 16;
-    "x17": return 17;
-    "a7": return 17;
-    "x18": return 18;
-    "s2": return 18;
-    "x19": return 19;
-    "s3": return 19;
-    "x20": return 20;
-    "s4": return 20;
-    "x21": return 21;
-    "s5": return 21;
-    "x22": return 22;
-    "s6": return 22;
-    "x23": return 23;
-    "s7": return 23;
-    "x24": return 24;
-    "s8": return 24;
-    "x25": return 25;
-    "s9": return 25;
-    "x26": return 26;
-    "s10": return 26;
-    "x27": return 27;
-    "s11": return 27;
-    "x28": return 28;
-    "t3": return 28;
-    "x29": return 29;
-    "t4": return 29;
-    "x30": return 30;
-    "t5": return 30;
-    "x31": return 31;
-    "t6": return 31;
-  endcase
-  return -1;
-endfunction
-
-function int get_fpr_num(string key);
-  case(key)
-    "f0": return 0;
-    "f1": return 1;
-    "f2": return 2;
-    "f3": return 3;
-    "f4": return 4;
-    "f5": return 5;
-    "f6": return 6;
-    "f7": return 7;
-    "f8": return 8;
-    "f9": return 9;
-    "f10": return 10;
-    "f11": return 11;
-    "f12": return 12;
-    "f13": return 13;
-    "f14": return 14;
-    "f15": return 15;
-    "f16": return 16;
-    "f17": return 17;
-    "f18": return 18;
-    "f19": return 19;
-    "f20": return 20;
-    "f21": return 21;
-    "f22": return 22;
-    "f23": return 23;
-    "f24": return 24;
-    "f25": return 25;
-    "f26": return 26;
-    "f27": return 27;
-    "f28": return 28;
-    "f29": return 29;
-    "f30": return 30;
-    "f31": return 31;
-  endcase
-  return -1;
-endfunction
-
-function int get_vr_num(string key);
-  case(key)
-    "v0": return 0;
-    "v1": return 1;
-    "v2": return 2;
-    "v3": return 3;
-    "v4": return 4;
-    "v5": return 5;
-    "v6": return 6;
-    "v7": return 7;
-    "v8": return 8;
-    "v9": return 9;
-    "v10": return 10;
-    "v11": return 11;
-    "v12": return 12;
-    "v13": return 13;
-    "v14": return 14;
-    "v15": return 15;
-    "v16": return 16;
-    "v17": return 17;
-    "v18": return 18;
-    "v19": return 19;
-    "v20": return 20;
-    "v21": return 21;
-    "v22": return 22;
-    "v23": return 23;
-    "v24": return 24;
-    "v25": return 25;
-    "v26": return 26;
-    "v27": return 27;
-    "v28": return 28;
-    "v29": return 29;
-    "v30": return 30;
-    "v31": return 31;
-  endcase
-  return -1;
-endfunction
-
-
 // Floating point rounding modes
 typedef enum {
   dyn,
@@ -431,70 +277,19 @@ typedef enum {
   rup
 } frm_name_t;
 
-function frm_name_t get_frm(string s);
-  case (s)
-    "rdn": return rdn;
-    "rmm": return rmm;
-    "rne": return rne;
-    "rtz": return rtz;
-    "rup": return rup;
+function frm_name_t get_frm(bit [2:0] value);
+  case (value)
+    3'b000: return rne;
+    3'b001: return rtz;
+    3'b010: return rdn;
+    3'b011: return rup;
+    3'b100: return rmm;
     default: return dyn;
   endcase
 endfunction
 
-function bit get_vm(string s);
-  case (s)
-    "v0.t" : return 1'b0;
-    "v0"   : return 1'b0;
-    ""     : return 1'b1;
-    default: begin
-      $error("ERROR: SystemVerilog Functional Coverage: Masking string %s is not recognized", s);
-      $fatal(1);
-    end
-  endcase
-endfunction
-
-//Vector vsetvli parameters
-// Flipped: string -> int (bits), using case statements
-
-function bit [2:0] get_vtype_eSEW_val(string str);
-  case (str)
-    "e8":   return 3'b000;
-    "e16":  return 3'b001;
-    "e32":  return 3'b010;
-    "e64":  return 3'b011;
-  endcase
-endfunction
-
-function bit [2:0] get_vtype_mLMUL_val(string str);
-  case (str)
-    "mf8": return 3'b101;
-    "mf4": return 3'b110;
-    "mf2": return 3'b111;
-    "m1":  return 3'b000;
-    "m2":  return 3'b001;
-    "m4":  return 3'b010;
-    "m8":  return 3'b011;
-  endcase
-endfunction
-
-function bit get_vtype_ta_val(string str);
-  case (str)
-    "ta": return 1'b1;
-    "tu": return 1'b0;
-  endcase
-endfunction
-
-function bit get_vtype_ma_val(string str);
-  case (str)
-    "ma": return 1'b1;
-    "mu": return 1'b0;
-  endcase
-endfunction
-
-
 // CSR address conversion
-function int get_csr_addr(int hart, string s);
+function int get_csr_addr(string s);
   import RISCV_decode_pkg::*;
   case(s)
     "fflags": return CSR_FFLAGS;

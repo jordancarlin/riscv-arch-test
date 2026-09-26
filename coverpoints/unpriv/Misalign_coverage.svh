@@ -14,7 +14,7 @@
 `define COVER_MISALIGN
 covergroup Misalign_lh_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "lh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -34,7 +34,7 @@ endgroup
 // ---------------------
 covergroup Misalign_lhu_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "lhu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -54,7 +54,7 @@ endgroup
 // ---------------------
 covergroup Misalign_lw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "lw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -74,7 +74,7 @@ endgroup
 // ---------------------
 covergroup Misalign_sh_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "sh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -94,7 +94,7 @@ endgroup
 // ---------------------
 covergroup Misalign_sw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "sw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -115,7 +115,7 @@ endgroup
 `ifdef UDB_MXLEN_64
 covergroup Misalign_ld_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "ld"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -135,7 +135,7 @@ endgroup
 // ---------------------
 covergroup Misalign_lwu_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "lwu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -155,7 +155,7 @@ endgroup
 // ---------------------
 covergroup Misalign_sd_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "sd"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -176,30 +176,30 @@ endgroup
 `endif
 function void misalign_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "lh"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_LH     : begin
             Misalign_lh_cg.sample(ins);
         end
-        "lhu"     : begin
+        INSTR_LHU     : begin
             Misalign_lhu_cg.sample(ins);
         end
-        "lw"     : begin
+        INSTR_LW     : begin
             Misalign_lw_cg.sample(ins);
         end
-        "sh"     : begin
+        INSTR_SH     : begin
             Misalign_sh_cg.sample(ins);
         end
-        "sw"     : begin
+        INSTR_SW     : begin
             Misalign_sw_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "ld"     : begin
+        INSTR_LD     : begin
             Misalign_ld_cg.sample(ins);
         end
-        "lwu"     : begin
+        INSTR_LWU     : begin
             Misalign_lwu_cg.sample(ins);
         end
-        "sd"     : begin
+        INSTR_SD     : begin
             Misalign_sd_cg.sample(ins);
         end
 `endif

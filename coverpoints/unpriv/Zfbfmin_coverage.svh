@@ -14,7 +14,7 @@
 `define COVER_ZFBFMIN
 covergroup Zfbfmin_fcvt_bf16_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -27,7 +27,7 @@ covergroup Zfbfmin_fcvt_bf16_s_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.bf16.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -103,7 +103,7 @@ covergroup Zfbfmin_fcvt_s_bf16_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.s.bf16"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -180,7 +180,7 @@ covergroup Zfbfmin_flh_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "flh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -226,7 +226,7 @@ covergroup Zfbfmin_fmv_h_x_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmv.h.x"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -277,7 +277,7 @@ endgroup
 // ---------------------
 covergroup Zfbfmin_fmv_x_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fmv.x.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -340,7 +340,7 @@ endgroup
 // ---------------------
 covergroup Zfbfmin_fsh_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fsh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -427,23 +427,23 @@ endgroup
 // ---------------------
 function void zfbfmin_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fcvt.bf16.s"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FCVT_BF16_S     : begin
             Zfbfmin_fcvt_bf16_s_cg.sample(ins);
         end
-        "fcvt.s.bf16"     : begin
+        INSTR_FCVT_S_BF16     : begin
             Zfbfmin_fcvt_s_bf16_cg.sample(ins);
         end
-        "flh"     : begin
+        INSTR_FLH     : begin
             Zfbfmin_flh_cg.sample(ins);
         end
-        "fmv.h.x"     : begin
+        INSTR_FMV_H_X     : begin
             Zfbfmin_fmv_h_x_cg.sample(ins);
         end
-        "fmv.x.h"     : begin
+        INSTR_FMV_X_H     : begin
             Zfbfmin_fmv_x_h_cg.sample(ins);
         end
-        "fsh"     : begin
+        INSTR_FSH     : begin
             Zfbfmin_fsh_cg.sample(ins);
         end
     endcase

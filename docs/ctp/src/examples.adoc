@@ -14,7 +14,7 @@ Coverage is in I_coverage.svh:
 ----
 covergroup I_add_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "add"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         //Number of times instruction is executed
         bins count[]  = {1};
     }

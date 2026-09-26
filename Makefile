@@ -32,7 +32,7 @@ VERBOSE     ?=
 CLEAN_INTERMEDIATES ?=
 
 # COVERAGE_SIMULATOR is only used when collecting coverage (make coverage)
-COVERAGE_SIMULATOR ?= questa # Coverage simulator backend: questa, vcs, or verilator
+COVERAGE_SIMULATOR ?= verilator # Coverage simulator backend: questa, vcs, or verilator
 
 # WORKDIR is where all of the generated files are created
 WORKDIR     ?= work

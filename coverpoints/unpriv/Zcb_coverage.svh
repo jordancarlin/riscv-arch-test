@@ -18,7 +18,7 @@ covergroup Zcb_c_lbu_cg with function sample(ins_t ins);
         // RD and RS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.lbu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -39,7 +39,7 @@ covergroup Zcb_c_lh_cg with function sample(ins_t ins);
         // RD and RS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.lh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -60,7 +60,7 @@ covergroup Zcb_c_lhu_cg with function sample(ins_t ins);
         // RD and RS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.lhu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -77,7 +77,7 @@ endgroup
 // ---------------------
 covergroup Zcb_c_not_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.not"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -124,7 +124,7 @@ endgroup
 // ---------------------
 covergroup Zcb_c_sb_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sb"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -175,7 +175,7 @@ endgroup
 // ---------------------
 covergroup Zcb_c_sh_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -226,7 +226,7 @@ endgroup
 // ---------------------
 covergroup Zcb_c_zext_b_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.zext.b"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -273,26 +273,26 @@ endgroup
 // ---------------------
 function void zcb_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "c.lbu"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_C_LBU     : begin
             Zcb_c_lbu_cg.sample(ins);
         end
-        "c.lh"     : begin
+        INSTR_C_LH     : begin
             Zcb_c_lh_cg.sample(ins);
         end
-        "c.lhu"     : begin
+        INSTR_C_LHU     : begin
             Zcb_c_lhu_cg.sample(ins);
         end
-        "c.not"     : begin
+        INSTR_C_NOT     : begin
             Zcb_c_not_cg.sample(ins);
         end
-        "c.sb"     : begin
+        INSTR_C_SB     : begin
             Zcb_c_sb_cg.sample(ins);
         end
-        "c.sh"     : begin
+        INSTR_C_SH     : begin
             Zcb_c_sh_cg.sample(ins);
         end
-        "c.zext.b"     : begin
+        INSTR_C_ZEXT_B     : begin
             Zcb_c_zext_b_cg.sample(ins);
         end
     endcase

@@ -14,7 +14,7 @@
 `define COVER_ZFH
 covergroup Zfh_fadd_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_3 : coverpoint get_frm(ins.ops[3].val)  iff (ins.trap == 0 )  {
+    cp_frm_3 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -31,7 +31,7 @@ covergroup Zfh_fadd_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fadd.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -171,7 +171,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fclass_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fclass.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -248,7 +248,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fcvt_h_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -261,7 +261,7 @@ covergroup Zfh_fcvt_h_s_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.h.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -337,7 +337,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fcvt_h_w_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -346,7 +346,7 @@ covergroup Zfh_fcvt_h_w_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.h.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -418,7 +418,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fcvt_h_wu_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -427,7 +427,7 @@ covergroup Zfh_fcvt_h_wu_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.h.wu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -503,7 +503,7 @@ covergroup Zfh_fcvt_s_h_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.s.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -575,11 +575,11 @@ endgroup
 // ---------------------
 covergroup Zfh_fcvt_w_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.w.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -667,11 +667,11 @@ endgroup
 // ---------------------
 covergroup Zfh_fcvt_wu_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.wu.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -759,7 +759,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fdiv_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_3 : coverpoint get_frm(ins.ops[3].val)  iff (ins.trap == 0 )  {
+    cp_frm_3 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -776,7 +776,7 @@ covergroup Zfh_fdiv_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fdiv.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -926,7 +926,7 @@ endgroup
 // ---------------------
 covergroup Zfh_feq_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "feq.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1052,7 +1052,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fle_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fle.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1183,7 +1183,7 @@ covergroup Zfh_flh_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "flh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1224,7 +1224,7 @@ endgroup
 // ---------------------
 covergroup Zfh_flt_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "flt.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1350,7 +1350,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fmadd_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_4 : coverpoint get_frm(ins.ops[4].val)  iff (ins.trap == 0 )  {
+    cp_frm_4 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -1371,7 +1371,7 @@ covergroup Zfh_fmadd_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmadd.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1580,7 +1580,7 @@ covergroup Zfh_fmax_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmax.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1719,7 +1719,7 @@ covergroup Zfh_fmin_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmin.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1845,7 +1845,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fmsub_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_4 : coverpoint get_frm(ins.ops[4].val)  iff (ins.trap == 0 )  {
+    cp_frm_4 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -1866,7 +1866,7 @@ covergroup Zfh_fmsub_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmsub.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2062,7 +2062,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fmul_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_3 : coverpoint get_frm(ins.ops[3].val)  iff (ins.trap == 0 )  {
+    cp_frm_3 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -2079,7 +2079,7 @@ covergroup Zfh_fmul_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmul.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2226,7 +2226,7 @@ covergroup Zfh_fmv_h_x_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmv.h.x"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2277,7 +2277,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fmv_x_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fmv.x.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2340,7 +2340,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fnmadd_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_4 : coverpoint get_frm(ins.ops[4].val)  iff (ins.trap == 0 )  {
+    cp_frm_4 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -2361,7 +2361,7 @@ covergroup Zfh_fnmadd_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fnmadd.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2557,7 +2557,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fnmsub_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_4 : coverpoint get_frm(ins.ops[4].val)  iff (ins.trap == 0 )  {
+    cp_frm_4 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -2578,7 +2578,7 @@ covergroup Zfh_fnmsub_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fnmsub.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2787,7 +2787,7 @@ covergroup Zfh_fsgnj_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fsgnj.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2917,7 +2917,7 @@ covergroup Zfh_fsgnjn_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fsgnjn.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3047,7 +3047,7 @@ covergroup Zfh_fsgnjx_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fsgnjx.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3164,7 +3164,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fsh_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fsh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3251,7 +3251,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fsqrt_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -3264,7 +3264,7 @@ covergroup Zfh_fsqrt_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fsqrt.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3348,7 +3348,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fsub_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_3 : coverpoint get_frm(ins.ops[3].val)  iff (ins.trap == 0 )  {
+    cp_frm_3 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -3365,7 +3365,7 @@ covergroup Zfh_fsub_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fsub.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3506,7 +3506,7 @@ endgroup
 `ifdef UDB_MXLEN_64
 covergroup Zfh_fcvt_h_l_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -3515,7 +3515,7 @@ covergroup Zfh_fcvt_h_l_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.h.l"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3587,7 +3587,7 @@ endgroup
 // ---------------------
 covergroup Zfh_fcvt_h_lu_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -3596,7 +3596,7 @@ covergroup Zfh_fcvt_h_lu_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.h.lu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3668,11 +3668,11 @@ endgroup
 // ---------------------
 covergroup Zfh_fcvt_l_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.l.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3760,11 +3760,11 @@ endgroup
 // ---------------------
 covergroup Zfh_fcvt_lu_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.lu.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3853,102 +3853,102 @@ endgroup
 `endif
 function void zfh_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fadd.h"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FADD_H     : begin
             Zfh_fadd_h_cg.sample(ins);
         end
-        "fclass.h"     : begin
+        INSTR_FCLASS_H     : begin
             Zfh_fclass_h_cg.sample(ins);
         end
-        "fcvt.h.s"     : begin
+        INSTR_FCVT_H_S     : begin
             Zfh_fcvt_h_s_cg.sample(ins);
         end
-        "fcvt.h.w"     : begin
+        INSTR_FCVT_H_W     : begin
             Zfh_fcvt_h_w_cg.sample(ins);
         end
-        "fcvt.h.wu"     : begin
+        INSTR_FCVT_H_WU     : begin
             Zfh_fcvt_h_wu_cg.sample(ins);
         end
-        "fcvt.s.h"     : begin
+        INSTR_FCVT_S_H     : begin
             Zfh_fcvt_s_h_cg.sample(ins);
         end
-        "fcvt.w.h"     : begin
+        INSTR_FCVT_W_H     : begin
             Zfh_fcvt_w_h_cg.sample(ins);
         end
-        "fcvt.wu.h"     : begin
+        INSTR_FCVT_WU_H     : begin
             Zfh_fcvt_wu_h_cg.sample(ins);
         end
-        "fdiv.h"     : begin
+        INSTR_FDIV_H     : begin
             Zfh_fdiv_h_cg.sample(ins);
         end
-        "feq.h"     : begin
+        INSTR_FEQ_H     : begin
             Zfh_feq_h_cg.sample(ins);
         end
-        "fle.h"     : begin
+        INSTR_FLE_H     : begin
             Zfh_fle_h_cg.sample(ins);
         end
-        "flh"     : begin
+        INSTR_FLH     : begin
             Zfh_flh_cg.sample(ins);
         end
-        "flt.h"     : begin
+        INSTR_FLT_H     : begin
             Zfh_flt_h_cg.sample(ins);
         end
-        "fmadd.h"     : begin
+        INSTR_FMADD_H     : begin
             Zfh_fmadd_h_cg.sample(ins);
         end
-        "fmax.h"     : begin
+        INSTR_FMAX_H     : begin
             Zfh_fmax_h_cg.sample(ins);
         end
-        "fmin.h"     : begin
+        INSTR_FMIN_H     : begin
             Zfh_fmin_h_cg.sample(ins);
         end
-        "fmsub.h"     : begin
+        INSTR_FMSUB_H     : begin
             Zfh_fmsub_h_cg.sample(ins);
         end
-        "fmul.h"     : begin
+        INSTR_FMUL_H     : begin
             Zfh_fmul_h_cg.sample(ins);
         end
-        "fmv.h.x"     : begin
+        INSTR_FMV_H_X     : begin
             Zfh_fmv_h_x_cg.sample(ins);
         end
-        "fmv.x.h"     : begin
+        INSTR_FMV_X_H     : begin
             Zfh_fmv_x_h_cg.sample(ins);
         end
-        "fnmadd.h"     : begin
+        INSTR_FNMADD_H     : begin
             Zfh_fnmadd_h_cg.sample(ins);
         end
-        "fnmsub.h"     : begin
+        INSTR_FNMSUB_H     : begin
             Zfh_fnmsub_h_cg.sample(ins);
         end
-        "fsgnj.h"     : begin
+        INSTR_FSGNJ_H     : begin
             Zfh_fsgnj_h_cg.sample(ins);
         end
-        "fsgnjn.h"     : begin
+        INSTR_FSGNJN_H     : begin
             Zfh_fsgnjn_h_cg.sample(ins);
         end
-        "fsgnjx.h"     : begin
+        INSTR_FSGNJX_H     : begin
             Zfh_fsgnjx_h_cg.sample(ins);
         end
-        "fsh"     : begin
+        INSTR_FSH     : begin
             Zfh_fsh_cg.sample(ins);
         end
-        "fsqrt.h"     : begin
+        INSTR_FSQRT_H     : begin
             Zfh_fsqrt_h_cg.sample(ins);
         end
-        "fsub.h"     : begin
+        INSTR_FSUB_H     : begin
             Zfh_fsub_h_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "fcvt.h.l"     : begin
+        INSTR_FCVT_H_L     : begin
             Zfh_fcvt_h_l_cg.sample(ins);
         end
-        "fcvt.h.lu"     : begin
+        INSTR_FCVT_H_LU     : begin
             Zfh_fcvt_h_lu_cg.sample(ins);
         end
-        "fcvt.l.h"     : begin
+        INSTR_FCVT_L_H     : begin
             Zfh_fcvt_l_h_cg.sample(ins);
         end
-        "fcvt.lu.h"     : begin
+        INSTR_FCVT_LU_H     : begin
             Zfh_fcvt_lu_h_cg.sample(ins);
         end
 `endif

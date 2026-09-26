@@ -9208,999 +9208,999 @@ endgroup
 // ---------------------
 function void misalignv_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "vl1re16.v"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_VL1RE16_V     : begin
             MisalignV_vl1re16_v_cg.sample(ins);
         end
-        "vl1re32.v"     : begin
+        INSTR_VL1RE32_V     : begin
             MisalignV_vl1re32_v_cg.sample(ins);
         end
-        "vl1re64.v"     : begin
+        INSTR_VL1RE64_V     : begin
             MisalignV_vl1re64_v_cg.sample(ins);
         end
-        "vl1re8.v"     : begin
+        INSTR_VL1RE8_V     : begin
             MisalignV_vl1re8_v_cg.sample(ins);
         end
-        "vl2re16.v"     : begin
+        INSTR_VL2RE16_V     : begin
             MisalignV_vl2re16_v_cg.sample(ins);
         end
-        "vl2re32.v"     : begin
+        INSTR_VL2RE32_V     : begin
             MisalignV_vl2re32_v_cg.sample(ins);
         end
-        "vl2re64.v"     : begin
+        INSTR_VL2RE64_V     : begin
             MisalignV_vl2re64_v_cg.sample(ins);
         end
-        "vl2re8.v"     : begin
+        INSTR_VL2RE8_V     : begin
             MisalignV_vl2re8_v_cg.sample(ins);
         end
-        "vl4re16.v"     : begin
+        INSTR_VL4RE16_V     : begin
             MisalignV_vl4re16_v_cg.sample(ins);
         end
-        "vl4re32.v"     : begin
+        INSTR_VL4RE32_V     : begin
             MisalignV_vl4re32_v_cg.sample(ins);
         end
-        "vl4re64.v"     : begin
+        INSTR_VL4RE64_V     : begin
             MisalignV_vl4re64_v_cg.sample(ins);
         end
-        "vl4re8.v"     : begin
+        INSTR_VL4RE8_V     : begin
             MisalignV_vl4re8_v_cg.sample(ins);
         end
-        "vl8re16.v"     : begin
+        INSTR_VL8RE16_V     : begin
             MisalignV_vl8re16_v_cg.sample(ins);
         end
-        "vl8re32.v"     : begin
+        INSTR_VL8RE32_V     : begin
             MisalignV_vl8re32_v_cg.sample(ins);
         end
-        "vl8re64.v"     : begin
+        INSTR_VL8RE64_V     : begin
             MisalignV_vl8re64_v_cg.sample(ins);
         end
-        "vl8re8.v"     : begin
+        INSTR_VL8RE8_V     : begin
             MisalignV_vl8re8_v_cg.sample(ins);
         end
-        "vle16.v"     : begin
+        INSTR_VLE16_V     : begin
             MisalignV_vle16_v_cg.sample(ins);
         end
-        "vle16ff.v"     : begin
+        INSTR_VLE16FF_V     : begin
             MisalignV_vle16ff_v_cg.sample(ins);
         end
-        "vle32.v"     : begin
+        INSTR_VLE32_V     : begin
             MisalignV_vle32_v_cg.sample(ins);
         end
-        "vle32ff.v"     : begin
+        INSTR_VLE32FF_V     : begin
             MisalignV_vle32ff_v_cg.sample(ins);
         end
-        "vle64.v"     : begin
+        INSTR_VLE64_V     : begin
             MisalignV_vle64_v_cg.sample(ins);
         end
-        "vle64ff.v"     : begin
+        INSTR_VLE64FF_V     : begin
             MisalignV_vle64ff_v_cg.sample(ins);
         end
-        "vle8.v"     : begin
+        INSTR_VLE8_V     : begin
             MisalignV_vle8_v_cg.sample(ins);
         end
-        "vle8ff.v"     : begin
+        INSTR_VLE8FF_V     : begin
             MisalignV_vle8ff_v_cg.sample(ins);
         end
-        "vlm.v"     : begin
+        INSTR_VLM_V     : begin
             MisalignV_vlm_v_cg.sample(ins);
         end
-        "vloxei16.v"     : begin
+        INSTR_VLOXEI16_V     : begin
             MisalignV_vloxei16_v_cg.sample(ins);
         end
-        "vloxei32.v"     : begin
+        INSTR_VLOXEI32_V     : begin
             MisalignV_vloxei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vloxei64.v"     : begin
+        INSTR_VLOXEI64_V     : begin
             MisalignV_vloxei64_v_cg.sample(ins);
         end
 `endif
-        "vloxei8.v"     : begin
+        INSTR_VLOXEI8_V     : begin
             MisalignV_vloxei8_v_cg.sample(ins);
         end
-        "vloxseg2ei16.v"     : begin
+        INSTR_VLOXSEG2EI16_V     : begin
             MisalignV_vloxseg2ei16_v_cg.sample(ins);
         end
-        "vloxseg2ei32.v"     : begin
+        INSTR_VLOXSEG2EI32_V     : begin
             MisalignV_vloxseg2ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vloxseg2ei64.v"     : begin
+        INSTR_VLOXSEG2EI64_V     : begin
             MisalignV_vloxseg2ei64_v_cg.sample(ins);
         end
 `endif
-        "vloxseg2ei8.v"     : begin
+        INSTR_VLOXSEG2EI8_V     : begin
             MisalignV_vloxseg2ei8_v_cg.sample(ins);
         end
-        "vloxseg3ei16.v"     : begin
+        INSTR_VLOXSEG3EI16_V     : begin
             MisalignV_vloxseg3ei16_v_cg.sample(ins);
         end
-        "vloxseg3ei32.v"     : begin
+        INSTR_VLOXSEG3EI32_V     : begin
             MisalignV_vloxseg3ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vloxseg3ei64.v"     : begin
+        INSTR_VLOXSEG3EI64_V     : begin
             MisalignV_vloxseg3ei64_v_cg.sample(ins);
         end
 `endif
-        "vloxseg3ei8.v"     : begin
+        INSTR_VLOXSEG3EI8_V     : begin
             MisalignV_vloxseg3ei8_v_cg.sample(ins);
         end
-        "vloxseg4ei16.v"     : begin
+        INSTR_VLOXSEG4EI16_V     : begin
             MisalignV_vloxseg4ei16_v_cg.sample(ins);
         end
-        "vloxseg4ei32.v"     : begin
+        INSTR_VLOXSEG4EI32_V     : begin
             MisalignV_vloxseg4ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vloxseg4ei64.v"     : begin
+        INSTR_VLOXSEG4EI64_V     : begin
             MisalignV_vloxseg4ei64_v_cg.sample(ins);
         end
 `endif
-        "vloxseg4ei8.v"     : begin
+        INSTR_VLOXSEG4EI8_V     : begin
             MisalignV_vloxseg4ei8_v_cg.sample(ins);
         end
-        "vloxseg5ei16.v"     : begin
+        INSTR_VLOXSEG5EI16_V     : begin
             MisalignV_vloxseg5ei16_v_cg.sample(ins);
         end
-        "vloxseg5ei32.v"     : begin
+        INSTR_VLOXSEG5EI32_V     : begin
             MisalignV_vloxseg5ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vloxseg5ei64.v"     : begin
+        INSTR_VLOXSEG5EI64_V     : begin
             MisalignV_vloxseg5ei64_v_cg.sample(ins);
         end
 `endif
-        "vloxseg5ei8.v"     : begin
+        INSTR_VLOXSEG5EI8_V     : begin
             MisalignV_vloxseg5ei8_v_cg.sample(ins);
         end
-        "vloxseg6ei16.v"     : begin
+        INSTR_VLOXSEG6EI16_V     : begin
             MisalignV_vloxseg6ei16_v_cg.sample(ins);
         end
-        "vloxseg6ei32.v"     : begin
+        INSTR_VLOXSEG6EI32_V     : begin
             MisalignV_vloxseg6ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vloxseg6ei64.v"     : begin
+        INSTR_VLOXSEG6EI64_V     : begin
             MisalignV_vloxseg6ei64_v_cg.sample(ins);
         end
 `endif
-        "vloxseg6ei8.v"     : begin
+        INSTR_VLOXSEG6EI8_V     : begin
             MisalignV_vloxseg6ei8_v_cg.sample(ins);
         end
-        "vloxseg7ei16.v"     : begin
+        INSTR_VLOXSEG7EI16_V     : begin
             MisalignV_vloxseg7ei16_v_cg.sample(ins);
         end
-        "vloxseg7ei32.v"     : begin
+        INSTR_VLOXSEG7EI32_V     : begin
             MisalignV_vloxseg7ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vloxseg7ei64.v"     : begin
+        INSTR_VLOXSEG7EI64_V     : begin
             MisalignV_vloxseg7ei64_v_cg.sample(ins);
         end
 `endif
-        "vloxseg7ei8.v"     : begin
+        INSTR_VLOXSEG7EI8_V     : begin
             MisalignV_vloxseg7ei8_v_cg.sample(ins);
         end
-        "vloxseg8ei16.v"     : begin
+        INSTR_VLOXSEG8EI16_V     : begin
             MisalignV_vloxseg8ei16_v_cg.sample(ins);
         end
-        "vloxseg8ei32.v"     : begin
+        INSTR_VLOXSEG8EI32_V     : begin
             MisalignV_vloxseg8ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vloxseg8ei64.v"     : begin
+        INSTR_VLOXSEG8EI64_V     : begin
             MisalignV_vloxseg8ei64_v_cg.sample(ins);
         end
 `endif
-        "vloxseg8ei8.v"     : begin
+        INSTR_VLOXSEG8EI8_V     : begin
             MisalignV_vloxseg8ei8_v_cg.sample(ins);
         end
-        "vlse16.v"     : begin
+        INSTR_VLSE16_V     : begin
             MisalignV_vlse16_v_cg.sample(ins);
         end
-        "vlse32.v"     : begin
+        INSTR_VLSE32_V     : begin
             MisalignV_vlse32_v_cg.sample(ins);
         end
-        "vlse64.v"     : begin
+        INSTR_VLSE64_V     : begin
             MisalignV_vlse64_v_cg.sample(ins);
         end
-        "vlse8.v"     : begin
+        INSTR_VLSE8_V     : begin
             MisalignV_vlse8_v_cg.sample(ins);
         end
-        "vlseg2e16.v"     : begin
+        INSTR_VLSEG2E16_V     : begin
             MisalignV_vlseg2e16_v_cg.sample(ins);
         end
-        "vlseg2e16ff.v"     : begin
+        INSTR_VLSEG2E16FF_V     : begin
             MisalignV_vlseg2e16ff_v_cg.sample(ins);
         end
-        "vlseg2e32.v"     : begin
+        INSTR_VLSEG2E32_V     : begin
             MisalignV_vlseg2e32_v_cg.sample(ins);
         end
-        "vlseg2e32ff.v"     : begin
+        INSTR_VLSEG2E32FF_V     : begin
             MisalignV_vlseg2e32ff_v_cg.sample(ins);
         end
-        "vlseg2e64.v"     : begin
+        INSTR_VLSEG2E64_V     : begin
             MisalignV_vlseg2e64_v_cg.sample(ins);
         end
-        "vlseg2e64ff.v"     : begin
+        INSTR_VLSEG2E64FF_V     : begin
             MisalignV_vlseg2e64ff_v_cg.sample(ins);
         end
-        "vlseg2e8.v"     : begin
+        INSTR_VLSEG2E8_V     : begin
             MisalignV_vlseg2e8_v_cg.sample(ins);
         end
-        "vlseg2e8ff.v"     : begin
+        INSTR_VLSEG2E8FF_V     : begin
             MisalignV_vlseg2e8ff_v_cg.sample(ins);
         end
-        "vlseg3e16.v"     : begin
+        INSTR_VLSEG3E16_V     : begin
             MisalignV_vlseg3e16_v_cg.sample(ins);
         end
-        "vlseg3e16ff.v"     : begin
+        INSTR_VLSEG3E16FF_V     : begin
             MisalignV_vlseg3e16ff_v_cg.sample(ins);
         end
-        "vlseg3e32.v"     : begin
+        INSTR_VLSEG3E32_V     : begin
             MisalignV_vlseg3e32_v_cg.sample(ins);
         end
-        "vlseg3e32ff.v"     : begin
+        INSTR_VLSEG3E32FF_V     : begin
             MisalignV_vlseg3e32ff_v_cg.sample(ins);
         end
-        "vlseg3e64.v"     : begin
+        INSTR_VLSEG3E64_V     : begin
             MisalignV_vlseg3e64_v_cg.sample(ins);
         end
-        "vlseg3e64ff.v"     : begin
+        INSTR_VLSEG3E64FF_V     : begin
             MisalignV_vlseg3e64ff_v_cg.sample(ins);
         end
-        "vlseg3e8.v"     : begin
+        INSTR_VLSEG3E8_V     : begin
             MisalignV_vlseg3e8_v_cg.sample(ins);
         end
-        "vlseg3e8ff.v"     : begin
+        INSTR_VLSEG3E8FF_V     : begin
             MisalignV_vlseg3e8ff_v_cg.sample(ins);
         end
-        "vlseg4e16.v"     : begin
+        INSTR_VLSEG4E16_V     : begin
             MisalignV_vlseg4e16_v_cg.sample(ins);
         end
-        "vlseg4e16ff.v"     : begin
+        INSTR_VLSEG4E16FF_V     : begin
             MisalignV_vlseg4e16ff_v_cg.sample(ins);
         end
-        "vlseg4e32.v"     : begin
+        INSTR_VLSEG4E32_V     : begin
             MisalignV_vlseg4e32_v_cg.sample(ins);
         end
-        "vlseg4e32ff.v"     : begin
+        INSTR_VLSEG4E32FF_V     : begin
             MisalignV_vlseg4e32ff_v_cg.sample(ins);
         end
-        "vlseg4e64.v"     : begin
+        INSTR_VLSEG4E64_V     : begin
             MisalignV_vlseg4e64_v_cg.sample(ins);
         end
-        "vlseg4e64ff.v"     : begin
+        INSTR_VLSEG4E64FF_V     : begin
             MisalignV_vlseg4e64ff_v_cg.sample(ins);
         end
-        "vlseg4e8.v"     : begin
+        INSTR_VLSEG4E8_V     : begin
             MisalignV_vlseg4e8_v_cg.sample(ins);
         end
-        "vlseg4e8ff.v"     : begin
+        INSTR_VLSEG4E8FF_V     : begin
             MisalignV_vlseg4e8ff_v_cg.sample(ins);
         end
-        "vlseg5e16.v"     : begin
+        INSTR_VLSEG5E16_V     : begin
             MisalignV_vlseg5e16_v_cg.sample(ins);
         end
-        "vlseg5e16ff.v"     : begin
+        INSTR_VLSEG5E16FF_V     : begin
             MisalignV_vlseg5e16ff_v_cg.sample(ins);
         end
-        "vlseg5e32.v"     : begin
+        INSTR_VLSEG5E32_V     : begin
             MisalignV_vlseg5e32_v_cg.sample(ins);
         end
-        "vlseg5e32ff.v"     : begin
+        INSTR_VLSEG5E32FF_V     : begin
             MisalignV_vlseg5e32ff_v_cg.sample(ins);
         end
-        "vlseg5e64.v"     : begin
+        INSTR_VLSEG5E64_V     : begin
             MisalignV_vlseg5e64_v_cg.sample(ins);
         end
-        "vlseg5e64ff.v"     : begin
+        INSTR_VLSEG5E64FF_V     : begin
             MisalignV_vlseg5e64ff_v_cg.sample(ins);
         end
-        "vlseg5e8.v"     : begin
+        INSTR_VLSEG5E8_V     : begin
             MisalignV_vlseg5e8_v_cg.sample(ins);
         end
-        "vlseg5e8ff.v"     : begin
+        INSTR_VLSEG5E8FF_V     : begin
             MisalignV_vlseg5e8ff_v_cg.sample(ins);
         end
-        "vlseg6e16.v"     : begin
+        INSTR_VLSEG6E16_V     : begin
             MisalignV_vlseg6e16_v_cg.sample(ins);
         end
-        "vlseg6e16ff.v"     : begin
+        INSTR_VLSEG6E16FF_V     : begin
             MisalignV_vlseg6e16ff_v_cg.sample(ins);
         end
-        "vlseg6e32.v"     : begin
+        INSTR_VLSEG6E32_V     : begin
             MisalignV_vlseg6e32_v_cg.sample(ins);
         end
-        "vlseg6e32ff.v"     : begin
+        INSTR_VLSEG6E32FF_V     : begin
             MisalignV_vlseg6e32ff_v_cg.sample(ins);
         end
-        "vlseg6e64.v"     : begin
+        INSTR_VLSEG6E64_V     : begin
             MisalignV_vlseg6e64_v_cg.sample(ins);
         end
-        "vlseg6e64ff.v"     : begin
+        INSTR_VLSEG6E64FF_V     : begin
             MisalignV_vlseg6e64ff_v_cg.sample(ins);
         end
-        "vlseg6e8.v"     : begin
+        INSTR_VLSEG6E8_V     : begin
             MisalignV_vlseg6e8_v_cg.sample(ins);
         end
-        "vlseg6e8ff.v"     : begin
+        INSTR_VLSEG6E8FF_V     : begin
             MisalignV_vlseg6e8ff_v_cg.sample(ins);
         end
-        "vlseg7e16.v"     : begin
+        INSTR_VLSEG7E16_V     : begin
             MisalignV_vlseg7e16_v_cg.sample(ins);
         end
-        "vlseg7e16ff.v"     : begin
+        INSTR_VLSEG7E16FF_V     : begin
             MisalignV_vlseg7e16ff_v_cg.sample(ins);
         end
-        "vlseg7e32.v"     : begin
+        INSTR_VLSEG7E32_V     : begin
             MisalignV_vlseg7e32_v_cg.sample(ins);
         end
-        "vlseg7e32ff.v"     : begin
+        INSTR_VLSEG7E32FF_V     : begin
             MisalignV_vlseg7e32ff_v_cg.sample(ins);
         end
-        "vlseg7e64.v"     : begin
+        INSTR_VLSEG7E64_V     : begin
             MisalignV_vlseg7e64_v_cg.sample(ins);
         end
-        "vlseg7e64ff.v"     : begin
+        INSTR_VLSEG7E64FF_V     : begin
             MisalignV_vlseg7e64ff_v_cg.sample(ins);
         end
-        "vlseg7e8.v"     : begin
+        INSTR_VLSEG7E8_V     : begin
             MisalignV_vlseg7e8_v_cg.sample(ins);
         end
-        "vlseg7e8ff.v"     : begin
+        INSTR_VLSEG7E8FF_V     : begin
             MisalignV_vlseg7e8ff_v_cg.sample(ins);
         end
-        "vlseg8e16.v"     : begin
+        INSTR_VLSEG8E16_V     : begin
             MisalignV_vlseg8e16_v_cg.sample(ins);
         end
-        "vlseg8e16ff.v"     : begin
+        INSTR_VLSEG8E16FF_V     : begin
             MisalignV_vlseg8e16ff_v_cg.sample(ins);
         end
-        "vlseg8e32.v"     : begin
+        INSTR_VLSEG8E32_V     : begin
             MisalignV_vlseg8e32_v_cg.sample(ins);
         end
-        "vlseg8e32ff.v"     : begin
+        INSTR_VLSEG8E32FF_V     : begin
             MisalignV_vlseg8e32ff_v_cg.sample(ins);
         end
-        "vlseg8e64.v"     : begin
+        INSTR_VLSEG8E64_V     : begin
             MisalignV_vlseg8e64_v_cg.sample(ins);
         end
-        "vlseg8e64ff.v"     : begin
+        INSTR_VLSEG8E64FF_V     : begin
             MisalignV_vlseg8e64ff_v_cg.sample(ins);
         end
-        "vlseg8e8.v"     : begin
+        INSTR_VLSEG8E8_V     : begin
             MisalignV_vlseg8e8_v_cg.sample(ins);
         end
-        "vlseg8e8ff.v"     : begin
+        INSTR_VLSEG8E8FF_V     : begin
             MisalignV_vlseg8e8ff_v_cg.sample(ins);
         end
-        "vlsseg2e16.v"     : begin
+        INSTR_VLSSEG2E16_V     : begin
             MisalignV_vlsseg2e16_v_cg.sample(ins);
         end
-        "vlsseg2e32.v"     : begin
+        INSTR_VLSSEG2E32_V     : begin
             MisalignV_vlsseg2e32_v_cg.sample(ins);
         end
-        "vlsseg2e64.v"     : begin
+        INSTR_VLSSEG2E64_V     : begin
             MisalignV_vlsseg2e64_v_cg.sample(ins);
         end
-        "vlsseg2e8.v"     : begin
+        INSTR_VLSSEG2E8_V     : begin
             MisalignV_vlsseg2e8_v_cg.sample(ins);
         end
-        "vlsseg3e16.v"     : begin
+        INSTR_VLSSEG3E16_V     : begin
             MisalignV_vlsseg3e16_v_cg.sample(ins);
         end
-        "vlsseg3e32.v"     : begin
+        INSTR_VLSSEG3E32_V     : begin
             MisalignV_vlsseg3e32_v_cg.sample(ins);
         end
-        "vlsseg3e64.v"     : begin
+        INSTR_VLSSEG3E64_V     : begin
             MisalignV_vlsseg3e64_v_cg.sample(ins);
         end
-        "vlsseg3e8.v"     : begin
+        INSTR_VLSSEG3E8_V     : begin
             MisalignV_vlsseg3e8_v_cg.sample(ins);
         end
-        "vlsseg4e16.v"     : begin
+        INSTR_VLSSEG4E16_V     : begin
             MisalignV_vlsseg4e16_v_cg.sample(ins);
         end
-        "vlsseg4e32.v"     : begin
+        INSTR_VLSSEG4E32_V     : begin
             MisalignV_vlsseg4e32_v_cg.sample(ins);
         end
-        "vlsseg4e64.v"     : begin
+        INSTR_VLSSEG4E64_V     : begin
             MisalignV_vlsseg4e64_v_cg.sample(ins);
         end
-        "vlsseg4e8.v"     : begin
+        INSTR_VLSSEG4E8_V     : begin
             MisalignV_vlsseg4e8_v_cg.sample(ins);
         end
-        "vlsseg5e16.v"     : begin
+        INSTR_VLSSEG5E16_V     : begin
             MisalignV_vlsseg5e16_v_cg.sample(ins);
         end
-        "vlsseg5e32.v"     : begin
+        INSTR_VLSSEG5E32_V     : begin
             MisalignV_vlsseg5e32_v_cg.sample(ins);
         end
-        "vlsseg5e64.v"     : begin
+        INSTR_VLSSEG5E64_V     : begin
             MisalignV_vlsseg5e64_v_cg.sample(ins);
         end
-        "vlsseg5e8.v"     : begin
+        INSTR_VLSSEG5E8_V     : begin
             MisalignV_vlsseg5e8_v_cg.sample(ins);
         end
-        "vlsseg6e16.v"     : begin
+        INSTR_VLSSEG6E16_V     : begin
             MisalignV_vlsseg6e16_v_cg.sample(ins);
         end
-        "vlsseg6e32.v"     : begin
+        INSTR_VLSSEG6E32_V     : begin
             MisalignV_vlsseg6e32_v_cg.sample(ins);
         end
-        "vlsseg6e64.v"     : begin
+        INSTR_VLSSEG6E64_V     : begin
             MisalignV_vlsseg6e64_v_cg.sample(ins);
         end
-        "vlsseg6e8.v"     : begin
+        INSTR_VLSSEG6E8_V     : begin
             MisalignV_vlsseg6e8_v_cg.sample(ins);
         end
-        "vlsseg7e16.v"     : begin
+        INSTR_VLSSEG7E16_V     : begin
             MisalignV_vlsseg7e16_v_cg.sample(ins);
         end
-        "vlsseg7e32.v"     : begin
+        INSTR_VLSSEG7E32_V     : begin
             MisalignV_vlsseg7e32_v_cg.sample(ins);
         end
-        "vlsseg7e64.v"     : begin
+        INSTR_VLSSEG7E64_V     : begin
             MisalignV_vlsseg7e64_v_cg.sample(ins);
         end
-        "vlsseg7e8.v"     : begin
+        INSTR_VLSSEG7E8_V     : begin
             MisalignV_vlsseg7e8_v_cg.sample(ins);
         end
-        "vlsseg8e16.v"     : begin
+        INSTR_VLSSEG8E16_V     : begin
             MisalignV_vlsseg8e16_v_cg.sample(ins);
         end
-        "vlsseg8e32.v"     : begin
+        INSTR_VLSSEG8E32_V     : begin
             MisalignV_vlsseg8e32_v_cg.sample(ins);
         end
-        "vlsseg8e64.v"     : begin
+        INSTR_VLSSEG8E64_V     : begin
             MisalignV_vlsseg8e64_v_cg.sample(ins);
         end
-        "vlsseg8e8.v"     : begin
+        INSTR_VLSSEG8E8_V     : begin
             MisalignV_vlsseg8e8_v_cg.sample(ins);
         end
-        "vluxei16.v"     : begin
+        INSTR_VLUXEI16_V     : begin
             MisalignV_vluxei16_v_cg.sample(ins);
         end
-        "vluxei32.v"     : begin
+        INSTR_VLUXEI32_V     : begin
             MisalignV_vluxei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vluxei64.v"     : begin
+        INSTR_VLUXEI64_V     : begin
             MisalignV_vluxei64_v_cg.sample(ins);
         end
 `endif
-        "vluxei8.v"     : begin
+        INSTR_VLUXEI8_V     : begin
             MisalignV_vluxei8_v_cg.sample(ins);
         end
-        "vluxseg2ei16.v"     : begin
+        INSTR_VLUXSEG2EI16_V     : begin
             MisalignV_vluxseg2ei16_v_cg.sample(ins);
         end
-        "vluxseg2ei32.v"     : begin
+        INSTR_VLUXSEG2EI32_V     : begin
             MisalignV_vluxseg2ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vluxseg2ei64.v"     : begin
+        INSTR_VLUXSEG2EI64_V     : begin
             MisalignV_vluxseg2ei64_v_cg.sample(ins);
         end
 `endif
-        "vluxseg2ei8.v"     : begin
+        INSTR_VLUXSEG2EI8_V     : begin
             MisalignV_vluxseg2ei8_v_cg.sample(ins);
         end
-        "vluxseg3ei16.v"     : begin
+        INSTR_VLUXSEG3EI16_V     : begin
             MisalignV_vluxseg3ei16_v_cg.sample(ins);
         end
-        "vluxseg3ei32.v"     : begin
+        INSTR_VLUXSEG3EI32_V     : begin
             MisalignV_vluxseg3ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vluxseg3ei64.v"     : begin
+        INSTR_VLUXSEG3EI64_V     : begin
             MisalignV_vluxseg3ei64_v_cg.sample(ins);
         end
 `endif
-        "vluxseg3ei8.v"     : begin
+        INSTR_VLUXSEG3EI8_V     : begin
             MisalignV_vluxseg3ei8_v_cg.sample(ins);
         end
-        "vluxseg4ei16.v"     : begin
+        INSTR_VLUXSEG4EI16_V     : begin
             MisalignV_vluxseg4ei16_v_cg.sample(ins);
         end
-        "vluxseg4ei32.v"     : begin
+        INSTR_VLUXSEG4EI32_V     : begin
             MisalignV_vluxseg4ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vluxseg4ei64.v"     : begin
+        INSTR_VLUXSEG4EI64_V     : begin
             MisalignV_vluxseg4ei64_v_cg.sample(ins);
         end
 `endif
-        "vluxseg4ei8.v"     : begin
+        INSTR_VLUXSEG4EI8_V     : begin
             MisalignV_vluxseg4ei8_v_cg.sample(ins);
         end
-        "vluxseg5ei16.v"     : begin
+        INSTR_VLUXSEG5EI16_V     : begin
             MisalignV_vluxseg5ei16_v_cg.sample(ins);
         end
-        "vluxseg5ei32.v"     : begin
+        INSTR_VLUXSEG5EI32_V     : begin
             MisalignV_vluxseg5ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vluxseg5ei64.v"     : begin
+        INSTR_VLUXSEG5EI64_V     : begin
             MisalignV_vluxseg5ei64_v_cg.sample(ins);
         end
 `endif
-        "vluxseg5ei8.v"     : begin
+        INSTR_VLUXSEG5EI8_V     : begin
             MisalignV_vluxseg5ei8_v_cg.sample(ins);
         end
-        "vluxseg6ei16.v"     : begin
+        INSTR_VLUXSEG6EI16_V     : begin
             MisalignV_vluxseg6ei16_v_cg.sample(ins);
         end
-        "vluxseg6ei32.v"     : begin
+        INSTR_VLUXSEG6EI32_V     : begin
             MisalignV_vluxseg6ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vluxseg6ei64.v"     : begin
+        INSTR_VLUXSEG6EI64_V     : begin
             MisalignV_vluxseg6ei64_v_cg.sample(ins);
         end
 `endif
-        "vluxseg6ei8.v"     : begin
+        INSTR_VLUXSEG6EI8_V     : begin
             MisalignV_vluxseg6ei8_v_cg.sample(ins);
         end
-        "vluxseg7ei16.v"     : begin
+        INSTR_VLUXSEG7EI16_V     : begin
             MisalignV_vluxseg7ei16_v_cg.sample(ins);
         end
-        "vluxseg7ei32.v"     : begin
+        INSTR_VLUXSEG7EI32_V     : begin
             MisalignV_vluxseg7ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vluxseg7ei64.v"     : begin
+        INSTR_VLUXSEG7EI64_V     : begin
             MisalignV_vluxseg7ei64_v_cg.sample(ins);
         end
 `endif
-        "vluxseg7ei8.v"     : begin
+        INSTR_VLUXSEG7EI8_V     : begin
             MisalignV_vluxseg7ei8_v_cg.sample(ins);
         end
-        "vluxseg8ei16.v"     : begin
+        INSTR_VLUXSEG8EI16_V     : begin
             MisalignV_vluxseg8ei16_v_cg.sample(ins);
         end
-        "vluxseg8ei32.v"     : begin
+        INSTR_VLUXSEG8EI32_V     : begin
             MisalignV_vluxseg8ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vluxseg8ei64.v"     : begin
+        INSTR_VLUXSEG8EI64_V     : begin
             MisalignV_vluxseg8ei64_v_cg.sample(ins);
         end
 `endif
-        "vluxseg8ei8.v"     : begin
+        INSTR_VLUXSEG8EI8_V     : begin
             MisalignV_vluxseg8ei8_v_cg.sample(ins);
         end
-        "vs1r.v"     : begin
+        INSTR_VS1R_V     : begin
             MisalignV_vs1r_v_cg.sample(ins);
         end
-        "vs2r.v"     : begin
+        INSTR_VS2R_V     : begin
             MisalignV_vs2r_v_cg.sample(ins);
         end
-        "vs4r.v"     : begin
+        INSTR_VS4R_V     : begin
             MisalignV_vs4r_v_cg.sample(ins);
         end
-        "vs8r.v"     : begin
+        INSTR_VS8R_V     : begin
             MisalignV_vs8r_v_cg.sample(ins);
         end
-        "vse16.v"     : begin
+        INSTR_VSE16_V     : begin
             MisalignV_vse16_v_cg.sample(ins);
         end
-        "vse32.v"     : begin
+        INSTR_VSE32_V     : begin
             MisalignV_vse32_v_cg.sample(ins);
         end
-        "vse64.v"     : begin
+        INSTR_VSE64_V     : begin
             MisalignV_vse64_v_cg.sample(ins);
         end
-        "vse8.v"     : begin
+        INSTR_VSE8_V     : begin
             MisalignV_vse8_v_cg.sample(ins);
         end
-        "vsm.v"     : begin
+        INSTR_VSM_V     : begin
             MisalignV_vsm_v_cg.sample(ins);
         end
-        "vsoxei16.v"     : begin
+        INSTR_VSOXEI16_V     : begin
             MisalignV_vsoxei16_v_cg.sample(ins);
         end
-        "vsoxei32.v"     : begin
+        INSTR_VSOXEI32_V     : begin
             MisalignV_vsoxei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsoxei64.v"     : begin
+        INSTR_VSOXEI64_V     : begin
             MisalignV_vsoxei64_v_cg.sample(ins);
         end
 `endif
-        "vsoxei8.v"     : begin
+        INSTR_VSOXEI8_V     : begin
             MisalignV_vsoxei8_v_cg.sample(ins);
         end
-        "vsoxseg2ei16.v"     : begin
+        INSTR_VSOXSEG2EI16_V     : begin
             MisalignV_vsoxseg2ei16_v_cg.sample(ins);
         end
-        "vsoxseg2ei32.v"     : begin
+        INSTR_VSOXSEG2EI32_V     : begin
             MisalignV_vsoxseg2ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsoxseg2ei64.v"     : begin
+        INSTR_VSOXSEG2EI64_V     : begin
             MisalignV_vsoxseg2ei64_v_cg.sample(ins);
         end
 `endif
-        "vsoxseg2ei8.v"     : begin
+        INSTR_VSOXSEG2EI8_V     : begin
             MisalignV_vsoxseg2ei8_v_cg.sample(ins);
         end
-        "vsoxseg3ei16.v"     : begin
+        INSTR_VSOXSEG3EI16_V     : begin
             MisalignV_vsoxseg3ei16_v_cg.sample(ins);
         end
-        "vsoxseg3ei32.v"     : begin
+        INSTR_VSOXSEG3EI32_V     : begin
             MisalignV_vsoxseg3ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsoxseg3ei64.v"     : begin
+        INSTR_VSOXSEG3EI64_V     : begin
             MisalignV_vsoxseg3ei64_v_cg.sample(ins);
         end
 `endif
-        "vsoxseg3ei8.v"     : begin
+        INSTR_VSOXSEG3EI8_V     : begin
             MisalignV_vsoxseg3ei8_v_cg.sample(ins);
         end
-        "vsoxseg4ei16.v"     : begin
+        INSTR_VSOXSEG4EI16_V     : begin
             MisalignV_vsoxseg4ei16_v_cg.sample(ins);
         end
-        "vsoxseg4ei32.v"     : begin
+        INSTR_VSOXSEG4EI32_V     : begin
             MisalignV_vsoxseg4ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsoxseg4ei64.v"     : begin
+        INSTR_VSOXSEG4EI64_V     : begin
             MisalignV_vsoxseg4ei64_v_cg.sample(ins);
         end
 `endif
-        "vsoxseg4ei8.v"     : begin
+        INSTR_VSOXSEG4EI8_V     : begin
             MisalignV_vsoxseg4ei8_v_cg.sample(ins);
         end
-        "vsoxseg5ei16.v"     : begin
+        INSTR_VSOXSEG5EI16_V     : begin
             MisalignV_vsoxseg5ei16_v_cg.sample(ins);
         end
-        "vsoxseg5ei32.v"     : begin
+        INSTR_VSOXSEG5EI32_V     : begin
             MisalignV_vsoxseg5ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsoxseg5ei64.v"     : begin
+        INSTR_VSOXSEG5EI64_V     : begin
             MisalignV_vsoxseg5ei64_v_cg.sample(ins);
         end
 `endif
-        "vsoxseg5ei8.v"     : begin
+        INSTR_VSOXSEG5EI8_V     : begin
             MisalignV_vsoxseg5ei8_v_cg.sample(ins);
         end
-        "vsoxseg6ei16.v"     : begin
+        INSTR_VSOXSEG6EI16_V     : begin
             MisalignV_vsoxseg6ei16_v_cg.sample(ins);
         end
-        "vsoxseg6ei32.v"     : begin
+        INSTR_VSOXSEG6EI32_V     : begin
             MisalignV_vsoxseg6ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsoxseg6ei64.v"     : begin
+        INSTR_VSOXSEG6EI64_V     : begin
             MisalignV_vsoxseg6ei64_v_cg.sample(ins);
         end
 `endif
-        "vsoxseg6ei8.v"     : begin
+        INSTR_VSOXSEG6EI8_V     : begin
             MisalignV_vsoxseg6ei8_v_cg.sample(ins);
         end
-        "vsoxseg7ei16.v"     : begin
+        INSTR_VSOXSEG7EI16_V     : begin
             MisalignV_vsoxseg7ei16_v_cg.sample(ins);
         end
-        "vsoxseg7ei32.v"     : begin
+        INSTR_VSOXSEG7EI32_V     : begin
             MisalignV_vsoxseg7ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsoxseg7ei64.v"     : begin
+        INSTR_VSOXSEG7EI64_V     : begin
             MisalignV_vsoxseg7ei64_v_cg.sample(ins);
         end
 `endif
-        "vsoxseg7ei8.v"     : begin
+        INSTR_VSOXSEG7EI8_V     : begin
             MisalignV_vsoxseg7ei8_v_cg.sample(ins);
         end
-        "vsoxseg8ei16.v"     : begin
+        INSTR_VSOXSEG8EI16_V     : begin
             MisalignV_vsoxseg8ei16_v_cg.sample(ins);
         end
-        "vsoxseg8ei32.v"     : begin
+        INSTR_VSOXSEG8EI32_V     : begin
             MisalignV_vsoxseg8ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsoxseg8ei64.v"     : begin
+        INSTR_VSOXSEG8EI64_V     : begin
             MisalignV_vsoxseg8ei64_v_cg.sample(ins);
         end
 `endif
-        "vsoxseg8ei8.v"     : begin
+        INSTR_VSOXSEG8EI8_V     : begin
             MisalignV_vsoxseg8ei8_v_cg.sample(ins);
         end
-        "vsse16.v"     : begin
+        INSTR_VSSE16_V     : begin
             MisalignV_vsse16_v_cg.sample(ins);
         end
-        "vsse32.v"     : begin
+        INSTR_VSSE32_V     : begin
             MisalignV_vsse32_v_cg.sample(ins);
         end
-        "vsse64.v"     : begin
+        INSTR_VSSE64_V     : begin
             MisalignV_vsse64_v_cg.sample(ins);
         end
-        "vsse8.v"     : begin
+        INSTR_VSSE8_V     : begin
             MisalignV_vsse8_v_cg.sample(ins);
         end
-        "vsseg2e16.v"     : begin
+        INSTR_VSSEG2E16_V     : begin
             MisalignV_vsseg2e16_v_cg.sample(ins);
         end
-        "vsseg2e32.v"     : begin
+        INSTR_VSSEG2E32_V     : begin
             MisalignV_vsseg2e32_v_cg.sample(ins);
         end
-        "vsseg2e64.v"     : begin
+        INSTR_VSSEG2E64_V     : begin
             MisalignV_vsseg2e64_v_cg.sample(ins);
         end
-        "vsseg2e8.v"     : begin
+        INSTR_VSSEG2E8_V     : begin
             MisalignV_vsseg2e8_v_cg.sample(ins);
         end
-        "vsseg3e16.v"     : begin
+        INSTR_VSSEG3E16_V     : begin
             MisalignV_vsseg3e16_v_cg.sample(ins);
         end
-        "vsseg3e32.v"     : begin
+        INSTR_VSSEG3E32_V     : begin
             MisalignV_vsseg3e32_v_cg.sample(ins);
         end
-        "vsseg3e64.v"     : begin
+        INSTR_VSSEG3E64_V     : begin
             MisalignV_vsseg3e64_v_cg.sample(ins);
         end
-        "vsseg3e8.v"     : begin
+        INSTR_VSSEG3E8_V     : begin
             MisalignV_vsseg3e8_v_cg.sample(ins);
         end
-        "vsseg4e16.v"     : begin
+        INSTR_VSSEG4E16_V     : begin
             MisalignV_vsseg4e16_v_cg.sample(ins);
         end
-        "vsseg4e32.v"     : begin
+        INSTR_VSSEG4E32_V     : begin
             MisalignV_vsseg4e32_v_cg.sample(ins);
         end
-        "vsseg4e64.v"     : begin
+        INSTR_VSSEG4E64_V     : begin
             MisalignV_vsseg4e64_v_cg.sample(ins);
         end
-        "vsseg4e8.v"     : begin
+        INSTR_VSSEG4E8_V     : begin
             MisalignV_vsseg4e8_v_cg.sample(ins);
         end
-        "vsseg5e16.v"     : begin
+        INSTR_VSSEG5E16_V     : begin
             MisalignV_vsseg5e16_v_cg.sample(ins);
         end
-        "vsseg5e32.v"     : begin
+        INSTR_VSSEG5E32_V     : begin
             MisalignV_vsseg5e32_v_cg.sample(ins);
         end
-        "vsseg5e64.v"     : begin
+        INSTR_VSSEG5E64_V     : begin
             MisalignV_vsseg5e64_v_cg.sample(ins);
         end
-        "vsseg5e8.v"     : begin
+        INSTR_VSSEG5E8_V     : begin
             MisalignV_vsseg5e8_v_cg.sample(ins);
         end
-        "vsseg6e16.v"     : begin
+        INSTR_VSSEG6E16_V     : begin
             MisalignV_vsseg6e16_v_cg.sample(ins);
         end
-        "vsseg6e32.v"     : begin
+        INSTR_VSSEG6E32_V     : begin
             MisalignV_vsseg6e32_v_cg.sample(ins);
         end
-        "vsseg6e64.v"     : begin
+        INSTR_VSSEG6E64_V     : begin
             MisalignV_vsseg6e64_v_cg.sample(ins);
         end
-        "vsseg6e8.v"     : begin
+        INSTR_VSSEG6E8_V     : begin
             MisalignV_vsseg6e8_v_cg.sample(ins);
         end
-        "vsseg7e16.v"     : begin
+        INSTR_VSSEG7E16_V     : begin
             MisalignV_vsseg7e16_v_cg.sample(ins);
         end
-        "vsseg7e32.v"     : begin
+        INSTR_VSSEG7E32_V     : begin
             MisalignV_vsseg7e32_v_cg.sample(ins);
         end
-        "vsseg7e64.v"     : begin
+        INSTR_VSSEG7E64_V     : begin
             MisalignV_vsseg7e64_v_cg.sample(ins);
         end
-        "vsseg7e8.v"     : begin
+        INSTR_VSSEG7E8_V     : begin
             MisalignV_vsseg7e8_v_cg.sample(ins);
         end
-        "vsseg8e16.v"     : begin
+        INSTR_VSSEG8E16_V     : begin
             MisalignV_vsseg8e16_v_cg.sample(ins);
         end
-        "vsseg8e32.v"     : begin
+        INSTR_VSSEG8E32_V     : begin
             MisalignV_vsseg8e32_v_cg.sample(ins);
         end
-        "vsseg8e64.v"     : begin
+        INSTR_VSSEG8E64_V     : begin
             MisalignV_vsseg8e64_v_cg.sample(ins);
         end
-        "vsseg8e8.v"     : begin
+        INSTR_VSSEG8E8_V     : begin
             MisalignV_vsseg8e8_v_cg.sample(ins);
         end
-        "vssseg2e16.v"     : begin
+        INSTR_VSSSEG2E16_V     : begin
             MisalignV_vssseg2e16_v_cg.sample(ins);
         end
-        "vssseg2e32.v"     : begin
+        INSTR_VSSSEG2E32_V     : begin
             MisalignV_vssseg2e32_v_cg.sample(ins);
         end
-        "vssseg2e64.v"     : begin
+        INSTR_VSSSEG2E64_V     : begin
             MisalignV_vssseg2e64_v_cg.sample(ins);
         end
-        "vssseg2e8.v"     : begin
+        INSTR_VSSSEG2E8_V     : begin
             MisalignV_vssseg2e8_v_cg.sample(ins);
         end
-        "vssseg3e16.v"     : begin
+        INSTR_VSSSEG3E16_V     : begin
             MisalignV_vssseg3e16_v_cg.sample(ins);
         end
-        "vssseg3e32.v"     : begin
+        INSTR_VSSSEG3E32_V     : begin
             MisalignV_vssseg3e32_v_cg.sample(ins);
         end
-        "vssseg3e64.v"     : begin
+        INSTR_VSSSEG3E64_V     : begin
             MisalignV_vssseg3e64_v_cg.sample(ins);
         end
-        "vssseg3e8.v"     : begin
+        INSTR_VSSSEG3E8_V     : begin
             MisalignV_vssseg3e8_v_cg.sample(ins);
         end
-        "vssseg4e16.v"     : begin
+        INSTR_VSSSEG4E16_V     : begin
             MisalignV_vssseg4e16_v_cg.sample(ins);
         end
-        "vssseg4e32.v"     : begin
+        INSTR_VSSSEG4E32_V     : begin
             MisalignV_vssseg4e32_v_cg.sample(ins);
         end
-        "vssseg4e64.v"     : begin
+        INSTR_VSSSEG4E64_V     : begin
             MisalignV_vssseg4e64_v_cg.sample(ins);
         end
-        "vssseg4e8.v"     : begin
+        INSTR_VSSSEG4E8_V     : begin
             MisalignV_vssseg4e8_v_cg.sample(ins);
         end
-        "vssseg5e16.v"     : begin
+        INSTR_VSSSEG5E16_V     : begin
             MisalignV_vssseg5e16_v_cg.sample(ins);
         end
-        "vssseg5e32.v"     : begin
+        INSTR_VSSSEG5E32_V     : begin
             MisalignV_vssseg5e32_v_cg.sample(ins);
         end
-        "vssseg5e64.v"     : begin
+        INSTR_VSSSEG5E64_V     : begin
             MisalignV_vssseg5e64_v_cg.sample(ins);
         end
-        "vssseg5e8.v"     : begin
+        INSTR_VSSSEG5E8_V     : begin
             MisalignV_vssseg5e8_v_cg.sample(ins);
         end
-        "vssseg6e16.v"     : begin
+        INSTR_VSSSEG6E16_V     : begin
             MisalignV_vssseg6e16_v_cg.sample(ins);
         end
-        "vssseg6e32.v"     : begin
+        INSTR_VSSSEG6E32_V     : begin
             MisalignV_vssseg6e32_v_cg.sample(ins);
         end
-        "vssseg6e64.v"     : begin
+        INSTR_VSSSEG6E64_V     : begin
             MisalignV_vssseg6e64_v_cg.sample(ins);
         end
-        "vssseg6e8.v"     : begin
+        INSTR_VSSSEG6E8_V     : begin
             MisalignV_vssseg6e8_v_cg.sample(ins);
         end
-        "vssseg7e16.v"     : begin
+        INSTR_VSSSEG7E16_V     : begin
             MisalignV_vssseg7e16_v_cg.sample(ins);
         end
-        "vssseg7e32.v"     : begin
+        INSTR_VSSSEG7E32_V     : begin
             MisalignV_vssseg7e32_v_cg.sample(ins);
         end
-        "vssseg7e64.v"     : begin
+        INSTR_VSSSEG7E64_V     : begin
             MisalignV_vssseg7e64_v_cg.sample(ins);
         end
-        "vssseg7e8.v"     : begin
+        INSTR_VSSSEG7E8_V     : begin
             MisalignV_vssseg7e8_v_cg.sample(ins);
         end
-        "vssseg8e16.v"     : begin
+        INSTR_VSSSEG8E16_V     : begin
             MisalignV_vssseg8e16_v_cg.sample(ins);
         end
-        "vssseg8e32.v"     : begin
+        INSTR_VSSSEG8E32_V     : begin
             MisalignV_vssseg8e32_v_cg.sample(ins);
         end
-        "vssseg8e64.v"     : begin
+        INSTR_VSSSEG8E64_V     : begin
             MisalignV_vssseg8e64_v_cg.sample(ins);
         end
-        "vssseg8e8.v"     : begin
+        INSTR_VSSSEG8E8_V     : begin
             MisalignV_vssseg8e8_v_cg.sample(ins);
         end
-        "vsuxei16.v"     : begin
+        INSTR_VSUXEI16_V     : begin
             MisalignV_vsuxei16_v_cg.sample(ins);
         end
-        "vsuxei32.v"     : begin
+        INSTR_VSUXEI32_V     : begin
             MisalignV_vsuxei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsuxei64.v"     : begin
+        INSTR_VSUXEI64_V     : begin
             MisalignV_vsuxei64_v_cg.sample(ins);
         end
 `endif
-        "vsuxei8.v"     : begin
+        INSTR_VSUXEI8_V     : begin
             MisalignV_vsuxei8_v_cg.sample(ins);
         end
-        "vsuxseg2ei16.v"     : begin
+        INSTR_VSUXSEG2EI16_V     : begin
             MisalignV_vsuxseg2ei16_v_cg.sample(ins);
         end
-        "vsuxseg2ei32.v"     : begin
+        INSTR_VSUXSEG2EI32_V     : begin
             MisalignV_vsuxseg2ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsuxseg2ei64.v"     : begin
+        INSTR_VSUXSEG2EI64_V     : begin
             MisalignV_vsuxseg2ei64_v_cg.sample(ins);
         end
 `endif
-        "vsuxseg2ei8.v"     : begin
+        INSTR_VSUXSEG2EI8_V     : begin
             MisalignV_vsuxseg2ei8_v_cg.sample(ins);
         end
-        "vsuxseg3ei16.v"     : begin
+        INSTR_VSUXSEG3EI16_V     : begin
             MisalignV_vsuxseg3ei16_v_cg.sample(ins);
         end
-        "vsuxseg3ei32.v"     : begin
+        INSTR_VSUXSEG3EI32_V     : begin
             MisalignV_vsuxseg3ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsuxseg3ei64.v"     : begin
+        INSTR_VSUXSEG3EI64_V     : begin
             MisalignV_vsuxseg3ei64_v_cg.sample(ins);
         end
 `endif
-        "vsuxseg3ei8.v"     : begin
+        INSTR_VSUXSEG3EI8_V     : begin
             MisalignV_vsuxseg3ei8_v_cg.sample(ins);
         end
-        "vsuxseg4ei16.v"     : begin
+        INSTR_VSUXSEG4EI16_V     : begin
             MisalignV_vsuxseg4ei16_v_cg.sample(ins);
         end
-        "vsuxseg4ei32.v"     : begin
+        INSTR_VSUXSEG4EI32_V     : begin
             MisalignV_vsuxseg4ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsuxseg4ei64.v"     : begin
+        INSTR_VSUXSEG4EI64_V     : begin
             MisalignV_vsuxseg4ei64_v_cg.sample(ins);
         end
 `endif
-        "vsuxseg4ei8.v"     : begin
+        INSTR_VSUXSEG4EI8_V     : begin
             MisalignV_vsuxseg4ei8_v_cg.sample(ins);
         end
-        "vsuxseg5ei16.v"     : begin
+        INSTR_VSUXSEG5EI16_V     : begin
             MisalignV_vsuxseg5ei16_v_cg.sample(ins);
         end
-        "vsuxseg5ei32.v"     : begin
+        INSTR_VSUXSEG5EI32_V     : begin
             MisalignV_vsuxseg5ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsuxseg5ei64.v"     : begin
+        INSTR_VSUXSEG5EI64_V     : begin
             MisalignV_vsuxseg5ei64_v_cg.sample(ins);
         end
 `endif
-        "vsuxseg5ei8.v"     : begin
+        INSTR_VSUXSEG5EI8_V     : begin
             MisalignV_vsuxseg5ei8_v_cg.sample(ins);
         end
-        "vsuxseg6ei16.v"     : begin
+        INSTR_VSUXSEG6EI16_V     : begin
             MisalignV_vsuxseg6ei16_v_cg.sample(ins);
         end
-        "vsuxseg6ei32.v"     : begin
+        INSTR_VSUXSEG6EI32_V     : begin
             MisalignV_vsuxseg6ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsuxseg6ei64.v"     : begin
+        INSTR_VSUXSEG6EI64_V     : begin
             MisalignV_vsuxseg6ei64_v_cg.sample(ins);
         end
 `endif
-        "vsuxseg6ei8.v"     : begin
+        INSTR_VSUXSEG6EI8_V     : begin
             MisalignV_vsuxseg6ei8_v_cg.sample(ins);
         end
-        "vsuxseg7ei16.v"     : begin
+        INSTR_VSUXSEG7EI16_V     : begin
             MisalignV_vsuxseg7ei16_v_cg.sample(ins);
         end
-        "vsuxseg7ei32.v"     : begin
+        INSTR_VSUXSEG7EI32_V     : begin
             MisalignV_vsuxseg7ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsuxseg7ei64.v"     : begin
+        INSTR_VSUXSEG7EI64_V     : begin
             MisalignV_vsuxseg7ei64_v_cg.sample(ins);
         end
 `endif
-        "vsuxseg7ei8.v"     : begin
+        INSTR_VSUXSEG7EI8_V     : begin
             MisalignV_vsuxseg7ei8_v_cg.sample(ins);
         end
-        "vsuxseg8ei16.v"     : begin
+        INSTR_VSUXSEG8EI16_V     : begin
             MisalignV_vsuxseg8ei16_v_cg.sample(ins);
         end
-        "vsuxseg8ei32.v"     : begin
+        INSTR_VSUXSEG8EI32_V     : begin
             MisalignV_vsuxseg8ei32_v_cg.sample(ins);
         end
 `ifdef XLEN64
-        "vsuxseg8ei64.v"     : begin
+        INSTR_VSUXSEG8EI64_V     : begin
             MisalignV_vsuxseg8ei64_v_cg.sample(ins);
         end
 `endif
-        "vsuxseg8ei8.v"     : begin
+        INSTR_VSUXSEG8EI8_V     : begin
             MisalignV_vsuxseg8ei8_v_cg.sample(ins);
         end
     endcase

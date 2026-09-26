@@ -14,7 +14,7 @@
 `define COVER_MISALIGNZCA
 covergroup MisalignZca_c_lw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.lw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -34,7 +34,7 @@ endgroup
 // ---------------------
 covergroup MisalignZca_c_lwsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.lwsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -54,7 +54,7 @@ endgroup
 // ---------------------
 covergroup MisalignZca_c_sw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -74,7 +74,7 @@ endgroup
 // ---------------------
 covergroup MisalignZca_c_swsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.swsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -95,7 +95,7 @@ endgroup
 `ifdef UDB_MXLEN_64
 covergroup MisalignZca_c_ld_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.ld"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -115,7 +115,7 @@ endgroup
 // ---------------------
 covergroup MisalignZca_c_ldsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.ldsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -135,7 +135,7 @@ endgroup
 // ---------------------
 covergroup MisalignZca_c_sd_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sd"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -155,7 +155,7 @@ endgroup
 // ---------------------
 covergroup MisalignZca_c_sdsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sdsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -176,30 +176,30 @@ endgroup
 `endif
 function void misalignzca_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "c.lw"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_C_LW     : begin
             MisalignZca_c_lw_cg.sample(ins);
         end
-        "c.lwsp"     : begin
+        INSTR_C_LWSP     : begin
             MisalignZca_c_lwsp_cg.sample(ins);
         end
-        "c.sw"     : begin
+        INSTR_C_SW     : begin
             MisalignZca_c_sw_cg.sample(ins);
         end
-        "c.swsp"     : begin
+        INSTR_C_SWSP     : begin
             MisalignZca_c_swsp_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "c.ld"     : begin
+        INSTR_C_LD     : begin
             MisalignZca_c_ld_cg.sample(ins);
         end
-        "c.ldsp"     : begin
+        INSTR_C_LDSP     : begin
             MisalignZca_c_ldsp_cg.sample(ins);
         end
-        "c.sd"     : begin
+        INSTR_C_SD     : begin
             MisalignZca_c_sd_cg.sample(ins);
         end
-        "c.sdsp"     : begin
+        INSTR_C_SDSP     : begin
             MisalignZca_c_sdsp_cg.sample(ins);
         end
 `endif

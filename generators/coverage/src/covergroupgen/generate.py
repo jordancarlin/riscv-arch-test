@@ -371,6 +371,11 @@ def read_covergroup_templates(package: str = "covergroupgen.templates") -> dict[
 ##################################
 
 
+def _instruction_id(instr: str) -> str:
+    """Return the SystemVerilog enum identifier for an instruction mnemonic."""
+    return "INSTR_" + re.sub(r"[^A-Za-z0-9]+", "_", instr).strip("_").upper()
+
+
 def customize_template(templates: dict[str, str], name: str, arch: str = "", instr: str = "", effew: str = "") -> str:
     """Look up a template by name and substitute placeholders.
 
@@ -393,6 +398,7 @@ def customize_template(templates: dict[str, str], name: str, arch: str = "", ins
         templates[name]
         .replace("INSTRNODOT", instr.replace(".", "_"))
         .replace("INSTR", instr)
+        .replace("DECODEID", _instruction_id(instr))
         .replace("ARCHPREFIXUPPER", arch_prefix.upper())
         .replace("ARCHPREFIX", arch_prefix)
         .replace("ARCHUPPER", arch.upper())
@@ -700,22 +706,276 @@ def _gen_covergroup_samples(
     return "".join(lines)
 
 
-def _gen_instruction_samples(
+def _sign_extend(expression: str, width: int) -> str:
+    """Return a SystemVerilog expression sign-extended to XLEN."""
+    first_field = expression.split(",", 1)[0].lstrip("{") if expression.startswith("{") else expression
+    match = re.fullmatch(r"(.+)\[(\d+)(?::\d+)?\]", first_field)
+    if match is None:
+        raise ValueError(f"Cannot find the sign bit in {expression}")
+    sign_bit = f"{match.group(1)}[{match.group(2)}]"
+    return f"{{{{(XLEN-{width}){{{sign_bit}}}}}, {expression}}}"
+
+
+def _immediate_expression(instr: str, instr_type: str) -> str:
+    """Return the encoded immediate for an instruction format."""
+    if instr_type == "B":
+        return _sign_extend("{decoded_insn[31], decoded_insn[7], decoded_insn[30:25], decoded_insn[11:8], 1'b0}", 13)
+    if instr_type == "CB":
+        return _sign_extend(
+            "{decoded_insn[12], decoded_insn[6:5], decoded_insn[2], decoded_insn[11:10], decoded_insn[4:3], 1'b0}",
+            9,
+        )
+    if instr_type == "CBP":
+        return _sign_extend("{decoded_insn[12], decoded_insn[6:2]}", 6)
+    if instr_type in {"CBS", "CIS"}:
+        return "{decoded_insn[12], decoded_insn[6:2]}"
+    if instr == "c.addi16sp":
+        return _sign_extend(
+            "{decoded_insn[12], decoded_insn[4:3], decoded_insn[5], decoded_insn[2], decoded_insn[6], 4'b0}",
+            10,
+        )
+    if instr_type in {"CI", "CIU", "CN"}:
+        return _sign_extend("{decoded_insn[12], decoded_insn[6:2]}", 6)
+    if instr_type == "CIW":
+        return "{decoded_insn[10:7], decoded_insn[12:11], decoded_insn[5], decoded_insn[6], 2'b0}"
+    if instr_type in {"CJ", "CJAL"}:
+        return _sign_extend(
+            "{decoded_insn[12], decoded_insn[8], decoded_insn[10:9], decoded_insn[6], decoded_insn[7], "
+            "decoded_insn[2], decoded_insn[11], decoded_insn[5:3], 1'b0}",
+            12,
+        )
+    if instr_type == "CSRI":
+        return "decoded_insn[19:15]"
+    if instr_type in {"I", "JR", "PRE", "FL", "L"}:
+        return _sign_extend("decoded_insn[31:20]", 12)
+    if instr_type in {"IMM", "U"}:
+        return _sign_extend("decoded_insn[31:12]", 20)
+    if instr_type == "IS":
+        return "decoded_insn[25:20]"
+    if instr_type == "ISW":
+        return "decoded_insn[24:20]"
+    if instr_type == "J":
+        return _sign_extend("{decoded_insn[31], decoded_insn[19:12], decoded_insn[20], decoded_insn[30:21], 1'b0}", 21)
+    if instr_type in {"MVI", "MVIC", "MVIM", "VMVVI", "VVI", "VVIM", "VVI_SAT"}:
+        return _sign_extend("decoded_insn[19:15]", 5)
+    if instr_type in {"VVIP", "VVIP_DOWN", "VVIU", "VVI_EGS4", "VVI_EGS8", "VWI", "WVI"}:
+        return "decoded_insn[19:15]"
+    if instr_type in {"FS", "S"}:
+        return _sign_extend("{decoded_insn[31:25], decoded_insn[11:7]}", 12)
+    if instr_type in {"CL", "CFL", "CS", "CFS"}:
+        if instr in {"c.ld", "c.fld", "c.sd", "c.fsd"}:
+            return "{decoded_insn[6:5], decoded_insn[12:10], 3'b0}"
+        return "{decoded_insn[5], decoded_insn[12:10], decoded_insn[6], 2'b0}"
+    if instr_type in {"CLB", "CSB"}:
+        return "{decoded_insn[5], decoded_insn[6]}"
+    if instr_type in {"CLH", "CSH"}:
+        return "{decoded_insn[5], 1'b0}"
+    if instr_type in {"CILS", "CFLS"}:
+        if instr in {"c.ldsp", "c.fldsp"}:
+            return "{decoded_insn[4:2], decoded_insn[12], decoded_insn[6:5], 3'b0}"
+        return "{decoded_insn[3:2], decoded_insn[12], decoded_insn[6:4], 2'b0}"
+    if instr_type in {"CSS", "CFSS"}:
+        if instr in {"c.sdsp", "c.fsdsp"}:
+            return "{decoded_insn[9:7], decoded_insn[12:10], 3'b0}"
+        return "{decoded_insn[8:7], decoded_insn[12:9], 2'b0}"
+    raise ValueError(f"No immediate decoder for {instr} ({instr_type})")
+
+
+def _direct_sample_statements(instr: str, instr_type: str, statements: list[str]) -> list[str]:
+    """Replace disassembly operand offsets with encoded fields."""
+    rd = (
+        "{2'b01, decoded_insn[9:7]}"
+        if instr_type in {"CA", "CBP", "CBS", "CU"}
+        else "{2'b01, decoded_insn[4:2]}"
+        if instr_type in {"CL", "CLB", "CLH", "CIW"}
+        else "decoded_insn[11:7]"
+    )
+    rs1 = (
+        "{2'b01, decoded_insn[9:7]}"
+        if instr_type in {"CA", "CB", "CBP", "CBS", "CFL", "CFS", "CL", "CLB", "CLH", "CS", "CSB", "CSH", "CU"}
+        else "decoded_insn[11:7]"
+        if instr_type in {"CI", "CIS", "CIU", "CJALR", "CJR", "CR"}
+        else "5'd2"
+        if instr_type == "CIW"
+        else "decoded_insn[19:15]"
+    )
+    rs2 = (
+        "{2'b01, decoded_insn[4:2]}"
+        if instr_type in {"CA", "CFS", "CS", "CSB", "CSH"}
+        else "decoded_insn[6:2]"
+        if instr_type in {"CFSS", "CR", "CSS"}
+        else "decoded_insn[24:20]"
+    )
+    fd = "{2'b01, decoded_insn[4:2]}" if instr_type == "CFL" else "decoded_insn[11:7]"
+    fs2 = (
+        "{2'b01, decoded_insn[4:2]}"
+        if instr_type == "CFS"
+        else "decoded_insn[6:2]"
+        if instr_type == "CFSS"
+        else "decoded_insn[24:20]"
+    )
+    replacements = {
+        "add_rd": rd,
+        "add_rd_pair": rd,
+        "add_rs1": rs1,
+        "add_rs2": rs2,
+        "add_rs3": "decoded_insn[31:27]",
+        "add_fd": fd,
+        "add_fs1": "decoded_insn[19:15]",
+        "add_fs2": fs2,
+        "add_fs3": "decoded_insn[31:27]",
+    }
+    fixed_fields = {"add_vd", "add_vs1", "add_vs2", "add_vs3", "add_vm"}
+    result: list[str] = []
+    for statement in statements:
+        match = re.fullmatch(r"ins\.(add_[a-zA-Z0-9_]+)\([^)]*\);", statement)
+        if match is None:
+            result.append(statement)
+            continue
+        method = match.group(1)
+        if method in replacements:
+            result.append(f"ins.{method}({replacements[method]});")
+        elif method in {"add_imm", "add_imm_addr", "add_mem_offset"}:
+            result.append(f"ins.{method}({_immediate_expression(instr, instr_type)});")
+        elif method in fixed_fields:
+            result.append(f"ins.{method}();")
+        else:
+            result.append(statement)
+    return result
+
+
+def _instruction_sample_bodies(
     instr_keys: list[tuple[str, str]],
     templates: dict[str, str],
     tp: dict[tuple[str, str], list[str]],
-    arch: str,
     has_rv32: bool,
     has_rv64: bool,
-) -> str:
-    """Generate instruction sample case entries (the decode switch body)."""
-    lines: list[str] = []
-    for instr, _instr_type in instr_keys:
-        cps = tp[(instr, _instr_type)]
-        if not _matches_xlen(cps, has_rv32, has_rv64):
+) -> dict[str, tuple[str, list[str]]]:
+    """Return each instruction's format and sample statements for one XLEN."""
+    result: dict[str, tuple[str, list[str]]] = {}
+    for instr, instr_type in instr_keys:
+        cps = tp[(instr, instr_type)]
+        xlen_marked = "RV32" in cps or "RV64" in cps
+        if xlen_marked and ((has_rv32 and "RV32" not in cps) or (has_rv64 and "RV64" not in cps)):
             continue
-        lines.extend(customize_template(templates, cp, arch, instr) for cp in cps if cp.startswith("sample_"))
-    return "".join(lines)
+        samples = [customize_template(templates, cp, "", instr) for cp in cps if cp.startswith("sample_")]
+        if not samples:
+            continue
+        body = [line.strip() for line in "".join(samples).splitlines()[1:-1] if line.strip()]
+        body = _direct_sample_statements(instr, instr_type.removesuffix("_RD_NX0"), body)
+        if instr in result:
+            raise ValueError(f"Multiple instruction formats for {instr} at the same XLEN")
+        result[instr] = (instr_type.removesuffix("_RD_NX0"), body)
+    return result
+
+
+def _decode_action(
+    instr: str,
+    rv32: dict[str, tuple[str, list[str]]],
+    rv64: dict[str, tuple[str, list[str]]],
+    indent: str,
+) -> list[str]:
+    """Generate direct operand decoding for one mnemonic."""
+    lines = [f"{indent}ins.set_instruction({_instruction_id(instr)});\n"]
+    rv32_metadata = rv32.get(instr)
+    rv64_metadata = rv64.get(instr)
+    if rv32_metadata is None and rv64_metadata is None:
+        return lines
+    if rv32_metadata is not None and rv32_metadata == rv64_metadata:
+        _instr_type, body = rv32_metadata
+        lines.extend(f"{indent}{statement}\n" for statement in body)
+        return lines
+
+    for macro, metadata in (("UDB_MXLEN_32", rv32_metadata), ("UDB_MXLEN_64", rv64_metadata)):
+        if metadata is None:
+            continue
+        _instr_type, body = metadata
+        lines.append(f"{indent}`ifdef {macro}\n")
+        lines.extend(f"{indent}  {statement}\n" for statement in body)
+        lines.append(f"{indent}`endif\n")
+    return lines
+
+
+def _generate_fallback_decode(
+    fallback_source: str,
+    rv32: dict[str, tuple[str, list[str]]],
+    rv64: dict[str, tuple[str, list[str]]],
+    indent: str,
+) -> tuple[list[str], set[str]]:
+    """Generate direct decode entries for reserved vector encodings."""
+    lines = [f"{indent}casez (decoded_insn)\n"]
+    decoded: set[str] = set()
+    pattern = re.compile(r'^\s*(32\'b[01?_]+): return "([^"]+)";')
+    for source_line in fallback_source.splitlines():
+        match = pattern.match(source_line)
+        if match is None:
+            continue
+        encoding, instr = match.groups()
+        decoded.add(instr)
+        lines.append(f"{indent}  {encoding}: begin\n")
+        lines.extend(_decode_action(instr, rv32, rv64, f"{indent}    "))
+        lines.append(f"{indent}  end\n")
+    lines.append(f"{indent}  default: ins.set_instruction(INSTR_ILLEGAL);\n")
+    lines.append(f"{indent}endcase\n")
+    return lines, decoded
+
+
+def _generate_instruction_decode(
+    disassembler_source: str,
+    fallback_source: str,
+    rv32: dict[str, tuple[str, list[str]]],
+    rv64: dict[str, tuple[str, list[str]]],
+) -> tuple[str, set[str]]:
+    """Convert the diagnostic disassembler case into direct instruction decoding."""
+    start = disassembler_source.index("  casez (instr)")
+    end = disassembler_source.index("  endcase", start) + len("  endcase")
+    source_lines = disassembler_source[start:end].splitlines()
+    lines = [
+        "// This file is autogenerated by covergroupgen.\n",
+        "ins_t ins;\n",
+        "bit [31:0] decoded_insn;\n",
+        "bit [4:0] rdBits;\n",
+        "bit [4:0] crs2Bits;\n",
+        "bit signed [5:0] immCIType;\n",
+        "bit signed [9:0] immCIASPType;\n",
+        "bit [9:0] immCIWType;\n\n",
+        "ins = new(hart, issue, traceDataQ);\n",
+        "decoded_insn = ins.current.insn[1:0] == 2'b11 ? ins.current.insn : {16'b0, ins.current.insn[15:0]};\n",
+        "rdBits = decoded_insn[11:7];\n",
+        "crs2Bits = decoded_insn[6:2];\n",
+        "immCIType = {decoded_insn[12], decoded_insn[6:2]};\n",
+        "immCIASPType = {decoded_insn[12], decoded_insn[4:3], decoded_insn[5], decoded_insn[2], decoded_insn[6], 4'b0};\n",
+        "immCIWType = {decoded_insn[10:7], decoded_insn[12:11], decoded_insn[5], decoded_insn[6], 2'b0};\n\n",
+    ]
+    decoded: set[str] = set()
+    format_pattern = re.compile(r'\$sformat\(decoded,\s*"([^"]+)"')
+    for source_line in source_lines:
+        if source_line.strip() == "casez (instr)":
+            lines.append("casez (decoded_insn)\n")
+            continue
+        match = format_pattern.search(source_line)
+        if match is not None:
+            instr = match.group(1).split()[0]
+            decoded.add(instr)
+            prefix = source_line[: source_line.index("$sformat")]
+            leading = prefix[: len(prefix) - len(prefix.lstrip())]
+            lines.append(f"{prefix}begin\n")
+            lines.extend(_decode_action(instr, rv32, rv64, f"{leading}  "))
+            lines.append(f"{leading}end\n")
+        elif source_line.strip().startswith("default:"):
+            leading = source_line[: len(source_line) - len(source_line.lstrip())]
+            lines.append(f"{leading}default: begin\n")
+            fallback_lines, fallback_decoded = _generate_fallback_decode(fallback_source, rv32, rv64, f"{leading}  ")
+            lines.extend(fallback_lines)
+            decoded.update(fallback_decoded)
+            lines.append(f"{leading}end\n")
+        else:
+            lines.append(f"{source_line}\n")
+
+    missing = (set(rv32) | set(rv64)) - decoded
+    if missing:
+        raise ValueError(f"Instructions missing from direct decoder: {', '.join(sorted(missing))}")
+    return "".join(lines), decoded
 
 
 ##################################
@@ -869,30 +1129,37 @@ def write_instruction_sample_file(
     templates: dict[str, str],
     output_dir: Path,
 ) -> None:
-    """Generate and write RISCV_instruction_sample.svh with a complete instruction decode case statement.
-
-    This file must always contain ALL instructions regardless of extension filtering,
-    because the case statement is used for runtime instruction decoding.
-    """
+    """Generate the global instruction and operand decoder."""
     coverage_dir = output_dir / "coverage"
     coverage_dir.mkdir(parents=True, exist_ok=True)
 
     merged_tp = _merge_instruction_testplans(test_plans, instruction_formats)
     instr_keys = sorted(merged_tp.keys())
+    rv32 = _instruction_sample_bodies(instr_keys, templates, merged_tp, True, False)
+    rv64 = _instruction_sample_bodies(instr_keys, templates, merged_tp, False, True)
 
-    lines: list[str] = [customize_template(templates, "instruction_sample_header")]
-    lines.append(_gen_instruction_samples(instr_keys, templates, merged_tp, "", True, True))
-    if _any_xlen_exclusion("RV64", instr_keys, merged_tp):
-        lines.append(customize_template(templates, "RV32"))
-        lines.append(_gen_instruction_samples(instr_keys, templates, merged_tp, "", True, False))
-        lines.append(customize_template(templates, "end"))
-    if _any_xlen_exclusion("RV32", instr_keys, merged_tp):
-        lines.append(customize_template(templates, "RV64"))
-        lines.append(_gen_instruction_samples(instr_keys, templates, merged_tp, "", False, True))
-        lines.append(customize_template(templates, "end"))
-
-    lines.append(customize_template(templates, "instruction_sample_end"))
-    _write_if_changed(coverage_dir / "RISCV_instruction_sample.svh", "".join(lines))
+    repo_root = Path(__file__).resolve().parents[4]
+    fcov_dir = repo_root / "framework" / "src" / "act" / "fcov"
+    content, decoded = _generate_instruction_decode(
+        (fcov_dir / "disassemble.svh").read_text(),
+        (fcov_dir / "coverage" / "RISCV_disasm_fallback.svh").read_text(),
+        rv32,
+        rv64,
+    )
+    ids = {_instruction_id(instr): instr for instr in decoded}
+    if len(ids) != len(decoded):
+        raise ValueError("Instruction names do not map to unique SystemVerilog identifiers")
+    enum_values = ["INSTR_ILLEGAL", *sorted(ids)]
+    enum = (
+        "// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.\n"
+        "// SPDX-License-Identifier: Apache-2.0 WITH SHL-2.0\n"
+        "// This file is autogenerated by covergroupgen.\n"
+        "typedef enum int {\n  "
+    )
+    enum += ",\n  ".join(enum_values)
+    enum += "\n} instruction_id_t;\n"
+    _write_if_changed(coverage_dir / "RISCV_instruction_ids.svh", enum)
+    _write_if_changed(coverage_dir / "RISCV_instruction_sample.svh", content)
 
 
 def _plan_priv_jobs(

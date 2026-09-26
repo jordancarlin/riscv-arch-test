@@ -30,7 +30,7 @@ covergroup Zbkb_andn_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "andn"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -127,7 +127,7 @@ covergroup Zbkb_brev8_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "brev8"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -194,7 +194,7 @@ covergroup Zbkb_orn_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "orn"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -302,7 +302,7 @@ covergroup Zbkb_pack_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "pack"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -412,7 +412,7 @@ covergroup Zbkb_packh_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "packh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -509,7 +509,7 @@ covergroup Zbkb_rev8_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "rev8"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -576,7 +576,7 @@ covergroup Zbkb_rol_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "rol"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -685,7 +685,7 @@ covergroup Zbkb_ror_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "ror"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -782,7 +782,7 @@ covergroup Zbkb_rori_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "rori"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -853,7 +853,7 @@ covergroup Zbkb_xnor_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "xnor"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -951,7 +951,7 @@ covergroup Zbkb_unzip_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "unzip"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1006,7 +1006,7 @@ covergroup Zbkb_zip_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "zip"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1058,42 +1058,42 @@ endgroup
 `endif
 function void zbkb_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "andn"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_ANDN     : begin
             Zbkb_andn_cg.sample(ins);
         end
-        "brev8"     : begin
+        INSTR_BREV8     : begin
             Zbkb_brev8_cg.sample(ins);
         end
-        "orn"     : begin
+        INSTR_ORN     : begin
             Zbkb_orn_cg.sample(ins);
         end
-        "pack"     : begin
+        INSTR_PACK     : begin
             Zbkb_pack_cg.sample(ins);
         end
-        "packh"     : begin
+        INSTR_PACKH     : begin
             Zbkb_packh_cg.sample(ins);
         end
-        "rev8"     : begin
+        INSTR_REV8     : begin
             Zbkb_rev8_cg.sample(ins);
         end
-        "rol"     : begin
+        INSTR_ROL     : begin
             Zbkb_rol_cg.sample(ins);
         end
-        "ror"     : begin
+        INSTR_ROR     : begin
             Zbkb_ror_cg.sample(ins);
         end
-        "rori"     : begin
+        INSTR_RORI     : begin
             Zbkb_rori_cg.sample(ins);
         end
-        "xnor"     : begin
+        INSTR_XNOR     : begin
             Zbkb_xnor_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_32
-        "unzip"     : begin
+        INSTR_UNZIP     : begin
             Zbkb_unzip_cg.sample(ins);
         end
-        "zip"     : begin
+        INSTR_ZIP     : begin
             Zbkb_zip_cg.sample(ins);
         end
 `endif

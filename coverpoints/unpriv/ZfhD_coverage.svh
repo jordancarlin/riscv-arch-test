@@ -79,7 +79,7 @@ covergroup ZfhD_fcvt_d_h_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.d.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -151,7 +151,7 @@ endgroup
 // ---------------------
 covergroup ZfhD_fcvt_h_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -164,7 +164,7 @@ covergroup ZfhD_fcvt_h_d_cg with function sample(ins_t ins);
         bins NaNBox = {48'hffffffffffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.h.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1155,108 +1155,108 @@ endgroup
 `endif
 function void zfhd_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fadd.h"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FADD_H     : begin
             ZfhD_fadd_h_cg.sample(ins);
         end
-        "fclass.h"     : begin
+        INSTR_FCLASS_H     : begin
             ZfhD_fclass_h_cg.sample(ins);
         end
-        "fcvt.d.h"     : begin
+        INSTR_FCVT_D_H     : begin
             ZfhD_fcvt_d_h_cg.sample(ins);
         end
-        "fcvt.h.d"     : begin
+        INSTR_FCVT_H_D     : begin
             ZfhD_fcvt_h_d_cg.sample(ins);
         end
-        "fcvt.h.s"     : begin
+        INSTR_FCVT_H_S     : begin
             ZfhD_fcvt_h_s_cg.sample(ins);
         end
-        "fcvt.h.w"     : begin
+        INSTR_FCVT_H_W     : begin
             ZfhD_fcvt_h_w_cg.sample(ins);
         end
-        "fcvt.h.wu"     : begin
+        INSTR_FCVT_H_WU     : begin
             ZfhD_fcvt_h_wu_cg.sample(ins);
         end
-        "fcvt.s.h"     : begin
+        INSTR_FCVT_S_H     : begin
             ZfhD_fcvt_s_h_cg.sample(ins);
         end
-        "fcvt.w.h"     : begin
+        INSTR_FCVT_W_H     : begin
             ZfhD_fcvt_w_h_cg.sample(ins);
         end
-        "fcvt.wu.h"     : begin
+        INSTR_FCVT_WU_H     : begin
             ZfhD_fcvt_wu_h_cg.sample(ins);
         end
-        "fdiv.h"     : begin
+        INSTR_FDIV_H     : begin
             ZfhD_fdiv_h_cg.sample(ins);
         end
-        "feq.h"     : begin
+        INSTR_FEQ_H     : begin
             ZfhD_feq_h_cg.sample(ins);
         end
-        "fle.h"     : begin
+        INSTR_FLE_H     : begin
             ZfhD_fle_h_cg.sample(ins);
         end
-        "flh"     : begin
+        INSTR_FLH     : begin
             ZfhD_flh_cg.sample(ins);
         end
-        "flt.h"     : begin
+        INSTR_FLT_H     : begin
             ZfhD_flt_h_cg.sample(ins);
         end
-        "fmadd.h"     : begin
+        INSTR_FMADD_H     : begin
             ZfhD_fmadd_h_cg.sample(ins);
         end
-        "fmax.h"     : begin
+        INSTR_FMAX_H     : begin
             ZfhD_fmax_h_cg.sample(ins);
         end
-        "fmin.h"     : begin
+        INSTR_FMIN_H     : begin
             ZfhD_fmin_h_cg.sample(ins);
         end
-        "fmsub.h"     : begin
+        INSTR_FMSUB_H     : begin
             ZfhD_fmsub_h_cg.sample(ins);
         end
-        "fmul.h"     : begin
+        INSTR_FMUL_H     : begin
             ZfhD_fmul_h_cg.sample(ins);
         end
-        "fmv.h.x"     : begin
+        INSTR_FMV_H_X     : begin
             ZfhD_fmv_h_x_cg.sample(ins);
         end
-        "fmv.x.h"     : begin
+        INSTR_FMV_X_H     : begin
             ZfhD_fmv_x_h_cg.sample(ins);
         end
-        "fnmadd.h"     : begin
+        INSTR_FNMADD_H     : begin
             ZfhD_fnmadd_h_cg.sample(ins);
         end
-        "fnmsub.h"     : begin
+        INSTR_FNMSUB_H     : begin
             ZfhD_fnmsub_h_cg.sample(ins);
         end
-        "fsgnj.h"     : begin
+        INSTR_FSGNJ_H     : begin
             ZfhD_fsgnj_h_cg.sample(ins);
         end
-        "fsgnjn.h"     : begin
+        INSTR_FSGNJN_H     : begin
             ZfhD_fsgnjn_h_cg.sample(ins);
         end
-        "fsgnjx.h"     : begin
+        INSTR_FSGNJX_H     : begin
             ZfhD_fsgnjx_h_cg.sample(ins);
         end
-        "fsh"     : begin
+        INSTR_FSH     : begin
             ZfhD_fsh_cg.sample(ins);
         end
-        "fsqrt.h"     : begin
+        INSTR_FSQRT_H     : begin
             ZfhD_fsqrt_h_cg.sample(ins);
         end
-        "fsub.h"     : begin
+        INSTR_FSUB_H     : begin
             ZfhD_fsub_h_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "fcvt.h.l"     : begin
+        INSTR_FCVT_H_L     : begin
             ZfhD_fcvt_h_l_cg.sample(ins);
         end
-        "fcvt.h.lu"     : begin
+        INSTR_FCVT_H_LU     : begin
             ZfhD_fcvt_h_lu_cg.sample(ins);
         end
-        "fcvt.l.h"     : begin
+        INSTR_FCVT_L_H     : begin
             ZfhD_fcvt_l_h_cg.sample(ins);
         end
-        "fcvt.lu.h"     : begin
+        INSTR_FCVT_LU_H     : begin
             ZfhD_fcvt_lu_h_cg.sample(ins);
         end
 `endif

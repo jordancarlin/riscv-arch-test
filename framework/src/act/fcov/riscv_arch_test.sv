@@ -21,14 +21,18 @@
 // Load generated instruction/CSR decode package
 `include "coverage/RISCV_decode_pkg.svh"
 
-// Load disassembler
-`include "disassemble.svh"
+// Load the disassembler only for diagnostic output.
+`ifdef FCOV_VERBOSE
+  `include "disassemble.svh"
+`endif
 
 // Load the coverage classes
 `include "RISCV_coverage.svh"
 
 module riscv_arch_test(rvviTrace rvvi);
-  string disass;
+  `ifdef FCOV_VERBOSE
+    string disass;
+  `endif
 
   // Connect coverage class to RVVI trace interface
   coverage #(rvvi.ILEN, rvvi.XLEN, rvvi.FLEN, rvvi.VLEN, rvvi.NHART, rvvi.RETIRE) riscvISACOV;
@@ -43,9 +47,9 @@ module riscv_arch_test(rvviTrace rvvi);
   // correct order of retirement (TODO: multiple instructions/harts not implemented)
   always_ff @(posedge rvvi.clk) begin
     if (rvvi.valid[0][0] == 1) begin
-      disass = disassemble(rvvi.insn[0][0]);
-      riscvISACOV.sample(rvvi.trap[0][0], 0, 0, disass);
+      riscvISACOV.sample(0, 0);
       `ifdef FCOV_VERBOSE
+        disass = disassemble(rvvi.insn[0][0]);
         $display("riscv_arch_test: sample taken for PC 0x%h instruction %s", rvvi.pc_rdata[0][0], disass);
       `endif
     end

@@ -14,7 +14,7 @@
 `define COVER_ZICBOZ
 covergroup Zicboz_cbo_zero_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "cbo.zero"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -35,8 +35,8 @@ endgroup
 // ---------------------
 function void zicboz_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "cbo.zero"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_CBO_ZERO     : begin
             Zicboz_cbo_zero_cg.sample(ins);
         end
     endcase

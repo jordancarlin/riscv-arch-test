@@ -380,11 +380,11 @@ endgroup
 // ---------------------
 function void zihpm_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "csrrc"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_CSRRC     : begin
             Zihpm_csrrc_cg.sample(ins);
         end
-        "csrrs"     : begin
+        INSTR_CSRRS     : begin
             Zihpm_csrrs_cg.sample(ins);
         end
     endcase

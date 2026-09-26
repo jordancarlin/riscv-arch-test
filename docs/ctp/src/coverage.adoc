@@ -79,7 +79,7 @@ The framework collects data coming across the RVVI interface and presents it wit
 Most coverpoints use `ins.current`, to measure architectural state at the end of the instruction.  However, some privileged coverpoints need to know the privilege mode or values of CSRs at the start of the instruction and thus use `ins.prev`.
 ====
 
-The available fields are given in framework/src/act/fcov/coverage/RISCV_coverage_rvvi.svh.  Most commonly used fields are summarized in <<t-riscvISACOV>>. Other fields include floating-point and vector register IDs and values, MMU extended RVVI signals, vector type information, and pending interrupts. TODO: handling register pairs.
+The available fields are given in framework/src/act/fcov/coverage/RISCV_trace_data.svh.  Most commonly used fields are summarized in <<t-riscvISACOV>>. Other fields include floating-point and vector register IDs and values, MMU extended RVVI signals, vector type information, and pending interrupts. TODO: handling register pairs.
 
 [[t-riscvISACOV]]
 .riscvISACOV Signals for Coverpoints
@@ -89,8 +89,7 @@ The available fields are given in framework/src/act/fcov/coverage/RISCV_coverage
 |===
 |Signal|Width|Description|Example
 |insn|ILEN|Instruction bit pattern|*** add x10, x11, x12
-|inst_name|string|Instruction name|add
-|disass|string|Disassembled instruction|`add x10, x11, x12`
+|inst_id|instruction_id_t|Instruction identifier|INSTR_ADD
 |trap|1|Instruction trapped rather than retiring|0
 |mode|2|Privilege mode 11 = machine, 01 = supervisor, 00 = user|11
 |pc_rdata|XLEN|PC of current instruction|0x80000000
@@ -114,7 +113,7 @@ RVVI and riscvISACOV support the notion of multiple harts that retire multiple i
 
 [NOTE]
 ====
-Our riscvISACOV implementation uses a SystemVerilog disassembler in fcov/disassemble.svh, replacing a proprietary disassembler from Imperas.  When adding new extensions, update the disassembler accordingly.
+Our riscvISACOV implementation generates a structured instruction decoder from fcov/disassemble.svh. The disassembler is used only for optional `FCOV_VERBOSE` diagnostics. When adding new extensions, update the disassembler and instruction sample template.
 ====
 
 === Writing Coverpoints with riscvISACOV

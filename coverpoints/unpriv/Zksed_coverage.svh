@@ -30,7 +30,7 @@ covergroup Zksed_sm4ed_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sm4ed"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -148,7 +148,7 @@ covergroup Zksed_sm4ks_cg with function sample(ins_t ins);
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sm4ks"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -250,11 +250,11 @@ endgroup
 // ---------------------
 function void zksed_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "sm4ed"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_SM4ED     : begin
             Zksed_sm4ed_cg.sample(ins);
         end
-        "sm4ks"     : begin
+        INSTR_SM4KS     : begin
             Zksed_sm4ks_cg.sample(ins);
         end
     endcase

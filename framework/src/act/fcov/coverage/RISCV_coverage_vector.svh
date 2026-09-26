@@ -114,23 +114,34 @@ typedef enum {
     vs_random
 } edge_vs_values_t;
 
+typedef enum int {
+  SEW_DIV8 = -3,
+  SEW_DIV4 = -2,
+  SEW_DIV2 = -1,
+  SEW_SAME = 0,
+  SEW_MUL2 = 1,
+  SEW_MUL4 = 2,
+  SEW_MUL8 = 3,
+  SEW_MASK = 4
+} sew_multiplier_t;
+
 // Check for vector operand edge values, assuming vl = 1
-function edge_vs_values_t vs_edges_check(int hart, int issue, `VLEN_BITS val, string sew_multiplier);
+function edge_vs_values_t vs_edges_check(int hart, int issue, `VLEN_BITS val, sew_multiplier_t sew_multiplier);
   `XLEN_BITS vsew = get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew");
   int sew = 2 ** (3 + unsigned'(vsew[2:0]));
   int eew;
 
   case (sew_multiplier)
-    "1":     eew = sew;
-    "2":     eew = 2 * sew;
-    "4":     eew = 4 * sew;
-    "8":     eew = 8 * sew;
-    "f2":    eew = sew / 2;
-    "f4":    eew = sew / 4;
-    "f8":    eew = sew / 8;
-    "m":     eew = 8;       // vl = 8 and eew = 1 for mask (logical) instructions
+    SEW_SAME: eew = sew;
+    SEW_MUL2: eew = 2 * sew;
+    SEW_MUL4: eew = 4 * sew;
+    SEW_MUL8: eew = 8 * sew;
+    SEW_DIV2: eew = sew / 2;
+    SEW_DIV4: eew = sew / 4;
+    SEW_DIV8: eew = sew / 8;
+    SEW_MASK: eew = 8;       // vl = 8 and eew = 1 for mask (logical) instructions
     default: begin
-      $error("ERROR: SystemVerilog Functional Coverage: Unsupported SEW multiplier: %s", sew_multiplier);
+      $error("ERROR: SystemVerilog Functional Coverage: Unsupported SEW multiplier: %0d", sew_multiplier);
       $fatal(1);
     end
   endcase
@@ -232,7 +243,7 @@ function edge_vs_values_t vs_edges_check_eew_64(`VLEN_BITS val);
 endfunction
 `endif
 
-function edge_vs_values_t vs_edges_check_egs4(int hart, int issue, bit [`UDB_VLEN*4-1:0] val); // string vector_reg, riscvTraceData prev);
+function edge_vs_values_t vs_edges_check_egs4(int hart, int issue, bit [`UDB_VLEN*4-1:0] val);
   `XLEN_BITS vsew = get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew");
   `XLEN_BITS lmul = get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vlmul");
   int sew = 2 ** (3 + unsigned'(vsew[2:0]));
@@ -259,7 +270,7 @@ function edge_vs_values_t vs_edges_check_egs4(int hart, int issue, bit [`UDB_VLE
   end
 endfunction
 
-function edge_vs_values_t vs_edges_check_sew32_egs8(int hart, int issue, bit [`UDB_VLEN*8-1:0] val); // string vector_reg, riscvTraceData prev);
+function edge_vs_values_t vs_edges_check_sew32_egs8(int hart, int issue, bit [`UDB_VLEN*8-1:0] val);
   `XLEN_BITS vsew = get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew");
   `XLEN_BITS lmul = get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vlmul");
   int sew = 2 ** (3 + unsigned'(vsew[2:0]));

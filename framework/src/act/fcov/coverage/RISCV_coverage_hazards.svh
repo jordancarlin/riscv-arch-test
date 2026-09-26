@@ -87,11 +87,11 @@ function hazards_t check_mem_hazards(int hart, int issue);
 endfunction
 
 function bit is_unaligned_mem_access(int hart, int issue);
-  if ((traceDataQ[hart][issue][`SAMPLE_CURRENT].inst_name inside {"lwu", "ld", "sd", "c_ld", "c_sd"}) && (traceDataQ[hart][issue][`SAMPLE_CURRENT].mem_addr % 8 != 0)) begin
+  if ((traceDataQ[hart][issue][`SAMPLE_CURRENT].inst_id inside {INSTR_LWU, INSTR_LD, INSTR_SD, INSTR_C_LD, INSTR_C_SD}) && (traceDataQ[hart][issue][`SAMPLE_CURRENT].mem_addr % 8 != 0)) begin
     return 1'b1;
-  end else if ((traceDataQ[hart][issue][`SAMPLE_CURRENT].inst_name inside {"lw", "sw", "c_lw", "c_sw"}) && (traceDataQ[hart][issue][`SAMPLE_CURRENT].mem_addr % 4 != 0)) begin
+  end else if ((traceDataQ[hart][issue][`SAMPLE_CURRENT].inst_id inside {INSTR_LW, INSTR_SW, INSTR_C_LW, INSTR_C_SW}) && (traceDataQ[hart][issue][`SAMPLE_CURRENT].mem_addr % 4 != 0)) begin
     return 1'b1;
-  end else if ((traceDataQ[hart][issue][`SAMPLE_CURRENT].inst_name inside {"lh", "lhu", "sh"}) && (traceDataQ[hart][issue][`SAMPLE_CURRENT].mem_addr % 2 != 0)) begin
+  end else if ((traceDataQ[hart][issue][`SAMPLE_CURRENT].inst_id inside {INSTR_LH, INSTR_LHU, INSTR_SH}) && (traceDataQ[hart][issue][`SAMPLE_CURRENT].mem_addr % 2 != 0)) begin
     return 1'b1;
   end else begin
     return 1'b0;

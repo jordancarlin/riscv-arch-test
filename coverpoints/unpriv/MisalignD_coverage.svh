@@ -14,7 +14,7 @@
 `define COVER_MISALIGND
 covergroup MisalignD_fld_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fld"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -34,7 +34,7 @@ endgroup
 // ---------------------
 covergroup MisalignD_fsd_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fsd"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -54,11 +54,11 @@ endgroup
 // ---------------------
 function void misalignd_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fld"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FLD     : begin
             MisalignD_fld_cg.sample(ins);
         end
-        "fsd"     : begin
+        INSTR_FSD     : begin
             MisalignD_fsd_cg.sample(ins);
         end
     endcase

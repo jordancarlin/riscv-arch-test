@@ -14,7 +14,7 @@
 `define COVER_ZIHINTNTL
 covergroup Zihintntl_ntl_all_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "ntl.all"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -23,7 +23,7 @@ endgroup
 // ---------------------
 covergroup Zihintntl_ntl_p1_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "ntl.p1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -32,7 +32,7 @@ endgroup
 // ---------------------
 covergroup Zihintntl_ntl_pall_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "ntl.pall"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -41,7 +41,7 @@ endgroup
 // ---------------------
 covergroup Zihintntl_ntl_s1_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "ntl.s1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -50,17 +50,17 @@ endgroup
 // ---------------------
 function void zihintntl_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "ntl.all"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_NTL_ALL     : begin
             Zihintntl_ntl_all_cg.sample(ins);
         end
-        "ntl.p1"     : begin
+        INSTR_NTL_P1     : begin
             Zihintntl_ntl_p1_cg.sample(ins);
         end
-        "ntl.pall"     : begin
+        INSTR_NTL_PALL     : begin
             Zihintntl_ntl_pall_cg.sample(ins);
         end
-        "ntl.s1"     : begin
+        INSTR_NTL_S1     : begin
             Zihintntl_ntl_s1_cg.sample(ins);
         end
     endcase

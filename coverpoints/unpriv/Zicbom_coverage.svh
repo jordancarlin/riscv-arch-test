@@ -14,7 +14,7 @@
 `define COVER_ZICBOM
 covergroup Zicbom_cbo_clean_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "cbo.clean"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -35,7 +35,7 @@ endgroup
 // ---------------------
 covergroup Zicbom_cbo_flush_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "cbo.flush"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -56,7 +56,7 @@ endgroup
 // ---------------------
 covergroup Zicbom_cbo_inval_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "cbo.inval"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -77,14 +77,14 @@ endgroup
 // ---------------------
 function void zicbom_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "cbo.clean"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_CBO_CLEAN     : begin
             Zicbom_cbo_clean_cg.sample(ins);
         end
-        "cbo.flush"     : begin
+        INSTR_CBO_FLUSH     : begin
             Zicbom_cbo_flush_cg.sample(ins);
         end
-        "cbo.inval"     : begin
+        INSTR_CBO_INVAL     : begin
             Zicbom_cbo_inval_cg.sample(ins);
         end
     endcase

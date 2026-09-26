@@ -28,16 +28,10 @@
 
 riscvTraceData #(ILEN, XLEN, FLEN, VLEN) traceDataQ [(NHART-1):0][(RETIRE-1):0] [$:`NUM_RVVI_DATA];
 
-`include "coverage/RISCV_disasm_fallback.svh"
-
-function void save_rvvi_data(bit trap, int hart, int issue, string disass);
-  string inst_name = get_inst_name(trap, hart, issue, disass);
+function void save_rvvi_data(int hart, int issue);
   riscvTraceData #(ILEN, XLEN, FLEN, VLEN) rvviData;
   bit [31:0] mask;
   int idx;
-  if (inst_name == "illegal") begin
-    inst_name = disasm_fallback_vector(this.rvvi.insn[hart][issue]);
-  end
 
   // Load initial prev values to use for checking register values during first (sampled) instruction
   // Todo: initial CSR values would be incorrect
@@ -78,8 +72,7 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
     rvviData.execute_access = 0;
     rvviData.hart = hart;
     rvviData.issue = issue;
-    rvviData.disass = "";
-    rvviData.inst_name = "";
+    rvviData.inst_id = INSTR_ILLEGAL;
     traceDataQ[hart][issue].push_front(rvviData);
   end
 
@@ -158,8 +151,7 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
 
   // Store additional signals from the current trace
   rvviData.lrsc_cancel = this.rvvi.lrsc_cancel[hart][issue];
-  rvviData.disass = disass;
-  rvviData.inst_name = inst_name;
+  rvviData.inst_id = INSTR_ILLEGAL;
   rvviData.hart = hart;
   rvviData.issue = issue;
 

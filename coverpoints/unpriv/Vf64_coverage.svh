@@ -40,7 +40,7 @@ covergroup Vf64_vfadd_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfadd.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -383,7 +383,7 @@ covergroup Vf64_vfadd_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfadd.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -702,7 +702,7 @@ covergroup Vf64_vfclass_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfclass.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -900,7 +900,7 @@ covergroup Vf64_vfcvt_f_x_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfcvt.f.x.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1128,7 +1128,7 @@ covergroup Vf64_vfcvt_f_xu_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfcvt.f.xu.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1356,7 +1356,7 @@ covergroup Vf64_vfcvt_rtz_x_f_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfcvt.rtz.x.f.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1609,7 +1609,7 @@ covergroup Vf64_vfcvt_rtz_xu_f_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfcvt.rtz.xu.f.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1862,7 +1862,7 @@ covergroup Vf64_vfcvt_x_f_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfcvt.x.f.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2125,7 +2125,7 @@ covergroup Vf64_vfcvt_xu_f_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfcvt.xu.f.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2388,7 +2388,7 @@ covergroup Vf64_vfdiv_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfdiv.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2741,7 +2741,7 @@ covergroup Vf64_vfdiv_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfdiv.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3070,7 +3070,7 @@ covergroup Vf64_vfmacc_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmacc.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3411,7 +3411,7 @@ covergroup Vf64_vfmacc_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmacc.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -3728,7 +3728,7 @@ covergroup Vf64_vfmadd_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmadd.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -4069,7 +4069,7 @@ covergroup Vf64_vfmadd_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmadd.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -4386,7 +4386,7 @@ covergroup Vf64_vfmax_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmax.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -4708,7 +4708,7 @@ covergroup Vf64_vfmax_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmax.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -5007,7 +5007,7 @@ covergroup Vf64_vfmerge_vfm_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2_nv0////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmerge.vfm"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -5227,7 +5227,7 @@ covergroup Vf64_vfmin_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmin.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -5549,7 +5549,7 @@ covergroup Vf64_vfmin_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmin.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -5847,7 +5847,7 @@ covergroup Vf64_vfmsac_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmsac.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -6188,7 +6188,7 @@ covergroup Vf64_vfmsac_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmsac.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -6505,7 +6505,7 @@ covergroup Vf64_vfmsub_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmsub.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -6846,7 +6846,7 @@ covergroup Vf64_vfmsub_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmsub.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -7163,7 +7163,7 @@ covergroup Vf64_vfmul_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmul.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -7512,7 +7512,7 @@ covergroup Vf64_vfmul_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmul.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -7827,7 +7827,7 @@ covergroup Vf64_vfmv_f_s_cg with function sample(ins_t ins);
     bins true = {1'b1};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmv.f.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -8049,7 +8049,7 @@ covergroup Vf64_vfmv_s_f_cg with function sample(ins_t ins);
     bins true = {1'b1};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmv.s.f"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -8214,7 +8214,7 @@ covergroup Vf64_vfmv_v_f_cg with function sample(ins_t ins);
     bins true = {1'b1};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "vfmv.v.f"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -8344,7 +8344,7 @@ covergroup Vf64_vfnmacc_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfnmacc.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -8685,7 +8685,7 @@ covergroup Vf64_vfnmacc_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfnmacc.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -9002,7 +9002,7 @@ covergroup Vf64_vfnmadd_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfnmadd.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -9343,7 +9343,7 @@ covergroup Vf64_vfnmadd_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfnmadd.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -9660,7 +9660,7 @@ covergroup Vf64_vfnmsac_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfnmsac.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -10001,7 +10001,7 @@ covergroup Vf64_vfnmsac_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfnmsac.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -10318,7 +10318,7 @@ covergroup Vf64_vfnmsub_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfnmsub.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -10659,7 +10659,7 @@ covergroup Vf64_vfnmsub_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfnmsub.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -10976,7 +10976,7 @@ covergroup Vf64_vfrdiv_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfrdiv.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -11299,7 +11299,7 @@ covergroup Vf64_vfrec7_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfrec7.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -11726,7 +11726,7 @@ covergroup Vf64_vfredmax_vs_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfredmax.vs"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -12054,7 +12054,7 @@ covergroup Vf64_vfredmin_vs_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfredmin.vs"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -12382,7 +12382,7 @@ covergroup Vf64_vfredosum_vs_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfredosum.vs"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -12856,7 +12856,7 @@ covergroup Vf64_vfredusum_vs_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfredusum.vs"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -13171,7 +13171,7 @@ covergroup Vf64_vfrsqrt7_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfrsqrt7.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -13615,7 +13615,7 @@ covergroup Vf64_vfrsub_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfrsub.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -13924,7 +13924,7 @@ covergroup Vf64_vfsgnj_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfsgnj.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -14172,7 +14172,7 @@ covergroup Vf64_vfsgnj_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfsgnj.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -14396,7 +14396,7 @@ covergroup Vf64_vfsgnjn_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfsgnjn.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -14644,7 +14644,7 @@ covergroup Vf64_vfsgnjn_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfsgnjn.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -14868,7 +14868,7 @@ covergroup Vf64_vfsgnjx_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfsgnjx.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -15116,7 +15116,7 @@ covergroup Vf64_vfsgnjx_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfsgnjx.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -15340,7 +15340,7 @@ covergroup Vf64_vfslide1down_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfslide1down.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -15548,7 +15548,7 @@ covergroup Vf64_vfslide1up_vf_cg with function sample(ins_t ins);
     bins true = {1'b1};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "vfslide1up.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -15766,7 +15766,7 @@ covergroup Vf64_vfsqrt_v_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfsqrt.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -16029,7 +16029,7 @@ covergroup Vf64_vfsub_vf_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfsub.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -16368,7 +16368,7 @@ covergroup Vf64_vfsub_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vfsub.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -16673,7 +16673,7 @@ covergroup Vf64_vmfeq_vf_cg with function sample(ins_t ins);
     bins true = {1'b1};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "vmfeq.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -16965,7 +16965,7 @@ covergroup Vf64_vmfeq_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vmfeq.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -17253,7 +17253,7 @@ covergroup Vf64_vmfge_vf_cg with function sample(ins_t ins);
     bins true = {1'b1};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "vmfge.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -17535,7 +17535,7 @@ covergroup Vf64_vmfgt_vf_cg with function sample(ins_t ins);
     bins true = {1'b1};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "vmfgt.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -17817,7 +17817,7 @@ covergroup Vf64_vmfle_vf_cg with function sample(ins_t ins);
     bins true = {1'b1};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "vmfle.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -18109,7 +18109,7 @@ covergroup Vf64_vmfle_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vmfle.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -18397,7 +18397,7 @@ covergroup Vf64_vmflt_vf_cg with function sample(ins_t ins);
     bins true = {1'b1};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "vmflt.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -18689,7 +18689,7 @@ covergroup Vf64_vmflt_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vmflt.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -18977,7 +18977,7 @@ covergroup Vf64_vmfne_vf_cg with function sample(ins_t ins);
     bins true = {1'b1};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "vmfne.vf"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -19269,7 +19269,7 @@ covergroup Vf64_vmfne_vv_cg with function sample(ins_t ins);
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vmfne.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -19552,7 +19552,7 @@ function void vf64_sample(int hart, int issue, ins_t ins);
     // associated sew with these tests
     if (get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew") == 3 ||
         get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vill") == 1) begin
-        case (traceDataQ[hart][issue][0].inst_name)
+        case (traceDataQ[hart][issue][0].inst_id)
             "vfadd.vf"     : begin
                 Vf64_vfadd_vf_cg.sample(ins);
             end

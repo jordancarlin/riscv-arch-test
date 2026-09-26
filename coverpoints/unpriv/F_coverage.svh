@@ -14,7 +14,7 @@
 `define COVER_F
 covergroup F_fadd_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_3 : coverpoint get_frm(ins.ops[3].val)  iff (ins.trap == 0 )  {
+    cp_frm_3 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -26,7 +26,7 @@ covergroup F_fadd_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fadd.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -134,7 +134,7 @@ endgroup
 // ---------------------
 covergroup F_fclass_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fclass.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -195,11 +195,11 @@ endgroup
 // ---------------------
 covergroup F_fcvt_s_w_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.s.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -269,11 +269,11 @@ endgroup
 // ---------------------
 covergroup F_fcvt_s_wu_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.s.wu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -343,11 +343,11 @@ endgroup
 // ---------------------
 covergroup F_fcvt_w_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.w.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -419,11 +419,11 @@ endgroup
 // ---------------------
 covergroup F_fcvt_wu_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.wu.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -495,7 +495,7 @@ endgroup
 // ---------------------
 covergroup F_fdiv_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_3 : coverpoint get_frm(ins.ops[3].val)  iff (ins.trap == 0 )  {
+    cp_frm_3 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -507,7 +507,7 @@ covergroup F_fdiv_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fdiv.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -625,7 +625,7 @@ endgroup
 // ---------------------
 covergroup F_feq_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "feq.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -719,7 +719,7 @@ endgroup
 // ---------------------
 covergroup F_fle_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fle.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -813,7 +813,7 @@ endgroup
 // ---------------------
 covergroup F_flt_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "flt.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -907,7 +907,7 @@ endgroup
 // ---------------------
 covergroup F_flw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "flw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -948,7 +948,7 @@ endgroup
 // ---------------------
 covergroup F_fmadd_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_4 : coverpoint get_frm(ins.ops[4].val)  iff (ins.trap == 0 )  {
+    cp_frm_4 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -964,7 +964,7 @@ covergroup F_fmadd_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmadd.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1120,7 +1120,7 @@ covergroup F_fmax_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmax.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1222,7 +1222,7 @@ covergroup F_fmin_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmin.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1316,7 +1316,7 @@ endgroup
 // ---------------------
 covergroup F_fmsub_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_4 : coverpoint get_frm(ins.ops[4].val)  iff (ins.trap == 0 )  {
+    cp_frm_4 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -1332,7 +1332,7 @@ covergroup F_fmsub_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmsub.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1480,7 +1480,7 @@ endgroup
 // ---------------------
 covergroup F_fmul_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_3 : coverpoint get_frm(ins.ops[3].val)  iff (ins.trap == 0 )  {
+    cp_frm_3 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -1492,7 +1492,7 @@ covergroup F_fmul_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmul.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1602,7 +1602,7 @@ endgroup
 // ---------------------
 covergroup F_fmv_w_x_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fmv.w.x"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1653,7 +1653,7 @@ endgroup
 // ---------------------
 covergroup F_fmv_x_w_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fmv.x.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1700,7 +1700,7 @@ endgroup
 // ---------------------
 covergroup F_fnmadd_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_4 : coverpoint get_frm(ins.ops[4].val)  iff (ins.trap == 0 )  {
+    cp_frm_4 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -1716,7 +1716,7 @@ covergroup F_fnmadd_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fnmadd.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1864,7 +1864,7 @@ endgroup
 // ---------------------
 covergroup F_fnmsub_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_4 : coverpoint get_frm(ins.ops[4].val)  iff (ins.trap == 0 )  {
+    cp_frm_4 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -1880,7 +1880,7 @@ covergroup F_fnmsub_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fnmsub.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2036,7 +2036,7 @@ covergroup F_fsgnj_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fsgnj.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2129,7 +2129,7 @@ covergroup F_fsgnjn_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fsgnjn.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2222,7 +2222,7 @@ covergroup F_fsgnjx_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fsgnjx.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2307,7 +2307,7 @@ endgroup
 // ---------------------
 covergroup F_fsqrt_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -2315,7 +2315,7 @@ covergroup F_fsqrt_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fsqrt.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2387,7 +2387,7 @@ endgroup
 // ---------------------
 covergroup F_fsub_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_3 : coverpoint get_frm(ins.ops[3].val)  iff (ins.trap == 0 )  {
+    cp_frm_3 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -2399,7 +2399,7 @@ covergroup F_fsub_s_cg with function sample(ins_t ins);
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fsub.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2507,7 +2507,7 @@ endgroup
 // ---------------------
 covergroup F_fsw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fsw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2579,11 +2579,11 @@ endgroup
 `ifdef UDB_MXLEN_64
 covergroup F_fcvt_l_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.l.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2655,11 +2655,11 @@ endgroup
 // ---------------------
 covergroup F_fcvt_lu_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.lu.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2731,11 +2731,11 @@ endgroup
 // ---------------------
 covergroup F_fcvt_s_l_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.s.l"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2805,11 +2805,11 @@ endgroup
 // ---------------------
 covergroup F_fcvt_s_lu_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.s.lu"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -2880,96 +2880,96 @@ endgroup
 `endif
 function void f_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fadd.s"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FADD_S     : begin
             F_fadd_s_cg.sample(ins);
         end
-        "fclass.s"     : begin
+        INSTR_FCLASS_S     : begin
             F_fclass_s_cg.sample(ins);
         end
-        "fcvt.s.w"     : begin
+        INSTR_FCVT_S_W     : begin
             F_fcvt_s_w_cg.sample(ins);
         end
-        "fcvt.s.wu"     : begin
+        INSTR_FCVT_S_WU     : begin
             F_fcvt_s_wu_cg.sample(ins);
         end
-        "fcvt.w.s"     : begin
+        INSTR_FCVT_W_S     : begin
             F_fcvt_w_s_cg.sample(ins);
         end
-        "fcvt.wu.s"     : begin
+        INSTR_FCVT_WU_S     : begin
             F_fcvt_wu_s_cg.sample(ins);
         end
-        "fdiv.s"     : begin
+        INSTR_FDIV_S     : begin
             F_fdiv_s_cg.sample(ins);
         end
-        "feq.s"     : begin
+        INSTR_FEQ_S     : begin
             F_feq_s_cg.sample(ins);
         end
-        "fle.s"     : begin
+        INSTR_FLE_S     : begin
             F_fle_s_cg.sample(ins);
         end
-        "flt.s"     : begin
+        INSTR_FLT_S     : begin
             F_flt_s_cg.sample(ins);
         end
-        "flw"     : begin
+        INSTR_FLW     : begin
             F_flw_cg.sample(ins);
         end
-        "fmadd.s"     : begin
+        INSTR_FMADD_S     : begin
             F_fmadd_s_cg.sample(ins);
         end
-        "fmax.s"     : begin
+        INSTR_FMAX_S     : begin
             F_fmax_s_cg.sample(ins);
         end
-        "fmin.s"     : begin
+        INSTR_FMIN_S     : begin
             F_fmin_s_cg.sample(ins);
         end
-        "fmsub.s"     : begin
+        INSTR_FMSUB_S     : begin
             F_fmsub_s_cg.sample(ins);
         end
-        "fmul.s"     : begin
+        INSTR_FMUL_S     : begin
             F_fmul_s_cg.sample(ins);
         end
-        "fmv.w.x"     : begin
+        INSTR_FMV_W_X     : begin
             F_fmv_w_x_cg.sample(ins);
         end
-        "fmv.x.w"     : begin
+        INSTR_FMV_X_W     : begin
             F_fmv_x_w_cg.sample(ins);
         end
-        "fnmadd.s"     : begin
+        INSTR_FNMADD_S     : begin
             F_fnmadd_s_cg.sample(ins);
         end
-        "fnmsub.s"     : begin
+        INSTR_FNMSUB_S     : begin
             F_fnmsub_s_cg.sample(ins);
         end
-        "fsgnj.s"     : begin
+        INSTR_FSGNJ_S     : begin
             F_fsgnj_s_cg.sample(ins);
         end
-        "fsgnjn.s"     : begin
+        INSTR_FSGNJN_S     : begin
             F_fsgnjn_s_cg.sample(ins);
         end
-        "fsgnjx.s"     : begin
+        INSTR_FSGNJX_S     : begin
             F_fsgnjx_s_cg.sample(ins);
         end
-        "fsqrt.s"     : begin
+        INSTR_FSQRT_S     : begin
             F_fsqrt_s_cg.sample(ins);
         end
-        "fsub.s"     : begin
+        INSTR_FSUB_S     : begin
             F_fsub_s_cg.sample(ins);
         end
-        "fsw"     : begin
+        INSTR_FSW     : begin
             F_fsw_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "fcvt.l.s"     : begin
+        INSTR_FCVT_L_S     : begin
             F_fcvt_l_s_cg.sample(ins);
         end
-        "fcvt.lu.s"     : begin
+        INSTR_FCVT_LU_S     : begin
             F_fcvt_lu_s_cg.sample(ins);
         end
-        "fcvt.s.l"     : begin
+        INSTR_FCVT_S_L     : begin
             F_fcvt_s_l_cg.sample(ins);
         end
-        "fcvt.s.lu"     : begin
+        INSTR_FCVT_S_LU     : begin
             F_fcvt_s_lu_cg.sample(ins);
         end
 `endif

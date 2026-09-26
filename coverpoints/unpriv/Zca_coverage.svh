@@ -19,7 +19,7 @@ covergroup Zca_c_add_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.add"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -115,7 +115,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_addi_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.addi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -186,7 +186,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_addi16sp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.addi16sp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -201,7 +201,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_addi4spn_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.addi4spn"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -223,7 +223,7 @@ covergroup Zca_c_and_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.and"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -312,7 +312,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_andi_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.andi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -378,7 +378,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_beqz_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.beqz"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -431,7 +431,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_bnez_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.bnez"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -484,7 +484,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_j_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.j"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -525,7 +525,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_jalr_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.jalr"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -548,7 +548,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_jr_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.jr"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -571,7 +571,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_li_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.li"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -606,7 +606,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_lui_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.lui"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -646,7 +646,7 @@ covergroup Zca_c_lw_cg with function sample(ins_t ins);
         // RD and RS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.lw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -668,7 +668,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_lwsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.lwsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -692,7 +692,7 @@ covergroup Zca_c_mv_cg with function sample(ins_t ins);
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.mv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -750,7 +750,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_nop_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count_nop : coverpoint ins.ins_str == "c.nop" iff (ins.trap == 0 && ins.current.imm == 0) {
+    cp_asm_count_nop : coverpoint 1'b1 iff (ins.trap == 0 && ins.current.imm == 0) {
         // Number of times the canonical c.nop (imm == 0) is executed
         bins count[] = {1};
     }
@@ -769,7 +769,7 @@ covergroup Zca_c_or_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.or"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -858,7 +858,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_slli_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.slli"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -934,7 +934,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_srai_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.srai"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1009,7 +1009,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_srli_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.srli"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1088,7 +1088,7 @@ covergroup Zca_c_sub_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.sub"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1177,7 +1177,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_sw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1233,7 +1233,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_swsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.swsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1289,7 +1289,7 @@ covergroup Zca_c_xor_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.xor"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1379,7 +1379,7 @@ endgroup
 `ifdef UDB_MXLEN_32
 covergroup Zca_c_jal_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.jal"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1422,7 +1422,7 @@ endgroup
 `ifdef UDB_MXLEN_64
 covergroup Zca_c_addiw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.addiw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1493,7 +1493,7 @@ covergroup Zca_c_addw_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.addw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1586,7 +1586,7 @@ covergroup Zca_c_ld_cg with function sample(ins_t ins);
         // RD and RS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.ld"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1608,7 +1608,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_ldsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.ldsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1627,7 +1627,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_sd_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sd"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1683,7 +1683,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_sdsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sdsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1739,7 +1739,7 @@ covergroup Zca_c_subw_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.subw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1829,107 +1829,107 @@ endgroup
 `endif
 function void zca_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "c.add"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_C_ADD     : begin
             Zca_c_add_cg.sample(ins);
         end
-        "c.addi"     : begin
+        INSTR_C_ADDI     : begin
             Zca_c_addi_cg.sample(ins);
         end
-        "c.addi16sp"     : begin
+        INSTR_C_ADDI16SP     : begin
             Zca_c_addi16sp_cg.sample(ins);
         end
-        "c.addi4spn"     : begin
+        INSTR_C_ADDI4SPN     : begin
             Zca_c_addi4spn_cg.sample(ins);
         end
-        "c.and"     : begin
+        INSTR_C_AND     : begin
             Zca_c_and_cg.sample(ins);
         end
-        "c.andi"     : begin
+        INSTR_C_ANDI     : begin
             Zca_c_andi_cg.sample(ins);
         end
-        "c.beqz"     : begin
+        INSTR_C_BEQZ     : begin
             Zca_c_beqz_cg.sample(ins);
         end
-        "c.bnez"     : begin
+        INSTR_C_BNEZ     : begin
             Zca_c_bnez_cg.sample(ins);
         end
-        "c.j"     : begin
+        INSTR_C_J     : begin
             Zca_c_j_cg.sample(ins);
         end
-        "c.jalr"     : begin
+        INSTR_C_JALR     : begin
             Zca_c_jalr_cg.sample(ins);
         end
-        "c.jr"     : begin
+        INSTR_C_JR     : begin
             Zca_c_jr_cg.sample(ins);
         end
-        "c.li"     : begin
+        INSTR_C_LI     : begin
             Zca_c_li_cg.sample(ins);
         end
-        "c.lui"     : begin
+        INSTR_C_LUI     : begin
             Zca_c_lui_cg.sample(ins);
         end
-        "c.lw"     : begin
+        INSTR_C_LW     : begin
             Zca_c_lw_cg.sample(ins);
         end
-        "c.lwsp"     : begin
+        INSTR_C_LWSP     : begin
             Zca_c_lwsp_cg.sample(ins);
         end
-        "c.mv"     : begin
+        INSTR_C_MV     : begin
             Zca_c_mv_cg.sample(ins);
         end
-        "c.nop"     : begin
+        INSTR_C_NOP     : begin
             Zca_c_nop_cg.sample(ins);
         end
-        "c.or"     : begin
+        INSTR_C_OR     : begin
             Zca_c_or_cg.sample(ins);
         end
-        "c.slli"     : begin
+        INSTR_C_SLLI     : begin
             Zca_c_slli_cg.sample(ins);
         end
-        "c.srai"     : begin
+        INSTR_C_SRAI     : begin
             Zca_c_srai_cg.sample(ins);
         end
-        "c.srli"     : begin
+        INSTR_C_SRLI     : begin
             Zca_c_srli_cg.sample(ins);
         end
-        "c.sub"     : begin
+        INSTR_C_SUB     : begin
             Zca_c_sub_cg.sample(ins);
         end
-        "c.sw"     : begin
+        INSTR_C_SW     : begin
             Zca_c_sw_cg.sample(ins);
         end
-        "c.swsp"     : begin
+        INSTR_C_SWSP     : begin
             Zca_c_swsp_cg.sample(ins);
         end
-        "c.xor"     : begin
+        INSTR_C_XOR     : begin
             Zca_c_xor_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_32
-        "c.jal"     : begin
+        INSTR_C_JAL     : begin
             Zca_c_jal_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
-        "c.addiw"     : begin
+        INSTR_C_ADDIW     : begin
             Zca_c_addiw_cg.sample(ins);
         end
-        "c.addw"     : begin
+        INSTR_C_ADDW     : begin
             Zca_c_addw_cg.sample(ins);
         end
-        "c.ld"     : begin
+        INSTR_C_LD     : begin
             Zca_c_ld_cg.sample(ins);
         end
-        "c.ldsp"     : begin
+        INSTR_C_LDSP     : begin
             Zca_c_ldsp_cg.sample(ins);
         end
-        "c.sd"     : begin
+        INSTR_C_SD     : begin
             Zca_c_sd_cg.sample(ins);
         end
-        "c.sdsp"     : begin
+        INSTR_C_SDSP     : begin
             Zca_c_sdsp_cg.sample(ins);
         end
-        "c.subw"     : begin
+        INSTR_C_SUBW     : begin
             Zca_c_subw_cg.sample(ins);
         end
 `endif

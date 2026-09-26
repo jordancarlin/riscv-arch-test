@@ -60,7 +60,7 @@ covergroup Zvksed_vsm4k_vi_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2_egs4////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vsm4k.vi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -286,7 +286,7 @@ endgroup
 // ---------------------
 covergroup Zvksed_vsm4r_vs_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "vsm4r.vs"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -571,7 +571,7 @@ covergroup Zvksed_vsm4r_vv_cg with function sample(ins_t ins);
 
     //// end cmp_vd_vs2_egs4////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vsm4r.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -821,14 +821,14 @@ function void zvksed_sample(int hart, int issue, ins_t ins);
     // associated sew with these tests
     if (get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vsew") == 2 ||
         get_csr_val(hart, issue, `SAMPLE_BEFORE, "vtype", "vill") == 1) begin
-        case (traceDataQ[hart][issue][0].inst_name)
-        "vsm4k.vi"     : begin
+        case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_VSM4K_VI     : begin
             Zvksed_vsm4k_vi_cg.sample(ins);
         end
-        "vsm4r.vs"     : begin
+        INSTR_VSM4R_VS     : begin
             Zvksed_vsm4r_vs_cg.sample(ins);
         end
-        "vsm4r.vv"     : begin
+        INSTR_VSM4R_VV     : begin
             Zvksed_vsm4r_vv_cg.sample(ins);
         end
         endcase

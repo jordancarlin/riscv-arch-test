@@ -14,7 +14,7 @@
 `define COVER_ZFAZFH
 covergroup ZfaZfh_fleq_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fleq.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -145,7 +145,7 @@ covergroup ZfaZfh_fli_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fli.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -162,7 +162,7 @@ endgroup
 // ---------------------
 covergroup ZfaZfh_fltq_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fltq.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -301,7 +301,7 @@ covergroup ZfaZfh_fmaxm_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmaxm.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -440,7 +440,7 @@ covergroup ZfaZfh_fminm_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fminm.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -566,7 +566,7 @@ endgroup
 // ---------------------
 covergroup ZfaZfh_fround_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -579,7 +579,7 @@ covergroup ZfaZfh_fround_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fround.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -661,7 +661,7 @@ endgroup
 // ---------------------
 covergroup ZfaZfh_froundnx_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
@@ -674,7 +674,7 @@ covergroup ZfaZfh_froundnx_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "froundnx.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -758,26 +758,26 @@ endgroup
 // ---------------------
 function void zfazfh_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fleq.h"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FLEQ_H     : begin
             ZfaZfh_fleq_h_cg.sample(ins);
         end
-        "fli.h"     : begin
+        INSTR_FLI_H     : begin
             ZfaZfh_fli_h_cg.sample(ins);
         end
-        "fltq.h"     : begin
+        INSTR_FLTQ_H     : begin
             ZfaZfh_fltq_h_cg.sample(ins);
         end
-        "fmaxm.h"     : begin
+        INSTR_FMAXM_H     : begin
             ZfaZfh_fmaxm_h_cg.sample(ins);
         end
-        "fminm.h"     : begin
+        INSTR_FMINM_H     : begin
             ZfaZfh_fminm_h_cg.sample(ins);
         end
-        "fround.h"     : begin
+        INSTR_FROUND_H     : begin
             ZfaZfh_fround_h_cg.sample(ins);
         end
-        "froundnx.h"     : begin
+        INSTR_FROUNDNX_H     : begin
             ZfaZfh_froundnx_h_cg.sample(ins);
         end
     endcase

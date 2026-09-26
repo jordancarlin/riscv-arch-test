@@ -8108,644 +8108,644 @@ endgroup
 // ---------------------
 function void exceptionsvx_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "vaadd.vv"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_VAADD_VV     : begin
             ExceptionsVx_vaadd_vv_cg.sample(ins);
         end
-        "vaadd.vx"     : begin
+        INSTR_VAADD_VX     : begin
             ExceptionsVx_vaadd_vx_cg.sample(ins);
         end
-        "vaaddu.vv"     : begin
+        INSTR_VAADDU_VV     : begin
             ExceptionsVx_vaaddu_vv_cg.sample(ins);
         end
-        "vaaddu.vx"     : begin
+        INSTR_VAADDU_VX     : begin
             ExceptionsVx_vaaddu_vx_cg.sample(ins);
         end
-        "vadc.vim"     : begin
+        INSTR_VADC_VIM     : begin
             ExceptionsVx_vadc_vim_cg.sample(ins);
         end
-        "vadc.vvm"     : begin
+        INSTR_VADC_VVM     : begin
             ExceptionsVx_vadc_vvm_cg.sample(ins);
         end
-        "vadc.vxm"     : begin
+        INSTR_VADC_VXM     : begin
             ExceptionsVx_vadc_vxm_cg.sample(ins);
         end
-        "vadd.vi"     : begin
+        INSTR_VADD_VI     : begin
             ExceptionsVx_vadd_vi_cg.sample(ins);
         end
-        "vadd.vv"     : begin
+        INSTR_VADD_VV     : begin
             ExceptionsVx_vadd_vv_cg.sample(ins);
         end
-        "vadd.vx"     : begin
+        INSTR_VADD_VX     : begin
             ExceptionsVx_vadd_vx_cg.sample(ins);
         end
-        "vand.vi"     : begin
+        INSTR_VAND_VI     : begin
             ExceptionsVx_vand_vi_cg.sample(ins);
         end
-        "vand.vv"     : begin
+        INSTR_VAND_VV     : begin
             ExceptionsVx_vand_vv_cg.sample(ins);
         end
-        "vand.vx"     : begin
+        INSTR_VAND_VX     : begin
             ExceptionsVx_vand_vx_cg.sample(ins);
         end
-        "vasub.vv"     : begin
+        INSTR_VASUB_VV     : begin
             ExceptionsVx_vasub_vv_cg.sample(ins);
         end
-        "vasub.vx"     : begin
+        INSTR_VASUB_VX     : begin
             ExceptionsVx_vasub_vx_cg.sample(ins);
         end
-        "vasubu.vv"     : begin
+        INSTR_VASUBU_VV     : begin
             ExceptionsVx_vasubu_vv_cg.sample(ins);
         end
-        "vasubu.vx"     : begin
+        INSTR_VASUBU_VX     : begin
             ExceptionsVx_vasubu_vx_cg.sample(ins);
         end
-        "vcompress.vm"     : begin
+        INSTR_VCOMPRESS_VM     : begin
             ExceptionsVx_vcompress_vm_cg.sample(ins);
         end
-        "vcpop.m"     : begin
+        INSTR_VCPOP_M     : begin
             ExceptionsVx_vcpop_m_cg.sample(ins);
         end
-        "vdiv.vv"     : begin
+        INSTR_VDIV_VV     : begin
             ExceptionsVx_vdiv_vv_cg.sample(ins);
         end
-        "vdiv.vx"     : begin
+        INSTR_VDIV_VX     : begin
             ExceptionsVx_vdiv_vx_cg.sample(ins);
         end
-        "vdivu.vv"     : begin
+        INSTR_VDIVU_VV     : begin
             ExceptionsVx_vdivu_vv_cg.sample(ins);
         end
-        "vdivu.vx"     : begin
+        INSTR_VDIVU_VX     : begin
             ExceptionsVx_vdivu_vx_cg.sample(ins);
         end
-        "vfirst.m"     : begin
+        INSTR_VFIRST_M     : begin
             ExceptionsVx_vfirst_m_cg.sample(ins);
         end
-        "vid.v"     : begin
+        INSTR_VID_V     : begin
             ExceptionsVx_vid_v_cg.sample(ins);
         end
-        "viota.m"     : begin
+        INSTR_VIOTA_M     : begin
             ExceptionsVx_viota_m_cg.sample(ins);
         end
-        "vmacc.vv"     : begin
+        INSTR_VMACC_VV     : begin
             ExceptionsVx_vmacc_vv_cg.sample(ins);
         end
-        "vmacc.vx"     : begin
+        INSTR_VMACC_VX     : begin
             ExceptionsVx_vmacc_vx_cg.sample(ins);
         end
-        "vmadc.vi"     : begin
+        INSTR_VMADC_VI     : begin
             ExceptionsVx_vmadc_vi_cg.sample(ins);
         end
-        "vmadc.vim"     : begin
+        INSTR_VMADC_VIM     : begin
             ExceptionsVx_vmadc_vim_cg.sample(ins);
         end
-        "vmadc.vv"     : begin
+        INSTR_VMADC_VV     : begin
             ExceptionsVx_vmadc_vv_cg.sample(ins);
         end
-        "vmadc.vvm"     : begin
+        INSTR_VMADC_VVM     : begin
             ExceptionsVx_vmadc_vvm_cg.sample(ins);
         end
-        "vmadc.vx"     : begin
+        INSTR_VMADC_VX     : begin
             ExceptionsVx_vmadc_vx_cg.sample(ins);
         end
-        "vmadc.vxm"     : begin
+        INSTR_VMADC_VXM     : begin
             ExceptionsVx_vmadc_vxm_cg.sample(ins);
         end
-        "vmadd.vv"     : begin
+        INSTR_VMADD_VV     : begin
             ExceptionsVx_vmadd_vv_cg.sample(ins);
         end
-        "vmadd.vx"     : begin
+        INSTR_VMADD_VX     : begin
             ExceptionsVx_vmadd_vx_cg.sample(ins);
         end
-        "vmand.mm"     : begin
+        INSTR_VMAND_MM     : begin
             ExceptionsVx_vmand_mm_cg.sample(ins);
         end
-        "vmandn.mm"     : begin
+        INSTR_VMANDN_MM     : begin
             ExceptionsVx_vmandn_mm_cg.sample(ins);
         end
-        "vmax.vv"     : begin
+        INSTR_VMAX_VV     : begin
             ExceptionsVx_vmax_vv_cg.sample(ins);
         end
-        "vmax.vx"     : begin
+        INSTR_VMAX_VX     : begin
             ExceptionsVx_vmax_vx_cg.sample(ins);
         end
-        "vmaxu.vv"     : begin
+        INSTR_VMAXU_VV     : begin
             ExceptionsVx_vmaxu_vv_cg.sample(ins);
         end
-        "vmaxu.vx"     : begin
+        INSTR_VMAXU_VX     : begin
             ExceptionsVx_vmaxu_vx_cg.sample(ins);
         end
-        "vmerge.vim"     : begin
+        INSTR_VMERGE_VIM     : begin
             ExceptionsVx_vmerge_vim_cg.sample(ins);
         end
-        "vmerge.vvm"     : begin
+        INSTR_VMERGE_VVM     : begin
             ExceptionsVx_vmerge_vvm_cg.sample(ins);
         end
-        "vmerge.vxm"     : begin
+        INSTR_VMERGE_VXM     : begin
             ExceptionsVx_vmerge_vxm_cg.sample(ins);
         end
-        "vmin.vv"     : begin
+        INSTR_VMIN_VV     : begin
             ExceptionsVx_vmin_vv_cg.sample(ins);
         end
-        "vmin.vx"     : begin
+        INSTR_VMIN_VX     : begin
             ExceptionsVx_vmin_vx_cg.sample(ins);
         end
-        "vminu.vv"     : begin
+        INSTR_VMINU_VV     : begin
             ExceptionsVx_vminu_vv_cg.sample(ins);
         end
-        "vminu.vx"     : begin
+        INSTR_VMINU_VX     : begin
             ExceptionsVx_vminu_vx_cg.sample(ins);
         end
-        "vmnand.mm"     : begin
+        INSTR_VMNAND_MM     : begin
             ExceptionsVx_vmnand_mm_cg.sample(ins);
         end
-        "vmnor.mm"     : begin
+        INSTR_VMNOR_MM     : begin
             ExceptionsVx_vmnor_mm_cg.sample(ins);
         end
-        "vmor.mm"     : begin
+        INSTR_VMOR_MM     : begin
             ExceptionsVx_vmor_mm_cg.sample(ins);
         end
-        "vmorn.mm"     : begin
+        INSTR_VMORN_MM     : begin
             ExceptionsVx_vmorn_mm_cg.sample(ins);
         end
-        "vmsbc.vv"     : begin
+        INSTR_VMSBC_VV     : begin
             ExceptionsVx_vmsbc_vv_cg.sample(ins);
         end
-        "vmsbc.vvm"     : begin
+        INSTR_VMSBC_VVM     : begin
             ExceptionsVx_vmsbc_vvm_cg.sample(ins);
         end
-        "vmsbc.vx"     : begin
+        INSTR_VMSBC_VX     : begin
             ExceptionsVx_vmsbc_vx_cg.sample(ins);
         end
-        "vmsbc.vxm"     : begin
+        INSTR_VMSBC_VXM     : begin
             ExceptionsVx_vmsbc_vxm_cg.sample(ins);
         end
-        "vmsbf.m"     : begin
+        INSTR_VMSBF_M     : begin
             ExceptionsVx_vmsbf_m_cg.sample(ins);
         end
-        "vmseq.vi"     : begin
+        INSTR_VMSEQ_VI     : begin
             ExceptionsVx_vmseq_vi_cg.sample(ins);
         end
-        "vmseq.vv"     : begin
+        INSTR_VMSEQ_VV     : begin
             ExceptionsVx_vmseq_vv_cg.sample(ins);
         end
-        "vmseq.vx"     : begin
+        INSTR_VMSEQ_VX     : begin
             ExceptionsVx_vmseq_vx_cg.sample(ins);
         end
-        "vmsgt.vi"     : begin
+        INSTR_VMSGT_VI     : begin
             ExceptionsVx_vmsgt_vi_cg.sample(ins);
         end
-        "vmsgt.vx"     : begin
+        INSTR_VMSGT_VX     : begin
             ExceptionsVx_vmsgt_vx_cg.sample(ins);
         end
-        "vmsgtu.vi"     : begin
+        INSTR_VMSGTU_VI     : begin
             ExceptionsVx_vmsgtu_vi_cg.sample(ins);
         end
-        "vmsgtu.vx"     : begin
+        INSTR_VMSGTU_VX     : begin
             ExceptionsVx_vmsgtu_vx_cg.sample(ins);
         end
-        "vmsif.m"     : begin
+        INSTR_VMSIF_M     : begin
             ExceptionsVx_vmsif_m_cg.sample(ins);
         end
-        "vmsle.vi"     : begin
+        INSTR_VMSLE_VI     : begin
             ExceptionsVx_vmsle_vi_cg.sample(ins);
         end
-        "vmsle.vv"     : begin
+        INSTR_VMSLE_VV     : begin
             ExceptionsVx_vmsle_vv_cg.sample(ins);
         end
-        "vmsle.vx"     : begin
+        INSTR_VMSLE_VX     : begin
             ExceptionsVx_vmsle_vx_cg.sample(ins);
         end
-        "vmsleu.vi"     : begin
+        INSTR_VMSLEU_VI     : begin
             ExceptionsVx_vmsleu_vi_cg.sample(ins);
         end
-        "vmsleu.vv"     : begin
+        INSTR_VMSLEU_VV     : begin
             ExceptionsVx_vmsleu_vv_cg.sample(ins);
         end
-        "vmsleu.vx"     : begin
+        INSTR_VMSLEU_VX     : begin
             ExceptionsVx_vmsleu_vx_cg.sample(ins);
         end
-        "vmslt.vv"     : begin
+        INSTR_VMSLT_VV     : begin
             ExceptionsVx_vmslt_vv_cg.sample(ins);
         end
-        "vmslt.vx"     : begin
+        INSTR_VMSLT_VX     : begin
             ExceptionsVx_vmslt_vx_cg.sample(ins);
         end
-        "vmsltu.vv"     : begin
+        INSTR_VMSLTU_VV     : begin
             ExceptionsVx_vmsltu_vv_cg.sample(ins);
         end
-        "vmsltu.vx"     : begin
+        INSTR_VMSLTU_VX     : begin
             ExceptionsVx_vmsltu_vx_cg.sample(ins);
         end
-        "vmsne.vi"     : begin
+        INSTR_VMSNE_VI     : begin
             ExceptionsVx_vmsne_vi_cg.sample(ins);
         end
-        "vmsne.vv"     : begin
+        INSTR_VMSNE_VV     : begin
             ExceptionsVx_vmsne_vv_cg.sample(ins);
         end
-        "vmsne.vx"     : begin
+        INSTR_VMSNE_VX     : begin
             ExceptionsVx_vmsne_vx_cg.sample(ins);
         end
-        "vmsof.m"     : begin
+        INSTR_VMSOF_M     : begin
             ExceptionsVx_vmsof_m_cg.sample(ins);
         end
-        "vmul.vv"     : begin
+        INSTR_VMUL_VV     : begin
             ExceptionsVx_vmul_vv_cg.sample(ins);
         end
-        "vmul.vx"     : begin
+        INSTR_VMUL_VX     : begin
             ExceptionsVx_vmul_vx_cg.sample(ins);
         end
-        "vmulh.vv"     : begin
+        INSTR_VMULH_VV     : begin
             ExceptionsVx_vmulh_vv_cg.sample(ins);
         end
-        "vmulh.vx"     : begin
+        INSTR_VMULH_VX     : begin
             ExceptionsVx_vmulh_vx_cg.sample(ins);
         end
-        "vmulhsu.vv"     : begin
+        INSTR_VMULHSU_VV     : begin
             ExceptionsVx_vmulhsu_vv_cg.sample(ins);
         end
-        "vmulhsu.vx"     : begin
+        INSTR_VMULHSU_VX     : begin
             ExceptionsVx_vmulhsu_vx_cg.sample(ins);
         end
-        "vmulhu.vv"     : begin
+        INSTR_VMULHU_VV     : begin
             ExceptionsVx_vmulhu_vv_cg.sample(ins);
         end
-        "vmulhu.vx"     : begin
+        INSTR_VMULHU_VX     : begin
             ExceptionsVx_vmulhu_vx_cg.sample(ins);
         end
-        "vmv.s.x"     : begin
+        INSTR_VMV_S_X     : begin
             ExceptionsVx_vmv_s_x_cg.sample(ins);
         end
-        "vmv.v.i"     : begin
+        INSTR_VMV_V_I     : begin
             ExceptionsVx_vmv_v_i_cg.sample(ins);
         end
-        "vmv.v.v"     : begin
+        INSTR_VMV_V_V     : begin
             ExceptionsVx_vmv_v_v_cg.sample(ins);
         end
-        "vmv.v.x"     : begin
+        INSTR_VMV_V_X     : begin
             ExceptionsVx_vmv_v_x_cg.sample(ins);
         end
-        "vmv.x.s"     : begin
+        INSTR_VMV_X_S     : begin
             ExceptionsVx_vmv_x_s_cg.sample(ins);
         end
-        "vmv1r.v"     : begin
+        INSTR_VMV1R_V     : begin
             ExceptionsVx_vmv1r_v_cg.sample(ins);
         end
-        "vmv2r.v"     : begin
+        INSTR_VMV2R_V     : begin
             ExceptionsVx_vmv2r_v_cg.sample(ins);
         end
-        "vmv4r.v"     : begin
+        INSTR_VMV4R_V     : begin
             ExceptionsVx_vmv4r_v_cg.sample(ins);
         end
-        "vmv8r.v"     : begin
+        INSTR_VMV8R_V     : begin
             ExceptionsVx_vmv8r_v_cg.sample(ins);
         end
-        "vmxnor.mm"     : begin
+        INSTR_VMXNOR_MM     : begin
             ExceptionsVx_vmxnor_mm_cg.sample(ins);
         end
-        "vmxor.mm"     : begin
+        INSTR_VMXOR_MM     : begin
             ExceptionsVx_vmxor_mm_cg.sample(ins);
         end
-        "vnclip.wi"     : begin
+        INSTR_VNCLIP_WI     : begin
             ExceptionsVx_vnclip_wi_cg.sample(ins);
         end
-        "vnclip.wv"     : begin
+        INSTR_VNCLIP_WV     : begin
             ExceptionsVx_vnclip_wv_cg.sample(ins);
         end
-        "vnclip.wx"     : begin
+        INSTR_VNCLIP_WX     : begin
             ExceptionsVx_vnclip_wx_cg.sample(ins);
         end
-        "vnclipu.wi"     : begin
+        INSTR_VNCLIPU_WI     : begin
             ExceptionsVx_vnclipu_wi_cg.sample(ins);
         end
-        "vnclipu.wv"     : begin
+        INSTR_VNCLIPU_WV     : begin
             ExceptionsVx_vnclipu_wv_cg.sample(ins);
         end
-        "vnclipu.wx"     : begin
+        INSTR_VNCLIPU_WX     : begin
             ExceptionsVx_vnclipu_wx_cg.sample(ins);
         end
-        "vnmsac.vv"     : begin
+        INSTR_VNMSAC_VV     : begin
             ExceptionsVx_vnmsac_vv_cg.sample(ins);
         end
-        "vnmsac.vx"     : begin
+        INSTR_VNMSAC_VX     : begin
             ExceptionsVx_vnmsac_vx_cg.sample(ins);
         end
-        "vnmsub.vv"     : begin
+        INSTR_VNMSUB_VV     : begin
             ExceptionsVx_vnmsub_vv_cg.sample(ins);
         end
-        "vnmsub.vx"     : begin
+        INSTR_VNMSUB_VX     : begin
             ExceptionsVx_vnmsub_vx_cg.sample(ins);
         end
-        "vnsra.wi"     : begin
+        INSTR_VNSRA_WI     : begin
             ExceptionsVx_vnsra_wi_cg.sample(ins);
         end
-        "vnsra.wv"     : begin
+        INSTR_VNSRA_WV     : begin
             ExceptionsVx_vnsra_wv_cg.sample(ins);
         end
-        "vnsra.wx"     : begin
+        INSTR_VNSRA_WX     : begin
             ExceptionsVx_vnsra_wx_cg.sample(ins);
         end
-        "vnsrl.wi"     : begin
+        INSTR_VNSRL_WI     : begin
             ExceptionsVx_vnsrl_wi_cg.sample(ins);
         end
-        "vnsrl.wv"     : begin
+        INSTR_VNSRL_WV     : begin
             ExceptionsVx_vnsrl_wv_cg.sample(ins);
         end
-        "vnsrl.wx"     : begin
+        INSTR_VNSRL_WX     : begin
             ExceptionsVx_vnsrl_wx_cg.sample(ins);
         end
-        "vor.vi"     : begin
+        INSTR_VOR_VI     : begin
             ExceptionsVx_vor_vi_cg.sample(ins);
         end
-        "vor.vv"     : begin
+        INSTR_VOR_VV     : begin
             ExceptionsVx_vor_vv_cg.sample(ins);
         end
-        "vor.vx"     : begin
+        INSTR_VOR_VX     : begin
             ExceptionsVx_vor_vx_cg.sample(ins);
         end
-        "vredand.vs"     : begin
+        INSTR_VREDAND_VS     : begin
             ExceptionsVx_vredand_vs_cg.sample(ins);
         end
-        "vredmax.vs"     : begin
+        INSTR_VREDMAX_VS     : begin
             ExceptionsVx_vredmax_vs_cg.sample(ins);
         end
-        "vredmaxu.vs"     : begin
+        INSTR_VREDMAXU_VS     : begin
             ExceptionsVx_vredmaxu_vs_cg.sample(ins);
         end
-        "vredmin.vs"     : begin
+        INSTR_VREDMIN_VS     : begin
             ExceptionsVx_vredmin_vs_cg.sample(ins);
         end
-        "vredminu.vs"     : begin
+        INSTR_VREDMINU_VS     : begin
             ExceptionsVx_vredminu_vs_cg.sample(ins);
         end
-        "vredor.vs"     : begin
+        INSTR_VREDOR_VS     : begin
             ExceptionsVx_vredor_vs_cg.sample(ins);
         end
-        "vredsum.vs"     : begin
+        INSTR_VREDSUM_VS     : begin
             ExceptionsVx_vredsum_vs_cg.sample(ins);
         end
-        "vredxor.vs"     : begin
+        INSTR_VREDXOR_VS     : begin
             ExceptionsVx_vredxor_vs_cg.sample(ins);
         end
-        "vrem.vv"     : begin
+        INSTR_VREM_VV     : begin
             ExceptionsVx_vrem_vv_cg.sample(ins);
         end
-        "vrem.vx"     : begin
+        INSTR_VREM_VX     : begin
             ExceptionsVx_vrem_vx_cg.sample(ins);
         end
-        "vremu.vv"     : begin
+        INSTR_VREMU_VV     : begin
             ExceptionsVx_vremu_vv_cg.sample(ins);
         end
-        "vremu.vx"     : begin
+        INSTR_VREMU_VX     : begin
             ExceptionsVx_vremu_vx_cg.sample(ins);
         end
-        "vrgather.vi"     : begin
+        INSTR_VRGATHER_VI     : begin
             ExceptionsVx_vrgather_vi_cg.sample(ins);
         end
-        "vrgather.vv"     : begin
+        INSTR_VRGATHER_VV     : begin
             ExceptionsVx_vrgather_vv_cg.sample(ins);
         end
-        "vrgather.vx"     : begin
+        INSTR_VRGATHER_VX     : begin
             ExceptionsVx_vrgather_vx_cg.sample(ins);
         end
-        "vrgatherei16.vv"     : begin
+        INSTR_VRGATHEREI16_VV     : begin
             ExceptionsVx_vrgatherei16_vv_cg.sample(ins);
         end
-        "vrsub.vi"     : begin
+        INSTR_VRSUB_VI     : begin
             ExceptionsVx_vrsub_vi_cg.sample(ins);
         end
-        "vrsub.vx"     : begin
+        INSTR_VRSUB_VX     : begin
             ExceptionsVx_vrsub_vx_cg.sample(ins);
         end
-        "vsadd.vi"     : begin
+        INSTR_VSADD_VI     : begin
             ExceptionsVx_vsadd_vi_cg.sample(ins);
         end
-        "vsadd.vv"     : begin
+        INSTR_VSADD_VV     : begin
             ExceptionsVx_vsadd_vv_cg.sample(ins);
         end
-        "vsadd.vx"     : begin
+        INSTR_VSADD_VX     : begin
             ExceptionsVx_vsadd_vx_cg.sample(ins);
         end
-        "vsaddu.vi"     : begin
+        INSTR_VSADDU_VI     : begin
             ExceptionsVx_vsaddu_vi_cg.sample(ins);
         end
-        "vsaddu.vv"     : begin
+        INSTR_VSADDU_VV     : begin
             ExceptionsVx_vsaddu_vv_cg.sample(ins);
         end
-        "vsaddu.vx"     : begin
+        INSTR_VSADDU_VX     : begin
             ExceptionsVx_vsaddu_vx_cg.sample(ins);
         end
-        "vsbc.vvm"     : begin
+        INSTR_VSBC_VVM     : begin
             ExceptionsVx_vsbc_vvm_cg.sample(ins);
         end
-        "vsbc.vxm"     : begin
+        INSTR_VSBC_VXM     : begin
             ExceptionsVx_vsbc_vxm_cg.sample(ins);
         end
-        "vsext.vf2"     : begin
+        INSTR_VSEXT_VF2     : begin
             ExceptionsVx_vsext_vf2_cg.sample(ins);
         end
-        "vsext.vf4"     : begin
+        INSTR_VSEXT_VF4     : begin
             ExceptionsVx_vsext_vf4_cg.sample(ins);
         end
-        "vsext.vf8"     : begin
+        INSTR_VSEXT_VF8     : begin
             ExceptionsVx_vsext_vf8_cg.sample(ins);
         end
-        "vslide1down.vx"     : begin
+        INSTR_VSLIDE1DOWN_VX     : begin
             ExceptionsVx_vslide1down_vx_cg.sample(ins);
         end
-        "vslide1up.vx"     : begin
+        INSTR_VSLIDE1UP_VX     : begin
             ExceptionsVx_vslide1up_vx_cg.sample(ins);
         end
-        "vslidedown.vi"     : begin
+        INSTR_VSLIDEDOWN_VI     : begin
             ExceptionsVx_vslidedown_vi_cg.sample(ins);
         end
-        "vslidedown.vx"     : begin
+        INSTR_VSLIDEDOWN_VX     : begin
             ExceptionsVx_vslidedown_vx_cg.sample(ins);
         end
-        "vslideup.vi"     : begin
+        INSTR_VSLIDEUP_VI     : begin
             ExceptionsVx_vslideup_vi_cg.sample(ins);
         end
-        "vslideup.vx"     : begin
+        INSTR_VSLIDEUP_VX     : begin
             ExceptionsVx_vslideup_vx_cg.sample(ins);
         end
-        "vsll.vi"     : begin
+        INSTR_VSLL_VI     : begin
             ExceptionsVx_vsll_vi_cg.sample(ins);
         end
-        "vsll.vv"     : begin
+        INSTR_VSLL_VV     : begin
             ExceptionsVx_vsll_vv_cg.sample(ins);
         end
-        "vsll.vx"     : begin
+        INSTR_VSLL_VX     : begin
             ExceptionsVx_vsll_vx_cg.sample(ins);
         end
-        "vsmul.vv"     : begin
+        INSTR_VSMUL_VV     : begin
             ExceptionsVx_vsmul_vv_cg.sample(ins);
         end
-        "vsmul.vx"     : begin
+        INSTR_VSMUL_VX     : begin
             ExceptionsVx_vsmul_vx_cg.sample(ins);
         end
-        "vsra.vi"     : begin
+        INSTR_VSRA_VI     : begin
             ExceptionsVx_vsra_vi_cg.sample(ins);
         end
-        "vsra.vv"     : begin
+        INSTR_VSRA_VV     : begin
             ExceptionsVx_vsra_vv_cg.sample(ins);
         end
-        "vsra.vx"     : begin
+        INSTR_VSRA_VX     : begin
             ExceptionsVx_vsra_vx_cg.sample(ins);
         end
-        "vsrl.vi"     : begin
+        INSTR_VSRL_VI     : begin
             ExceptionsVx_vsrl_vi_cg.sample(ins);
         end
-        "vsrl.vv"     : begin
+        INSTR_VSRL_VV     : begin
             ExceptionsVx_vsrl_vv_cg.sample(ins);
         end
-        "vsrl.vx"     : begin
+        INSTR_VSRL_VX     : begin
             ExceptionsVx_vsrl_vx_cg.sample(ins);
         end
-        "vssra.vi"     : begin
+        INSTR_VSSRA_VI     : begin
             ExceptionsVx_vssra_vi_cg.sample(ins);
         end
-        "vssra.vv"     : begin
+        INSTR_VSSRA_VV     : begin
             ExceptionsVx_vssra_vv_cg.sample(ins);
         end
-        "vssra.vx"     : begin
+        INSTR_VSSRA_VX     : begin
             ExceptionsVx_vssra_vx_cg.sample(ins);
         end
-        "vssrl.vi"     : begin
+        INSTR_VSSRL_VI     : begin
             ExceptionsVx_vssrl_vi_cg.sample(ins);
         end
-        "vssrl.vv"     : begin
+        INSTR_VSSRL_VV     : begin
             ExceptionsVx_vssrl_vv_cg.sample(ins);
         end
-        "vssrl.vx"     : begin
+        INSTR_VSSRL_VX     : begin
             ExceptionsVx_vssrl_vx_cg.sample(ins);
         end
-        "vssub.vv"     : begin
+        INSTR_VSSUB_VV     : begin
             ExceptionsVx_vssub_vv_cg.sample(ins);
         end
-        "vssub.vx"     : begin
+        INSTR_VSSUB_VX     : begin
             ExceptionsVx_vssub_vx_cg.sample(ins);
         end
-        "vssubu.vv"     : begin
+        INSTR_VSSUBU_VV     : begin
             ExceptionsVx_vssubu_vv_cg.sample(ins);
         end
-        "vssubu.vx"     : begin
+        INSTR_VSSUBU_VX     : begin
             ExceptionsVx_vssubu_vx_cg.sample(ins);
         end
-        "vsub.vv"     : begin
+        INSTR_VSUB_VV     : begin
             ExceptionsVx_vsub_vv_cg.sample(ins);
         end
-        "vsub.vx"     : begin
+        INSTR_VSUB_VX     : begin
             ExceptionsVx_vsub_vx_cg.sample(ins);
         end
-        "vwadd.vv"     : begin
+        INSTR_VWADD_VV     : begin
             ExceptionsVx_vwadd_vv_cg.sample(ins);
         end
-        "vwadd.vx"     : begin
+        INSTR_VWADD_VX     : begin
             ExceptionsVx_vwadd_vx_cg.sample(ins);
         end
-        "vwadd.wv"     : begin
+        INSTR_VWADD_WV     : begin
             ExceptionsVx_vwadd_wv_cg.sample(ins);
         end
-        "vwadd.wx"     : begin
+        INSTR_VWADD_WX     : begin
             ExceptionsVx_vwadd_wx_cg.sample(ins);
         end
-        "vwaddu.vv"     : begin
+        INSTR_VWADDU_VV     : begin
             ExceptionsVx_vwaddu_vv_cg.sample(ins);
         end
-        "vwaddu.vx"     : begin
+        INSTR_VWADDU_VX     : begin
             ExceptionsVx_vwaddu_vx_cg.sample(ins);
         end
-        "vwaddu.wv"     : begin
+        INSTR_VWADDU_WV     : begin
             ExceptionsVx_vwaddu_wv_cg.sample(ins);
         end
-        "vwaddu.wx"     : begin
+        INSTR_VWADDU_WX     : begin
             ExceptionsVx_vwaddu_wx_cg.sample(ins);
         end
-        "vwmacc.vv"     : begin
+        INSTR_VWMACC_VV     : begin
             ExceptionsVx_vwmacc_vv_cg.sample(ins);
         end
-        "vwmacc.vx"     : begin
+        INSTR_VWMACC_VX     : begin
             ExceptionsVx_vwmacc_vx_cg.sample(ins);
         end
-        "vwmaccsu.vv"     : begin
+        INSTR_VWMACCSU_VV     : begin
             ExceptionsVx_vwmaccsu_vv_cg.sample(ins);
         end
-        "vwmaccsu.vx"     : begin
+        INSTR_VWMACCSU_VX     : begin
             ExceptionsVx_vwmaccsu_vx_cg.sample(ins);
         end
-        "vwmaccu.vv"     : begin
+        INSTR_VWMACCU_VV     : begin
             ExceptionsVx_vwmaccu_vv_cg.sample(ins);
         end
-        "vwmaccu.vx"     : begin
+        INSTR_VWMACCU_VX     : begin
             ExceptionsVx_vwmaccu_vx_cg.sample(ins);
         end
-        "vwmaccus.vx"     : begin
+        INSTR_VWMACCUS_VX     : begin
             ExceptionsVx_vwmaccus_vx_cg.sample(ins);
         end
-        "vwmul.vv"     : begin
+        INSTR_VWMUL_VV     : begin
             ExceptionsVx_vwmul_vv_cg.sample(ins);
         end
-        "vwmul.vx"     : begin
+        INSTR_VWMUL_VX     : begin
             ExceptionsVx_vwmul_vx_cg.sample(ins);
         end
-        "vwmulsu.vv"     : begin
+        INSTR_VWMULSU_VV     : begin
             ExceptionsVx_vwmulsu_vv_cg.sample(ins);
         end
-        "vwmulsu.vx"     : begin
+        INSTR_VWMULSU_VX     : begin
             ExceptionsVx_vwmulsu_vx_cg.sample(ins);
         end
-        "vwmulu.vv"     : begin
+        INSTR_VWMULU_VV     : begin
             ExceptionsVx_vwmulu_vv_cg.sample(ins);
         end
-        "vwmulu.vx"     : begin
+        INSTR_VWMULU_VX     : begin
             ExceptionsVx_vwmulu_vx_cg.sample(ins);
         end
-        "vwredsum.vs"     : begin
+        INSTR_VWREDSUM_VS     : begin
             ExceptionsVx_vwredsum_vs_cg.sample(ins);
         end
-        "vwredsumu.vs"     : begin
+        INSTR_VWREDSUMU_VS     : begin
             ExceptionsVx_vwredsumu_vs_cg.sample(ins);
         end
-        "vwsub.vv"     : begin
+        INSTR_VWSUB_VV     : begin
             ExceptionsVx_vwsub_vv_cg.sample(ins);
         end
-        "vwsub.vx"     : begin
+        INSTR_VWSUB_VX     : begin
             ExceptionsVx_vwsub_vx_cg.sample(ins);
         end
-        "vwsub.wv"     : begin
+        INSTR_VWSUB_WV     : begin
             ExceptionsVx_vwsub_wv_cg.sample(ins);
         end
-        "vwsub.wx"     : begin
+        INSTR_VWSUB_WX     : begin
             ExceptionsVx_vwsub_wx_cg.sample(ins);
         end
-        "vwsubu.vv"     : begin
+        INSTR_VWSUBU_VV     : begin
             ExceptionsVx_vwsubu_vv_cg.sample(ins);
         end
-        "vwsubu.vx"     : begin
+        INSTR_VWSUBU_VX     : begin
             ExceptionsVx_vwsubu_vx_cg.sample(ins);
         end
-        "vwsubu.wv"     : begin
+        INSTR_VWSUBU_WV     : begin
             ExceptionsVx_vwsubu_wv_cg.sample(ins);
         end
-        "vwsubu.wx"     : begin
+        INSTR_VWSUBU_WX     : begin
             ExceptionsVx_vwsubu_wx_cg.sample(ins);
         end
-        "vxor.vi"     : begin
+        INSTR_VXOR_VI     : begin
             ExceptionsVx_vxor_vi_cg.sample(ins);
         end
-        "vxor.vv"     : begin
+        INSTR_VXOR_VV     : begin
             ExceptionsVx_vxor_vv_cg.sample(ins);
         end
-        "vxor.vx"     : begin
+        INSTR_VXOR_VX     : begin
             ExceptionsVx_vxor_vx_cg.sample(ins);
         end
-        "vzext.vf2"     : begin
+        INSTR_VZEXT_VF2     : begin
             ExceptionsVx_vzext_vf2_cg.sample(ins);
         end
-        "vzext.vf4"     : begin
+        INSTR_VZEXT_VF4     : begin
             ExceptionsVx_vzext_vf4_cg.sample(ins);
         end
-        "vzext.vf8"     : begin
+        INSTR_VZEXT_VF8     : begin
             ExceptionsVx_vzext_vf8_cg.sample(ins);
         end
     endcase

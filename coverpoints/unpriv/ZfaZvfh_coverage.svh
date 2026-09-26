@@ -19,7 +19,7 @@ covergroup ZfaZvfh_fli_h_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fli.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint 1'b1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -36,8 +36,8 @@ endgroup
 // ---------------------
 function void zfazvfh_sample(int hart, int issue, ins_t ins);
 
-    case (traceDataQ[hart][issue][0].inst_name)
-        "fli.h"     : begin
+    case (traceDataQ[hart][issue][0].inst_id)
+        INSTR_FLI_H     : begin
             ZfaZvfh_fli_h_cg.sample(ins);
         end
     endcase
