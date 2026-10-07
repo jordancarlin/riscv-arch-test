@@ -7,7 +7,9 @@
 # Generate txt coverage reports from coverage database
 ##################################
 
+import os
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -137,6 +139,8 @@ def generate_report(
         _generate_questa_report(coverage_db, report_prefix)
     elif simulator == CoverageSimulator.VCS:
         _generate_vcs_report(coverage_db, report_prefix)
+    elif simulator == CoverageSimulator.VERILATOR:
+        _generate_verilator_report(coverage_db, report_prefix)
     else:
         raise ValueError(f"Unknown simulator: {simulator}")
 
@@ -304,3 +308,70 @@ def _generate_vcs_report(vdb: Path, report_prefix: Path) -> None:
         text=True,
     )
     _write_vcs_reports(report_prefix, urg_report_dir)
+
+
+# ── Verilator helpers ──────────────────────────────────────────────────────────────────────────────
+
+_VERILATOR_GROUP_PATTERN = re.compile(
+    r"^  \S+::(?P<name>\w+_cg)\s+:\s*(?P<metric>[\d.]+)%\s*\(\s*\d+/\s*(?P<bins>\d+)\)",
+    re.MULTILINE,
+)
+
+
+def _parse_verilator_report(report: str) -> list[CoverageEntry]:
+    """Extract ACT covergroup scores from Verilator's hierarchy report."""
+    entries: list[CoverageEntry] = []
+    for match in _VERILATOR_GROUP_PATTERN.finditer(report):
+        name = match["name"]
+        metric = match["metric"]
+        percent = float(metric)
+        status = "Covered" if percent >= 100.0 else ("ZERO" if percent == 0.0 else "Uncovered")
+        entries.append((name, f"{metric}%", "100", match["bins"], status))
+    if not entries:
+        raise ValueError("No ACT covergroup entries found in Verilator hierarchy report.")
+    return entries
+
+
+def _verilator_report_executable() -> str:
+    override = os.environ.get("VERILATOR_COVERAGE")
+    if override:
+        return override
+
+    verilator = shutil.which(os.environ.get("VERILATOR", "verilator"))
+    return str(Path(verilator).with_name("verilator_coverage")) if verilator else "verilator_coverage"
+
+
+def _verilator_uncovered_details(report: str, names: set[str]) -> str:
+    """Select native report lines for incomplete ACT covergroups."""
+    lines = ["Covergroup Coverage Summary:"]
+    for line in report.splitlines():
+        if "::" not in line:
+            continue
+        path = line.strip().split(maxsplit=1)[0]
+        group = path.rsplit("::", 1)[-1].partition(".")[0]
+        if group in names:
+            lines.append(line)
+    return "\n".join(lines) + "\n"
+
+
+def _generate_verilator_report(dat: Path, report_prefix: Path) -> None:
+    """Generate coverage reports from Verilator's native hierarchy report."""
+    full_report, uncovered_report, summary_report = _report_paths(report_prefix)
+    result = subprocess.run(
+        [_verilator_report_executable(), "--report", "hierarchy", "--filter-type", "covergroup", str(dat)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    report = result.stdout
+    entries = _parse_verilator_report(report)
+
+    summary_report.write_text(_format_table(entries))
+    full_report.write_text(report)
+
+    uncovered = [entry for entry in entries if entry[4] != "Covered"]
+    if uncovered:
+        names = {entry[0] for entry in uncovered}
+        uncovered_report.write_text(_format_table(uncovered) + "\n" + _verilator_uncovered_details(report, names))
+    elif uncovered_report.exists():
+        uncovered_report.unlink()
