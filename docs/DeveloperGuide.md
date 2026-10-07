@@ -758,6 +758,14 @@ Length-based splitting still applies _within_ each named group, so a large named
 
 After writing initial drafts of coverpoints and tests, run them with `make coverage EXTENSIONS=ExceptionsZc`. Omit the `--jobs` flag so they run in order and it is easier to localize which one failed. By giving the name of the test suite (e.g. ExceptionsZc), you only run the new suite of interest, saving runtime.
 
+Set `COVERAGE_SIMULATOR=verilator` to collect coverage with Verilator:
+
+```bash
+make coverage EXTENSIONS=I COVERAGE_SIMULATOR=verilator
+```
+
+This requires a Verilator build with SystemVerilog covergroup support and native hierarchy reports. Set `VERILATOR` to select a different Verilator executable. ACT uses the matching `verilator_coverage` executable from the same directory; set `VERILATOR_COVERAGE` to override it. Verilator's default limit is too small for some ACT array-bin declarations, so the flow sets `--coverage-max-bins 8192`. Set `VERILATOR_COVERAGE_MAX_BINS` if a larger value is needed.
+
 You can expect syntax errors in the tests that are easy to locate based on the compiler messages.
 
 Once those are resolved, you may have bugs that cause an infinite loop. If the test is taking a long time to run, halt it. Look at the log file in (e.g.) `work/sail-rv64-max/build/priv/ExceptionsZc/ExceptionsZc.sig.trace`. Scroll through until you find the misbehavior that put the system into an infinite loop.
