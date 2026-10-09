@@ -10,558 +10,510 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-    `ifdef COVER_D
+    if (fcov_en_D) begin
         d_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_E
+    end
+    if (fcov_en_E) begin
         e_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ENDIANH
+    end
+    if (fcov_en_EndianH) begin
         endianh_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ENDIANS
+    end
+    if (fcov_en_EndianS) begin
         endians_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ENDIANSM
+    end
+    if (fcov_en_EndianSm) begin
         endiansm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ENDIANU
+    end
+    if (fcov_en_EndianU) begin
         endianu_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ENDIANZAAMO
+    end
+    if (fcov_en_EndianZaamo) begin
         endianzaamo_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ENDIANZALRSC
+    end
+    if (fcov_en_EndianZalrsc) begin
         endianzalrsc_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSF
+    end
+    if (fcov_en_ExceptionsF) begin
         exceptionsf_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSH
+    end
+    if (fcov_en_ExceptionsH) begin
         exceptionsh_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSHV
+    end
+    if (fcov_en_ExceptionsHV) begin
         exceptionshv_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSS
+    end
+    if (fcov_en_ExceptionsS) begin
         exceptionss_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSSM
+    end
+    if (fcov_en_ExceptionsSm) begin
         exceptionssm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSSV
+    end
+    if (fcov_en_ExceptionsSv) begin
         exceptionssv_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSSVSM
+    end
+    if (fcov_en_ExceptionsSvSm) begin
         exceptionssvsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSSVZAAMO
+    end
+    if (fcov_en_ExceptionsSvZaamo) begin
         exceptionssvzaamo_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSSVZAAMOSM
+    end
+    if (fcov_en_ExceptionsSvZaamoSm) begin
         exceptionssvzaamosm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSSVZALRSC
+    end
+    if (fcov_en_ExceptionsSvZalrsc) begin
         exceptionssvzalrsc_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSSVZALRSCSM
+    end
+    if (fcov_en_ExceptionsSvZalrscSm) begin
         exceptionssvzalrscsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSU
+    end
+    if (fcov_en_ExceptionsU) begin
         exceptionsu_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSVF16
+    end
+    if (fcov_en_ExceptionsVf16) begin
         exceptionsvf16_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSVF32
+    end
+    if (fcov_en_ExceptionsVf32) begin
         exceptionsvf32_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSVF64
+    end
+    if (fcov_en_ExceptionsVf64) begin
         exceptionsvf64_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSVFMIN
+    end
+    if (fcov_en_ExceptionsVfmin) begin
         exceptionsvfmin_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSVLS
+    end
+    if (fcov_en_ExceptionsVls) begin
         exceptionsvls_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSVX
+    end
+    if (fcov_en_ExceptionsVx) begin
         exceptionsvx_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSZAAMO
+    end
+    if (fcov_en_ExceptionsZaamo) begin
         exceptionszaamo_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSZALRSC
+    end
+    if (fcov_en_ExceptionsZalrsc) begin
         exceptionszalrsc_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSZC
+    end
+    if (fcov_en_ExceptionsZc) begin
         exceptionszc_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSZICBOS
+    end
+    if (fcov_en_ExceptionsZicboS) begin
         exceptionszicbos_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSZICBOSM
+    end
+    if (fcov_en_ExceptionsZicboSm) begin
         exceptionszicbosm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_EXCEPTIONSZICBOU
+    end
+    if (fcov_en_ExceptionsZicboU) begin
         exceptionszicbou_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_F
+    end
+    if (fcov_en_F) begin
         f_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_HV
+    end
+    if (fcov_en_HV) begin
         hv_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_I
+    end
+    if (fcov_en_I) begin
         i_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_INTERRUPTSS
+    end
+    if (fcov_en_InterruptsS) begin
         interruptss_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_INTERRUPTSSM
+    end
+    if (fcov_en_InterruptsSm) begin
         interruptssm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_M
+    end
+    if (fcov_en_M) begin
         m_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_MISALIGN
+    end
+    if (fcov_en_Misalign) begin
         misalign_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_MISALIGND
+    end
+    if (fcov_en_MisalignD) begin
         misalignd_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_MISALIGNF
+    end
+    if (fcov_en_MisalignF) begin
         misalignf_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_MISALIGNV
+    end
+    if (fcov_en_MisalignV) begin
         misalignv_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_MISALIGNZCA
+    end
+    if (fcov_en_MisalignZca) begin
         misalignzca_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_PMPF
+    end
+    if (fcov_en_PMPF) begin
         pmpf_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_PMPS
+    end
+    if (fcov_en_PMPS) begin
         pmps_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_PMPSM
+    end
+    if (fcov_en_PMPSm) begin
         pmpsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_PMPU
+    end
+    if (fcov_en_PMPU) begin
         pmpu_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_PMPZAAMO
+    end
+    if (fcov_en_PMPZaamo) begin
         pmpzaamo_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_PMPZALRSC
+    end
+    if (fcov_en_PMPZalrsc) begin
         pmpzalrsc_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_PMPZCA
+    end
+    if (fcov_en_PMPZca) begin
         pmpzca_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_PMPZICBO
+    end
+    if (fcov_en_PMPZicbo) begin
         pmpzicbo_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_S
+    end
+    if (fcov_en_S) begin
         s_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SDTRIGSM
+    end
+    if (fcov_en_SdtrigSm) begin
         sdtrigsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SM
+    end
+    if (fcov_en_Sm) begin
         sm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SMF
+    end
+    if (fcov_en_SmF) begin
         smf_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SMV
+    end
+    if (fcov_en_SmV) begin
         smv_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SMVF
+    end
+    if (fcov_en_SmVF) begin
         smvf_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SMMPM
+    end
+    if (fcov_en_Smmpm) begin
         smmpm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SMNPMS
+    end
+    if (fcov_en_SmnpmS) begin
         smnpms_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SMNPMSSM
+    end
+    if (fcov_en_SmnpmSSm) begin
         smnpmssm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SMNPMU
+    end
+    if (fcov_en_SmnpmU) begin
         smnpmu_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SMNPMUSM
+    end
+    if (fcov_en_SmnpmUSm) begin
         smnpmusm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SMSTATEEN
+    end
+    if (fcov_en_Smstateen) begin
         smstateen_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSCCPTR
+    end
+    if (fcov_en_Ssccptr) begin
         ssccptr_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSCOFPMFS
+    end
+    if (fcov_en_SscofpmfS) begin
         sscofpmfs_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSCOFPMFSM
+    end
+    if (fcov_en_SscofpmfSm) begin
         sscofpmfsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSCOFPMFU
+    end
+    if (fcov_en_SscofpmfU) begin
         sscofpmfu_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSCOUNTERENW
+    end
+    if (fcov_en_Sscounterenw) begin
         sscounterenw_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSNPM
+    end
+    if (fcov_en_Ssnpm) begin
         ssnpm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSNPMSM
+    end
+    if (fcov_en_SsnpmSm) begin
         ssnpmsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSSTATEEN
+    end
+    if (fcov_en_Ssstateen) begin
         ssstateen_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSSTRICTS
+    end
+    if (fcov_en_SsstrictS) begin
         ssstricts_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSSTRICTSM
+    end
+    if (fcov_en_SsstrictSm) begin
         ssstrictsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSSTRICTU
+    end
+    if (fcov_en_SsstrictU) begin
         ssstrictu_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSSTRICTV
+    end
+    if (fcov_en_SsstrictV) begin
         ssstrictv_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSTC
+    end
+    if (fcov_en_Sstc) begin
         sstc_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSTCSM
+    end
+    if (fcov_en_SstcSm) begin
         sstcsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSTVALA
+    end
+    if (fcov_en_Sstvala) begin
         sstvala_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSTVECD
+    end
+    if (fcov_en_Sstvecd) begin
         sstvecd_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SSU64XL
+    end
+    if (fcov_en_Ssu64xl) begin
         ssu64xl_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SV
+    end
+    if (fcov_en_Sv) begin
         sv_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVH
-        svh_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVPMP
+    end
+    if (fcov_en_SvPMP) begin
         svpmp_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVPMPZICBO
+    end
+    if (fcov_en_SvPMPZicbo) begin
         svpmpzicbo_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVSM
+    end
+    if (fcov_en_SvSm) begin
         svsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVZICBO
+    end
+    if (fcov_en_SvZicbo) begin
         svzicbo_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVADE
+    end
+    if (fcov_en_Svade) begin
         svade_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVADU
+    end
+    if (fcov_en_Svadu) begin
         svadu_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVADUPMP
+    end
+    if (fcov_en_SvaduPMP) begin
         svadupmp_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVBARE
+    end
+    if (fcov_en_Svbare) begin
         svbare_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVBARESM
+    end
+    if (fcov_en_SvbareSm) begin
         svbaresm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVINVAL
+    end
+    if (fcov_en_Svinval) begin
         svinval_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVINVALH
+    end
+    if (fcov_en_SvinvalH) begin
         svinvalh_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVINVALSM
+    end
+    if (fcov_en_SvinvalSm) begin
         svinvalsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVNAPOT
+    end
+    if (fcov_en_Svnapot) begin
         svnapot_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_SVPBMT
+    end
+    if (fcov_en_Svpbmt) begin
         svpbmt_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_U
+    end
+    if (fcov_en_U) begin
         u_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_UF
+    end
+    if (fcov_en_UF) begin
         uf_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_UV
+    end
+    if (fcov_en_UV) begin
         uv_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VF16
-        vf16_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VF32
-        vf32_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VF64
-        vf64_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VLS16
-        vls16_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VLS32
-        vls32_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VLS64
-        vls64_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VLS8
-        vls8_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VX16
-        vx16_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VX32
-        vx32_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VX64
-        vx64_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_VX8
-        vx8_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZA64RS
+    end
+    if (fcov_en_Za64rs) begin
         za64rs_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZAAMO
+    end
+    if (fcov_en_Zaamo) begin
         zaamo_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZABHA
+    end
+    if (fcov_en_Zabha) begin
         zabha_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZACAS
+    end
+    if (fcov_en_Zacas) begin
         zacas_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZALRSC
+    end
+    if (fcov_en_Zalrsc) begin
         zalrsc_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZAMA16B
+    end
+    if (fcov_en_Zama16b) begin
         zama16b_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZAWRSS
+    end
+    if (fcov_en_ZawrsS) begin
         zawrss_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZAWRSSM
+    end
+    if (fcov_en_ZawrsSm) begin
         zawrssm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZAWRSU
+    end
+    if (fcov_en_ZawrsU) begin
         zawrsu_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZBA
+    end
+    if (fcov_en_Zba) begin
         zba_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZBB
+    end
+    if (fcov_en_Zbb) begin
         zbb_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZBC
+    end
+    if (fcov_en_Zbc) begin
         zbc_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZBKB
+    end
+    if (fcov_en_Zbkb) begin
         zbkb_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZBKC
+    end
+    if (fcov_en_Zbkc) begin
         zbkc_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZBKX
+    end
+    if (fcov_en_Zbkx) begin
         zbkx_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZBS
+    end
+    if (fcov_en_Zbs) begin
         zbs_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZCA
+    end
+    if (fcov_en_Zca) begin
         zca_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZCB
+    end
+    if (fcov_en_Zcb) begin
         zcb_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZCD
+    end
+    if (fcov_en_Zcd) begin
         zcd_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZCF
+    end
+    if (fcov_en_Zcf) begin
         zcf_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZCMOP
+    end
+    if (fcov_en_Zcmop) begin
         zcmop_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZFA
+    end
+    if (fcov_en_Zfa) begin
         zfa_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZFAZFHD
+    end
+    if (fcov_en_ZfaZfhD) begin
         zfazfhd_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZFBFMIN
+    end
+    if (fcov_en_Zfbfmin) begin
         zfbfmin_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZFH
+    end
+    if (fcov_en_Zfh) begin
         zfh_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZFHMIN
+    end
+    if (fcov_en_Zfhmin) begin
         zfhmin_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZIC64BZICBOZ
+    end
+    if (fcov_en_Zic64bZicboz) begin
         zic64bzicboz_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICBOM
+    end
+    if (fcov_en_Zicbom) begin
         zicbom_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICBOP
+    end
+    if (fcov_en_Zicbop) begin
         zicbop_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICBOZ
+    end
+    if (fcov_en_Zicboz) begin
         zicboz_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICFILPS
-        zicfilps_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICFILPSU
-        zicfilpsu_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICFILPSM
-        zicfilpsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICFILPU
-        zicfilpu_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICNTR
+    end
+    if (fcov_en_Zicntr) begin
         zicntr_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICNTRH
+    end
+    if (fcov_en_ZicntrH) begin
         zicntrh_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICNTRS
+    end
+    if (fcov_en_ZicntrS) begin
         zicntrs_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICNTRSM
+    end
+    if (fcov_en_ZicntrSm) begin
         zicntrsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICNTRU
+    end
+    if (fcov_en_ZicntrU) begin
         zicntru_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICOND
+    end
+    if (fcov_en_Zicond) begin
         zicond_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICSR
+    end
+    if (fcov_en_Zicsr) begin
         zicsr_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZICSRF
+    end
+    if (fcov_en_ZicsrF) begin
         zicsrf_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZIFENCEI
+    end
+    if (fcov_en_Zifencei) begin
         zifencei_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZIHINTNTL
+    end
+    if (fcov_en_Zihintntl) begin
         zihintntl_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZIHINTPAUSE
+    end
+    if (fcov_en_Zihintpause) begin
         zihintpause_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZIHPM
+    end
+    if (fcov_en_Zihpm) begin
         zihpm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZIMOP
+    end
+    if (fcov_en_Zimop) begin
         zimop_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZKND
+    end
+    if (fcov_en_Zknd) begin
         zknd_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZKNE
+    end
+    if (fcov_en_Zkne) begin
         zkne_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZKNH
+    end
+    if (fcov_en_Zknh) begin
         zknh_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZKRS
+    end
+    if (fcov_en_ZkrS) begin
         zkrs_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZKRSM
+    end
+    if (fcov_en_ZkrSm) begin
         zkrsm_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZKRU
+    end
+    if (fcov_en_ZkrU) begin
         zkru_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZKSED
+    end
+    if (fcov_en_Zksed) begin
         zksed_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZKSH
+    end
+    if (fcov_en_Zksh) begin
         zksh_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZMMUL
+    end
+    if (fcov_en_Zmmul) begin
         zmmul_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVBB16
+    end
+    if (fcov_en_Zvbb16) begin
         zvbb16_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVBB32
+    end
+    if (fcov_en_Zvbb32) begin
         zvbb32_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVBB64
+    end
+    if (fcov_en_Zvbb64) begin
         zvbb64_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVBB8
+    end
+    if (fcov_en_Zvbb8) begin
         zvbb8_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVBC64
+    end
+    if (fcov_en_Zvbc64) begin
         zvbc64_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVFBFMIN
+    end
+    if (fcov_en_Zvfbfmin) begin
         zvfbfmin_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVFBFWMA
+    end
+    if (fcov_en_Zvfbfwma) begin
         zvfbfwma_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVFHMIN
+    end
+    if (fcov_en_Zvfhmin) begin
         zvfhmin_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKB16
+    end
+    if (fcov_en_Zvkb16) begin
         zvkb16_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKB32
+    end
+    if (fcov_en_Zvkb32) begin
         zvkb32_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKB64
+    end
+    if (fcov_en_Zvkb64) begin
         zvkb64_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKB8
+    end
+    if (fcov_en_Zvkb8) begin
         zvkb8_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKG
+    end
+    if (fcov_en_Zvkg) begin
         zvkg_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKNED
+    end
+    if (fcov_en_Zvkned) begin
         zvkned_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKNHA
+    end
+    if (fcov_en_Zvknha) begin
         zvknha_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKNHB32
+    end
+    if (fcov_en_Zvknhb32) begin
         zvknhb32_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKNHB64
+    end
+    if (fcov_en_Zvknhb64) begin
         zvknhb64_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKSED
+    end
+    if (fcov_en_Zvksed) begin
         zvksed_sample(hart, issue, ins);
-    `endif
-    `ifdef COVER_ZVKSH
+    end
+    if (fcov_en_Zvksh) begin
         zvksh_sample(hart, issue, ins);
-    `endif
+    end

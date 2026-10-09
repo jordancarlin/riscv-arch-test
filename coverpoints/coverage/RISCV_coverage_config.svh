@@ -11,558 +11,518 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-`ifdef D_COVERAGE
   `include "D_coverage.svh"
-`endif
-`ifdef E_COVERAGE
+  bit fcov_en_D;
   `include "E_coverage.svh"
-`endif
-`ifdef ENDIANH_COVERAGE
+  bit fcov_en_E;
   `include "EndianH_coverage.svh"
-`endif
-`ifdef ENDIANS_COVERAGE
+  bit fcov_en_EndianH;
   `include "EndianS_coverage.svh"
-`endif
-`ifdef ENDIANSM_COVERAGE
+  bit fcov_en_EndianS;
   `include "EndianSm_coverage.svh"
-`endif
-`ifdef ENDIANU_COVERAGE
+  bit fcov_en_EndianSm;
   `include "EndianU_coverage.svh"
-`endif
-`ifdef ENDIANZAAMO_COVERAGE
+  bit fcov_en_EndianU;
   `include "EndianZaamo_coverage.svh"
-`endif
-`ifdef ENDIANZALRSC_COVERAGE
+  bit fcov_en_EndianZaamo;
   `include "EndianZalrsc_coverage.svh"
-`endif
-`ifdef EXCEPTIONSF_COVERAGE
+  bit fcov_en_EndianZalrsc;
   `include "ExceptionsF_coverage.svh"
-`endif
-`ifdef EXCEPTIONSH_COVERAGE
+  bit fcov_en_ExceptionsF;
   `include "ExceptionsH_coverage.svh"
-`endif
-`ifdef EXCEPTIONSHV_COVERAGE
+  bit fcov_en_ExceptionsH;
   `include "ExceptionsHV_coverage.svh"
-`endif
-`ifdef EXCEPTIONSS_COVERAGE
+  bit fcov_en_ExceptionsHV;
   `include "ExceptionsS_coverage.svh"
-`endif
-`ifdef EXCEPTIONSSM_COVERAGE
+  bit fcov_en_ExceptionsS;
   `include "ExceptionsSm_coverage.svh"
-`endif
-`ifdef EXCEPTIONSSV_COVERAGE
+  bit fcov_en_ExceptionsSm;
   `include "ExceptionsSv_coverage.svh"
-`endif
-`ifdef EXCEPTIONSSVSM_COVERAGE
+  bit fcov_en_ExceptionsSv;
   `include "ExceptionsSvSm_coverage.svh"
-`endif
-`ifdef EXCEPTIONSSVZAAMO_COVERAGE
+  bit fcov_en_ExceptionsSvSm;
   `include "ExceptionsSvZaamo_coverage.svh"
-`endif
-`ifdef EXCEPTIONSSVZAAMOSM_COVERAGE
+  bit fcov_en_ExceptionsSvZaamo;
   `include "ExceptionsSvZaamoSm_coverage.svh"
-`endif
-`ifdef EXCEPTIONSSVZALRSC_COVERAGE
+  bit fcov_en_ExceptionsSvZaamoSm;
   `include "ExceptionsSvZalrsc_coverage.svh"
-`endif
-`ifdef EXCEPTIONSSVZALRSCSM_COVERAGE
+  bit fcov_en_ExceptionsSvZalrsc;
   `include "ExceptionsSvZalrscSm_coverage.svh"
-`endif
-`ifdef EXCEPTIONSU_COVERAGE
+  bit fcov_en_ExceptionsSvZalrscSm;
   `include "ExceptionsU_coverage.svh"
-`endif
-`ifdef EXCEPTIONSVF16_COVERAGE
+  bit fcov_en_ExceptionsU;
   `include "ExceptionsVf16_coverage.svh"
-`endif
-`ifdef EXCEPTIONSVF32_COVERAGE
+  bit fcov_en_ExceptionsVf16;
   `include "ExceptionsVf32_coverage.svh"
-`endif
-`ifdef EXCEPTIONSVF64_COVERAGE
+  bit fcov_en_ExceptionsVf32;
   `include "ExceptionsVf64_coverage.svh"
-`endif
-`ifdef EXCEPTIONSVFMIN_COVERAGE
+  bit fcov_en_ExceptionsVf64;
   `include "ExceptionsVfmin_coverage.svh"
-`endif
-`ifdef EXCEPTIONSVLS_COVERAGE
+  bit fcov_en_ExceptionsVfmin;
   `include "ExceptionsVls_coverage.svh"
-`endif
-`ifdef EXCEPTIONSVX_COVERAGE
+  bit fcov_en_ExceptionsVls;
   `include "ExceptionsVx_coverage.svh"
-`endif
-`ifdef EXCEPTIONSZAAMO_COVERAGE
+  bit fcov_en_ExceptionsVx;
   `include "ExceptionsZaamo_coverage.svh"
-`endif
-`ifdef EXCEPTIONSZALRSC_COVERAGE
+  bit fcov_en_ExceptionsZaamo;
   `include "ExceptionsZalrsc_coverage.svh"
-`endif
-`ifdef EXCEPTIONSZC_COVERAGE
+  bit fcov_en_ExceptionsZalrsc;
   `include "ExceptionsZc_coverage.svh"
-`endif
-`ifdef EXCEPTIONSZICBOS_COVERAGE
+  bit fcov_en_ExceptionsZc;
   `include "ExceptionsZicboS_coverage.svh"
-`endif
-`ifdef EXCEPTIONSZICBOSM_COVERAGE
+  bit fcov_en_ExceptionsZicboS;
   `include "ExceptionsZicboSm_coverage.svh"
-`endif
-`ifdef EXCEPTIONSZICBOU_COVERAGE
+  bit fcov_en_ExceptionsZicboSm;
   `include "ExceptionsZicboU_coverage.svh"
-`endif
-`ifdef F_COVERAGE
+  bit fcov_en_ExceptionsZicboU;
   `include "F_coverage.svh"
-`endif
-`ifdef HV_COVERAGE
+  bit fcov_en_F;
   `include "HV_coverage.svh"
-`endif
-`ifdef I_COVERAGE
+  bit fcov_en_HV;
   `include "I_coverage.svh"
-`endif
-`ifdef INTERRUPTSS_COVERAGE
+  bit fcov_en_I;
   `include "InterruptsS_coverage.svh"
-`endif
-`ifdef INTERRUPTSSM_COVERAGE
+  bit fcov_en_InterruptsS;
   `include "InterruptsSm_coverage.svh"
-`endif
-`ifdef M_COVERAGE
+  bit fcov_en_InterruptsSm;
   `include "M_coverage.svh"
-`endif
-`ifdef MISALIGN_COVERAGE
+  bit fcov_en_M;
   `include "Misalign_coverage.svh"
-`endif
-`ifdef MISALIGND_COVERAGE
+  bit fcov_en_Misalign;
   `include "MisalignD_coverage.svh"
-`endif
-`ifdef MISALIGNF_COVERAGE
+  bit fcov_en_MisalignD;
   `include "MisalignF_coverage.svh"
-`endif
-`ifdef MISALIGNV_COVERAGE
+  bit fcov_en_MisalignF;
   `include "MisalignV_coverage.svh"
-`endif
-`ifdef MISALIGNZCA_COVERAGE
+  bit fcov_en_MisalignV;
   `include "MisalignZca_coverage.svh"
-`endif
-`ifdef PMPF_COVERAGE
+  bit fcov_en_MisalignZca;
   `include "PMPF_coverage.svh"
-`endif
-`ifdef PMPS_COVERAGE
+  bit fcov_en_PMPF;
   `include "PMPS_coverage.svh"
-`endif
-`ifdef PMPSM_COVERAGE
+  bit fcov_en_PMPS;
   `include "PMPSm_coverage.svh"
-`endif
-`ifdef PMPU_COVERAGE
+  bit fcov_en_PMPSm;
   `include "PMPU_coverage.svh"
-`endif
-`ifdef PMPZAAMO_COVERAGE
+  bit fcov_en_PMPU;
   `include "PMPZaamo_coverage.svh"
-`endif
-`ifdef PMPZALRSC_COVERAGE
+  bit fcov_en_PMPZaamo;
   `include "PMPZalrsc_coverage.svh"
-`endif
-`ifdef PMPZCA_COVERAGE
+  bit fcov_en_PMPZalrsc;
   `include "PMPZca_coverage.svh"
-`endif
-`ifdef PMPZICBO_COVERAGE
+  bit fcov_en_PMPZca;
   `include "PMPZicbo_coverage.svh"
-`endif
-`ifdef S_COVERAGE
+  bit fcov_en_PMPZicbo;
   `include "S_coverage.svh"
-`endif
-`ifdef SDTRIGSM_COVERAGE
+  bit fcov_en_S;
   `include "SdtrigSm_coverage.svh"
-`endif
-`ifdef SM_COVERAGE
+  bit fcov_en_SdtrigSm;
   `include "Sm_coverage.svh"
-`endif
-`ifdef SMF_COVERAGE
+  bit fcov_en_Sm;
   `include "SmF_coverage.svh"
-`endif
-`ifdef SMV_COVERAGE
+  bit fcov_en_SmF;
   `include "SmV_coverage.svh"
-`endif
-`ifdef SMVF_COVERAGE
+  bit fcov_en_SmV;
   `include "SmVF_coverage.svh"
-`endif
-`ifdef SMMPM_COVERAGE
+  bit fcov_en_SmVF;
   `include "Smmpm_coverage.svh"
-`endif
-`ifdef SMNPMS_COVERAGE
+  bit fcov_en_Smmpm;
   `include "SmnpmS_coverage.svh"
-`endif
-`ifdef SMNPMSSM_COVERAGE
+  bit fcov_en_SmnpmS;
   `include "SmnpmSSm_coverage.svh"
-`endif
-`ifdef SMNPMU_COVERAGE
+  bit fcov_en_SmnpmSSm;
   `include "SmnpmU_coverage.svh"
-`endif
-`ifdef SMNPMUSM_COVERAGE
+  bit fcov_en_SmnpmU;
   `include "SmnpmUSm_coverage.svh"
-`endif
-`ifdef SMSTATEEN_COVERAGE
+  bit fcov_en_SmnpmUSm;
   `include "Smstateen_coverage.svh"
-`endif
-`ifdef SSCCPTR_COVERAGE
+  bit fcov_en_Smstateen;
   `include "Ssccptr_coverage.svh"
-`endif
-`ifdef SSCOFPMFS_COVERAGE
+  bit fcov_en_Ssccptr;
   `include "SscofpmfS_coverage.svh"
-`endif
-`ifdef SSCOFPMFSM_COVERAGE
+  bit fcov_en_SscofpmfS;
   `include "SscofpmfSm_coverage.svh"
-`endif
-`ifdef SSCOFPMFU_COVERAGE
+  bit fcov_en_SscofpmfSm;
   `include "SscofpmfU_coverage.svh"
-`endif
-`ifdef SSCOUNTERENW_COVERAGE
+  bit fcov_en_SscofpmfU;
   `include "Sscounterenw_coverage.svh"
-`endif
-`ifdef SSNPM_COVERAGE
+  bit fcov_en_Sscounterenw;
   `include "Ssnpm_coverage.svh"
-`endif
-`ifdef SSNPMSM_COVERAGE
+  bit fcov_en_Ssnpm;
   `include "SsnpmSm_coverage.svh"
-`endif
-`ifdef SSSTATEEN_COVERAGE
+  bit fcov_en_SsnpmSm;
   `include "Ssstateen_coverage.svh"
-`endif
-`ifdef SSSTRICTS_COVERAGE
+  bit fcov_en_Ssstateen;
   `include "SsstrictS_coverage.svh"
-`endif
-`ifdef SSSTRICTSM_COVERAGE
+  bit fcov_en_SsstrictS;
   `include "SsstrictSm_coverage.svh"
-`endif
-`ifdef SSSTRICTU_COVERAGE
+  bit fcov_en_SsstrictSm;
   `include "SsstrictU_coverage.svh"
-`endif
-`ifdef SSSTRICTV_COVERAGE
+  bit fcov_en_SsstrictU;
   `include "SsstrictV_coverage.svh"
-`endif
-`ifdef SSTC_COVERAGE
+  bit fcov_en_SsstrictV;
   `include "Sstc_coverage.svh"
-`endif
-`ifdef SSTCSM_COVERAGE
+  bit fcov_en_Sstc;
   `include "SstcSm_coverage.svh"
-`endif
-`ifdef SSTVALA_COVERAGE
+  bit fcov_en_SstcSm;
   `include "Sstvala_coverage.svh"
-`endif
-`ifdef SSTVECD_COVERAGE
+  bit fcov_en_Sstvala;
   `include "Sstvecd_coverage.svh"
-`endif
-`ifdef SSU64XL_COVERAGE
+  bit fcov_en_Sstvecd;
   `include "Ssu64xl_coverage.svh"
-`endif
-`ifdef SV_COVERAGE
+  bit fcov_en_Ssu64xl;
   `include "Sv_coverage.svh"
-`endif
-`ifdef SVH_COVERAGE
-  `include "SvH_coverage.svh"
-`endif
-`ifdef SVPMP_COVERAGE
+  bit fcov_en_Sv;
   `include "SvPMP_coverage.svh"
-`endif
-`ifdef SVPMPZICBO_COVERAGE
+  bit fcov_en_SvPMP;
   `include "SvPMPZicbo_coverage.svh"
-`endif
-`ifdef SVSM_COVERAGE
+  bit fcov_en_SvPMPZicbo;
   `include "SvSm_coverage.svh"
-`endif
-`ifdef SVZICBO_COVERAGE
+  bit fcov_en_SvSm;
   `include "SvZicbo_coverage.svh"
-`endif
-`ifdef SVADE_COVERAGE
+  bit fcov_en_SvZicbo;
   `include "Svade_coverage.svh"
-`endif
-`ifdef SVADU_COVERAGE
+  bit fcov_en_Svade;
   `include "Svadu_coverage.svh"
-`endif
-`ifdef SVADUPMP_COVERAGE
+  bit fcov_en_Svadu;
   `include "SvaduPMP_coverage.svh"
-`endif
-`ifdef SVBARE_COVERAGE
+  bit fcov_en_SvaduPMP;
   `include "Svbare_coverage.svh"
-`endif
-`ifdef SVBARESM_COVERAGE
+  bit fcov_en_Svbare;
   `include "SvbareSm_coverage.svh"
-`endif
-`ifdef SVINVAL_COVERAGE
+  bit fcov_en_SvbareSm;
   `include "Svinval_coverage.svh"
-`endif
-`ifdef SVINVALH_COVERAGE
+  bit fcov_en_Svinval;
   `include "SvinvalH_coverage.svh"
-`endif
-`ifdef SVINVALSM_COVERAGE
+  bit fcov_en_SvinvalH;
   `include "SvinvalSm_coverage.svh"
-`endif
-`ifdef SVNAPOT_COVERAGE
+  bit fcov_en_SvinvalSm;
   `include "Svnapot_coverage.svh"
-`endif
-`ifdef SVPBMT_COVERAGE
+  bit fcov_en_Svnapot;
   `include "Svpbmt_coverage.svh"
-`endif
-`ifdef U_COVERAGE
+  bit fcov_en_Svpbmt;
   `include "U_coverage.svh"
-`endif
-`ifdef UF_COVERAGE
+  bit fcov_en_U;
   `include "UF_coverage.svh"
-`endif
-`ifdef UV_COVERAGE
+  bit fcov_en_UF;
   `include "UV_coverage.svh"
-`endif
-`ifdef VF16_COVERAGE
-  `include "Vf16_coverage.svh"
-`endif
-`ifdef VF32_COVERAGE
-  `include "Vf32_coverage.svh"
-`endif
-`ifdef VF64_COVERAGE
-  `include "Vf64_coverage.svh"
-`endif
-`ifdef VLS16_COVERAGE
-  `include "Vls16_coverage.svh"
-`endif
-`ifdef VLS32_COVERAGE
-  `include "Vls32_coverage.svh"
-`endif
-`ifdef VLS64_COVERAGE
-  `include "Vls64_coverage.svh"
-`endif
-`ifdef VLS8_COVERAGE
-  `include "Vls8_coverage.svh"
-`endif
-`ifdef VX16_COVERAGE
-  `include "Vx16_coverage.svh"
-`endif
-`ifdef VX32_COVERAGE
-  `include "Vx32_coverage.svh"
-`endif
-`ifdef VX64_COVERAGE
-  `include "Vx64_coverage.svh"
-`endif
-`ifdef VX8_COVERAGE
-  `include "Vx8_coverage.svh"
-`endif
-`ifdef ZA64RS_COVERAGE
+  bit fcov_en_UV;
   `include "Za64rs_coverage.svh"
-`endif
-`ifdef ZAAMO_COVERAGE
+  bit fcov_en_Za64rs;
   `include "Zaamo_coverage.svh"
-`endif
-`ifdef ZABHA_COVERAGE
+  bit fcov_en_Zaamo;
   `include "Zabha_coverage.svh"
-`endif
-`ifdef ZACAS_COVERAGE
+  bit fcov_en_Zabha;
   `include "Zacas_coverage.svh"
-`endif
-`ifdef ZALRSC_COVERAGE
+  bit fcov_en_Zacas;
   `include "Zalrsc_coverage.svh"
-`endif
-`ifdef ZAMA16B_COVERAGE
+  bit fcov_en_Zalrsc;
   `include "Zama16b_coverage.svh"
-`endif
-`ifdef ZAWRSS_COVERAGE
+  bit fcov_en_Zama16b;
   `include "ZawrsS_coverage.svh"
-`endif
-`ifdef ZAWRSSM_COVERAGE
+  bit fcov_en_ZawrsS;
   `include "ZawrsSm_coverage.svh"
-`endif
-`ifdef ZAWRSU_COVERAGE
+  bit fcov_en_ZawrsSm;
   `include "ZawrsU_coverage.svh"
-`endif
-`ifdef ZBA_COVERAGE
+  bit fcov_en_ZawrsU;
   `include "Zba_coverage.svh"
-`endif
-`ifdef ZBB_COVERAGE
+  bit fcov_en_Zba;
   `include "Zbb_coverage.svh"
-`endif
-`ifdef ZBC_COVERAGE
+  bit fcov_en_Zbb;
   `include "Zbc_coverage.svh"
-`endif
-`ifdef ZBKB_COVERAGE
+  bit fcov_en_Zbc;
   `include "Zbkb_coverage.svh"
-`endif
-`ifdef ZBKC_COVERAGE
+  bit fcov_en_Zbkb;
   `include "Zbkc_coverage.svh"
-`endif
-`ifdef ZBKX_COVERAGE
+  bit fcov_en_Zbkc;
   `include "Zbkx_coverage.svh"
-`endif
-`ifdef ZBS_COVERAGE
+  bit fcov_en_Zbkx;
   `include "Zbs_coverage.svh"
-`endif
-`ifdef ZCA_COVERAGE
+  bit fcov_en_Zbs;
   `include "Zca_coverage.svh"
-`endif
-`ifdef ZCB_COVERAGE
+  bit fcov_en_Zca;
   `include "Zcb_coverage.svh"
-`endif
-`ifdef ZCD_COVERAGE
+  bit fcov_en_Zcb;
   `include "Zcd_coverage.svh"
-`endif
-`ifdef ZCF_COVERAGE
+  bit fcov_en_Zcd;
   `include "Zcf_coverage.svh"
-`endif
-`ifdef ZCMOP_COVERAGE
+  bit fcov_en_Zcf;
   `include "Zcmop_coverage.svh"
-`endif
-`ifdef ZFA_COVERAGE
+  bit fcov_en_Zcmop;
   `include "Zfa_coverage.svh"
-`endif
-`ifdef ZFAZFHD_COVERAGE
+  bit fcov_en_Zfa;
   `include "ZfaZfhD_coverage.svh"
-`endif
-`ifdef ZFBFMIN_COVERAGE
+  bit fcov_en_ZfaZfhD;
   `include "Zfbfmin_coverage.svh"
-`endif
-`ifdef ZFH_COVERAGE
+  bit fcov_en_Zfbfmin;
   `include "Zfh_coverage.svh"
-`endif
-`ifdef ZFHMIN_COVERAGE
+  bit fcov_en_Zfh;
   `include "Zfhmin_coverage.svh"
-`endif
-`ifdef ZIC64BZICBOZ_COVERAGE
+  bit fcov_en_Zfhmin;
   `include "Zic64bZicboz_coverage.svh"
-`endif
-`ifdef ZICBOM_COVERAGE
+  bit fcov_en_Zic64bZicboz;
   `include "Zicbom_coverage.svh"
-`endif
-`ifdef ZICBOP_COVERAGE
+  bit fcov_en_Zicbom;
   `include "Zicbop_coverage.svh"
-`endif
-`ifdef ZICBOZ_COVERAGE
+  bit fcov_en_Zicbop;
   `include "Zicboz_coverage.svh"
-`endif
-`ifdef ZICFILPS_COVERAGE
-  `include "ZicfilpS_coverage.svh"
-`endif
-`ifdef ZICFILPSU_COVERAGE
-  `include "ZicfilpSU_coverage.svh"
-`endif
-`ifdef ZICFILPSM_COVERAGE
-  `include "ZicfilpSm_coverage.svh"
-`endif
-`ifdef ZICFILPU_COVERAGE
-  `include "ZicfilpU_coverage.svh"
-`endif
-`ifdef ZICNTR_COVERAGE
+  bit fcov_en_Zicboz;
   `include "Zicntr_coverage.svh"
-`endif
-`ifdef ZICNTRH_COVERAGE
+  bit fcov_en_Zicntr;
   `include "ZicntrH_coverage.svh"
-`endif
-`ifdef ZICNTRS_COVERAGE
+  bit fcov_en_ZicntrH;
   `include "ZicntrS_coverage.svh"
-`endif
-`ifdef ZICNTRSM_COVERAGE
+  bit fcov_en_ZicntrS;
   `include "ZicntrSm_coverage.svh"
-`endif
-`ifdef ZICNTRU_COVERAGE
+  bit fcov_en_ZicntrSm;
   `include "ZicntrU_coverage.svh"
-`endif
-`ifdef ZICOND_COVERAGE
+  bit fcov_en_ZicntrU;
   `include "Zicond_coverage.svh"
-`endif
-`ifdef ZICSR_COVERAGE
+  bit fcov_en_Zicond;
   `include "Zicsr_coverage.svh"
-`endif
-`ifdef ZICSRF_COVERAGE
+  bit fcov_en_Zicsr;
   `include "ZicsrF_coverage.svh"
-`endif
-`ifdef ZIFENCEI_COVERAGE
+  bit fcov_en_ZicsrF;
   `include "Zifencei_coverage.svh"
-`endif
-`ifdef ZIHINTNTL_COVERAGE
+  bit fcov_en_Zifencei;
   `include "Zihintntl_coverage.svh"
-`endif
-`ifdef ZIHINTPAUSE_COVERAGE
+  bit fcov_en_Zihintntl;
   `include "Zihintpause_coverage.svh"
-`endif
-`ifdef ZIHPM_COVERAGE
+  bit fcov_en_Zihintpause;
   `include "Zihpm_coverage.svh"
-`endif
-`ifdef ZIMOP_COVERAGE
+  bit fcov_en_Zihpm;
   `include "Zimop_coverage.svh"
-`endif
-`ifdef ZKND_COVERAGE
+  bit fcov_en_Zimop;
   `include "Zknd_coverage.svh"
-`endif
-`ifdef ZKNE_COVERAGE
+  bit fcov_en_Zknd;
   `include "Zkne_coverage.svh"
-`endif
-`ifdef ZKNH_COVERAGE
+  bit fcov_en_Zkne;
   `include "Zknh_coverage.svh"
-`endif
-`ifdef ZKRS_COVERAGE
+  bit fcov_en_Zknh;
   `include "ZkrS_coverage.svh"
-`endif
-`ifdef ZKRSM_COVERAGE
+  bit fcov_en_ZkrS;
   `include "ZkrSm_coverage.svh"
-`endif
-`ifdef ZKRU_COVERAGE
+  bit fcov_en_ZkrSm;
   `include "ZkrU_coverage.svh"
-`endif
-`ifdef ZKSED_COVERAGE
+  bit fcov_en_ZkrU;
   `include "Zksed_coverage.svh"
-`endif
-`ifdef ZKSH_COVERAGE
+  bit fcov_en_Zksed;
   `include "Zksh_coverage.svh"
-`endif
-`ifdef ZMMUL_COVERAGE
+  bit fcov_en_Zksh;
   `include "Zmmul_coverage.svh"
-`endif
-`ifdef ZVBB16_COVERAGE
+  bit fcov_en_Zmmul;
   `include "Zvbb16_coverage.svh"
-`endif
-`ifdef ZVBB32_COVERAGE
+  bit fcov_en_Zvbb16;
   `include "Zvbb32_coverage.svh"
-`endif
-`ifdef ZVBB64_COVERAGE
+  bit fcov_en_Zvbb32;
   `include "Zvbb64_coverage.svh"
-`endif
-`ifdef ZVBB8_COVERAGE
+  bit fcov_en_Zvbb64;
   `include "Zvbb8_coverage.svh"
-`endif
-`ifdef ZVBC64_COVERAGE
+  bit fcov_en_Zvbb8;
   `include "Zvbc64_coverage.svh"
-`endif
-`ifdef ZVFBFMIN_COVERAGE
+  bit fcov_en_Zvbc64;
   `include "Zvfbfmin_coverage.svh"
-`endif
-`ifdef ZVFBFWMA_COVERAGE
+  bit fcov_en_Zvfbfmin;
   `include "Zvfbfwma_coverage.svh"
-`endif
-`ifdef ZVFHMIN_COVERAGE
+  bit fcov_en_Zvfbfwma;
   `include "Zvfhmin_coverage.svh"
-`endif
-`ifdef ZVKB16_COVERAGE
+  bit fcov_en_Zvfhmin;
   `include "Zvkb16_coverage.svh"
-`endif
-`ifdef ZVKB32_COVERAGE
+  bit fcov_en_Zvkb16;
   `include "Zvkb32_coverage.svh"
-`endif
-`ifdef ZVKB64_COVERAGE
+  bit fcov_en_Zvkb32;
   `include "Zvkb64_coverage.svh"
-`endif
-`ifdef ZVKB8_COVERAGE
+  bit fcov_en_Zvkb64;
   `include "Zvkb8_coverage.svh"
-`endif
-`ifdef ZVKG_COVERAGE
+  bit fcov_en_Zvkb8;
   `include "Zvkg_coverage.svh"
-`endif
-`ifdef ZVKNED_COVERAGE
+  bit fcov_en_Zvkg;
   `include "Zvkned_coverage.svh"
-`endif
-`ifdef ZVKNHA_COVERAGE
+  bit fcov_en_Zvkned;
   `include "Zvknha_coverage.svh"
-`endif
-`ifdef ZVKNHB32_COVERAGE
+  bit fcov_en_Zvknha;
   `include "Zvknhb32_coverage.svh"
-`endif
-`ifdef ZVKNHB64_COVERAGE
+  bit fcov_en_Zvknhb32;
   `include "Zvknhb64_coverage.svh"
-`endif
-`ifdef ZVKSED_COVERAGE
+  bit fcov_en_Zvknhb64;
   `include "Zvksed_coverage.svh"
-`endif
-`ifdef ZVKSH_COVERAGE
+  bit fcov_en_Zvksed;
   `include "Zvksh_coverage.svh"
-`endif
+  bit fcov_en_Zvksh;
+
+  // Enables a coverage group by name. Returns 0 if the group is unknown.
+  function bit fcov_select_group(string name);
+    case (name)
+      "D": fcov_en_D = 1;
+      "E": fcov_en_E = 1;
+      "EndianH": fcov_en_EndianH = 1;
+      "EndianS": fcov_en_EndianS = 1;
+      "EndianSm": fcov_en_EndianSm = 1;
+      "EndianU": fcov_en_EndianU = 1;
+      "EndianZaamo": fcov_en_EndianZaamo = 1;
+      "EndianZalrsc": fcov_en_EndianZalrsc = 1;
+      "ExceptionsF": fcov_en_ExceptionsF = 1;
+      "ExceptionsH": fcov_en_ExceptionsH = 1;
+      "ExceptionsHV": fcov_en_ExceptionsHV = 1;
+      "ExceptionsS": fcov_en_ExceptionsS = 1;
+      "ExceptionsSm": fcov_en_ExceptionsSm = 1;
+      "ExceptionsSv": fcov_en_ExceptionsSv = 1;
+      "ExceptionsSvSm": fcov_en_ExceptionsSvSm = 1;
+      "ExceptionsSvZaamo": fcov_en_ExceptionsSvZaamo = 1;
+      "ExceptionsSvZaamoSm": fcov_en_ExceptionsSvZaamoSm = 1;
+      "ExceptionsSvZalrsc": fcov_en_ExceptionsSvZalrsc = 1;
+      "ExceptionsSvZalrscSm": fcov_en_ExceptionsSvZalrscSm = 1;
+      "ExceptionsU": fcov_en_ExceptionsU = 1;
+      "ExceptionsVf16": fcov_en_ExceptionsVf16 = 1;
+      "ExceptionsVf32": fcov_en_ExceptionsVf32 = 1;
+      "ExceptionsVf64": fcov_en_ExceptionsVf64 = 1;
+      "ExceptionsVfmin": fcov_en_ExceptionsVfmin = 1;
+      "ExceptionsVls": fcov_en_ExceptionsVls = 1;
+      "ExceptionsVx": fcov_en_ExceptionsVx = 1;
+      "ExceptionsZaamo": fcov_en_ExceptionsZaamo = 1;
+      "ExceptionsZalrsc": fcov_en_ExceptionsZalrsc = 1;
+      "ExceptionsZc": fcov_en_ExceptionsZc = 1;
+      "ExceptionsZicboS": fcov_en_ExceptionsZicboS = 1;
+      "ExceptionsZicboSm": fcov_en_ExceptionsZicboSm = 1;
+      "ExceptionsZicboU": fcov_en_ExceptionsZicboU = 1;
+      "F": fcov_en_F = 1;
+      "HV": fcov_en_HV = 1;
+      "I": fcov_en_I = 1;
+      "InterruptsS": fcov_en_InterruptsS = 1;
+      "InterruptsSm": fcov_en_InterruptsSm = 1;
+      "M": fcov_en_M = 1;
+      "Misalign": fcov_en_Misalign = 1;
+      "MisalignD": fcov_en_MisalignD = 1;
+      "MisalignF": fcov_en_MisalignF = 1;
+      "MisalignV": fcov_en_MisalignV = 1;
+      "MisalignZca": fcov_en_MisalignZca = 1;
+      "PMPF": fcov_en_PMPF = 1;
+      "PMPS": fcov_en_PMPS = 1;
+      "PMPSm": fcov_en_PMPSm = 1;
+      "PMPU": fcov_en_PMPU = 1;
+      "PMPZaamo": fcov_en_PMPZaamo = 1;
+      "PMPZalrsc": fcov_en_PMPZalrsc = 1;
+      "PMPZca": fcov_en_PMPZca = 1;
+      "PMPZicbo": fcov_en_PMPZicbo = 1;
+      "S": fcov_en_S = 1;
+      "SdtrigSm": fcov_en_SdtrigSm = 1;
+      "Sm": fcov_en_Sm = 1;
+      "SmF": fcov_en_SmF = 1;
+      "SmV": fcov_en_SmV = 1;
+      "SmVF": fcov_en_SmVF = 1;
+      "Smmpm": fcov_en_Smmpm = 1;
+      "SmnpmS": fcov_en_SmnpmS = 1;
+      "SmnpmSSm": fcov_en_SmnpmSSm = 1;
+      "SmnpmU": fcov_en_SmnpmU = 1;
+      "SmnpmUSm": fcov_en_SmnpmUSm = 1;
+      "Smstateen": fcov_en_Smstateen = 1;
+      "Ssccptr": fcov_en_Ssccptr = 1;
+      "SscofpmfS": fcov_en_SscofpmfS = 1;
+      "SscofpmfSm": fcov_en_SscofpmfSm = 1;
+      "SscofpmfU": fcov_en_SscofpmfU = 1;
+      "Sscounterenw": fcov_en_Sscounterenw = 1;
+      "Ssnpm": fcov_en_Ssnpm = 1;
+      "SsnpmSm": fcov_en_SsnpmSm = 1;
+      "Ssstateen": fcov_en_Ssstateen = 1;
+      "SsstrictS": fcov_en_SsstrictS = 1;
+      "SsstrictSm": fcov_en_SsstrictSm = 1;
+      "SsstrictU": fcov_en_SsstrictU = 1;
+      "SsstrictV": fcov_en_SsstrictV = 1;
+      "Sstc": fcov_en_Sstc = 1;
+      "SstcSm": fcov_en_SstcSm = 1;
+      "Sstvala": fcov_en_Sstvala = 1;
+      "Sstvecd": fcov_en_Sstvecd = 1;
+      "Ssu64xl": fcov_en_Ssu64xl = 1;
+      "Sv": fcov_en_Sv = 1;
+      "SvPMP": fcov_en_SvPMP = 1;
+      "SvPMPZicbo": fcov_en_SvPMPZicbo = 1;
+      "SvSm": fcov_en_SvSm = 1;
+      "SvZicbo": fcov_en_SvZicbo = 1;
+      "Svade": fcov_en_Svade = 1;
+      "Svadu": fcov_en_Svadu = 1;
+      "SvaduPMP": fcov_en_SvaduPMP = 1;
+      "Svbare": fcov_en_Svbare = 1;
+      "SvbareSm": fcov_en_SvbareSm = 1;
+      "Svinval": fcov_en_Svinval = 1;
+      "SvinvalH": fcov_en_SvinvalH = 1;
+      "SvinvalSm": fcov_en_SvinvalSm = 1;
+      "Svnapot": fcov_en_Svnapot = 1;
+      "Svpbmt": fcov_en_Svpbmt = 1;
+      "U": fcov_en_U = 1;
+      "UF": fcov_en_UF = 1;
+      "UV": fcov_en_UV = 1;
+      "Za64rs": fcov_en_Za64rs = 1;
+      "Zaamo": fcov_en_Zaamo = 1;
+      "Zabha": fcov_en_Zabha = 1;
+      "Zacas": fcov_en_Zacas = 1;
+      "Zalrsc": fcov_en_Zalrsc = 1;
+      "Zama16b": fcov_en_Zama16b = 1;
+      "ZawrsS": fcov_en_ZawrsS = 1;
+      "ZawrsSm": fcov_en_ZawrsSm = 1;
+      "ZawrsU": fcov_en_ZawrsU = 1;
+      "Zba": fcov_en_Zba = 1;
+      "Zbb": fcov_en_Zbb = 1;
+      "Zbc": fcov_en_Zbc = 1;
+      "Zbkb": fcov_en_Zbkb = 1;
+      "Zbkc": fcov_en_Zbkc = 1;
+      "Zbkx": fcov_en_Zbkx = 1;
+      "Zbs": fcov_en_Zbs = 1;
+      "Zca": fcov_en_Zca = 1;
+      "Zcb": fcov_en_Zcb = 1;
+      "Zcd": fcov_en_Zcd = 1;
+      "Zcf": fcov_en_Zcf = 1;
+      "Zcmop": fcov_en_Zcmop = 1;
+      "Zfa": fcov_en_Zfa = 1;
+      "ZfaZfhD": fcov_en_ZfaZfhD = 1;
+      "Zfbfmin": fcov_en_Zfbfmin = 1;
+      "Zfh": fcov_en_Zfh = 1;
+      "Zfhmin": fcov_en_Zfhmin = 1;
+      "Zic64bZicboz": fcov_en_Zic64bZicboz = 1;
+      "Zicbom": fcov_en_Zicbom = 1;
+      "Zicbop": fcov_en_Zicbop = 1;
+      "Zicboz": fcov_en_Zicboz = 1;
+      "Zicntr": fcov_en_Zicntr = 1;
+      "ZicntrH": fcov_en_ZicntrH = 1;
+      "ZicntrS": fcov_en_ZicntrS = 1;
+      "ZicntrSm": fcov_en_ZicntrSm = 1;
+      "ZicntrU": fcov_en_ZicntrU = 1;
+      "Zicond": fcov_en_Zicond = 1;
+      "Zicsr": fcov_en_Zicsr = 1;
+      "ZicsrF": fcov_en_ZicsrF = 1;
+      "Zifencei": fcov_en_Zifencei = 1;
+      "Zihintntl": fcov_en_Zihintntl = 1;
+      "Zihintpause": fcov_en_Zihintpause = 1;
+      "Zihpm": fcov_en_Zihpm = 1;
+      "Zimop": fcov_en_Zimop = 1;
+      "Zknd": fcov_en_Zknd = 1;
+      "Zkne": fcov_en_Zkne = 1;
+      "Zknh": fcov_en_Zknh = 1;
+      "ZkrS": fcov_en_ZkrS = 1;
+      "ZkrSm": fcov_en_ZkrSm = 1;
+      "ZkrU": fcov_en_ZkrU = 1;
+      "Zksed": fcov_en_Zksed = 1;
+      "Zksh": fcov_en_Zksh = 1;
+      "Zmmul": fcov_en_Zmmul = 1;
+      "Zvbb16": fcov_en_Zvbb16 = 1;
+      "Zvbb32": fcov_en_Zvbb32 = 1;
+      "Zvbb64": fcov_en_Zvbb64 = 1;
+      "Zvbb8": fcov_en_Zvbb8 = 1;
+      "Zvbc64": fcov_en_Zvbc64 = 1;
+      "Zvfbfmin": fcov_en_Zvfbfmin = 1;
+      "Zvfbfwma": fcov_en_Zvfbfwma = 1;
+      "Zvfhmin": fcov_en_Zvfhmin = 1;
+      "Zvkb16": fcov_en_Zvkb16 = 1;
+      "Zvkb32": fcov_en_Zvkb32 = 1;
+      "Zvkb64": fcov_en_Zvkb64 = 1;
+      "Zvkb8": fcov_en_Zvkb8 = 1;
+      "Zvkg": fcov_en_Zvkg = 1;
+      "Zvkned": fcov_en_Zvkned = 1;
+      "Zvknha": fcov_en_Zvknha = 1;
+      "Zvknhb32": fcov_en_Zvknhb32 = 1;
+      "Zvknhb64": fcov_en_Zvknhb64 = 1;
+      "Zvksed": fcov_en_Zvksed = 1;
+      "Zvksh": fcov_en_Zvksh = 1;
+      default: return 0;
+    endcase
+    return 1;
+  endfunction

@@ -893,14 +893,23 @@ def write_coverage_headers(
     priv_path = output_dir / "priv"
     if priv_path.exists():
         keys.update(f.stem.split("_")[0] for f in priv_path.iterdir() if f.name.endswith("_coverage.svh"))
-    sorted_keys = sorted(keys)
+    # TODO: These groups do not compile with Verilator yet, so keep them out of the shared coverage build.
+    sorted_keys = sorted(k for k in keys if not re.fullmatch(r"V(x|ls|f)\d+|SvH|Zicfilp(S|SU|Sm|U)", k))
 
-    # RISCV_coverage_config.svh — ifdef includes for each extension
+    # RISCV_coverage_config.svh — includes for each extension
     lines: list[str] = [customize_template(templates, "config_header")]
     for arch in sorted_keys:
-        lines.append(f"`ifdef {arch.upper()}_COVERAGE\n")
         lines.append(f'  `include "{arch}_coverage.svh"\n')
-        lines.append("`endif\n")
+        lines.append(f"  bit fcov_en_{arch};\n")
+    lines.append("\n  // Enables a coverage group by name. Returns 0 if the group is unknown.\n")
+    lines.append("  function bit fcov_select_group(string name);\n")
+    lines.append("    case (name)\n")
+    for arch in sorted_keys:
+        lines.append(f'      "{arch}": fcov_en_{arch} = 1;\n')
+    lines.append("      default: return 0;\n")
+    lines.append("    endcase\n")
+    lines.append("    return 1;\n")
+    lines.append("  endfunction\n")
     _write_if_changed(coverage_dir / "RISCV_coverage_config.svh", "".join(lines))
 
     # RISCV_coverage_base_init.svh — init calls for each extension

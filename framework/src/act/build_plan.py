@@ -427,12 +427,13 @@ def gen_coverage_tasks(
     # a context that spans task execution.
     act_resources = importlib.resources.files("act")
     fcov_path = Path(str(act_resources / "fcov")).absolute()
-    script_name = {
-        CoverageSimulator.QUESTA: "riscv-arch-test.do",
+    build_script_name = {
+        CoverageSimulator.QUESTA: "riscv-arch-test-compile.do",
         CoverageSimulator.VCS: "riscv-arch-test-vcs.sh",
         CoverageSimulator.VERILATOR: "riscv-arch-test-verilator.sh",
     }[coverage_simulator]
-    sim_script = Path(str(act_resources / script_name)).absolute()
+    build_script = Path(str(act_resources / build_script_name)).absolute()
+    run_script = Path(str(act_resources / "riscv-arch-test.do")).absolute()
 
     # Collect shared file dependencies for staleness checking. Extension-specific
     # coverpoints are added to each coverage task below so changing one extension
@@ -448,34 +449,71 @@ def gen_coverage_tasks(
     fcov_files = tuple(sorted(p.absolute() for p in fcov_path.rglob("*") if p.is_file()))
     udb_svh_files = tuple(sorted(p.absolute() for p in udb_header_dir.iterdir() if p.suffix == ".svh"))
     env_svh_files = tuple(sorted(p.absolute() for p in env_header_dir.iterdir() if p.suffix == ".svh"))
-    shared_coverage_inputs = (*shared_coverpoint_files, *fcov_files, *udb_svh_files, *env_svh_files, sim_script)
+    group_coverpoint_files = tuple(
+        sorted(p.absolute() for kind in ("unpriv", "priv") for p in (coverpoint_dir / kind).glob("*.svh"))
+    )
+    shared_coverage_inputs = (
+        *shared_coverpoint_files,
+        *group_coverpoint_files,
+        *fcov_files,
+        *udb_svh_files,
+        *env_svh_files,
+    )
+
+    common_defines = (["FCOV_VERBOSE"] if verbose else []) + (
+        ["ENABLE_EXPERIMENTAL_EXTENSIONS"] if enable_experimental_extensions else []
+    )
+
+    # Every simulator builds one design with all groups compiled in. Each group's simulation
+    # then selects its covergroups at run time with +cover_groups, so the build happens once.
+    coverage_db_ext = {
+        CoverageSimulator.QUESTA: "ucdb",
+        CoverageSimulator.VCS: "vdb",
+        CoverageSimulator.VERILATOR: "dat",
+    }[coverage_simulator]
+    build_dir = base_dir / f"{coverage_db_ext}_work"
+    design = {
+        CoverageSimulator.QUESTA: build_dir / "testbenchopt",
+        CoverageSimulator.VCS: build_dir / "simv",
+        CoverageSimulator.VERILATOR: build_dir / "obj_dir" / "Vtestbench",
+    }[coverage_simulator]
+    if coverage_targets:
+        build_defines = " ".join(common_defines)
+        build_args = [
+            str(build_dir),
+            str(fcov_path),
+            str(coverpoint_dir),
+            str(udb_header_dir),
+            str(env_header_dir),
+        ]
+        if coverage_simulator == CoverageSimulator.QUESTA:
+            build_do = f"do {build_script} {' '.join(build_args)} {{{build_defines}}}"
+            build_cmd = ["vsim", "-c", "-do", build_do]
+        else:
+            build_cmd = ["bash", str(build_script), *build_args, build_defines]
+        if not dry_run:
+            base_dir.mkdir(parents=True, exist_ok=True)
+        tasks.append(
+            BuildTask(
+                outputs=(design,),
+                extra_inputs=(*shared_coverage_inputs, build_script),
+                action=SubprocessAction(
+                    cmd=build_cmd, stdout_file=base_dir / f"{coverage_db_ext}_build.log", cwd=base_dir
+                ),
+                intermediate=True,
+                timeout=COVERAGE_STEP_TIMEOUT_SECONDS,
+            )
+        )
 
     for coverage_group, traces in sorted(coverage_targets.items()):
         # Paths
         coverage_dir = base_dir / coverage_group
         base_name = coverage_dir / coverage_group.stem
         tracelist_file = base_name.with_suffix(".tracelist")
-        coverage_db_ext = {
-            CoverageSimulator.QUESTA: "ucdb",
-            CoverageSimulator.VCS: "vdb",
-            CoverageSimulator.VERILATOR: "dat",
-        }[coverage_simulator]
         simulator_artifact = base_name.with_suffix(f".{coverage_db_ext}")
         simulator_log = base_name.with_suffix(f".{coverage_db_ext}.log")
-        work_dir = base_name.parent / f"{coverage_db_ext}_work"
         report_file_base = config_report_dir / coverage_group.stem
         summary_file = Path(f"{report_file_base}_summary.txt")
-
-        coverpoint_kind = "priv" if coverage_group.parts[0] == "priv" else "unpriv"
-        group_coverpoint_dir = coverpoint_dir / coverpoint_kind
-        group_coverpoint_files = (
-            (group_coverpoint_dir / f"{coverage_group.stem}_coverage.svh").absolute(),
-            (group_coverpoint_dir / f"{coverage_group.stem}_coverage_init.svh").absolute(),
-        )
-        coverage_inputs = (
-            *shared_coverage_inputs,
-            *group_coverpoint_files,
-        )
 
         # Write tracelist file, but only when its contents actually change so its mtime
         # reflects real changes. This lets us include it in extra_inputs below without
@@ -491,49 +529,36 @@ def gen_coverage_tasks(
                 tracelist_file.write_text(tracelist_contents)
 
         # Coverage collection task
-        coverage_tag = f"{coverage_group.stem.upper()}_COVERAGE"
-        coverage_define_list = [coverage_tag]
-        if verbose:
-            coverage_define_list.append("FCOV_VERBOSE")
-        if enable_experimental_extensions:
-            coverage_define_list.append("ENABLE_EXPERIMENTAL_EXTENSIONS")
-        coverage_defines = " ".join(coverage_define_list)
         if coverage_simulator == CoverageSimulator.QUESTA:
-            do_script = (
-                f"do {sim_script} "
-                f"{tracelist_file} "
-                f"{simulator_artifact} "
-                f"{work_dir} "
-                f"{fcov_path} "
-                f"{coverpoint_dir} "
-                f"{udb_header_dir} "
-                f"{env_header_dir} "
-                f"{{{coverage_defines}}}"
-            )
-            coverage_cmd = ["vsim", "-c", "-do", do_script]
+            run_do = f"do {run_script} {build_dir} {simulator_artifact} {tracelist_file} {coverage_group.stem}"
+            coverage_cmd = ["vsim", "-c", "-do", run_do]
+        elif coverage_simulator == CoverageSimulator.VCS:
+            coverage_cmd = [
+                str(design),
+                "-vcs_assert",
+                "off",
+                f"+traceFileList={tracelist_file}",
+                f"+cover_groups={coverage_group.stem}",
+                "-cm_dir",
+                str(simulator_artifact),
+            ]
         else:
             coverage_cmd = [
-                "bash",
-                str(sim_script),
-                str(tracelist_file),
-                str(simulator_artifact),
-                str(work_dir),
-                str(fcov_path),
-                str(coverpoint_dir),
-                str(udb_header_dir),
-                str(env_header_dir),
-                coverage_defines,
+                str(design),
+                f"+traceFileList={tracelist_file}",
+                f"+cover_groups={coverage_group.stem}",
+                f"+verilator+coverage+file+{simulator_artifact}",
             ]
 
         # Deps: all rvvi traces for this coverage group must be done
         # The rvvi traces have the same stems as the traces list but with .rvvi suffix
-        rvvi_deps = tuple(sorted(traces))
+        rvvi_deps = (*sorted(traces), design)
 
         tasks.append(
             BuildTask(
                 outputs=(simulator_artifact,),
                 deps=rvvi_deps,
-                extra_inputs=coverage_inputs if dry_run else (*coverage_inputs, tracelist_file),
+                extra_inputs=(run_script,) if dry_run else (run_script, tracelist_file),
                 action=SubprocessAction(cmd=coverage_cmd, stdout_file=simulator_log, cwd=coverage_dir),
                 intermediate=True,
                 timeout=COVERAGE_STEP_TIMEOUT_SECONDS,

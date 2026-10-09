@@ -47,8 +47,23 @@ class RISCV_coverage
 
   virtual rvviTrace #(ILEN, XLEN, FLEN, VLEN, NHART, RETIRE) rvvi;
 
+  // Enables the coverage groups listed in +cover_groups=<group>[,<group>...]
+  function void select_coverage_groups();
+    string groups, name;
+    int start = 0;
+    if (!$value$plusargs("cover_groups=%s", groups)) $fatal(1, "+cover_groups=<group>[,<group>...] is required");
+    for (int i = 0; i <= groups.len(); i++) begin
+      if (i == groups.len() || groups[i] == ",") begin
+        name = groups.substr(start, i - 1);
+        if (!fcov_select_group(name)) $fatal(1, "Unknown coverage group '%s'", name);
+        start = i + 1;
+      end
+    end
+  endfunction
+
   function new(virtual rvviTrace #(ILEN, XLEN, FLEN, VLEN, NHART, RETIRE) rvvi);
     this.rvvi = rvvi;
+    select_coverage_groups();
 
     // Print header information
     `cover_info("\n//  riscv_arch_test    ");

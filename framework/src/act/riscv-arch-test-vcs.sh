@@ -3,6 +3,9 @@
 #
 # RISC-V Architectural Functional Coverage Testbench (VCS)
 #
+# Builds one simulator binary containing every coverage group. Each group is then
+# simulated with +cover_groups=<group>.
+#
 # Copyright (C) 2026 Harvey Mudd College
 # Written: Jordan Carlin jcarlin@hmc.edu March 2026
 #
@@ -13,17 +16,15 @@
 set -euo pipefail
 
 # Input arguments
-TRACEFILELIST="${1}"
-VDB="${2}"
-WKDIR="${3}"
-FCOVDIR="${4}"
-COVERPOINTDIR="${5}"
-UDBHEADERDIR="${6}"
-ENVHEADERDIR="${7}"
-COVERAGELIST="${8}"
+WKDIR="${1}"
+FCOVDIR="${2}"
+COVERPOINTDIR="${3}"
+UDBHEADERDIR="${4}"
+ENVHEADERDIR="${5}"
+COVERAGELIST="${6}"
 
-# Clean old coverage database
-rm -rf "${WKDIR}" "${VDB}"
+# Clean old build
+rm -rf "${WKDIR}"
 mkdir -p "${WKDIR}"
 
 # Setup VCS arguments
@@ -62,19 +63,6 @@ fi
 # Elaborate
 if ! vcs -q -full64 -sverilog testbench -o simv >vcs.log 2>&1; then
   echo "ERROR collecting coverage. vcs elaboration failed; see ${WKDIR}/vcs.log" >&2
-  exit 1
-fi
-
-# Simulate
-if ! ./simv -vcs_assert off +traceFileList="${TRACEFILELIST}" >simv.log 2>&1; then
-  echo "ERROR collecting coverage. simv run failed; see ${WKDIR}/simv.log" >&2
-  exit 1
-fi
-
-if [[ -d simv.vdb ]]; then
-  mv simv.vdb "${VDB}"
-else
-  echo "ERROR collecting coverage. simv.vdb not found." >&2
   exit 1
 fi
 
