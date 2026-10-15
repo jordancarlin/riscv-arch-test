@@ -259,20 +259,25 @@ module testbench;
   function automatic void parseMem();
     string bus, k, v;
     int pairs;
+    longint unsigned val;
     memAccess = '0;
     bus = tokens.pop_front();
     memAccess.fetch = (bus == "I");
     memAccess.size = popInt();
-    void'($sscanf(tokens.pop_front(), "0x%h", memAccess.vaddr));
-    void'($sscanf(tokens.pop_front(), "0x%h", memAccess.paddr));
+    void'($sscanf(tokens.pop_front(), "0x%h", val));
+    memAccess.vaddr = val;
+    void'($sscanf(tokens.pop_front(), "0x%h", val));
+    memAccess.paddr = val;
     pairs = popInt();
     repeat (pairs) begin
       k = tokens.pop_front();
       v = tokens.pop_front();
+      val = 0;
+      void'($sscanf(v, "0x%h", val));
       case (k)
-        "PTE":    void'($sscanf(v, "0x%h", memAccess.pte));
-        "GPTE":   void'($sscanf(v, "0x%h", memAccess.gpte));
-        "GPADDR": void'($sscanf(v, "0x%h", memAccess.gaddr));
+        "PTE":    memAccess.pte = val;
+        "GPTE":   memAccess.gpte = val;
+        "GPADDR": memAccess.gaddr = val;
         "PT":     memAccess.page_type = pageType(v);
         "GPT":    memAccess.guest_page_type = pageType(v);
         default: ; // Unknown keys are skipped
