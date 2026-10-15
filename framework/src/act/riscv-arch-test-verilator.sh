@@ -47,7 +47,7 @@ done
 
 pushd "${WKDIR}" >/dev/null
 
-if ! "${VERILATOR}" --binary --timing --coverage-user --coverage-merge-instances \
+if ! "${VERILATOR}" --binary --timing -Wno-WIDTHEXPAND --coverage-user --coverage-merge-instances \
   --coverage-max-bins "${VERILATOR_COVERAGE_MAX_BINS}" --top-module testbench \
   "${INC_DIRS[@]}" "${DEFINE_ARGS[@]}" "${COMPILE_FILES[@]}" --Mdir obj_dir >verilator.log 2>&1; then
   echo "ERROR collecting coverage. Verilator failed; see ${WKDIR}/verilator.log" >&2
