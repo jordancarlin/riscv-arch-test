@@ -66,7 +66,7 @@ class riscvTraceData
 
   logic                      lrsc_cancel;   // Implementation defined cancel
 
-// Virtual Memory signals for verification
+// Virtual memory fields, filled from the MEM records
   localparam PA_BITS = (XLEN==32 ? 32'd34 : 32'd56);
   localparam PPN_BITS = (XLEN==32 ? 32'd22 : 32'd44);
 
@@ -76,6 +76,8 @@ class riscvTraceData
   logic [(PA_BITS-1):0]  phys_adr_d;           // Data physical address
   logic [(XLEN-1):0]     pte_i;         // Instruction page table entry
   logic [(XLEN-1):0]     pte_d;         // Data page table entry
+  logic [(XLEN-1):0]     g_pte_i;       // Instruction G-stage page table entry
+  logic [(XLEN-1):0]     g_pte_d;       // Data G-stage page table entry
   logic [(PPN_BITS-1):0] ppn_i;         // Instruction physical page number
   logic [(PPN_BITS-1):0] ppn_d;         // Data physical page number
   logic [1:0]            page_type_i;    // Instruction page type

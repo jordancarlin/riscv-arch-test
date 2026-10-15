@@ -49,6 +49,7 @@ class RISCV_coverage
 
   function new(virtual rvviTrace #(ILEN, XLEN, FLEN, VLEN, NHART, RETIRE) rvvi);
     this.rvvi = rvvi;
+    mem_client = rvvi.client_register(0, 1);
 
     // Print header information
     `cover_info("\n//  riscv_arch_test    ");

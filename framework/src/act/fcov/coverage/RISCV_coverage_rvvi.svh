@@ -27,6 +27,7 @@
 `endif
 
 riscvTraceData #(ILEN, XLEN, FLEN, VLEN) traceDataQ [(NHART-1):0][(RETIRE-1):0] [$:`NUM_RVVI_DATA];
+int mem_client;
 
 `include "coverage/RISCV_disasm_fallback.svh"
 
@@ -128,9 +129,7 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
   rvviData.csr = this.rvvi.csr[hart][issue];
   rvviData.csr_wb = this.rvvi.csr_wb[hart][issue];
 
-  // Virtual addresses. The other virtual memory fields are not yet filled from the MEM records and stay 0.
-  rvviData.virt_adr_i = rvviData.pc_rdata;
-  rvviData.virt_adr_d = get_data_vaddr(disass, traceDataQ[hart][issue][0].x_wdata);
+  save_mem_data(rvviData, hart, disass, traceDataQ[hart][issue][0].x_wdata);
 
   // Store additional signals from the current trace
   rvviData.lrsc_cancel = this.rvvi.lrsc_cancel[hart][issue];
@@ -144,6 +143,63 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
     traceDataQ[hart][issue].delete(`NUM_RVVI_DATA-1);
   end
   traceDataQ[hart][issue].push_front(rvviData);
+endfunction
+
+// Fill the virtual memory fields from the MEM records of this event. Page table reads are D records
+// without a PTE, so the data access is the first D record with a PTE, else the last D record.
+function void save_mem_data(riscvTraceData #(ILEN, XLEN, FLEN, VLEN) rvviData, int hart, string disass,
+                            logic [31:0][(XLEN-1):0] xregs);
+  rvvi_mem_access_t acc, i_acc, d_acc;
+  bit have_i = 0, have_d = 0;
+  string mnemonic;
+  bit is_load, is_store;
+  while (this.rvvi.mem_access_pop(mem_client, hart, acc) != 0) begin
+    if (acc.fetch) begin
+      i_acc = acc;
+      have_i = 1;
+    end else if (!(have_d && d_acc.pte != 0)) begin
+      d_acc = acc;
+      have_d = 1;
+    end
+  end
+  void'($sscanf(disass, "%s %s", mnemonic, mnemonic));
+  is_load = mnemonic inside {"lb", "lbu", "lh", "lhu", "lw", "lwu", "ld", "flh", "flw", "fld", "flq",
+                             "c.lbu", "c.lh", "c.lhu", "c.lw", "c.ld", "c.lwsp", "c.ldsp",
+                             "c.flw", "c.fld", "c.flwsp", "c.fldsp"} ||
+            has_prefix(mnemonic, "lr.") || has_prefix(mnemonic, "amo") || has_prefix(mnemonic, "hlv");
+  is_store = mnemonic inside {"sb", "sh", "sw", "sd", "fsh", "fsw", "fsd", "fsq",
+                              "c.sb", "c.sh", "c.sw", "c.sd", "c.swsp", "c.sdsp",
+                              "c.fsw", "c.fsd", "c.fswsp", "c.fsdsp"} ||
+             has_prefix(mnemonic, "sc.") || has_prefix(mnemonic, "amo") || has_prefix(mnemonic, "hsv") ||
+             has_prefix(mnemonic, "cbo.");
+  if (!(is_load || is_store)) have_d = 0;
+
+  rvviData.execute_access = have_i;
+  rvviData.read_access = have_d && is_load;
+  rvviData.write_access = have_d && is_store;
+  rvviData.virt_adr_i = have_i ? XLEN'(i_acc.vaddr) : rvviData.pc_rdata;
+  rvviData.pte_i = i_acc.pte[(XLEN-1):0];
+  rvviData.page_type_i = i_acc.page_type[1:0];
+  rvviData.virt_adr_d = have_d ? XLEN'(d_acc.vaddr) : get_data_vaddr(disass, xregs);
+  rvviData.pte_d = d_acc.pte[(XLEN-1):0];
+  rvviData.page_type_d = d_acc.page_type[1:0];
+  rvviData.g_pte_i = i_acc.gpte[(XLEN-1):0];
+  rvviData.g_pte_d = d_acc.gpte[(XLEN-1):0];
+  `ifdef UDB_MXLEN_32
+    rvviData.phys_adr_i = i_acc.paddr[33:0];
+    rvviData.phys_adr_d = d_acc.paddr[33:0];
+    rvviData.ppn_i = i_acc.pte[31:10];
+    rvviData.ppn_d = d_acc.pte[31:10];
+  `else
+    rvviData.phys_adr_i = i_acc.paddr[55:0];
+    rvviData.phys_adr_d = d_acc.paddr[55:0];
+    rvviData.ppn_i = i_acc.pte[53:10];
+    rvviData.ppn_d = d_acc.pte[53:10];
+  `endif
+endfunction
+
+function bit has_prefix(string str, string prefix);
+  return str.len() >= prefix.len() && str.substr(0, prefix.len()-1) == prefix;
 endfunction
 
 // Effective address of a scalar load, store, AMO, or CMO, from the "offset(reg)" operand of the
