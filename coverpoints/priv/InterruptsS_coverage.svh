@@ -41,7 +41,7 @@ covergroup InterruptsS_cg with function sample(ins_t ins);
     }
 
     // Privilege modes below M this config implements
-    priv_mode_interrupts: coverpoint {ins.prev.mode_virt, ins.prev.mode} {
+    priv_mode_interrupts: coverpoint {ins.current.mode_virt, ins.current.mode} {
         bins S_mode = {3'b001};
         bins U_mode = {3'b000};
         `ifdef H_SUPPORTED

@@ -19,14 +19,14 @@ covergroup Smstateen_cg with function sample(ins_t ins);
         wildcard bins csrs = {CSRRS};
         wildcard bins csrc = {CSRRC};
     }
-    priv_mode_m_maybes_u: coverpoint {ins.prev.mode_virt, ins.prev.mode} {
+    priv_mode_m_maybes_u: coverpoint {ins.current.mode_virt, ins.current.mode} {
             bins M_mode = {3'b011};
             bins U_mode = {3'b000};
         `ifdef S_SUPPORTED
             bins S_mode = {3'b001};
         `endif
     }
-    priv_mode_maybes_u: coverpoint {ins.prev.mode_virt, ins.prev.mode} {
+    priv_mode_maybes_u: coverpoint {ins.current.mode_virt, ins.current.mode} {
             bins U_mode = {3'b000};
             `ifdef S_SUPPORTED
                     bins S_mode = {3'b001};

@@ -788,5 +788,5 @@ endgroup
 
 function void zicntrs_sample(int hart, int issue, ins_t ins);
     ZicntrS_cg.sample(ins);
-   // $display("ins; %h mcounteren; %h privmode: %h enabled: %b %b %b",ins.current.insn, ins.current.csr[CSR_MCOUNTEREN][31:0], ins.prev.mode, {ins.current.insn[31:20], ins.current.csr[CSR_MCOUNTEREN][31:0] } == {CSR_CYCLE, 32'b00000000000000000000000000000001}, ins.prev.mode == {2'b01}, ins.current.insn[6:0] == 7'b1110011 & ins.current.insn[19:12] == 8'b00000010);
+   // $display("ins; %h mcounteren; %h privmode: %h enabled: %b %b %b",ins.current.insn, ins.current.csr[CSR_MCOUNTEREN][31:0], ins.current.mode, {ins.current.insn[31:20], ins.current.csr[CSR_MCOUNTEREN][31:0] } == {CSR_CYCLE, 32'b00000000000000000000000000000001}, ins.current.mode == {2'b01}, ins.current.insn[6:0] == 7'b1110011 & ins.current.insn[19:12] == 8'b00000010);
 endfunction

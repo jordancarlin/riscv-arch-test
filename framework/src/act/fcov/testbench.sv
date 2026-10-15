@@ -40,8 +40,6 @@ module testbench;
 
   // RVVI-TEXT parser state
   string             tokens[$];
-  string             nextTokens[$];
-  bit                haveNext = 0;
   string             key;
   int                hart, issue, count;
   logic [63:0]       orderCount;
@@ -184,17 +182,11 @@ module testbench;
         default: $fatal(1, "Error: unknown RVVI-TEXT element %s in %s", key, traceFile);
       endcase
     end
-    if (valid) applyNextMode();
   end
 
   // Get the tokens of the next line. Moves to the next trace file at end of file and
   // ends the simulation after the last one.
   task automatic readLine(ref string toks[$]);
-    if (haveNext) begin
-      toks = nextTokens;
-      haveNext = 0;
-      return;
-    end
     forever begin
       if (traceFileHandler == 0) begin
         if (fileNum >= int'(traceFiles.size()) - 1) begin
@@ -230,18 +222,6 @@ module testbench;
       if (more) void'(toks.pop_back());
     end
     return 1;
-  endfunction
-
-  // Sail reports the mode an instruction starts in. The coverage model expects the mode after
-  // the instruction, so take MODE and VIRT from the next line of the same trace file.
-  // The last instruction in a file keeps its own mode.
-  function automatic void applyNextMode();
-    haveNext = readLogicalLine(nextTokens);
-    if (!haveNext) return;
-    for (int i = 0; i < int'(nextTokens.size()) - 1; i++) begin
-      if (nextTokens[i] == "MODE") void'($sscanf(nextTokens[i+1], "0x%h", mode));
-      else if (nextTokens[i] == "VIRT") void'($sscanf(nextTokens[i+1], "0x%h", mode_virt));
-    end
   endfunction
 
   function automatic int popInt();

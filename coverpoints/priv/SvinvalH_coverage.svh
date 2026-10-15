@@ -21,7 +21,7 @@ covergroup SvinvalH_cg with function sample(ins_t ins);
         wildcard bins hinval_vvma     = {HINVAL_VVMA};
         wildcard bins hinval_gvma     = {HINVAL_GVMA};
     }
-    cp_priv : coverpoint {ins.prev.mode_virt, ins.prev.mode} {
+    cp_priv : coverpoint {ins.current.mode_virt, ins.current.mode} {
         bins M_mode     = {3'b011};
         bins S_mode     = {3'b001};
         bins U_mode     = {3'b000};
