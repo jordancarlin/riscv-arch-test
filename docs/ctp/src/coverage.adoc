@@ -16,37 +16,34 @@ This plan uses the term _Architectural Functional Coverage_ to describe the func
 
 _Functional coverage_ also differs from _code coverage_, which measures whether the test suite exercises all of the lines of code in the RTL.  Each of these detects different types of bugs.  Code coverage is part of DV but not certification.
 
-Architectural functional coverage requires a way to measure the architectural state of the machine after each instruction.  The https://github.com/riscv-verification/RVVI[RISC-V Verification Interface] (RVVI) provides a standard way to observe this state in the DUT.  This document defines Extended RVVI with additional signals to facilitate testing virtual memory.
+Architectural functional coverage requires a way to measure the architectural state of the machine after each instruction.  The https://github.com/riscv-verification/RVVI[RISC-V Verification Interface] (RVVI) provides a standard way to observe this state in the DUT.  Coverage reads an RVVI-TEXT trace (see Section <<RVVI-TEXT Trace>>).
 
-=== Extended RVVI
+=== Virtual Memory Fields
 
-As compared to the base RVVI, Extended RVVI adds the following signals:
+The coverage framework fills these fields from the RVVI-TEXT `MEM` records of each instruction:
 
-[[t-extendedrvvi]]
-.Extended RVVI Signals
+[[t-vmfields]]
+.Virtual Memory Fields
 [options=header]
 [cols="1, 1, 4" options=header]
 [%AUTOWIDTH]
 |===
-|Signal|Width|Description
+|Field|Width|Description
 |virt_adr_i|XLEN|Virtual address of instruction
 |virt_adr_d|XLEN|Virtual address of data accessed by instruction
 |phys_adr_i|PA_BITS|Physical address of instruction
 |phys_adr_d|PA_BITS|Physical address of data accessed by instruction
-|g_phys_adr_i|PA_BITS|Guest physical address of instruction (when Hypervisor is active, 0 when inactive)
-|g_phys_adr_d|PA_BITS|Guest physical address of data accessed by instruction (when Hypervisor is active, 0 when inactive)
-|pte_i|XLEN|Instruction page table entry (VS-stage when Hypervisor is active)
-|pte_d|XLEN|Data page table entry (VS-stage when Hypervisor is active)
+|pte_i|XLEN|Instruction leaf page table entry (VS-stage when Hypervisor is active)
+|pte_d|XLEN|Data leaf page table entry (VS-stage when Hypervisor is active)
 |g_pte_i|XLEN|Instruction page table entry (G-stage when Hypervisor is active, 0 when inactive)
 |g_pte_d|XLEN|Data page table entry (G-stage when Hypervisor is active, 0 when inactive)
-|page_type_i|3|Instruction page type (VS-stage when hypervisor is active))
-|page_type_d|3|Data page type (VS-stage when hypervisor is active))
-|g_page_type_i|3|Instruction page type (G-stage when hypervisor is inactive, 0 when inactive)
-|g_page_type_d|3|Data page type (G-stage when hypervisor is inactive, 0 when inactive)
-|tdata1[NTRIGGERS]|XLEN*NTRIGGERS|Sdtrig Trigger Data 1 for each debug trigger
-|tdata2[NTRIGGERS]|XLEN*NTRIGGERS|Sdtrig Trigger Data 2 for each debug trigger
-|tdata3[NTRIGGERS]|XLEN*NTRIGGERS|Sdtrig Trigger Data 3 for each debug trigger
-|tinfo[NTRIGGERS]|XLEN*NTRIGGERS|Sdtrig Trigger Info for each debug trigger
+|ppn_i|PPN_BITS|Physical page number of `pte_i`
+|ppn_d|PPN_BITS|Physical page number of `pte_d`
+|page_type_i|2|Instruction page type
+|page_type_d|2|Data page type
+|execute_access|1|Instruction fetch occurred
+|read_access|1|Load or AMO data access occurred
+|write_access|1|Store, AMO, or CBO data access occurred
 |===
 
 [[t-pagetypes]]
@@ -56,17 +53,13 @@ As compared to the base RVVI, Extended RVVI adds the following signals:
 [%AUTOWIDTH]
 |===
 |Code|Type
-|000|kilopage
-|001|megapage
-|010|gigapage
-|011|terapage
-|100|petapage
-|other|reserved
+|00|kilopage
+|01|megapage
+|10|gigapage
+|11|terapage
 |===
 
-Some accesses touch more than one physical page.  Examples include misaligned accesses wrapping a page boundary, and some vector accesses.  Extended RVVI provides the signals corresponding to the base address of the access. For vector, they correspond to the base address of the initial element access.
-
-NTRIGGERS is a new parameter similar to FLEN defining the number of Sdtrig debug triggers supported by the platform.
+A trapping instruction reports the access that faulted, with the page table entry that caused the fault. Some accesses touch more than one physical page.  Examples include misaligned accesses wrapping a page boundary, and some vector accesses.  The fields correspond to the base address of the access. For vector, they correspond to the base address of the initial element access.
 
 === riscvISACOV Signals
 
@@ -79,7 +72,7 @@ The framework collects data coming across the RVVI interface and presents it wit
 Most coverpoints use `ins.current`, to measure architectural state at the end of the instruction.  However, some privileged coverpoints need to know the privilege mode or values of CSRs at the start of the instruction and thus use `ins.prev`.
 ====
 
-The available fields are given in framework/src/act/fcov/coverage/RISCV_coverage_rvvi.svh.  Most commonly used fields are summarized in <<t-riscvISACOV>>. Other fields include floating-point and vector register IDs and values, MMU extended RVVI signals, vector type information, and pending interrupts. TODO: handling register pairs.
+The available fields are given in framework/src/act/fcov/coverage/RISCV_coverage_rvvi.svh.  Most commonly used fields are summarized in <<t-riscvISACOV>>. Other fields include floating-point and vector register IDs and values, the virtual memory fields in <<t-vmfields>>, vector type information, and pending interrupts. TODO: handling register pairs.
 
 [[t-riscvISACOV]]
 .riscvISACOV Signals for Coverpoints
@@ -126,18 +119,19 @@ Move this and the remainder to ACT repo
 
 === Trace Coverage Flow
 
-Coverage is measured by running tests on the RISC-V Sail model and generating a RVVI-Trace file, then passing this  file to an RVVI agent in a SystemVerilog testbench that checks coverage.
+Coverage is measured by running tests on the RISC-V Sail model and generating an RVVI-TEXT trace file, then passing this file to a SystemVerilog testbench that drives the RVVI-TRACE interface and checks coverage.
 
 [NOTE]
 ====
 The number of coverpoints and the number of tests both grow with the number of extensions, so the runtime to measure coverage can grow quadratically with the number of extensions, and becomes problematic.  To avoid this, it is recommended to only enable coverpoints for one extension (or small group of extensions) at a time and to only run tests for that extension, and generate a Unified Coverage Database (UDCB) file and report for that extension.  A script will kick off such tests in parallel for all extensions, and merge the coverage reports.
 ====
 
-The RISC-V Sail model produces the trace file in a standard RVVI-Trace format (see Section <<RVVI-Trace Format>>).  Any other simulator that implements the same trace format can also be used to cross-check coverage.
+The RISC-V Sail model produces the trace with `--trace-rvvi-text`.  Any other simulator that writes RVVI-TEXT can also be used to cross-check coverage.
 
 *** Jordan add instructions on how to run this
 
-=== RVVI-Trace Format
+=== RVVI-TEXT Trace
 
-*** Jordan write
+The trace uses the https://github.com/riscv-verification/RVVI/tree/main/RVVI-TEXT[RVVI-TEXT] format.  Each `RET` or `TRAP` event gives the instruction, its register and CSR changes, its `MEM` accesses, and the `MODE` and `VIRT` values of the mode the instruction executed in.  The mode after an `xRET`, `ecall`, or trap is the mode of the next event.
+
 *** how to handle instructions that change multiple CSRs, such as a write to mstatus.SIE also affecting sstatus.SIE

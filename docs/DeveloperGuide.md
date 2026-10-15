@@ -594,7 +594,7 @@ There should be one coverage file for each tab of a testplan spreadsheet. Create
 
 Write SystemVerilog coverpoints. Complex coverpoints are normally a cross-product of simpler coverpoints.
 
-The coverpoints use architectural state conveyed over Extended RVVI (see Certification Test Plan for signals available). It is easiest to write coverpoints in terms of `ins.current` and `ins.prev`, the current and previous instructions. If the test is too complicated to express just in terms of these, it may be necessary to leave out some conditions. For example, virtual memory coverpoints don't specify all of the page table entries.
+The coverpoints use architectural state read from RVVI-TEXT traces (see the Certification Test Plan for the available fields). It is easiest to write coverpoints in terms of `ins.current` and `ins.prev`, the current and previous instructions. If the test is too complicated to express just in terms of these, it may be necessary to leave out some conditions. For example, virtual memory coverpoints don't specify all of the page table entries.
 
 As with unprivileged tests, add a YAML file with the [Normative Rule - Coverpoint Mapping](#normative-rule---coverpoint-mapping).
 
@@ -679,9 +679,9 @@ The coverpoints given in the spreadsheet are usually cross-products of simpler c
     cp_store_access_fault:                   cross storeops, illegal_address;
 ```
 
-#### Extending RVVI
+#### Adding RVVI State
 
-If additional state is absolutely necessary, it could be added to the Extended RVVI specification. This involves changing the spec and tools that read and write it, so should not be done if there is any other reasonable way to write a "good enough" coverpoint. Open an issue to discuss other potential options before proceeding down this route.
+If additional state is absolutely necessary, it must come from RVVI-TEXT. This can require a change to the RVVI-TEXT specification and to the tools that read and write it, so do not do it if there is any other reasonable way to write a "good enough" coverpoint. Open an issue to discuss other potential options before proceeding down this route.
 
 ### Adding New Privileged Tests
 
@@ -788,7 +788,7 @@ $display("mode: %b, medel: %b, funct3: %b, rs1_1_0: %b, pc_1: %b, offset: %b ",
      ins.current.imm[1:0]);
 ```
 
-Then look in the `work/sail-rv64-max/coverage/priv/ExceptionsZc/ExceptionsZc.ucdb.log` file to see how these RVVI signals change after each instruction. Find the instruction that should have hit a bin, and see which coverpoint input(s) aren't taking on the necessary values. It is often useful to compare the `*.ucdb.log` file with the `*.trace` file in `work/sail-rv64-max/coverage/priv/ExceptionsZc`.
+Then look in the `work/sail-rv64-max/coverage/priv/ExceptionsZc/ExceptionsZc.ucdb.log` file to see how these RVVI signals change after each instruction. Find the instruction that should have hit a bin, and see which coverpoint input(s) aren't taking on the necessary values. It is often useful to compare the `*.ucdb.log` file with the `*.rvvi` file in `work/sail-rv64-max/coverage/priv/ExceptionsZc`.
 
 ## Adding a New Simulator or DUT Config
 
