@@ -200,15 +200,6 @@ covergroup Sv_vm_permissions_cg with function sample(ins_t ins);
         wildcard bins leaflvl_s = {8'b11?01111};
     }
 
-    PTE_canonical_i: coverpoint ins.current.pte_i[7:0] { //va.1
-        wildcard bins leaflvl_u = {8'b11?11111};
-        wildcard bins leaflvl_s = {8'b11?01111};
-    }
-    PTE_canonical_d: coverpoint ins.current.pte_d[7:0] { //va.1
-        wildcard bins leaflvl_u = {8'b11?11111};
-        wildcard bins leaflvl_s = {8'b11?01111};
-    }
-
     PTE_DAU_i: coverpoint ins.current.pte_i[7:0] {
         wildcard bins nonleaf_D_bit = {8'b10?00001};
         wildcard bins nonleaf_A_bit = {8'b01?00001};
@@ -576,53 +567,38 @@ covergroup Sv_vm_permissions_cg with function sample(ins_t ins);
     }
 
     `ifdef UDB_MXLEN_64
-        canonical_page_d: coverpoint ins.current.page_type_d {
+        // A non-canonical VA faults before the page-table walk, so no PTE is read.
+        noncanonical_va_d: coverpoint get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] {
+            `ifdef SV57_SUPPORTED
+                bins sv57 = {4'b1010} iff ((ins.current.virt_adr_d[63:56] != 0) && (ins.current.virt_adr_d[63:56] != '1));
+            `endif
             `ifdef SV48_SUPPORTED
-                bins sv48_tera_canonical = {2'b11} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1001) && (ins.current.virt_adr_d[63:48] != 0) && (ins.current.virt_adr_d[63:48] != '1));
-                bins sv48_giga_canonical = {2'b10} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1001) && (ins.current.virt_adr_d[63:48] != 0) && (ins.current.virt_adr_d[63:48] != '1));
-                bins sv48_mega_canonical = {2'b01} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1001) && (ins.current.virt_adr_d[63:48] != 0) && (ins.current.virt_adr_d[63:48] != '1));
-                bins sv48_kilo_canonical = {2'b00} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1001) && (ins.current.virt_adr_d[63:48] != 0) && (ins.current.virt_adr_d[63:48] != '1));
+                bins sv48 = {4'b1001} iff ((ins.current.virt_adr_d[63:47] != 0) && (ins.current.virt_adr_d[63:47] != '1));
             `endif
             `ifdef SV39_SUPPORTED
-                bins sv39_giga_canonical = {2'b10} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1000) && (ins.current.virt_adr_d[63:39] != 0) && (ins.current.virt_adr_d[63:39] != '1));
-                bins sv39_mega_canonical = {2'b01} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1000) && (ins.current.virt_adr_d[63:39] != 0) && (ins.current.virt_adr_d[63:39] != '1));
-                bins sv39_kilo_canonical = {2'b00} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1000) && (ins.current.virt_adr_d[63:39] != 0) && (ins.current.virt_adr_d[63:39] != '1));
+                bins sv39 = {4'b1000} iff ((ins.current.virt_adr_d[63:38] != 0) && (ins.current.virt_adr_d[63:38] != '1));
             `endif
         }
-        canonical_page_i: coverpoint ins.current.page_type_i {
+        noncanonical_va_i: coverpoint get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] {
+            `ifdef SV57_SUPPORTED
+                bins sv57 = {4'b1010} iff ((ins.current.virt_adr_i[63:56] != 0) && (ins.current.virt_adr_i[63:56] != '1));
+            `endif
             `ifdef SV48_SUPPORTED
-                bins sv48_tera_canonical = {2'b11} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1001) && (ins.current.virt_adr_i[63:48] != 0) && (ins.current.virt_adr_i[63:48] != '1));
-                bins sv48_giga_canonical = {2'b10} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1001) && (ins.current.virt_adr_i[63:48] != 0) && (ins.current.virt_adr_i[63:48] != '1));
-                bins sv48_mega_canonical = {2'b01} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1001) && (ins.current.virt_adr_i[63:48] != 0) && (ins.current.virt_adr_i[63:48] != '1));
-                bins sv48_kilo_canonical = {2'b00} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1001) && (ins.current.virt_adr_i[63:48] != 0) && (ins.current.virt_adr_i[63:48] != '1));
+                bins sv48 = {4'b1001} iff ((ins.current.virt_adr_i[63:47] != 0) && (ins.current.virt_adr_i[63:47] != '1));
             `endif
             `ifdef SV39_SUPPORTED
-                bins sv39_giga_canonical = {2'b10} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1000) && (ins.current.virt_adr_i[63:39] != 0) && (ins.current.virt_adr_i[63:39] != '1));
-                bins sv39_mega_canonical = {2'b01} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1000) && (ins.current.virt_adr_i[63:39] != 0) && (ins.current.virt_adr_i[63:39] != '1));
-                bins sv39_kilo_canonical = {2'b00} iff ((get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, "satp", "mode")[3:0] == 4'b1000) && (ins.current.virt_adr_i[63:39] != 0) && (ins.current.virt_adr_i[63:39] != '1));
+                bins sv39 = {4'b1000} iff ((ins.current.virt_adr_i[63:38] != 0) && (ins.current.virt_adr_i[63:38] != '1));
             `endif
         }
 
-        cp_canonical_read_s: cross PTE_canonical_d, canonical_page_d, load_page_fault, read_acc { //va.1
-            ignore_bins ig1 = binsof(PTE_canonical_d.leaflvl_u);
-        }
-        cp_canonical_read_u: cross PTE_canonical_d, canonical_page_d, load_page_fault, read_acc { //va.1
-            ignore_bins ig1 = binsof(PTE_canonical_d.leaflvl_s);
-        }
+        cp_canonical_read_s: cross noncanonical_va_d, load_page_fault, read_acc, priv_mode_s; //va.1
+        cp_canonical_read_u: cross noncanonical_va_d, load_page_fault, read_acc, priv_mode_u; //va.1
 
-        cp_canonical_write_s: cross PTE_canonical_d, canonical_page_d, store_page_fault, write_acc { //va.1
-            ignore_bins ig1 = binsof(PTE_canonical_d.leaflvl_u);
-        }
-        cp_canonical_write_u: cross PTE_canonical_d, canonical_page_d, store_page_fault, write_acc { //va.1
-            ignore_bins ig1 = binsof(PTE_canonical_d.leaflvl_s);
-        }
+        cp_canonical_write_s: cross noncanonical_va_d, store_page_fault, write_acc, priv_mode_s; //va.1
+        cp_canonical_write_u: cross noncanonical_va_d, store_page_fault, write_acc, priv_mode_u; //va.1
 
-        cp_canonical_exec_s: cross PTE_canonical_i, canonical_page_i, ins_page_fault, exec_acc { //va.1
-            ignore_bins ig1 = binsof(PTE_canonical_i.leaflvl_u);
-        }
-        cp_canonical_exec_u: cross PTE_canonical_i, canonical_page_i, ins_page_fault, exec_acc { //va.1
-            ignore_bins ig1 = binsof(PTE_canonical_i.leaflvl_s);
-        }
+        cp_canonical_exec_s: cross noncanonical_va_i, ins_page_fault, exec_acc, priv_mode_s; //va.1
+        cp_canonical_exec_u: cross noncanonical_va_i, ins_page_fault, exec_acc, priv_mode_u; //va.1
     `endif
 endgroup
 
