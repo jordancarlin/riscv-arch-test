@@ -63,19 +63,6 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
     rvviData.csr = 0;
     rvviData.csr_wb = 0;
     rvviData.lrsc_cancel = 0;
-    rvviData.virt_adr_i = 0;
-    rvviData.virt_adr_d = 0;
-    rvviData.phys_adr_i = 0;
-    rvviData.phys_adr_d = 0;
-    rvviData.pte_i = 0;
-    rvviData.pte_d = 0;
-    rvviData.ppn_i = 0;
-    rvviData.ppn_d = 0;
-    rvviData.page_type_i = 0;
-    rvviData.page_type_d = 0;
-    rvviData.read_access = 0;
-    rvviData.write_access = 0;
-    rvviData.execute_access = 0;
     rvviData.hart = hart;
     rvviData.issue = issue;
     rvviData.disass = "";
@@ -141,20 +128,9 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
   rvviData.csr = this.rvvi.csr[hart][issue];
   rvviData.csr_wb = this.rvvi.csr_wb[hart][issue];
 
-  // Store virtual memory signals from the current trace
-  rvviData.virt_adr_i = this.rvvi.virt_adr_i[hart][issue];
-  rvviData.virt_adr_d = this.rvvi.virt_adr_d[hart][issue];
-  rvviData.phys_adr_i = this.rvvi.phys_adr_i[hart][issue];
-  rvviData.phys_adr_d = this.rvvi.phys_adr_d[hart][issue];
-  rvviData.pte_i = this.rvvi.pte_i[hart][issue];
-  rvviData.pte_d = this.rvvi.pte_d[hart][issue];
-  rvviData.ppn_i = this.rvvi.ppn_i[hart][issue];
-  rvviData.ppn_d = this.rvvi.ppn_d[hart][issue];
-  rvviData.page_type_i = this.rvvi.page_type_i[hart][issue];
-  rvviData.page_type_d = this.rvvi.page_type_d[hart][issue];
-  rvviData.read_access = this.rvvi.read_access[hart][issue];
-  rvviData.write_access = this.rvvi.write_access[hart][issue];
-  rvviData.execute_access = this.rvvi.execute_access[hart][issue];
+  // Virtual addresses. The other virtual memory fields are not yet filled from the MEM records and stay 0.
+  rvviData.virt_adr_i = rvviData.pc_rdata;
+  rvviData.virt_adr_d = get_data_vaddr(disass, traceDataQ[hart][issue][0].x_wdata);
 
   // Store additional signals from the current trace
   rvviData.lrsc_cancel = this.rvvi.lrsc_cancel[hart][issue];
@@ -168,4 +144,27 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
     traceDataQ[hart][issue].delete(`NUM_RVVI_DATA-1);
   end
   traceDataQ[hart][issue].push_front(rvviData);
+endfunction
+
+// Effective address of a scalar load, store, AMO, or CMO, from the "offset(reg)" operand of the
+// disassembly and the register values before the instruction. jalr names a jump target, prefetch
+// does not access memory, and a vector access has an address per element, so they return 0.
+function bit [(XLEN-1):0] get_data_vaddr(string disass, logic [31:0][(XLEN-1):0] xregs);
+  string mnemonic;
+  int open, close, start, offset;
+  void'($sscanf(disass, "%s %s", mnemonic, mnemonic));
+  if (mnemonic == "jalr" || mnemonic.substr(0, 8) == "prefetch." || mnemonic[0] == "v") return 0;
+  // Stack pointer forms such as "c.lwsp x1, 8" have an implicit sp base
+  if (mnemonic inside {"c.lwsp", "c.ldsp", "c.swsp", "c.sdsp", "c.flwsp", "c.fldsp", "c.fswsp", "c.fsdsp"}) begin
+    for (start = disass.len()-1; start > 0 && disass[start-1] != " "; start--);
+    void'($sscanf(disass.substr(start, disass.len()-1), "%d", offset));
+    return xregs[2] + XLEN'(offset);
+  end
+  for (open = 0; open < disass.len() && disass[open] != "("; open++);
+  if (open == disass.len()) return 0;
+  for (close = open; close < disass.len() && disass[close] != ")"; close++);
+  for (start = open; start > 0 && disass[start-1] != " "; start--);
+  offset = 0;
+  if (start < open) void'($sscanf(disass.substr(start, open-1), "%d", offset));
+  return xregs[get_gpr_num(disass.substr(open+1, close-1))] + XLEN'(offset);
 endfunction

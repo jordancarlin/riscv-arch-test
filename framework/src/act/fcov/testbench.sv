@@ -3,12 +3,15 @@
 // RISC-V Architectural Functional Coverage Testbench
 //
 // Copyright (C) 2025 Harvey Mudd College, 10x Engineers, UET Lahore
+// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 // Written: Jordan Carlin jcarlin@hmc.edu March 2025
 //
 // SPDX-License-Identifier: Apache-2.0
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Replays RVVI-TEXT trace files onto the RVVI-Trace interface.
+// Each unescaped line of a trace file is one clock step.
 module testbench;
 
   // Load configuration
@@ -27,42 +30,38 @@ module testbench;
 
   localparam VLEN = `UDB_VLEN;
 
-  localparam PA_BITS = (XLEN==32 ? 32'd34 : 32'd56);
-  localparam PPN_BITS = (XLEN==32 ? 32'd22 : 32'd44);
-
-  // Temporary signals for filling RVVI trace interface (file handling, string parsing, etc)
+  // Trace file handling
   string  traceFileList, traceFile;
   integer traceFileListHandler, num;
   integer traceFileHandler = 0; // 0 = no trace file open yet
   string  line;
-  string  key, val;
-  string  words[$];
   string  traceFiles[$];
-  int     fileNum;
-  logic [63:0] order;
-  int     regNum;
+  int     fileNum = -1;
+
+  // RVVI-TEXT parser state
+  string             tokens[$];
+  string             nextTokens[$];
+  bit                haveNext = 0;
+  string             key;
+  int                hart, issue, count;
+  logic [63:0]       orderCount;
+  int                regNum;
   logic [(XLEN-1):0] xRegVal;
   logic [(FLEN-1):0] fRegVal;
   logic [(VLEN-1):0] vRegVal;
+  longint unsigned   netVal;
+  rvvi_mem_access_t  memAccess;
 
   // RVVI Trace interface signals
-  // Basic signals
   logic              clk;
+  logic              valid;
+  logic [63:0]       order;
   logic [31:0]       insn;
   logic              trap;
-  logic              valid;
   logic              debug_mode;
   logic [(XLEN-1):0] pc_rdata;
   logic [1:0]        mode;
-  logic              mode_virt; // hypervisor bit
-  // Virtual Memory
-  logic [(XLEN-1):0]     virt_adr_i, virt_adr_d;
-  logic [(PA_BITS-1):0]  phys_adr_i, phys_adr_d;
-  logic [(XLEN-1):0]     pte_i, pte_d;
-  logic [(PPN_BITS-1):0] ppn_i, ppn_d;
-  logic [1:0]            page_type_i, page_type_d;
-  logic read_access, write_access, execute_access;
-  // Registers
+  logic              mode_virt;
   logic [31:0][(XLEN-1):0]   x_wdata;
   logic [31:0]               x_wb;
   logic [31:0][(FLEN-1):0]   f_wdata;
@@ -109,119 +108,217 @@ module testbench;
   rvviTrace #(.XLEN(XLEN), .FLEN(FLEN), .VLEN(VLEN)) rvvi();
   riscv_arch_test riscv_arch_test(rvvi);
 
-  // Sample an instruction from the trace file on each clock edge
-  // Moves through full list of trace files
-  always @(posedge clk) begin
-    // Open trace file if needed
-    if(traceFileHandler == 0) begin
-      fileNum = 0;
-      traceFile = traceFiles[fileNum];
-      $display("Opening trace file: %s", traceFile);
-      traceFileHandler = $fopen(traceFile, "r");
+  // Drive the interface on the falling edge so all signals and MEM records are stable when
+  // the coverage model samples on the rising edge.
+  always @(negedge clk) begin
+    {valid, insn, trap, debug_mode, pc_rdata, x_wb, f_wb, v_wb, csr_wb, x_wdata, f_wdata, v_wdata} = 0;
+    hart = 0;
+    issue = 0;
+
+    readLine(tokens);
+    while (tokens.size() > 0) begin
+      key = tokens.pop_front();
+      case(key)
+        "VERSION": void'(popN(2));
+        "VENDOR":  void'(popN(3));
+        "PARAMS":  void'(popN(2*popInt()));
+        "HART": begin
+          hart = popInt();
+          issue = 0;
+          if (hart != 0) $fatal(1, "Error: only hart 0 is supported, found HART %0d in %s", hart, traceFile);
+        end
+        "ISSUE": begin
+          issue = popInt();
+          if (issue != 0) $fatal(1, "Error: only issue slot 0 is supported, found ISSUE %0d in %s", issue, traceFile);
+        end
+        "ORDER": orderCount = popInt();
+        "RET", "TRAP": begin
+          if (valid) $fatal(1, "Error: more than one retirement in one event in %s", traceFile);
+          num = $sscanf(tokens.pop_front(), "0x%h", pc_rdata);
+          num = $sscanf(tokens.pop_front(), "0x%h", insn);
+          trap = (key == "TRAP");
+          valid = 1;
+          order = orderCount;
+          orderCount++;
+        end
+        "X": begin
+          regNum = popInt();
+          num = $sscanf(tokens.pop_front(), "0x%h", xRegVal);
+          x_wdata[regNum] = xRegVal;
+          x_wb[regNum] = 1'b1;
+        end
+        "F": begin
+          regNum = popInt();
+          num = $sscanf(tokens.pop_front(), "0x%h", fRegVal);
+          f_wdata[regNum] = fRegVal;
+          f_wb[regNum] = 1'b1;
+        end
+        "V": begin
+          regNum = popInt();
+          num = $sscanf(tokens.pop_front(), "0x%h", vRegVal);
+          v_wdata[regNum] = vRegVal;
+          v_wb[regNum] = 1'b1;
+        end
+        "C": begin
+          num = $sscanf(tokens.pop_front(), "0x%h", regNum);
+          num = $sscanf(tokens.pop_front(), "0x%h", xRegVal);
+          csr[regNum] = xRegVal;
+          csr_wb[regNum] = 1'b1;
+        end
+        "MODE":  num = $sscanf(tokens.pop_front(), "0x%h", mode);
+        "VIRT":  num = $sscanf(tokens.pop_front(), "0x%h", mode_virt);
+        "DM":    num = $sscanf(tokens.pop_front(), "0x%h", debug_mode);
+        "META":  void'(popN(popInt()));
+        "CYCLE", "TIME": void'(popN(1));
+        "NET": begin
+          key = tokens.pop_front();
+          num = $sscanf(tokens.pop_front(), "0x%h", netVal);
+          rvvi.net_push(key, netVal);
+        end
+        "CANCEL": rvvi.net_cancel_push(tokens.pop_front());
+        "STATE": begin
+          key = tokens.pop_front();
+          rvvi.state[hart][key] = tokens.pop_front();
+        end
+        "MEM": parseMem();
+        default: $fatal(1, "Error: unknown RVVI-TEXT element %s in %s", key, traceFile);
+      endcase
+    end
+    if (valid) applyNextMode();
+  end
+
+  // Get the tokens of the next line. Moves to the next trace file at end of file and
+  // ends the simulation after the last one.
+  task automatic readLine(ref string toks[$]);
+    if (haveNext) begin
+      toks = nextTokens;
+      haveNext = 0;
+      return;
+    end
+    forever begin
       if (traceFileHandler == 0) begin
-        $display("Error: Could not open trace file");
-        $finish;
-      end
-    end else if($feof(traceFileHandler)) begin
-      $display("Completed trace file: %s", traceFile);
-      $fclose(traceFileHandler);
-      if(fileNum < traceFiles.size - 1) begin
+        if (fileNum >= int'(traceFiles.size()) - 1) begin
+          $display("All trace files completed");
+          $finish;
+          return;
+        end
         fileNum++;
         traceFile = traceFiles[fileNum];
         $display("Opening trace file: %s", traceFile);
         traceFileHandler = $fopen(traceFile, "r");
-        if (traceFileHandler == 0) begin
-          $display("Error: Could not open trace file");
-          $finish;
+        if (traceFileHandler == 0) $fatal(1, "Error: Could not open trace file %s", traceFile);
+        orderCount = 0;
+      end
+      if (readLogicalLine(toks)) return;
+      $display("Completed trace file: %s", traceFile);
+      $fclose(traceFileHandler);
+      traceFileHandler = 0;
+    end
+  endtask
+
+  // Read one line, joined with its continuation lines, from the open trace file.
+  // Returns 0 at end of file.
+  function automatic bit readLogicalLine(ref string toks[$]);
+    bit more = 1;
+    bit got = 0;
+    toks.delete();
+    while (more) begin
+      if ($fgets(line, traceFileHandler) == 0) return got;
+      got = 1;
+      tokenize(line, toks);
+      more = (toks.size() > 0 && toks[toks.size()-1] == "\\");
+      if (more) void'(toks.pop_back());
+    end
+    return 1;
+  endfunction
+
+  // Sail reports the mode an instruction starts in. The coverage model expects the mode after
+  // the instruction, so take MODE and VIRT from the next line of the same trace file.
+  // The last instruction in a file keeps its own mode.
+  function automatic void applyNextMode();
+    haveNext = readLogicalLine(nextTokens);
+    if (!haveNext) return;
+    for (int i = 0; i < int'(nextTokens.size()) - 1; i++) begin
+      if (nextTokens[i] == "MODE") void'($sscanf(nextTokens[i+1], "0x%h", mode));
+      else if (nextTokens[i] == "VIRT") void'($sscanf(nextTokens[i+1], "0x%h", mode_virt));
+    end
+  endfunction
+
+  function automatic int popInt();
+    int val;
+    void'($sscanf(tokens.pop_front(), "%d", val));
+    return val;
+  endfunction
+
+  function automatic int popN(int n);
+    repeat (n) void'(tokens.pop_front());
+    return n;
+  endfunction
+
+  // MEM <bus> <bytes> <vaddr> <paddr> <count> [<key> <value>]*
+  function automatic void parseMem();
+    string bus, k, v;
+    int pairs;
+    memAccess = '0;
+    bus = tokens.pop_front();
+    memAccess.fetch = (bus == "I");
+    memAccess.size = popInt();
+    void'($sscanf(tokens.pop_front(), "0x%h", memAccess.vaddr));
+    void'($sscanf(tokens.pop_front(), "0x%h", memAccess.paddr));
+    pairs = popInt();
+    repeat (pairs) begin
+      k = tokens.pop_front();
+      v = tokens.pop_front();
+      case (k)
+        "PTE":    void'($sscanf(v, "0x%h", memAccess.pte));
+        "GPTE":   void'($sscanf(v, "0x%h", memAccess.gpte));
+        "GPADDR": void'($sscanf(v, "0x%h", memAccess.gaddr));
+        "PT":     memAccess.page_type = pageType(v);
+        "GPT":    memAccess.guest_page_type = pageType(v);
+        default: ; // Unknown keys are skipped
+      endcase
+    end
+    rvvi.mem_access_push(hart, memAccess);
+  endfunction
+
+  function automatic logic [2:0] pageType(string pt);
+    case (pt)
+      "K": return 3'd0;
+      "M": return 3'd1;
+      "G": return 3'd2;
+      "T": return 3'd3;
+      "P": return 3'd4;
+      default: $fatal(1, "Error: unknown page type %s in %s", pt, traceFile);
+    endcase
+    return 3'd0;
+  endfunction
+
+  // Split a line into tokens in one pass. Removes '...' comments and the quotes around "..." names.
+  // A backslash inside a comment or a quoted name is not a continuation.
+  function automatic void tokenize(string str, ref string toks[$]);
+    int start = -1;
+    for (int i = 0; i < str.len(); i++) begin
+      byte c = str[i];
+      if (c == "'" || c == "\"") begin
+        int close = i + 1;
+        if (start >= 0) begin
+          toks.push_back(str.substr(start, i-1));
+          start = -1;
         end
-      end else begin
-        $display("All trace files completed");
-        $finish;
-      end
+        while (close < str.len() && str[close] != c) close++;
+        if (c == "\"") toks.push_back(close > i + 1 ? str.substr(i+1, close-1) : "");
+        i = close;
+      end else if (c == " " || c == "\n" || c == "\t" || c == "\r") begin
+        if (start >= 0) begin
+          toks.push_back(str.substr(start, i-1));
+          start = -1;
+        end
+      end else if (start < 0) start = i;
     end
-
-    // Reset all signals at the beginning of each iteration
-    {valid, insn, trap, debug_mode, pc_rdata, mode, mode_virt,
-    virt_adr_i, virt_adr_d, phys_adr_i, phys_adr_d,
-    pte_i, pte_d, ppn_i, ppn_d, page_type_i, page_type_d,
-    read_access, write_access, execute_access,
-    x_wb, f_wb, v_wb, csr_wb, x_wdata, f_wdata, v_wdata} = 0;
-
-    // Get next line from trace file
-    num = $fgets(line, traceFileHandler);
-
-    // Parse line and set signals
-    if (line != "" & line != "\n") begin // Skip empty lines
-      splitLine(line, words); // Split line into queue of individual words
-      while (words.size > 0) begin
-        key = words.pop_front();
-        val = words.pop_front();
-        // Need to parse values using $sscanf because standard ascii to int conversion
-        // doesn't work for number larger than 32 bits
-        case(key)
-          // Standard signals
-          "ORDER":          num = $sscanf(val, "%d", order);
-          "INSN":           num = $sscanf(val, "%h", insn);
-          "TRAP":           num = $sscanf(val, "%b", trap);
-          "DEBUG_MODE":     num = $sscanf(val, "%b", debug_mode);
-          "PC":             num = $sscanf(val, "%h", pc_rdata);
-          "MODE":           num = $sscanf(val, "%d", mode);
-          "MODE_VIRT":      num = $sscanf(val, "%d", mode_virt);
-          // Virtual Memory
-          "VIRT_ADR_I":     num = $sscanf(val, "%h", virt_adr_i);
-          "VIRT_ADR_D":     num = $sscanf(val, "%h", virt_adr_d);
-          "PHYS_ADR_I":     num = $sscanf(val, "%h", phys_adr_i);
-          "PHYS_ADR_D":     num = $sscanf(val, "%h", phys_adr_d);
-          "PTE_I":          num = $sscanf(val, "%h", pte_i);
-          "PTE_D":          num = $sscanf(val, "%h", pte_d);
-          "PPN_I":          num = $sscanf(val, "%h", ppn_i);
-          "PPN_D":          num = $sscanf(val, "%h", ppn_d);
-          "PAGE_TYPE_I":    num = $sscanf(val, "%b", page_type_i);
-          "PAGE_TYPE_D":    num = $sscanf(val, "%b", page_type_d);
-          "READ_ACCESS":    num = $sscanf(val, "%b", read_access);
-          "WRITE_ACCESS":   num = $sscanf(val, "%b", write_access);
-          "EXECUTE_ACCESS": num = $sscanf(val, "%b", execute_access);
-          // Registers
-          "X": begin
-            num = $sscanf(val, "%d", regNum);
-            val = words.pop_front();
-            num = $sscanf(val, "%h", xRegVal);
-            x_wdata[regNum] = xRegVal;
-            x_wb |= (1 << regNum);
-          end
-          "F": begin
-            num = $sscanf(val, "%d", regNum);
-            val = words.pop_front();
-            num = $sscanf(val, "%h", fRegVal);
-            f_wdata[regNum] = fRegVal;
-            f_wb |= (1 << regNum);
-          end
-          "V": begin
-            num = $sscanf(val, "%d", regNum);
-            val = words.pop_front();
-            num = $sscanf(val, "%h", vRegVal);
-            v_wdata[regNum] = vRegVal;
-            v_wb |= (1 << regNum);
-          end
-          "CSR": begin
-            num = $sscanf(val, "%h", regNum);
-            val = words.pop_front();
-            num = $sscanf(val, "%h", xRegVal);
-            csr[regNum] = xRegVal;
-            csr_wb[regNum] =1'b1;
-          end
-          default: begin
-            $display("Unknown key: %s", key);
-            $finish();
-          end
-        endcase
-      end
-      valid = 1;
-    end
-  end
+    if (start >= 0) toks.push_back(str.substr(start, str.len()-1));
+  endfunction
 
   // Connect testbench signals to RVVI trace interface
-  // Basic signals
   assign rvvi.clk = clk;
   assign rvvi.valid[0][0] = valid;
   assign rvvi.order[0][0] = order;
@@ -231,23 +328,6 @@ module testbench;
   assign rvvi.pc_rdata[0][0] = pc_rdata;
   assign rvvi.mode[0][0] = mode;
   assign rvvi.mode_virt[0][0] = mode_virt;
-
-  // Virtual Memory
-  assign rvvi.virt_adr_i[0][0] = virt_adr_i;
-  assign rvvi.virt_adr_d[0][0] = virt_adr_d;
-  assign rvvi.phys_adr_i[0][0] = phys_adr_i;
-  assign rvvi.phys_adr_d[0][0] = phys_adr_d;
-  assign rvvi.pte_i[0][0] = pte_i;
-  assign rvvi.pte_d[0][0] = pte_d;
-  assign rvvi.ppn_i[0][0] = ppn_i;
-  assign rvvi.ppn_d[0][0] = ppn_d;
-  assign rvvi.page_type_i[0][0] = page_type_i;
-  assign rvvi.page_type_d[0][0] = page_type_d;
-  assign rvvi.read_access[0][0] = read_access;
-  assign rvvi.write_access[0][0] = write_access;
-  assign rvvi.execute_access[0][0] = execute_access;
-
-  // Registers
   assign rvvi.x_wb[0][0] = x_wb;
   assign rvvi.x_wdata[0][0] = x_wdata;
   assign rvvi.f_wb[0][0] = f_wb;
@@ -256,22 +336,5 @@ module testbench;
   assign rvvi.v_wdata[0][0] = v_wdata;
   assign rvvi.csr_wb[0][0] = csr_wb;
   assign rvvi.csr[0][0] = csr;
-
-  // Takes a string and splits it into individual words that are returned in the provided string queue.
-  // One pass over the characters: scanning and copying the remainder of the line for every word is
-  // quadratic, and vector trace lines run to hundreds of kilobytes.
-  function automatic void splitLine(string line, ref string words[$]);
-    int start = -1;
-    for (int i = 0; i < line.len(); i++) begin
-      byte c = line[i];
-      if (c == " " || c == "\n" || c == "\t" || c == "\r") begin
-        if (start >= 0) begin
-          words.push_back(line.substr(start, i-1));
-          start = -1;
-        end
-      end else if (start < 0) start = i;
-    end
-    if (start >= 0) words.push_back(line.substr(start, line.len()-1));
-  endfunction
 
 endmodule

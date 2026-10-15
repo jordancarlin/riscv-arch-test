@@ -18,7 +18,6 @@ from act.build_types import COVERAGE_STEP_TIMEOUT_SECONDS, BuildTask, PythonActi
 from act.config import Config, CoverageSimulator, RefModelType, spike_isa_string
 from act.coverreport import generate_report, merge_summaries
 from act.parse_test_constraints import TestMetadata
-from act.sail_to_rvvi import sailLog2Trace
 from act.sig_modify import process_signature_file
 from act.toolchain import Toolchain
 from act.trap_report import generate_trap_report
@@ -339,8 +338,7 @@ def gen_rvvi_tasks(
 ) -> list[BuildTask]:
     """Generate BuildTasks for RVVI trace generation (coverage pipeline).
 
-    Only supported when the reference model is Sail; the converter parses Sail's
-    trace format.
+    Only supported when the reference model is Sail, which writes the RVVI-TEXT trace.
     """
     if config.ref_model_type != RefModelType.SAIL:
         raise ValueError(
@@ -354,7 +352,6 @@ def gen_rvvi_tasks(
     elf_dir = base_dir / "elfs"
     elf = elf_dir / test_name.with_suffix(".elf")
     objdump_link = coverage_dir / test_name.with_suffix(".elf.objdump")
-    sail_trace = coverage_dir / test_name.with_suffix(".trace")
     sail_log = coverage_dir / test_name.with_suffix(".log")
     rvvi_trace = coverage_dir / test_name.with_suffix(".rvvi")
 
@@ -369,15 +366,15 @@ def gen_rvvi_tasks(
             )
         )
 
-    # Run Sail with trace
+    # Run Sail with RVVI-TEXT trace output
     sail_cmd = [str(config.ref_model_exe)]
     if enable_experimental_extensions:
         sail_cmd.append("--enable-experimental-extensions")
     sail_cmd.extend(
         [
-            "--trace",
-            "--trace-output",
-            str(sail_trace),
+            "--trace-rvvi-text",
+            "--rvvi-text-output",
+            str(rvvi_trace),
             "--config",
             str(config.dut_include_dir / "sail.json"),
             str(elf),
@@ -385,20 +382,10 @@ def gen_rvvi_tasks(
     )
     tasks.append(
         BuildTask(
-            outputs=(sail_trace,),
+            outputs=(rvvi_trace,),
             deps=(elf,),
             extra_inputs=ref_model_inputs,
             action=SubprocessAction(cmd=sail_cmd, stdout_file=sail_log),
-            intermediate=True,
-        )
-    )
-
-    # Convert to RVVI
-    tasks.append(
-        BuildTask(
-            outputs=(rvvi_trace,),
-            deps=(sail_trace,),
-            action=PythonAction(fn=sailLog2Trace, args=(sail_trace, rvvi_trace)),
             intermediate=True,
         )
     )
