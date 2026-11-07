@@ -14,7 +14,7 @@
 `define COVER_ZIHINTNTL
 covergroup Zihintntl_ntl_all_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "ntl.all"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_NTL_ALL  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -23,7 +23,7 @@ endgroup
 // ---------------------
 covergroup Zihintntl_ntl_p1_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "ntl.p1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_NTL_P1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -32,7 +32,7 @@ endgroup
 // ---------------------
 covergroup Zihintntl_ntl_pall_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "ntl.pall"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_NTL_PALL  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -41,7 +41,7 @@ endgroup
 // ---------------------
 covergroup Zihintntl_ntl_s1_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "ntl.s1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_NTL_S1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -51,7 +51,7 @@ endgroup
 `ifdef ZCA_SUPPORTED
 covergroup ZihintntlZca_c_ntl_all_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.ntl.all"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_NTL_ALL  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -60,7 +60,7 @@ endgroup
 // ---------------------
 covergroup ZihintntlZca_c_ntl_p1_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.ntl.p1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_NTL_P1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -69,7 +69,7 @@ endgroup
 // ---------------------
 covergroup ZihintntlZca_c_ntl_pall_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.ntl.pall"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_NTL_PALL  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -78,7 +78,7 @@ endgroup
 // ---------------------
 covergroup ZihintntlZca_c_ntl_s1_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.ntl.s1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_NTL_S1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }

@@ -15,7 +15,7 @@
 `ifdef UDB_MXLEN_32
 covergroup Zcf_c_flw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.flw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_FLW  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -67,12 +67,12 @@ endgroup
 // ---------------------
 covergroup Zcf_c_flwsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.flwsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_FLWSP  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_fd : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.trap == 0 )  {
+    cp_fd : coverpoint ins.current.fd  iff (ins.trap == 0 )  {
         // FD register assignment
     }
 
@@ -115,7 +115,7 @@ endgroup
 // ---------------------
 covergroup Zcf_c_fsw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fsw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_FSW  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -137,12 +137,12 @@ endgroup
 // ---------------------
 covergroup Zcf_c_fswsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fswsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_FSWSP  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_fs2 : coverpoint ins.get_fpr_reg(ins.current.fs2)  iff (ins.trap == 0 )  {
+    cp_fs2 : coverpoint ins.current.fs2  iff (ins.trap == 0 )  {
         // FS2 register assignment
     }
 

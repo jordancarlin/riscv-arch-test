@@ -15,23 +15,23 @@
 `ifdef UDB_MXLEN_32
 covergroup Zknd_aes32dsi_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes32dsi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_AES32DSI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -40,11 +40,11 @@ covergroup Zknd_aes32dsi_cg with function sample(ins_t ins);
         // four bins of byte select
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -84,7 +84,7 @@ covergroup Zknd_aes32dsi_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -137,23 +137,23 @@ endgroup
 // ---------------------
 covergroup Zknd_aes32dsmi_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes32dsmi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_AES32DSMI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -162,11 +162,11 @@ covergroup Zknd_aes32dsmi_cg with function sample(ins_t ins);
         // four bins of byte select
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -206,7 +206,7 @@ covergroup Zknd_aes32dsmi_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -261,32 +261,32 @@ endgroup
 `ifdef UDB_MXLEN_64
 covergroup Zknd_aes64ds_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes64ds"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_AES64DS  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -326,7 +326,7 @@ covergroup Zknd_aes64ds_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -379,32 +379,32 @@ endgroup
 // ---------------------
 covergroup Zknd_aes64dsm_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes64dsm"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_AES64DSM  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -444,7 +444,7 @@ covergroup Zknd_aes64dsm_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -497,20 +497,20 @@ endgroup
 // ---------------------
 covergroup Zknd_aes64im_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes64im"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_AES64IM  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -554,16 +554,16 @@ endgroup
 // ---------------------
 covergroup Zknd_aes64ks1i_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes64ks1i"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_AES64KS1I  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
@@ -571,7 +571,7 @@ covergroup Zknd_aes64ks1i_cg with function sample(ins_t ins);
         bins rnum[] = {[0:10]};
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -622,32 +622,32 @@ endgroup
 // ---------------------
 covergroup Zknd_aes64ks2_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "aes64ks2"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_AES64KS2  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -687,7 +687,7 @@ covergroup Zknd_aes64ks2_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 

@@ -12,17 +12,17 @@
 
     `ifdef COVER_VLS8
         // SEW=8, EEW=8 -> rule (a): vd == vs2 legal. Any vd hittable.
-        cp_custom_indexed_overlap_eew8_sew8 : coverpoint ins.get_vr_reg(ins.current.vd) iff (
+        cp_custom_indexed_overlap_eew8_sew8 : coverpoint ins.current.vd iff (
             (ins.current.vd == ins.current.vs2) & (ins.trap == 0)
         );
     `endif
 
     `ifdef COVER_VLS16
         // SEW=16, EEW=8 -> rule (c). LMUL >= 2 -> vd aligned to 2.
-        cp_custom_indexed_overlap_eew8_sew16 : coverpoint ins.get_vr_reg(ins.current.vd) iff (
+        cp_custom_indexed_overlap_eew8_sew16 : coverpoint ins.current.vd iff (
             (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul") < 4) &
-            (ins.get_vr_reg(ins.current.vs2) > ins.get_vr_reg(ins.current.vd)) &
-            (ins.get_vr_reg(ins.current.vs2) < ins.get_vr_reg(ins.current.vd) + (1 << get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul"))) &
+            (ins.current.vs2 > ins.current.vd) &
+            (ins.current.vs2 < ins.current.vd + (1 << get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul"))) &
             (ins.trap == 0)
         ) {
             bins v0  = {v0};
@@ -46,10 +46,10 @@
 
     `ifdef COVER_VLS32
         // SEW=32, EEW=8 -> rule (c). LMUL >= 4 -> vd aligned to 4.
-        cp_custom_indexed_overlap_eew8_sew32 : coverpoint ins.get_vr_reg(ins.current.vd) iff (
+        cp_custom_indexed_overlap_eew8_sew32 : coverpoint ins.current.vd iff (
             (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul") < 4) &
-            (ins.get_vr_reg(ins.current.vs2) > ins.get_vr_reg(ins.current.vd)) &
-            (ins.get_vr_reg(ins.current.vs2) < ins.get_vr_reg(ins.current.vd) + (1 << get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul"))) &
+            (ins.current.vs2 > ins.current.vd) &
+            (ins.current.vs2 < ins.current.vd + (1 << get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul"))) &
             (ins.trap == 0)
         ) {
             bins v0  = {v0};
@@ -65,10 +65,10 @@
 
     `ifdef COVER_VLS64
         // SEW=64, EEW=8 -> rule (c). LMUL = 8 -> vd aligned to 8, max v24.
-        cp_custom_indexed_overlap_eew8_sew64 : coverpoint ins.get_vr_reg(ins.current.vd) iff (
+        cp_custom_indexed_overlap_eew8_sew64 : coverpoint ins.current.vd iff (
             (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul") < 4) &
-            (ins.get_vr_reg(ins.current.vs2) > ins.get_vr_reg(ins.current.vd)) &
-            (ins.get_vr_reg(ins.current.vs2) < ins.get_vr_reg(ins.current.vd) + (1 << get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul"))) &
+            (ins.current.vs2 > ins.current.vd) &
+            (ins.current.vs2 < ins.current.vd + (1 << get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul"))) &
             (ins.trap == 0)
         ) {
             bins v0  = {v0};

@@ -12,7 +12,7 @@
 
     `ifdef COVER_VLS8
         // SEW=8, EEW=64 -> rule (b). EMUL_src=8*LMUL, vd aligned to 8, max v24.
-        cp_custom_indexed_overlap_eew64_sew8 : coverpoint ins.get_vr_reg(ins.current.vd) iff (
+        cp_custom_indexed_overlap_eew64_sew8 : coverpoint ins.current.vd iff (
             (ins.current.vd == ins.current.vs2) & (ins.trap == 0)
         ) {
             bins v0  = {v0};
@@ -24,7 +24,7 @@
 
     `ifdef COVER_VLS16
         // SEW=16, EEW=64 -> rule (b). EMUL_src=4*LMUL, vd aligned to 4.
-        cp_custom_indexed_overlap_eew64_sew16 : coverpoint ins.get_vr_reg(ins.current.vd) iff (
+        cp_custom_indexed_overlap_eew64_sew16 : coverpoint ins.current.vd iff (
             (ins.current.vd == ins.current.vs2) & (ins.trap == 0)
         ) {
             bins v0  = {v0};
@@ -40,7 +40,7 @@
 
     `ifdef COVER_VLS32
         // SEW=32, EEW=64 -> rule (b). EMUL_src=2*LMUL, vd aligned to 2.
-        cp_custom_indexed_overlap_eew64_sew32 : coverpoint ins.get_vr_reg(ins.current.vd) iff (
+        cp_custom_indexed_overlap_eew64_sew32 : coverpoint ins.current.vd iff (
             (ins.current.vd == ins.current.vs2) & (ins.trap == 0)
         ) {
             bins v0  = {v0};
@@ -64,7 +64,7 @@
 
     `ifdef COVER_VLS64
         // SEW=64, EEW=64 -> rule (a): any vd legal.
-        cp_custom_indexed_overlap_eew64_sew64 : coverpoint ins.get_vr_reg(ins.current.vd) iff (
+        cp_custom_indexed_overlap_eew64_sew64 : coverpoint ins.current.vd iff (
             (ins.current.vd == ins.current.vs2) & (ins.trap == 0)
         );
     `endif

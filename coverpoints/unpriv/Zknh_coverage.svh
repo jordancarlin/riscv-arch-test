@@ -14,20 +14,20 @@
 `define COVER_ZKNH
 covergroup Zknh_sha256sig0_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha256sig0"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA256SIG0  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -71,20 +71,20 @@ endgroup
 // ---------------------
 covergroup Zknh_sha256sig1_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha256sig1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA256SIG1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -128,20 +128,20 @@ endgroup
 // ---------------------
 covergroup Zknh_sha256sum0_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha256sum0"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA256SUM0  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -185,20 +185,20 @@ endgroup
 // ---------------------
 covergroup Zknh_sha256sum1_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha256sum1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA256SUM1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -243,32 +243,32 @@ endgroup
 `ifdef UDB_MXLEN_32
 covergroup Zknh_sha512sig0h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig0h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA512SIG0H  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -308,7 +308,7 @@ covergroup Zknh_sha512sig0h_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -356,32 +356,32 @@ endgroup
 // ---------------------
 covergroup Zknh_sha512sig0l_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig0l"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA512SIG0L  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -421,7 +421,7 @@ covergroup Zknh_sha512sig0l_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -469,32 +469,32 @@ endgroup
 // ---------------------
 covergroup Zknh_sha512sig1h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig1h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA512SIG1H  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -534,7 +534,7 @@ covergroup Zknh_sha512sig1h_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -582,32 +582,32 @@ endgroup
 // ---------------------
 covergroup Zknh_sha512sig1l_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig1l"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA512SIG1L  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -647,7 +647,7 @@ covergroup Zknh_sha512sig1l_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -695,32 +695,32 @@ endgroup
 // ---------------------
 covergroup Zknh_sha512sum0r_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sum0r"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA512SUM0R  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -760,7 +760,7 @@ covergroup Zknh_sha512sum0r_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -808,32 +808,32 @@ endgroup
 // ---------------------
 covergroup Zknh_sha512sum1r_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sum1r"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA512SUM1R  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -873,7 +873,7 @@ covergroup Zknh_sha512sum1r_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -923,20 +923,20 @@ endgroup
 `ifdef UDB_MXLEN_64
 covergroup Zknh_sha512sig0_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig0"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA512SIG0  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -980,20 +980,20 @@ endgroup
 // ---------------------
 covergroup Zknh_sha512sig1_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sig1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA512SIG1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -1037,20 +1037,20 @@ endgroup
 // ---------------------
 covergroup Zknh_sha512sum0_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sum0"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA512SUM0  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -1094,20 +1094,20 @@ endgroup
 // ---------------------
 covergroup Zknh_sha512sum1_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sha512sum1"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SHA512SUM1  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 

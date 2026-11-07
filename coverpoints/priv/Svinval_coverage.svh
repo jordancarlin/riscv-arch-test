@@ -32,11 +32,11 @@ covergroup Svinval_cg with function sample(ins_t ins);
     sinval_vma : coverpoint ins.current.insn {
         wildcard bins sinval_vma = {SINVAL_VMA};
     }
-    rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.ins_str inside {"sinval.vma"}) {
+    rs1 : coverpoint ins.current.rs1 iff (ins.current.inst_id == INST_SINVAL_VMA) {
         bins x0       = {x0};
         bins register = {[x1:x31]};
     }
-    rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2) iff (ins.ins_str inside {"sinval.vma"}) {
+    rs2 : coverpoint ins.current.rs2 iff (ins.current.inst_id == INST_SINVAL_VMA) {
         bins x0       = {x0};
         bins register = {[x1:x31]};
     }
@@ -105,11 +105,11 @@ covergroup Svinval_H_cg with function sample(ins_t ins);
         sinval_vma : coverpoint ins.current.insn {
             wildcard bins sinval_vma = {SINVAL_VMA};
         }
-        rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.ins_str inside {"sinval.vma", "hinval.vvma", "hinval.gvma"}) {
+        rs1 : coverpoint ins.current.rs1 iff (ins.current.inst_id inside {INST_SINVAL_VMA, INST_HINVAL_VVMA, INST_HINVAL_GVMA}) {
             bins x0       = {x0};
             bins register = {[x1:x31]};
         }
-        rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2) iff (ins.ins_str inside {"sinval.vma", "hinval.vvma", "hinval.gvma"}) {
+        rs2 : coverpoint ins.current.rs2 iff (ins.current.inst_id inside {INST_SINVAL_VMA, INST_HINVAL_VVMA, INST_HINVAL_GVMA}) {
             bins x0       = {x0};
             bins register = {[x1:x31]};
         }

@@ -14,12 +14,12 @@
 `define COVER_ZALRSC
 covergroup Zalrsc_lr_w_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1_nx0 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all 31 registers excluding x0
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "lr.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_LR_W  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -40,11 +40,11 @@ covergroup Zalrsc_lr_w_cg with function sample(ins_t ins);
     `endif
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -53,26 +53,26 @@ endgroup
 // ---------------------
 covergroup Zalrsc_sc_w_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1_nx0 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all 31 registers excluding x0
         ignore_bins x0 = {x0};
     }
 
-    cmp_rd_rs1_rs2_nx0 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2_nx0 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers excluding x0
         ignore_bins x0 = {x0};
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2_nx0 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all 31 registers excluding x0
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sc.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SC_W  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -101,16 +101,16 @@ covergroup Zalrsc_sc_w_cg with function sample(ins_t ins);
     cp_custom_sc_lr : cross cp_prev_lr, cp_sc_pass_fail;
     cp_custom_sc_addresses : cross cp_prev_lr, cp_address_difference;
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -155,12 +155,12 @@ endgroup
 `ifdef UDB_MXLEN_64
 covergroup Zalrsc_lr_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1_nx0 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all 31 registers excluding x0
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "lr.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_LR_D  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -181,11 +181,11 @@ covergroup Zalrsc_lr_d_cg with function sample(ins_t ins);
     `endif
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -194,26 +194,26 @@ endgroup
 // ---------------------
 covergroup Zalrsc_sc_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rd_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
+    cmp_rd_rs1_nx0 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.trap == 0 )  {
         // Compare assignments of all 31 registers excluding x0
         ignore_bins x0 = {x0};
     }
 
-    cmp_rd_rs1_rs2_nx0 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs1_rs2_nx0 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs1 & ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers excluding x0
         ignore_bins x0 = {x0};
     }
 
-    cmp_rd_rs2 : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rd_rs2 : coverpoint ins.current.rd  iff (ins.current.rd == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all registers
     }
 
-    cmp_rs1_rs2_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2_nx0 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all 31 registers excluding x0
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "sc.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_SC_D  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -242,16 +242,16 @@ covergroup Zalrsc_sc_d_cg with function sample(ins_t ins);
     cp_custom_sc_lr : cross cp_prev_lr, cp_sc_pass_fail;
     cp_custom_sc_addresses : cross cp_prev_lr, cp_address_difference;
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 

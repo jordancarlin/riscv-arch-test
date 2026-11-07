@@ -14,7 +14,7 @@
 `define COVER_ZCD
 covergroup Zcd_c_fld_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fld"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_FLD  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -66,12 +66,12 @@ endgroup
 // ---------------------
 covergroup Zcd_c_fldsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fldsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_FLDSP  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_fd : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.trap == 0 )  {
+    cp_fd : coverpoint ins.current.fd  iff (ins.trap == 0 )  {
         // FD register assignment
     }
 
@@ -114,7 +114,7 @@ endgroup
 // ---------------------
 covergroup Zcd_c_fsd_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fsd"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_FSD  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -136,12 +136,12 @@ endgroup
 // ---------------------
 covergroup Zcd_c_fsdsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.fsdsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_FSDSP  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_fs2 : coverpoint ins.get_fpr_reg(ins.current.fs2)  iff (ins.trap == 0 )  {
+    cp_fs2 : coverpoint ins.current.fs2  iff (ins.trap == 0 )  {
         // FS2 register assignment
     }
 

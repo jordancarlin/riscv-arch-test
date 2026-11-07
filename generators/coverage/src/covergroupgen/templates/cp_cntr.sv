@@ -1,4 +1,4 @@
-    cp_cntr : coverpoint ins.current.insn[31:20] iff (ins.get_gpr_reg(ins.current.rs1) == x0) {
+    cp_cntr : coverpoint ins.current.insn[31:20] iff (ins.current.rs1 == x0) {
         bins csr_cycle   = {CSR_CYCLE};
         bins csr_time    = {CSR_TIME};
         bins csr_instret = {CSR_INSTRET};

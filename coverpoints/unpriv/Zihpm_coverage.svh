@@ -14,7 +14,7 @@
 `define COVER_ZIHPM
 covergroup Zihpm_csrrc_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_cntr_hpm : coverpoint ins.current.insn[31:20] iff (ins.get_gpr_reg(ins.current.rs1) == x0) {
+    cp_cntr_hpm : coverpoint ins.current.insn[31:20] iff (ins.current.rs1 == x0) {
         `ifdef UDB_HPM_COUNTER_EN_3
             bins hpmcounter3  = {CSR_HPMCOUNTER3};
         `endif
@@ -197,7 +197,7 @@ endgroup
 // ---------------------
 covergroup Zihpm_csrrs_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_cntr_hpm : coverpoint ins.current.insn[31:20] iff (ins.get_gpr_reg(ins.current.rs1) == x0) {
+    cp_cntr_hpm : coverpoint ins.current.insn[31:20] iff (ins.current.rs1 == x0) {
         `ifdef UDB_HPM_COUNTER_EN_3
             bins hpmcounter3  = {CSR_HPMCOUNTER3};
         `endif

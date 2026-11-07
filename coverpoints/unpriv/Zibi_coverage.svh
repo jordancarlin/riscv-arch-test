@@ -14,7 +14,7 @@
 `define COVER_ZIBI
 covergroup Zibi_beqi_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "beqi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_BEQI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -35,7 +35,7 @@ covergroup Zibi_beqi_cg with function sample(ins_t ins);
         // Branch Immediate Offset value is forward/backward
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -99,7 +99,7 @@ endgroup
 // ---------------------
 covergroup Zibi_bnei_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "bnei"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_BNEI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -120,7 +120,7 @@ covergroup Zibi_bnei_cg with function sample(ins_t ins);
         // Branch Immediate Offset value is forward/backward
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 

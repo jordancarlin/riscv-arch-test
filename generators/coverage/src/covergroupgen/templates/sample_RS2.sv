@@ -1,3 +1,3 @@
         @INSTRID@     : begin
-            ins.add_rs2(0);
+            ins.add_rs2(rd);
         end

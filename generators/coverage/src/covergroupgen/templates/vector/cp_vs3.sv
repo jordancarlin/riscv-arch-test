@@ -2,7 +2,7 @@
     // cp_vs3
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs3 : coverpoint ins.get_vr_reg(ins.current.vs3)  iff (ins.trap == 0 )  {
+    cp_vs3 : coverpoint ins.current.vs3  iff (ins.trap == 0 )  {
         // VS3 register assignment
     }
 

@@ -114,7 +114,7 @@ RVVI and riscvISACOV support the notion of multiple harts that retire multiple i
 
 [NOTE]
 ====
-Our riscvISACOV implementation uses a SystemVerilog disassembler in fcov/disassemble.svh, replacing a proprietary disassembler from Imperas.  When adding new extensions, update the disassembler accordingly.
+Our riscvISACOV implementation decodes instructions with a SystemVerilog decoder generated from the testplans, replacing a proprietary disassembler from Imperas. It reads operands directly from the instruction encoding.
 ====
 
 === Writing Coverpoints with riscvISACOV

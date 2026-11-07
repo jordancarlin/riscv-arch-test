@@ -2,7 +2,7 @@
     // cp_vs1_nv0
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_nv0 : coverpoint ins.get_vr_reg(ins.current.vs1) iff (ins.trap == 0) {
+    cp_vs1_nv0 : coverpoint ins.current.vs1 iff (ins.trap == 0) {
         // VS1 register assignment (excluding v0)
         ignore_bins v0 = {v0};
     }

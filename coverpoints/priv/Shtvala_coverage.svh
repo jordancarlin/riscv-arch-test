@@ -118,7 +118,7 @@ covergroup Shtvala_cg with function sample(ins_t ins);
             straddle : coverpoint ((ins.current.rs1_val + ins.current.imm) & 'hFFF) {
                 bins page_end = {'hFFE};
             }
-            // As straddle, for HLV and HSV, whose address is rs1 alone: their disassembly has no immediate operand, so
+            // As straddle, for HLV and HSV, whose address is rs1 alone: they have no immediate operand, so
             // ins.current.imm is not set for them
             straddle_hlsv : coverpoint (ins.current.rs1_val & 'hFFF) {
                 bins page_end = {'hFFE};

@@ -88,7 +88,6 @@ class riscvTraceData
   int                         hart;
   int                         issue;
   // Decoded instruction info
-  string                      disass;
   inst_id_t                   inst_id;
 
   int                         inst_category;
@@ -107,20 +106,20 @@ class riscvTraceData
   bit                       has_vs3;
   bit                       has_v0;
 
-  string                    rd;
-  string                    rs1;
-  string                    rs2;
-  string                    rs3;
+  gpr_name_t                rd;
+  gpr_name_t                rs1;
+  gpr_name_t                rs2;
+  gpr_name_t                rs3;
 
-  string                    fd;
-  string                    fs1;
-  string                    fs2;
-  string                    fs3;
+  fpr_name_t                fd;
+  fpr_name_t                fs1;
+  fpr_name_t                fs2;
+  fpr_name_t                fs3;
 
-  string                    vd;
-  string                    vs1;
-  string                    vs2;
-  string                    vs3;
+  vr_name_t                 vd;
+  vr_name_t                 vs1;
+  vr_name_t                 vs2;
+  vr_name_t                 vs3;
 
   bit [(XLEN-1):0]          rd_val;
   bit [(XLEN-1):0]          rd_upper_pair_val;

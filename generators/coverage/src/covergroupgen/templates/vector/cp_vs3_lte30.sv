@@ -2,7 +2,7 @@
     // cp_vs3_lte30
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs3_lte30 : coverpoint ins.get_vr_reg(ins.current.vs3)  iff (ins.trap == 0 )  {
+    cp_vs3_lte30 : coverpoint ins.current.vs3  iff (ins.trap == 0 )  {
         // VD register assignment excluding bins
         ignore_bins v31 = {v31};
     }

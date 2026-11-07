@@ -1,4 +1,4 @@
-    cp_cntr_hpm : coverpoint ins.current.insn[31:20] iff (ins.get_gpr_reg(ins.current.rs1) == x0) {
+    cp_cntr_hpm : coverpoint ins.current.insn[31:20] iff (ins.current.rs1 == x0) {
         `ifdef UDB_HPM_COUNTER_EN_3
             bins hpmcounter3  = {CSR_HPMCOUNTER3};
         `endif

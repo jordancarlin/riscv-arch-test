@@ -28,7 +28,7 @@
 
 riscvTraceData #(ILEN, XLEN, FLEN, VLEN) traceDataQ [(NHART-1):0][(RETIRE-1):0] [$:`NUM_RVVI_DATA];
 
-function void save_rvvi_data(bit trap, int hart, int issue, string disass);
+function void save_rvvi_data(bit trap, int hart, int issue);
   riscvTraceData #(ILEN, XLEN, FLEN, VLEN) rvviData;
   bit [31:0] mask;
   int idx;
@@ -72,7 +72,6 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
     rvviData.execute_access = 0;
     rvviData.hart = hart;
     rvviData.issue = issue;
-    rvviData.disass = "";
     rvviData.inst_id = INST_NONE;
     traceDataQ[hart][issue].push_front(rvviData);
   end
@@ -152,7 +151,6 @@ function void save_rvvi_data(bit trap, int hart, int issue, string disass);
 
   // Store additional signals from the current trace
   rvviData.lrsc_cancel = this.rvvi.lrsc_cancel[hart][issue];
-  rvviData.disass = disass;
   rvviData.inst_id = decode_inst_id(this.rvvi.insn[hart][issue]);
   rvviData.hart = hart;
   rvviData.issue = issue;

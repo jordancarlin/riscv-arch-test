@@ -1,3 +1,3 @@
         @INSTRID@     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_u(insn));
         end

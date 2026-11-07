@@ -1,4 +1,4 @@
         @INSTRID@     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end

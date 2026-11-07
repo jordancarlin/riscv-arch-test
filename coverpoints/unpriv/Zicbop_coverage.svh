@@ -14,7 +14,7 @@
 `define COVER_ZICBOP
 covergroup Zicbop_prefetch_i_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "prefetch.i"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_PREFETCH_I  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -26,7 +26,7 @@ covergroup Zicbop_prefetch_i_cg with function sample(ins_t ins);
         wildcard bins prefetch = {32'b???????000???????110000000010011};
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -34,7 +34,7 @@ endgroup
 // ---------------------
 covergroup Zicbop_prefetch_r_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "prefetch.r"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_PREFETCH_R  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -46,7 +46,7 @@ covergroup Zicbop_prefetch_r_cg with function sample(ins_t ins);
         wildcard bins prefetch = {32'b???????000???????110000000010011};
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -54,7 +54,7 @@ endgroup
 // ---------------------
 covergroup Zicbop_prefetch_w_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "prefetch.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_PREFETCH_W  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -66,7 +66,7 @@ covergroup Zicbop_prefetch_w_cg with function sample(ins_t ins);
         wildcard bins prefetch = {32'b???????000???????110000000010011};
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 

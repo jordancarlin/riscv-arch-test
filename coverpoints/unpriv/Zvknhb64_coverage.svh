@@ -25,7 +25,7 @@ covergroup Zvknhb64_vsha2ch_vv_cg with function sample(ins_t ins);
     // cmp_vs1_vs2_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vs1_vs2_egs4 : coverpoint ins.get_vr_reg(ins.current.vs1)  iff (ins.current.vs1 == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vs1_vs2_egs4 : coverpoint ins.current.vs1  iff (ins.current.vs1 == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers; with VLEN=64 only even registers are valid (LMUL=2), and VLEN=32 only multiple of 4 are valid (LMUL=4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -60,7 +60,7 @@ covergroup Zvknhb64_vsha2ch_vv_cg with function sample(ins_t ins);
 
     //// end cmp_vs1_vs2_egs4////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vsha2ch.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_VSHA2CH_VV  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -86,7 +86,7 @@ covergroup Zvknhb64_vsha2ch_vv_cg with function sample(ins_t ins);
     // cp_vd_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vd_egs4 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.trap == 0 )  {
+    cp_vd_egs4 : coverpoint ins.current.vd  iff (ins.trap == 0 )  {
         // VD register assignment (EGS=4, SEW=32: with VLEN=64 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4 is required so all registers must be a multiple of 4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -141,7 +141,7 @@ covergroup Zvknhb64_vsha2ch_vv_cg with function sample(ins_t ins);
     // cp_vs1_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_egs4 : coverpoint ins.get_vr_reg(ins.current.vs1)  iff (ins.trap == 0 )  {
+    cp_vs1_egs4 : coverpoint ins.current.vs1  iff (ins.trap == 0 )  {
         // VS1 register assignment (EGS=4, SEW=32: with VLEN=64 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4 is required so all registers must be a multiple of 4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -196,7 +196,7 @@ covergroup Zvknhb64_vsha2ch_vv_cg with function sample(ins_t ins);
     // cp_vs2_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_egs4 : coverpoint ins.get_vr_reg(ins.current.vs2)  iff (ins.trap == 0 )  {
+    cp_vs2_egs4 : coverpoint ins.current.vs2  iff (ins.trap == 0 )  {
         // VS2 register assignment (EGS=4, SEW=32: with VLEN=64 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4 is required so all registers must be a multiple of 4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -350,7 +350,7 @@ covergroup Zvknhb64_vsha2cl_vv_cg with function sample(ins_t ins);
     // cmp_vs1_vs2_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vs1_vs2_egs4 : coverpoint ins.get_vr_reg(ins.current.vs1)  iff (ins.current.vs1 == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vs1_vs2_egs4 : coverpoint ins.current.vs1  iff (ins.current.vs1 == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers; with VLEN=64 only even registers are valid (LMUL=2), and VLEN=32 only multiple of 4 are valid (LMUL=4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -385,7 +385,7 @@ covergroup Zvknhb64_vsha2cl_vv_cg with function sample(ins_t ins);
 
     //// end cmp_vs1_vs2_egs4////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vsha2cl.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_VSHA2CL_VV  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -411,7 +411,7 @@ covergroup Zvknhb64_vsha2cl_vv_cg with function sample(ins_t ins);
     // cp_vd_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vd_egs4 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.trap == 0 )  {
+    cp_vd_egs4 : coverpoint ins.current.vd  iff (ins.trap == 0 )  {
         // VD register assignment (EGS=4, SEW=32: with VLEN=64 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4 is required so all registers must be a multiple of 4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -466,7 +466,7 @@ covergroup Zvknhb64_vsha2cl_vv_cg with function sample(ins_t ins);
     // cp_vs1_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_egs4 : coverpoint ins.get_vr_reg(ins.current.vs1)  iff (ins.trap == 0 )  {
+    cp_vs1_egs4 : coverpoint ins.current.vs1  iff (ins.trap == 0 )  {
         // VS1 register assignment (EGS=4, SEW=32: with VLEN=64 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4 is required so all registers must be a multiple of 4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -521,7 +521,7 @@ covergroup Zvknhb64_vsha2cl_vv_cg with function sample(ins_t ins);
     // cp_vs2_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_egs4 : coverpoint ins.get_vr_reg(ins.current.vs2)  iff (ins.trap == 0 )  {
+    cp_vs2_egs4 : coverpoint ins.current.vs2  iff (ins.trap == 0 )  {
         // VS2 register assignment (EGS=4, SEW=32: with VLEN=64 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4 is required so all registers must be a multiple of 4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -675,7 +675,7 @@ covergroup Zvknhb64_vsha2ms_vv_cg with function sample(ins_t ins);
     // cmp_vs1_vs2_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vs1_vs2_egs4 : coverpoint ins.get_vr_reg(ins.current.vs1)  iff (ins.current.vs1 == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vs1_vs2_egs4 : coverpoint ins.current.vs1  iff (ins.current.vs1 == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers; with VLEN=64 only even registers are valid (LMUL=2), and VLEN=32 only multiple of 4 are valid (LMUL=4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -710,7 +710,7 @@ covergroup Zvknhb64_vsha2ms_vv_cg with function sample(ins_t ins);
 
     //// end cmp_vs1_vs2_egs4////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vsha2ms.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_VSHA2MS_VV  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -736,7 +736,7 @@ covergroup Zvknhb64_vsha2ms_vv_cg with function sample(ins_t ins);
     // cp_vd_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vd_egs4 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.trap == 0 )  {
+    cp_vd_egs4 : coverpoint ins.current.vd  iff (ins.trap == 0 )  {
         // VD register assignment (EGS=4, SEW=32: with VLEN=64 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4 is required so all registers must be a multiple of 4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -791,7 +791,7 @@ covergroup Zvknhb64_vsha2ms_vv_cg with function sample(ins_t ins);
     // cp_vs1_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_egs4 : coverpoint ins.get_vr_reg(ins.current.vs1)  iff (ins.trap == 0 )  {
+    cp_vs1_egs4 : coverpoint ins.current.vs1  iff (ins.trap == 0 )  {
         // VS1 register assignment (EGS=4, SEW=32: with VLEN=64 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4 is required so all registers must be a multiple of 4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};
@@ -846,7 +846,7 @@ covergroup Zvknhb64_vsha2ms_vv_cg with function sample(ins_t ins);
     // cp_vs2_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_egs4 : coverpoint ins.get_vr_reg(ins.current.vs2)  iff (ins.trap == 0 )  {
+    cp_vs2_egs4 : coverpoint ins.current.vs2  iff (ins.trap == 0 )  {
         // VS2 register assignment (EGS=4, SEW=32: with VLEN=64 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4 is required so all registers must be a multiple of 4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};

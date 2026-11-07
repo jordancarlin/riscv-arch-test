@@ -1,4 +1,4 @@
         @INSTRID@     : begin
-            ins.add_rd(0);
-            ins.add_imm(1);
+            ins.add_rd(rd);
+            ins.add_imm(imm_u(insn));
         end

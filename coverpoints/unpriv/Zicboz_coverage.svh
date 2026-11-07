@@ -14,7 +14,7 @@
 `define COVER_ZICBOZ
 covergroup Zicboz_cbo_zero_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "cbo.zero"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_CBO_ZERO  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -26,7 +26,7 @@ covergroup Zicboz_cbo_zero_cg with function sample(ins_t ins);
         wildcard bins cbo_op  = {32'b000000000????????010000000001111};
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }

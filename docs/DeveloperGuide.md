@@ -300,13 +300,16 @@ Most new extension testplans will be able to reuse existing coverpoints and inst
 
 ### Adding Instructions to the Decoder
 
-All instructions are decoded in [`disassemble.svh`](../framework/src/act/fcov/disassemble.svh).
-All new instructions need to be added to the case statement.
-[`disassemble.svh`](../framework/src/act/fcov/disassemble.svh) translates the encoding
-into an instruction mnemonic and instruction arguments. The encodings themselves come
-from the auto-generated [`RISCV_imported_decode_pkg.svh`](../framework/src/act/fcov/coverage/RISCV_imported_decode_pkg.svh) header.
+The coverage generator writes the instruction decoder,
+[`RISCV_instruction_decode.svh`](../coverpoints/coverage/RISCV_instruction_decode.svh).
+It has one `casez` arm for each instruction in the testplans. Each arm maps the encoding to an
+instruction ID (`INST_<NAME>`). The encodings come from the auto-generated
+[`RISCV_imported_decode_pkg.svh`](../framework/src/act/fcov/coverage/RISCV_imported_decode_pkg.svh) header.
 This header is generated using [riscv-opcodes](https://github.com/riscv/riscv-opcodes)
 and should not be manually modified. <!-- TODO: Update this to use a header generated from UDB -->
+Instructions that riscv-opcodes does not define go in
+[`RISCV_decode_pkg.svh`](../framework/src/act/fcov/coverage/RISCV_decode_pkg.svh).
+Field constraints and other special cases are in `generators/coverage/src/covergroupgen/generate.py`.
 
 Some instructions do not have an unprivileged testplan row. Add these instructions,
 their type, and their supported XLENs to
@@ -476,17 +479,23 @@ case statement.
 All instruction sample templates must match the following format:
 
 ```sv
-        "@INSTR@"     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+        @INSTRID@     : begin
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
 ```
 
-- `INSTR` will be replaced by the instruction name and is the key in a case statement.
+- `INSTRID` will be replaced by the instruction ID and is the key in a case statement.
 - `ins` is a data structure that holds all information about the current instruction. The purpose of the sample function is to populate the data structure.
-- The various `add_*` functions assign parameters from the instruction's assembly string to variables. The number indicates which parameter from the assembly string should be assigned to the specified variable. For example, in the code above, the first parameter is assigned to `rd`, the second to `rs1`, and the third to `rs2`.
+- The various `add_*` functions assign fields of the instruction encoding to variables.
+  `insn` holds the encoding. `rd`, `rs1`, `rs2`, `rs3`, `crs2`, `rs1p`, and `rs2p` hold its register numbers.
+  FPR and vector register operands use the same fields, for example `ins.add_vd(rd)`.
+  The `imm_*` functions in [`RISCV_coverage_common.svh`](../framework/src/act/fcov/coverage/RISCV_coverage_common.svh)
+  extract immediates, for example `ins.add_imm(imm_i(insn))`.
 - For a full list of all the `add_*` functions, see [`RISCV_instruction_base.svh`](../framework/src/act/fcov/coverage/RISCV_instruction_base.svh).
+- If one instruction has different operand fields than the other instructions of its type, add a
+  `sample_<instruction>.sv` template, such as `sample_c.ld.sv`. It replaces `sample_<INSTRUCTION_TYPE>.sv` for that instruction.
 
 See the [`generators/coverage/src/covergroupgen/templates`](../generators/coverage/src/covergroupgen/templates)
 directory for example instruction format sample sequences.

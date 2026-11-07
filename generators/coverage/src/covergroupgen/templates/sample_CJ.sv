@@ -1,3 +1,3 @@
         @INSTRID@     : begin
-            ins.add_imm_addr(0);
+            ins.add_imm_addr(imm_cj(insn));
         end

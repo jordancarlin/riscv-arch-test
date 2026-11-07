@@ -25,7 +25,7 @@ covergroup Zvbc64_vclmul_vv_cg with function sample(ins_t ins);
     // cmp_vd_vs1
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vd_vs1 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.current.vd == ins.current.vs1 & ins.trap == 0 )  {
+    cmp_vd_vs1 : coverpoint ins.current.vd  iff (ins.current.vd == ins.current.vs1 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers
     }
 
@@ -35,7 +35,7 @@ covergroup Zvbc64_vclmul_vv_cg with function sample(ins_t ins);
     // cmp_vd_vs1_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vd_vs1_vs2 : coverpoint ins.get_vr_reg(ins.current.vd) iff (ins.current.vd == ins.current.vs1 & ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vd_vs1_vs2 : coverpoint ins.current.vd iff (ins.current.vd == ins.current.vs1 & ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers
     }
 
@@ -45,7 +45,7 @@ covergroup Zvbc64_vclmul_vv_cg with function sample(ins_t ins);
     // cmp_vd_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vd_vs2 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vd_vs2 : coverpoint ins.current.vd  iff (ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers
     }
 
@@ -55,13 +55,13 @@ covergroup Zvbc64_vclmul_vv_cg with function sample(ins_t ins);
     // cmp_vs1_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vs1_vs2 : coverpoint ins.get_vr_reg(ins.current.vs1)  iff (ins.current.vs1 == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vs1_vs2 : coverpoint ins.current.vs1  iff (ins.current.vs1 == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers
     }
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vclmul.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_VCLMUL_VV  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -79,7 +79,7 @@ covergroup Zvbc64_vclmul_vv_cg with function sample(ins_t ins);
     // cp_vd
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vd : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.trap == 0 )  {
+    cp_vd : coverpoint ins.current.vd  iff (ins.trap == 0 )  {
         // VD register assignment
     }
 
@@ -93,7 +93,7 @@ covergroup Zvbc64_vclmul_vv_cg with function sample(ins_t ins);
     // cp_vs1
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1 : coverpoint ins.get_vr_reg(ins.current.vs1)  iff (ins.trap == 0 )  {
+    cp_vs1 : coverpoint ins.current.vs1  iff (ins.trap == 0 )  {
         // VS1 register assignment
     }
 
@@ -125,7 +125,7 @@ covergroup Zvbc64_vclmul_vv_cg with function sample(ins_t ins);
     // cp_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2 : coverpoint ins.get_vr_reg(ins.current.vs2)  iff (ins.trap == 0 )  {
+    cp_vs2 : coverpoint ins.current.vs2  iff (ins.trap == 0 )  {
         // VS2 register assignment
     }
 
@@ -220,13 +220,13 @@ covergroup Zvbc64_vclmul_vx_cg with function sample(ins_t ins);
     // cmp_vd_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vd_vs2 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vd_vs2 : coverpoint ins.current.vd  iff (ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers
     }
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vclmul.vx"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_VCLMUL_VX  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -240,7 +240,7 @@ covergroup Zvbc64_vclmul_vx_cg with function sample(ins_t ins);
         bins random         = {mask_random          };
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -284,7 +284,7 @@ covergroup Zvbc64_vclmul_vx_cg with function sample(ins_t ins);
     // cp_vd
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vd : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.trap == 0 )  {
+    cp_vd : coverpoint ins.current.vd  iff (ins.trap == 0 )  {
         // VD register assignment
     }
 
@@ -298,7 +298,7 @@ covergroup Zvbc64_vclmul_vx_cg with function sample(ins_t ins);
     // cp_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2 : coverpoint ins.get_vr_reg(ins.current.vs2)  iff (ins.trap == 0 )  {
+    cp_vs2 : coverpoint ins.current.vs2  iff (ins.trap == 0 )  {
         // VS2 register assignment
     }
 
@@ -393,7 +393,7 @@ covergroup Zvbc64_vclmulh_vv_cg with function sample(ins_t ins);
     // cmp_vd_vs1
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vd_vs1 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.current.vd == ins.current.vs1 & ins.trap == 0 )  {
+    cmp_vd_vs1 : coverpoint ins.current.vd  iff (ins.current.vd == ins.current.vs1 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers
     }
 
@@ -403,7 +403,7 @@ covergroup Zvbc64_vclmulh_vv_cg with function sample(ins_t ins);
     // cmp_vd_vs1_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vd_vs1_vs2 : coverpoint ins.get_vr_reg(ins.current.vd) iff (ins.current.vd == ins.current.vs1 & ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vd_vs1_vs2 : coverpoint ins.current.vd iff (ins.current.vd == ins.current.vs1 & ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers
     }
 
@@ -413,7 +413,7 @@ covergroup Zvbc64_vclmulh_vv_cg with function sample(ins_t ins);
     // cmp_vd_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vd_vs2 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vd_vs2 : coverpoint ins.current.vd  iff (ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers
     }
 
@@ -423,13 +423,13 @@ covergroup Zvbc64_vclmulh_vv_cg with function sample(ins_t ins);
     // cmp_vs1_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vs1_vs2 : coverpoint ins.get_vr_reg(ins.current.vs1)  iff (ins.current.vs1 == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vs1_vs2 : coverpoint ins.current.vs1  iff (ins.current.vs1 == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers
     }
 
     //// eend cmp_vs1_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vclmulh.vv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_VCLMULH_VV  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -447,7 +447,7 @@ covergroup Zvbc64_vclmulh_vv_cg with function sample(ins_t ins);
     // cp_vd
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vd : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.trap == 0 )  {
+    cp_vd : coverpoint ins.current.vd  iff (ins.trap == 0 )  {
         // VD register assignment
     }
 
@@ -461,7 +461,7 @@ covergroup Zvbc64_vclmulh_vv_cg with function sample(ins_t ins);
     // cp_vs1
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1 : coverpoint ins.get_vr_reg(ins.current.vs1)  iff (ins.trap == 0 )  {
+    cp_vs1 : coverpoint ins.current.vs1  iff (ins.trap == 0 )  {
         // VS1 register assignment
     }
 
@@ -493,7 +493,7 @@ covergroup Zvbc64_vclmulh_vv_cg with function sample(ins_t ins);
     // cp_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2 : coverpoint ins.get_vr_reg(ins.current.vs2)  iff (ins.trap == 0 )  {
+    cp_vs2 : coverpoint ins.current.vs2  iff (ins.trap == 0 )  {
         // VS2 register assignment
     }
 
@@ -588,13 +588,13 @@ covergroup Zvbc64_vclmulh_vx_cg with function sample(ins_t ins);
     // cmp_vd_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vd_vs2 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vd_vs2 : coverpoint ins.current.vd  iff (ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers
     }
 
     //// end cmp_vd_vs2////////////////////////////////////////////////
 
-    cp_asm_count : coverpoint ins.ins_str == "vclmulh.vx"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_VCLMULH_VX  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -608,7 +608,7 @@ covergroup Zvbc64_vclmulh_vx_cg with function sample(ins_t ins);
         bins random         = {mask_random          };
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -652,7 +652,7 @@ covergroup Zvbc64_vclmulh_vx_cg with function sample(ins_t ins);
     // cp_vd
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vd : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.trap == 0 )  {
+    cp_vd : coverpoint ins.current.vd  iff (ins.trap == 0 )  {
         // VD register assignment
     }
 
@@ -666,7 +666,7 @@ covergroup Zvbc64_vclmulh_vx_cg with function sample(ins_t ins);
     // cp_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2 : coverpoint ins.get_vr_reg(ins.current.vs2)  iff (ins.trap == 0 )  {
+    cp_vs2 : coverpoint ins.current.vs2  iff (ins.trap == 0 )  {
         // VS2 register assignment
     }
 

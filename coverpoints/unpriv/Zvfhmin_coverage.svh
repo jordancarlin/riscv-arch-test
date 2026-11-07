@@ -21,7 +21,7 @@
 `endif
 covergroup Zvfhmin_vfncvt_f_f_w_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "vfncvt.f.f.w"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_VFNCVT_F_F_W  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -63,7 +63,7 @@ covergroup Zvfhmin_vfncvt_f_f_w_cg with function sample(ins_t ins);
     // cp_vd
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vd : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.trap == 0 )  {
+    cp_vd : coverpoint ins.current.vd  iff (ins.trap == 0 )  {
         // VD register assignment
     }
 
@@ -107,7 +107,7 @@ covergroup Zvfhmin_vfncvt_f_f_w_cg with function sample(ins_t ins);
     // cp_vs2_emul2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_emul2 : coverpoint ins.get_vr_reg(ins.current.vs2) iff (ins.trap == 0) {
+    cp_vs2_emul2 : coverpoint ins.current.vs2 iff (ins.trap == 0) {
         // VS2 register assignment (widening operand, excluding odd registers)
         ignore_bins v1 = {v1};
         ignore_bins v3 = {v3};
@@ -187,7 +187,7 @@ endgroup
 // ---------------------
 covergroup Zvfhmin_vfwcvt_f_f_v_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "vfwcvt.f.f.v"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_VFWCVT_F_F_V  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -214,7 +214,7 @@ covergroup Zvfhmin_vfwcvt_f_f_v_cg with function sample(ins_t ins);
     // cp_vd_emul2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vd_emul2 : coverpoint ins.get_vr_reg(ins.current.vd) iff (ins.trap == 0) {
+    cp_vd_emul2 : coverpoint ins.current.vd iff (ins.trap == 0) {
         // VD register assignment (widening instruction, excluding odd registers)
         ignore_bins v1 = {v1};
         ignore_bins v3 = {v3};
@@ -244,7 +244,7 @@ covergroup Zvfhmin_vfwcvt_f_f_v_cg with function sample(ins_t ins);
     // cp_vs2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2 : coverpoint ins.get_vr_reg(ins.current.vs2)  iff (ins.trap == 0 )  {
+    cp_vs2 : coverpoint ins.current.vs2  iff (ins.trap == 0 )  {
         // VS2 register assignment
     }
 

@@ -402,7 +402,6 @@ def gen_coverage_tasks(
     udb_header_dir: Path,
     env_header_dir: Path,
     coverage_simulator: CoverageSimulator,
-    verbose: bool = False,
     dry_run: bool = False,
     enable_experimental_extensions: bool = False,
     exclude_sm: bool = False,
@@ -489,8 +488,6 @@ def gen_coverage_tasks(
         # Coverage collection task
         coverage_tag = f"{coverage_group.stem.upper()}_COVERAGE"
         coverage_define_list = [coverage_tag]
-        if verbose:
-            coverage_define_list.append("FCOV_VERBOSE")
         if enable_experimental_extensions:
             coverage_define_list.append("ENABLE_EXPERIMENTAL_EXTENSIONS")
         if exclude_sm:
@@ -692,7 +689,6 @@ def generate_build_plan(
                 config_wkdir / "env",
                 tests_dir / "env",
                 coverage_simulator,
-                verbose,
                 dry_run,
                 enable_experimental_extensions,
                 exclude_sm,

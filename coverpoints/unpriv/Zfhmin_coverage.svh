@@ -14,11 +14,11 @@
 `define COVER_ZFHMIN
 covergroup Zfhmin_fcvt_h_s_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cmp_fd_fs1 : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.current.fd == ins.current.fs1 & ins.trap == 0 )  {
+    cmp_fd_fs1 : coverpoint ins.current.fd  iff (ins.current.fd == ins.current.fs1 & ins.trap == 0 )  {
         // FD and FS1 register (assignment) WAR Hazard
     }
 
@@ -27,7 +27,7 @@ covergroup Zfhmin_fcvt_h_s_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.h.s"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_FCVT_H_S  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -56,11 +56,11 @@ covergroup Zfhmin_fcvt_h_s_cg with function sample(ins_t ins);
         bins rmm  = {3'b100};
     }
 
-    cp_fd : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.trap == 0 )  {
+    cp_fd : coverpoint ins.current.fd  iff (ins.trap == 0 )  {
         // FD register assignment
     }
 
-    cp_fs1 : coverpoint ins.get_fpr_reg(ins.current.fs1)  iff (ins.trap == 0 )  {
+    cp_fs1 : coverpoint ins.current.fs1  iff (ins.trap == 0 )  {
         // FS1 register assignment
     }
 
@@ -98,11 +98,11 @@ endgroup
 // ---------------------
 covergroup Zfhmin_fcvt_s_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_fd_fs1 : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.current.fd == ins.current.fs1 & ins.trap == 0 )  {
+    cmp_fd_fs1 : coverpoint ins.current.fd  iff (ins.current.fd == ins.current.fs1 & ins.trap == 0 )  {
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.s.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_FCVT_S_H  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -116,11 +116,11 @@ covergroup Zfhmin_fcvt_s_h_cg with function sample(ins_t ins);
         wildcard bins NV1  = {10'b1????_1????};
     }
 
-    cp_fd : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.trap == 0 )  {
+    cp_fd : coverpoint ins.current.fd  iff (ins.trap == 0 )  {
         // FD register assignment
     }
 
-    cp_fs1 : coverpoint ins.get_fpr_reg(ins.current.fs1)  iff (ins.trap == 0 )  {
+    cp_fs1 : coverpoint ins.current.fs1  iff (ins.trap == 0 )  {
         // FS1 register assignment
     }
 
@@ -192,12 +192,12 @@ covergroup Zfhmin_flh_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "flh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_FLH  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_fd : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.trap == 0 )  {
+    cp_fd : coverpoint ins.current.fd  iff (ins.trap == 0 )  {
         // FD register assignment
     }
 
@@ -254,7 +254,7 @@ covergroup Zfhmin_flh_cg with function sample(ins_t ins);
         bins negrandom        = {16'hC93A};
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -268,16 +268,16 @@ covergroup Zfhmin_fmv_h_x_cg with function sample(ins_t ins);
         bins NaNBox = {16'hffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fmv.h.x"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_FMV_H_X  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_fd : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.trap == 0 )  {
+    cp_fd : coverpoint ins.current.fd  iff (ins.trap == 0 )  {
         // FD register assignment
     }
 
-    cp_rs1 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.trap == 0 )  {
+    cp_rs1 : coverpoint ins.current.rs1  iff (ins.trap == 0 )  {
         // RS1 register assignment
     }
 
@@ -321,12 +321,12 @@ endgroup
 // ---------------------
 covergroup Zfhmin_fmv_x_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fmv.x.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_FMV_X_H  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_fs1 : coverpoint ins.get_fpr_reg(ins.current.fs1)  iff (ins.trap == 0 )  {
+    cp_fs1 : coverpoint ins.current.fs1  iff (ins.trap == 0 )  {
         // FS1 register assignment
     }
 
@@ -389,7 +389,7 @@ covergroup Zfhmin_fmv_x_h_cg with function sample(ins_t ins);
         bins negrandom        = {16'hC93A};
     }
 
-    cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
+    cp_rd : coverpoint ins.current.rd  iff (ins.trap == 0 )  {
         // RD register assignment
     }
 
@@ -397,12 +397,12 @@ endgroup
 // ---------------------
 covergroup Zfhmin_fsh_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "fsh"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_FSH  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
-    cp_fs2 : coverpoint ins.get_fpr_reg(ins.current.fs2)  iff (ins.trap == 0 )  {
+    cp_fs2 : coverpoint ins.current.fs2  iff (ins.trap == 0 )  {
         // FS2 register assignment
     }
 
@@ -488,7 +488,7 @@ covergroup Zfhmin_fsh_cg with function sample(ins_t ins);
         bins randomp = {1795};
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -498,11 +498,11 @@ endgroup
 `ifdef D_SUPPORTED
 covergroup ZfhminD_fcvt_d_h_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_fd_fs1 : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.current.fd == ins.current.fs1 & ins.trap == 0 )  {
+    cmp_fd_fs1 : coverpoint ins.current.fd  iff (ins.current.fd == ins.current.fs1 & ins.trap == 0 )  {
         // FD and FS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.d.h"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_FCVT_D_H  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -516,11 +516,11 @@ covergroup ZfhminD_fcvt_d_h_cg with function sample(ins_t ins);
         wildcard bins NV1  = {10'b1????_1????};
     }
 
-    cp_fd : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.trap == 0 )  {
+    cp_fd : coverpoint ins.current.fd  iff (ins.trap == 0 )  {
         // FD register assignment
     }
 
-    cp_fs1 : coverpoint ins.get_fpr_reg(ins.current.fs1)  iff (ins.trap == 0 )  {
+    cp_fs1 : coverpoint ins.current.fs1  iff (ins.trap == 0 )  {
         // FS1 register assignment
     }
 
@@ -587,11 +587,11 @@ endgroup
 // ---------------------
 covergroup ZfhminD_fcvt_h_d_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_frm_2 : coverpoint get_frm(ins.ops[2].val)  iff (ins.trap == 0 )  {
+    cp_frm_2 : coverpoint get_frm(ins.current.insn[14:12])  iff (ins.trap == 0 )  {
         // Floating-point rounding mode in instruction
     }
 
-    cmp_fd_fs1 : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.current.fd == ins.current.fs1 & ins.trap == 0 )  {
+    cmp_fd_fs1 : coverpoint ins.current.fd  iff (ins.current.fd == ins.current.fs1 & ins.trap == 0 )  {
         // FD and FS1 register (assignment) WAR Hazard
     }
 
@@ -600,7 +600,7 @@ covergroup ZfhminD_fcvt_h_d_cg with function sample(ins_t ins);
         bins NaNBox = {48'hffffffffffff};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "fcvt.h.d"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_FCVT_H_D  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -629,11 +629,11 @@ covergroup ZfhminD_fcvt_h_d_cg with function sample(ins_t ins);
         bins rmm  = {3'b100};
     }
 
-    cp_fd : coverpoint ins.get_fpr_reg(ins.current.fd)  iff (ins.trap == 0 )  {
+    cp_fd : coverpoint ins.current.fd  iff (ins.trap == 0 )  {
         // FD register assignment
     }
 
-    cp_fs1 : coverpoint ins.get_fpr_reg(ins.current.fs1)  iff (ins.trap == 0 )  {
+    cp_fs1 : coverpoint ins.current.fs1  iff (ins.trap == 0 )  {
         // FS1 register assignment
     }
 

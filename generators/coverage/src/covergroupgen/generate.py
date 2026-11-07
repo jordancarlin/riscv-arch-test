@@ -776,13 +776,22 @@ def _gen_instruction_samples(
     has_rv32: bool,
     has_rv64: bool,
 ) -> str:
-    """Generate instruction sample case entries (the decode switch body)."""
+    """Generate instruction sample case entries (the decode switch body).
+
+    A `sample_<instr>` template replaces the `sample_<TYPE>` template for an instruction
+    whose operand fields differ from the other instructions of its type.
+    """
     lines: list[str] = []
     for instr, _instr_type in instr_keys:
         cps = tp[(instr, _instr_type)]
         if not _matches_xlen(cps, has_rv32, has_rv64):
             continue
-        lines.extend(customize_template(templates, cp, arch, instr) for cp in cps if cp.startswith("sample_"))
+        override = f"sample_{instr}"
+        lines.extend(
+            customize_template(templates, override if override in templates else cp, arch, instr)
+            for cp in cps
+            if cp.startswith("sample_")
+        )
     return "".join(lines)
 
 

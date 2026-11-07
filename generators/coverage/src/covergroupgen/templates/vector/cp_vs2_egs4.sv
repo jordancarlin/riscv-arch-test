@@ -2,7 +2,7 @@
     // cp_vs2_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_egs4 : coverpoint ins.get_vr_reg(ins.current.vs2)  iff (ins.trap == 0 )  {
+    cp_vs2_egs4 : coverpoint ins.current.vs2  iff (ins.trap == 0 )  {
         // VS2 register assignment (EGS=4, SEW=32: with VLEN=64 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4 is required so all registers must be a multiple of 4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};

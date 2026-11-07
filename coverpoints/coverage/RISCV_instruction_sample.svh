@@ -13,6099 +13,6110 @@
 
     ins_t ins;
     inst_id_t inst_id;
+    bit [31:0] insn;
+    // Register fields of the encoding: rd/rs1/rs2/rs3 also hold FPR and vector register numbers
+    bit [4:0] rd, rs1, rs2, rs3, crs2, rs1p, rs2p;
     ins = new(hart, issue, traceDataQ);
     inst_id = ins.current.inst_id;
+    insn = ins.current.insn;
+    rd   = insn[11:7];
+    rs1  = insn[19:15];
+    rs2  = insn[24:20];
+    rs3  = insn[31:27];
+    crs2 = insn[6:2];
+    rs1p = {2'b01, insn[9:7]};
+    rs2p = {2'b01, insn[4:2]};
 
     case (inst_id)
         INST_ADD     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_ADDI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_AMOADD_B     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOADD_H     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOADD_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOAND_B     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOAND_H     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOAND_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOCAS_B     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOCAS_H     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOCAS_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMAX_B     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMAX_H     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMAX_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMAXU_B     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMAXU_H     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMAXU_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMIN_B     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMIN_H     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMIN_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMINU_B     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMINU_H     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMINU_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOOR_B     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOOR_H     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOOR_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOSWAP_B     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOSWAP_H     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOSWAP_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOXOR_B     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOXOR_H     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOXOR_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AND     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_ANDI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_ANDN     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AUIPC     : begin
-            ins.add_rd(0);
-            ins.add_imm(1);
+            ins.add_rd(rd);
+            ins.add_imm(imm_u(insn));
         end
         INST_BCLR     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_BCLRI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamt(insn));
         end
         INST_BEQ     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
-            ins.add_imm_addr(2);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_imm_addr(imm_b(insn));
         end
         INST_BEQI     : begin
-            ins.add_rs1(0);
-            ins.add_imm2(1);
-            ins.add_imm_addr(2);
+            ins.add_rs1(rs1);
+            ins.add_imm2(imm_bi(insn));
+            ins.add_imm_addr(imm_b(insn));
         end
         INST_BEXT     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_BEXTI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamt(insn));
         end
         INST_BGE     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
-            ins.add_imm_addr(2);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_imm_addr(imm_b(insn));
         end
         INST_BGEU     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
-            ins.add_imm_addr(2);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_imm_addr(imm_b(insn));
         end
         INST_BINV     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_BINVI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamt(insn));
         end
         INST_BLT     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
-            ins.add_imm_addr(2);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_imm_addr(imm_b(insn));
         end
         INST_BLTU     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
-            ins.add_imm_addr(2);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_imm_addr(imm_b(insn));
         end
         INST_BNE     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
-            ins.add_imm_addr(2);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_imm_addr(imm_b(insn));
         end
         INST_BNEI     : begin
-            ins.add_rs1(0);
-            ins.add_imm2(1);
-            ins.add_imm_addr(2);
+            ins.add_rs1(rs1);
+            ins.add_imm2(imm_bi(insn));
+            ins.add_imm_addr(imm_b(insn));
         end
         INST_BREV8     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_BSET     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_BSETI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamt(insn));
         end
         INST_C_ADD     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rd);
+            ins.add_rs2(crs2);
         end
         INST_C_ADDI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_imm(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rd);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_ADDI16SP     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_imm(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rd);
+            ins.add_imm(imm_ci16sp(insn));
         end
         INST_C_ADDI4SPN     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rs2p);
+            ins.add_rs1_sp();
+            ins.add_imm(imm_ciw(insn));
         end
         INST_C_AND     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
+            ins.add_rs2(rs2p);
         end
         INST_C_ANDI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_imm(1);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_BEQZ     : begin
-            ins.add_rs1(0);
-            ins.add_imm_addr(1);
+            ins.add_rs1(rs1p);
+            ins.add_imm_addr(imm_cb(insn));
         end
         INST_C_BNEZ     : begin
-            ins.add_rs1(0);
-            ins.add_imm_addr(1);
+            ins.add_rs1(rs1p);
+            ins.add_imm_addr(imm_cb(insn));
         end
         INST_C_FLD     : begin
-            ins.add_fd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_fd(rs2p);
+            ins.add_mem_offset(imm_cld(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_FLDSP     : begin
-            ins.add_fd(0);
-            ins.add_mem_offset(1);
+            ins.add_fd(rd);
+            ins.add_mem_offset(imm_cldsp(insn));
             ins.add_rs1_sp();
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_FSD     : begin
-            ins.add_fs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_fs2(rs2p);
+            ins.add_mem_offset(imm_cld(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_C_FSDSP     : begin
-            ins.add_fs2(0);
-            ins.add_mem_offset(1);
+            ins.add_fs2(crs2);
+            ins.add_mem_offset(imm_csdsp(insn));
             ins.add_rs1_sp();
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_C_J     : begin
-            ins.add_imm_addr(0);
+            ins.add_imm_addr(imm_cj(insn));
         end
         INST_C_JALR     : begin
             ins.add_rd_ra();
-            ins.add_rs1(0);
+            ins.add_rs1(rd);
         end
         INST_C_JR     : begin
-            ins.add_rs1(0);
+            ins.add_rs1(rd);
         end
         INST_C_LBU     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rs2p);
+            ins.add_mem_offset(imm_clb(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_LH     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rs2p);
+            ins.add_mem_offset(imm_clh(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_LHU     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rs2p);
+            ins.add_mem_offset(imm_clh(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_LI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_imm(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rd);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_LUI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_imm(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rd);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_LW     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rs2p);
+            ins.add_mem_offset(imm_clw(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_LWSP     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
+            ins.add_rd(rd);
+            ins.add_mem_offset(imm_clwsp(insn));
             ins.add_rs1_sp();
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_MOP_1     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_MOP_11     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_MOP_13     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_MOP_15     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_MOP_3     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_MOP_5     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_MOP_7     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_MOP_9     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_MUL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
+            ins.add_rs2(rs2p);
         end
         INST_C_MV     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rd);
+            ins.add_rs2(crs2);
         end
         INST_C_NOP     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_NOT     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
         end
         INST_C_NTL_ALL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_C_NTL_P1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_C_NTL_PALL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_C_NTL_S1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_C_OR     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
+            ins.add_rs2(rs2p);
         end
         INST_C_SB     : begin
-            ins.add_rs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rs2(rs2p);
+            ins.add_mem_offset(imm_clb(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_C_SEXT_B     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
         end
         INST_C_SEXT_H     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
         end
         INST_C_SH     : begin
-            ins.add_rs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rs2(rs2p);
+            ins.add_mem_offset(imm_clh(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_C_SLLI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_imm(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rd);
+            ins.add_imm(imm_ci_u(insn));
         end
         INST_C_SRAI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_imm(1);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
+            ins.add_imm(imm_ci_u(insn));
         end
         INST_C_SRLI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_imm(1);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
+            ins.add_imm(imm_ci_u(insn));
         end
         INST_C_SSPOPCHK     : begin
-            ins.add_rs1(0);
+            ins.add_rs1(rd);
         end
         INST_C_SSPUSH     : begin
-            ins.add_rs2(0);
+            ins.add_rs2(rd);
         end
         INST_C_SUB     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
+            ins.add_rs2(rs2p);
         end
         INST_C_SW     : begin
-            ins.add_rs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rs2(rs2p);
+            ins.add_mem_offset(imm_clw(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_C_SWSP     : begin
-            ins.add_rs2(0);
-            ins.add_mem_offset(1);
+            ins.add_rs2(crs2);
+            ins.add_mem_offset(imm_cswsp(insn));
             ins.add_rs1_sp();
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_C_XOR     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
+            ins.add_rs2(rs2p);
         end
         INST_C_ZEXT_B     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
         end
         INST_C_ZEXT_H     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
         end
         INST_CBO_CLEAN     : begin
-            ins.add_rs1(0);
+            ins.add_rs1(rs1);
         end
         INST_CBO_FLUSH     : begin
-            ins.add_rs1(0);
+            ins.add_rs1(rs1);
         end
         INST_CBO_INVAL     : begin
-            ins.add_rs1(0);
+            ins.add_rs1(rs1);
         end
         INST_CBO_ZERO     : begin
-            ins.add_rs1(0);
+            ins.add_rs1(rs1);
         end
         INST_CLMUL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_CLMULH     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_CLMULR     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_CLZ     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_CPOP     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_CSRRC     : begin
-            ins.add_rd(0);
-            ins.add_csr(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_csr();
+            ins.add_rs1(rs1);
         end
         INST_CSRRCI     : begin
-            ins.add_rd(0);
-            ins.add_csr(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_csr();
+            ins.add_imm(imm_zimm5(insn));
         end
         INST_CSRRS     : begin
-            ins.add_rd(0);
-            ins.add_csr(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_csr();
+            ins.add_rs1(rs1);
         end
         INST_CSRRSI     : begin
-            ins.add_rd(0);
-            ins.add_csr(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_csr();
+            ins.add_imm(imm_zimm5(insn));
         end
         INST_CSRRW     : begin
-            ins.add_rd(0);
-            ins.add_csr(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_csr();
+            ins.add_rs1(rs1);
         end
         INST_CSRRWI     : begin
-            ins.add_rd(0);
-            ins.add_csr(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_csr();
+            ins.add_imm(imm_zimm5(insn));
         end
         INST_CTZ     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_CZERO_EQZ     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_CZERO_NEZ     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_DIV     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_DIVU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_EBREAK     : begin
         end
         INST_ECALL     : begin
         end
         INST_FADD_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FADD_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FADD_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FCLASS_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCLASS_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCLASS_S     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_BF16_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_D_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_D_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_D_W     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_D_WU     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_H_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_H_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_H_W     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_H_WU     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_S_BF16     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_S_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_S_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_S_W     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_S_WU     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_W_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_W_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_W_S     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_WU_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_WU_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_WU_S     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVTMOD_W_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FDIV_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FDIV_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FDIV_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FENCE     : begin
         end
         INST_FENCE_I     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_FEQ_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FEQ_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FEQ_S     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLD     : begin
-            ins.add_fd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_fd(rd);
+            ins.add_mem_offset(imm_i(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_FLE_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLE_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLE_S     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLEQ_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLEQ_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLEQ_S     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLH     : begin
-            ins.add_fd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_fd(rd);
+            ins.add_mem_offset(imm_i(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_FLI_D     : begin
-            ins.add_fd(0);
+            ins.add_fd(rd);
         end
         INST_FLI_H     : begin
-            ins.add_fd(0);
+            ins.add_fd(rd);
         end
         INST_FLI_S     : begin
-            ins.add_fd(0);
+            ins.add_fd(rd);
         end
         INST_FLT_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLT_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLT_S     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLTQ_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLTQ_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLTQ_S     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FLW     : begin
-            ins.add_fd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_fd(rd);
+            ins.add_mem_offset(imm_i(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_FMADD_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FMADD_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FMADD_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FMAX_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMAX_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMAX_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMAXM_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMAXM_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMAXM_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMIN_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMIN_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMIN_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMINM_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMINM_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMINM_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMSUB_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FMSUB_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FMSUB_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FMUL_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMUL_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMUL_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FMV_H_X     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FMV_W_X     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FMV_X_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FMV_X_W     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FNMADD_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FNMADD_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FNMADD_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FNMSUB_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FNMSUB_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FNMSUB_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
-            ins.add_fs3(3);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
+            ins.add_fs3(rs3);
         end
         INST_FROUND_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FROUND_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FROUND_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FROUNDNX_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FROUNDNX_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FROUNDNX_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FSD     : begin
-            ins.add_fs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_fs2(rs2);
+            ins.add_mem_offset(imm_s(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_FSGNJ_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSGNJ_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSGNJ_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSGNJN_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSGNJN_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSGNJN_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSGNJX_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSGNJX_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSGNJX_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSH     : begin
-            ins.add_fs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_fs2(rs2);
+            ins.add_mem_offset(imm_s(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_FSQRT_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FSQRT_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FSQRT_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FSUB_D     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSUB_H     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSUB_S     : begin
-            ins.add_fd(0);
-            ins.add_fs1(1);
-            ins.add_fs2(2);
+            ins.add_fd(rd);
+            ins.add_fs1(rs1);
+            ins.add_fs2(rs2);
         end
         INST_FSW     : begin
-            ins.add_fs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_fs2(rs2);
+            ins.add_mem_offset(imm_s(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_HFENCE_GVMA     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_HFENCE_VVMA     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_HINVAL_GVMA     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_HINVAL_VVMA     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_HLV_B     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_HLV_BU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_HLV_H     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_HLV_HU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_HLV_W     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_HLVX_HU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_HLVX_WU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_HSV_B     : begin
-            ins.add_rs2(0);
-            ins.add_rs1(1);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
         end
         INST_HSV_H     : begin
-            ins.add_rs2(0);
-            ins.add_rs1(1);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
         end
         INST_HSV_W     : begin
-            ins.add_rs2(0);
-            ins.add_rs1(1);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
         end
         INST_JAL     : begin
-            ins.add_rd(0);
-            ins.add_imm_addr(1);
+            ins.add_rd(rd);
+            ins.add_imm_addr(imm_j(insn));
         end
         INST_JALR     : begin
-            ins.add_rd(0);
-            ins.add_imm_addr(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_imm_addr(imm_i(insn));
+            ins.add_rs1(rs1);
         end
         INST_LB     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_mem_offset(imm_i(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_LBU     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_mem_offset(imm_i(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_LH     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_mem_offset(imm_i(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_LHU     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_mem_offset(imm_i(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_LPAD     : begin
-            ins.add_imm(0);
+            ins.add_imm(imm_u(insn));
         end
         INST_LR_W     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_LUI     : begin
-            ins.add_rd(0);
-            ins.add_imm(1);
+            ins.add_rd(rd);
+            ins.add_imm(imm_u(insn));
         end
         INST_LW     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_mem_offset(imm_i(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_MAX     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MAXU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MIN     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MINU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MOP_R_0     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_10     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_11     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_12     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_13     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_14     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_15     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_16     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_17     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_18     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_19     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_2     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_20     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_21     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_22     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_23     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_24     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_25     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_26     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_27     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_28     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_29     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_3     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_30     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_31     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_4     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_5     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_6     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_7     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_8     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_R_9     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_MOP_RR_0     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MOP_RR_1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MOP_RR_2     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MOP_RR_3     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MOP_RR_4     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MOP_RR_5     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MOP_RR_6     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MOP_RR_7     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MRET     : begin
         end
         INST_MUL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MULH     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MULHSU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_MULHU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_NOP     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_NTL_ALL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_NTL_P1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_NTL_PALL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_NTL_S1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_OR     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_ORC_B     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_ORI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_ORN     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_PACK     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_PACKH     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_PAUSE     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_PREFETCH_I     : begin
-            ins.add_imm(0);
-            ins.add_rs1(1);
+            ins.add_imm(imm_i(insn));
+            ins.add_rs1(rs1);
         end
         INST_PREFETCH_R     : begin
-            ins.add_imm(0);
-            ins.add_rs1(1);
+            ins.add_imm(imm_i(insn));
+            ins.add_rs1(rs1);
         end
         INST_PREFETCH_W     : begin
-            ins.add_imm(0);
-            ins.add_rs1(1);
+            ins.add_imm(imm_i(insn));
+            ins.add_rs1(rs1);
         end
         INST_REM     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_REMU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_REV8     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_ROL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_ROR     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_RORI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamt(insn));
         end
         INST_SB     : begin
-            ins.add_rs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rs2(rs2);
+            ins.add_mem_offset(imm_s(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_SC_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
         end
         INST_SEXT_B     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SEXT_H     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SFENCE_INVAL_IR     : begin
         end
         INST_SFENCE_VMA     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SFENCE_W_INVAL     : begin
         end
         INST_SH     : begin
-            ins.add_rs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rs2(rs2);
+            ins.add_mem_offset(imm_s(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_SH1ADD     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SH2ADD     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SH3ADD     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SHA256SIG0     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SHA256SIG1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SHA256SUM0     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SHA256SUM1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SINVAL_VMA     : begin
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SLL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SLLI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamt(insn));
         end
         INST_SLT     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SLTI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_SLTIU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_SLTU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SM3P0     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SM3P1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SM4ED     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SM4KS     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SRA     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SRAI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamt(insn));
         end
         INST_SRET     : begin
         end
         INST_SRL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SRLI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamt(insn));
         end
         INST_SSAMOSWAP_W     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_SSPOPCHK     : begin
-            ins.add_rs1(0);
+            ins.add_rs1(rd);
         end
         INST_SSPUSH     : begin
-            ins.add_rs2(0);
+            ins.add_rs2(rd);
         end
         INST_SSRDP     : begin
-            ins.add_rd(0);
+            ins.add_rd(rd);
         end
         INST_SUB     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SW     : begin
-            ins.add_rs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rs2(rs2);
+            ins.add_mem_offset(imm_s(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_VAADD_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VAADD_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VAADDU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VAADDU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VADC_VIM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VADC_VVM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VADC_VXM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VADD_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VADD_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VADD_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VAESDF_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VAESDF_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VAESDM_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VAESDM_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VAESEF_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VAESEF_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VAESEM_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VAESEM_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VAESKF1_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
         end
         INST_VAESKF2_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
         end
         INST_VAESZ_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VAND_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VAND_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VAND_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VANDN_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VANDN_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VASUB_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VASUB_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VASUBU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VASUBU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VBREV_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VBREV8_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VCLMUL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VCLMUL_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VCLMULH_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VCLMULH_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VCLZ_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VCOMPRESS_VM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VCPOP_M     : begin
-            ins.add_rd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_rd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VCPOP_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VCTZ_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VDIV_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VDIV_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VDIVU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VDIVU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFADD_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFADD_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFCLASS_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFCVT_F_X_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFCVT_F_XU_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFCVT_RTZ_X_F_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFCVT_RTZ_XU_F_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFCVT_X_F_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFCVT_XU_F_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFDIV_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFDIV_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFIRST_M     : begin
-            ins.add_rd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_rd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMACC_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMACC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMADD_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMADD_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMAX_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMAX_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMERGE_VFM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VFMIN_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMIN_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMSAC_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMSAC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMSUB_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMSUB_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMUL_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMUL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFMV_F_S     : begin
-            ins.add_fd(0);
-            ins.add_vs2(1);
+            ins.add_fd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VFMV_S_F     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
         end
         INST_VFMV_V_F     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
         end
         INST_VFNCVT_F_F_W     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNCVT_F_X_W     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNCVT_F_XU_W     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNCVT_ROD_F_F_W     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNCVT_RTZ_X_F_W     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNCVT_RTZ_XU_F_W     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNCVT_X_F_W     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNCVT_XU_F_W     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNCVTBF16_F_F_W     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNMACC_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNMACC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNMADD_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNMADD_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNMSAC_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNMSAC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNMSUB_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFNMSUB_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFRDIV_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFREC7_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFREDMAX_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFREDMIN_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFREDOSUM_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFREDUSUM_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFRSQRT7_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFRSUB_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSGNJ_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSGNJ_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSGNJN_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSGNJN_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSGNJX_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSGNJX_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSLIDE1DOWN_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSLIDE1UP_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSQRT_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSUB_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFSUB_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWADD_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWADD_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWADD_WF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWADD_WV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWCVT_F_F_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWCVT_F_X_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWCVT_F_XU_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWCVT_RTZ_X_F_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWCVT_RTZ_XU_F_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWCVT_X_F_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWCVT_XU_F_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWCVTBF16_F_F_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWMACC_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWMACC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWMACCBF16_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWMACCBF16_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWMSAC_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWMSAC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWMUL_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWMUL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWNMACC_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWNMACC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWNMSAC_VF     : begin
-            ins.add_vd(0);
-            ins.add_fs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_fs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWNMSAC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWREDOSUM_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWREDUSUM_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWSUB_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWSUB_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWSUB_WF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VFWSUB_WV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VGHSH_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VGMUL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VID_V     : begin
-            ins.add_vd(0);
-            ins.add_vm(1);
+            ins.add_vd(rd);
+            ins.add_vm(insn[25]);
         end
         INST_VIOTA_M     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VL1RE16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL1RE32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL1RE64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL1RE8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL2RE16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL2RE32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL2RE64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL2RE8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL4RE16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL4RE32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL4RE64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL4RE8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL8RE16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL8RE32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL8RE64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VL8RE8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VLE16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLE16FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLE32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLE32FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLE64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLE64FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLE8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLE8FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLM_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VLOXEI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXEI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXEI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXEI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG2EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG2EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG2EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG2EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG3EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG3EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG3EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG3EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG4EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG4EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG4EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG4EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG5EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG5EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG5EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG5EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG6EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG6EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG6EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG6EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG7EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG7EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG7EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG7EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG8EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG8EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG8EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLOXSEG8EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSE16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSE32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSE64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSE8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG2E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG2E16FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG2E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG2E32FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG2E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG2E64FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG2E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG2E8FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG3E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG3E16FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG3E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG3E32FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG3E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG3E64FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG3E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG3E8FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG4E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG4E16FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG4E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG4E32FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG4E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG4E64FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG4E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG4E8FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG5E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG5E16FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG5E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG5E32FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG5E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG5E64FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG5E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG5E8FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG6E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG6E16FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG6E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG6E32FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG6E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG6E64FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG6E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG6E8FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG7E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG7E16FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG7E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG7E32FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG7E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG7E64FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG7E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG7E8FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG8E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG8E16FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG8E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG8E32FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG8E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG8E64FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG8E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSEG8E8FF_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG2E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG2E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG2E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG2E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG3E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG3E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG3E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG3E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG4E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG4E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG4E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG4E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG5E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG5E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG5E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG5E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG6E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG6E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG6E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG6E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG7E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG7E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG7E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG7E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG8E16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG8E32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG8E64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLSSEG8E8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXEI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXEI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXEI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXEI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG2EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG2EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG2EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG2EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG3EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG3EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG3EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG3EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG4EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG4EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG4EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG4EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG5EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG5EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG5EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG5EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG6EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG6EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG6EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG6EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG7EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG7EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG7EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG7EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG8EI16_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG8EI32_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG8EI64_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VLUXSEG8EI8_V     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMACC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMACC_VX     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMADC_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
         end
         INST_VMADC_VIM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VMADC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VMADC_VVM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VMADC_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_VMADC_VXM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VMADD_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMADD_VX     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMAND_MM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VMANDN_MM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VMAX_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMAX_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMAXU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMAXU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMERGE_VIM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VMERGE_VVM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VMERGE_VXM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VMFEQ_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMFEQ_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMFGE_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMFGT_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMFLE_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMFLE_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMFLT_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMFLT_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMFNE_VF     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_fs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_fs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMFNE_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMIN_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMIN_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMINU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMINU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMNAND_MM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VMNOR_MM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VMOR_MM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VMORN_MM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VMSBC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VMSBC_VVM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VMSBC_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_VMSBC_VXM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VMSBF_M     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSEQ_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSEQ_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSEQ_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSGT_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSGT_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSGTU_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSGTU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSIF_M     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSLE_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSLE_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSLE_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSLEU_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSLEU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSLEU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSLT_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSLT_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSLTU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSLTU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSNE_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSNE_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSNE_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMSOF_M     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMUL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMUL_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMULH_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMULH_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMULHSU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMULHSU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMULHU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMULHU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VMV_S_X     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VMV_V_I     : begin
-            ins.add_vd(0);
-            ins.add_imm(1);
+            ins.add_vd(rd);
+            ins.add_imm(imm_v(insn));
         end
         INST_VMV_V_V     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
         end
         INST_VMV_V_X     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VMV_X_S     : begin
-            ins.add_rd(0);
-            ins.add_vs2(1);
+            ins.add_rd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VMV1R_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VMV2R_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VMV4R_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VMV8R_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VMXNOR_MM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VMXOR_MM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VNCLIP_WI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNCLIP_WV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNCLIP_WX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNCLIPU_WI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNCLIPU_WV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNCLIPU_WX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNMSAC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNMSAC_VX     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNMSUB_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNMSUB_VX     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNSRA_WI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNSRA_WV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNSRA_WX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNSRL_WI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNSRL_WV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VNSRL_WX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VOR_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VOR_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VOR_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREDAND_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREDMAX_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREDMAXU_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREDMIN_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREDMINU_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREDOR_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREDSUM_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREDXOR_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREM_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREM_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREMU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREMU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VREV8_V     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VRGATHER_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VRGATHER_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VRGATHER_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VRGATHEREI16_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VROL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VROL_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VROR_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm6(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VROR_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VROR_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VRSUB_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VRSUB_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VS1R_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
         end
         INST_VS2R_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
         end
         INST_VS4R_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
         end
         INST_VS8R_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
         end
         INST_VSADD_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSADD_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSADD_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSADDU_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSADDU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSADDU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSBC_VVM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VSBC_VXM     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(1'b0);
             ins.add_v0();
         end
         INST_VSE16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSE32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSE64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSE8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSETVL     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_VSETVLI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_VSEXT_VF2     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSEXT_VF4     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSEXT_VF8     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSHA2CH_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VSHA2CL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VSHA2MS_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VSLIDE1DOWN_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSLIDE1UP_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSLIDEDOWN_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSLIDEDOWN_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSLIDEUP_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSLIDEUP_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSLL_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSLL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSLL_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSM_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
         end
         INST_VSM3C_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
         end
         INST_VSM3ME_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
         end
         INST_VSM4K_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
         end
         INST_VSM4R_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VSM4R_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
         end
         INST_VSMUL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSMUL_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXEI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXEI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXEI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXEI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG2EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG2EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG2EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG2EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG3EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG3EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG3EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG3EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG4EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG4EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG4EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG4EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG5EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG5EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG5EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG5EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG6EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG6EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG6EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG6EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG7EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG7EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG7EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG7EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG8EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG8EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG8EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSOXSEG8EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSRA_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSRA_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSRA_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSRL_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSRL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSRL_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSE16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSE32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSE64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSE8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG2E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG2E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG2E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG2E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG3E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG3E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG3E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG3E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG4E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG4E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG4E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG4E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG5E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG5E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG5E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG5E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG6E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG6E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG6E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG6E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG7E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG7E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG7E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG7E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG8E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG8E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG8E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSEG8E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSRA_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSRA_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSRA_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSRL_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSRL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSRL_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG2E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG2E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG2E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG2E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG3E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG3E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG3E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG3E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG4E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG4E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG4E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG4E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG5E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG5E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG5E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG5E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG6E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG6E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG6E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG6E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG7E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG7E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG7E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG7E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG8E16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG8E32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG8E64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSSEG8E8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSUB_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSUB_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSUBU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSSUBU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUB_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUB_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXEI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXEI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXEI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXEI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG2EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG2EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG2EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG2EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG3EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG3EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG3EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG3EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG4EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG4EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG4EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG4EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG5EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG5EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG5EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG5EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG6EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG6EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG6EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG6EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG7EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG7EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG7EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG7EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG8EI16_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG8EI32_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG8EI64_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VSUXSEG8EI8_V     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWADD_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWADD_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWADD_WV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWADD_WX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWADDU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWADDU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWADDU_WV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWADDU_WX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMACC_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMACC_VX     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMACCSU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMACCSU_VX     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMACCU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMACCU_VX     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMACCUS_VX     : begin
-            ins.add_vd(0);
-            ins.add_rs1(1);
-            ins.add_vs2(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_rs1(rs1);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMUL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMUL_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMULSU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMULSU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMULU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWMULU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWREDSUM_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWREDSUMU_VS     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSLL_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_zimm5(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSLL_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSLL_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSUB_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSUB_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSUB_WV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSUB_WX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSUBU_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSUBU_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSUBU_WV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VWSUBU_WX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VXOR_VI     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_imm(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_imm(imm_v(insn));
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VXOR_VV     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VXOR_VX     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_rs1(2);
-            ins.add_vm(3);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VZEXT_VF2     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VZEXT_VF4     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_VZEXT_VF8     : begin
-            ins.add_vd(0);
-            ins.add_vs2(1);
-            ins.add_vm(2);
+            ins.add_vd(rd);
+            ins.add_vs2(rs2);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
         INST_WFI     : begin
@@ -6115,523 +6126,523 @@
         INST_WRS_STO     : begin
         end
         INST_XNOR     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_XOR     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_XORI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_XPERM4     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_XPERM8     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_ZEXT_H     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
 `ifdef UDB_MXLEN_32
         INST_AES32DSI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AES32DSMI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AES32ESI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AES32ESMI     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AMOCAS_D     : begin
-            ins.add_rd_pair(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd_pair(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_C_FLW     : begin
-            ins.add_fd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_fd(rs2p);
+            ins.add_mem_offset(imm_clw(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_FLWSP     : begin
-            ins.add_fd(0);
-            ins.add_mem_offset(1);
+            ins.add_fd(rd);
+            ins.add_mem_offset(imm_clwsp(insn));
             ins.add_rs1_sp();
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_FSW     : begin
-            ins.add_fs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_fs2(rs2p);
+            ins.add_mem_offset(imm_clw(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_C_FSWSP     : begin
-            ins.add_fs2(0);
-            ins.add_mem_offset(1);
+            ins.add_fs2(crs2);
+            ins.add_mem_offset(imm_cswsp(insn));
             ins.add_rs1_sp();
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_C_JAL     : begin
             ins.add_rd_ra();
-            ins.add_imm_addr(0);
+            ins.add_imm_addr(imm_cj(insn));
         end
         INST_FMVH_X_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FMVP_D_X     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SHA512SIG0H     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SHA512SIG0L     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SHA512SIG1H     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SHA512SIG1L     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SHA512SUM0R     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SHA512SUM1R     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_UNZIP     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_ZIP     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
 `endif
 `ifdef UDB_MXLEN_64
         INST_ADD_UW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_ADDIW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_i(insn));
         end
         INST_ADDW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AES64DS     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AES64DSM     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AES64ES     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AES64ESM     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AES64IM     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_AES64KS1I     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_AES64KS2     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_AMOADD_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOAND_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOCAS_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOCAS_Q     : begin
-            ins.add_rd_pair(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd_pair(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMAX_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMAXU_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMIN_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOMINU_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOOR_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOSWAP_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_AMOXOR_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_C_ADDIW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_imm(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rd);
+            ins.add_imm(imm_ci(insn));
         end
         INST_C_ADDW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
+            ins.add_rs2(rs2p);
         end
         INST_C_LD     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rs2p);
+            ins.add_mem_offset(imm_cld(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_LDSP     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
+            ins.add_rd(rd);
+            ins.add_mem_offset(imm_cldsp(insn));
             ins.add_rs1_sp();
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_C_SD     : begin
-            ins.add_rs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rs2(rs2p);
+            ins.add_mem_offset(imm_cld(insn));
+            ins.add_rs1(rs1p);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_C_SDSP     : begin
-            ins.add_rs2(0);
-            ins.add_mem_offset(1);
+            ins.add_rs2(crs2);
+            ins.add_mem_offset(imm_csdsp(insn));
             ins.add_rs1_sp();
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_C_SUBW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
-            ins.add_rs2(1);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
+            ins.add_rs2(rs2p);
         end
         INST_C_ZEXT_W     : begin
-            ins.add_rd(0);
-            ins.add_rs1(0);
+            ins.add_rd(rs1p);
+            ins.add_rs1(rs1p);
         end
         INST_CLZW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_CPOPW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_CTZW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_DIVUW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_DIVW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_FCVT_D_L     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_D_LU     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_H_L     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_H_LU     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_L_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_L_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_L_S     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_LU_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_LU_H     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_LU_S     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_FCVT_S_L     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FCVT_S_LU     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FMV_D_X     : begin
-            ins.add_fd(0);
-            ins.add_rs1(1);
+            ins.add_fd(rd);
+            ins.add_rs1(rs1);
         end
         INST_FMV_X_D     : begin
-            ins.add_rd(0);
-            ins.add_fs1(1);
+            ins.add_rd(rd);
+            ins.add_fs1(rs1);
         end
         INST_HLV_D     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_HLV_WU     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_HSV_D     : begin
-            ins.add_rs2(0);
-            ins.add_rs1(1);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
         end
         INST_LD     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_mem_offset(imm_i(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_LR_D     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_LWU     : begin
-            ins.add_rd(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_mem_offset(imm_i(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_LOAD;
             ins.add_mem_address();
         end
         INST_MULW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_PACKW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_REMUW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_REMW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_ROLW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_RORIW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamtw(insn));
         end
         INST_RORW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SC_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
         end
         INST_SD     : begin
-            ins.add_rs2(0);
-            ins.add_mem_offset(1);
-            ins.add_rs1(2);
+            ins.add_rs2(rs2);
+            ins.add_mem_offset(imm_s(insn));
+            ins.add_rs1(rs1);
             ins.current.inst_category = INST_CAT_STORE;
             ins.add_mem_address();
         end
         INST_SH1ADD_UW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SH2ADD_UW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SH3ADD_UW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SHA512SIG0     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SHA512SIG1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SHA512SUM0     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SHA512SUM1     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
         end
         INST_SLLI_UW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamt(insn));
         end
         INST_SLLIW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamtw(insn));
         end
         INST_SLLW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SRAIW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamtw(insn));
         end
         INST_SRAW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SRLIW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamtw(insn));
         end
         INST_SRLW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
         INST_SSAMOSWAP_D     : begin
-            ins.add_rd(0);
-            ins.add_rs2(1);
-            ins.add_rs1(2);
+            ins.add_rd(rd);
+            ins.add_rs2(rs2);
+            ins.add_rs1(rs1);
         end
         INST_SUBW     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_rs2(rs2);
         end
 `endif
     endcase

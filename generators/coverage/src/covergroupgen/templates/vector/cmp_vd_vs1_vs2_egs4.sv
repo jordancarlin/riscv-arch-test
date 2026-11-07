@@ -2,7 +2,7 @@
     // cmp_vd_vs1_vs2_egs4
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vd_vs1_vs2_egs4 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.current.vd == ins.current.vs1 & ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
+    cmp_vd_vs1_vs2_egs4 : coverpoint ins.current.vd  iff (ins.current.vd == ins.current.vs1 & ins.current.vd == ins.current.vs2 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers; with VLEN=64 only even registers are valid (LMUL=2), and VLEN=32 only multiple of 4 are valid (LMUL=4)
         `ifndef ZVL128B_SUPPORTED
             ignore_bins v1  = {v1};

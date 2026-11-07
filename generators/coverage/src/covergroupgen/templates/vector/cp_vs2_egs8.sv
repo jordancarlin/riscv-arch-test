@@ -2,7 +2,7 @@
     // cp_vs2_egs8
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_egs8 : coverpoint ins.get_vr_reg(ins.current.vs2)  iff (ins.trap == 0 )  {
+    cp_vs2_egs8 : coverpoint ins.current.vs2  iff (ins.trap == 0 )  {
         // VS2 register assignment (EGS=8, SEW=32: with VLEN=128 LMUL=2 is required, so odd registers are illegal, with VLEN=32, LMUL=4
         // is required so all registers must be a multiple of 4, and with VLEN=32 LMUL=8 is required, so all registers must be a multiple of 8)
         `ifndef ZVL256B_SUPPORTED

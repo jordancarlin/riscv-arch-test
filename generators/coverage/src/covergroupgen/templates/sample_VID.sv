@@ -1,4 +1,4 @@
         @INSTRID@     : begin
-            ins.add_vd(0);
-            ins.add_vm(1);
+            ins.add_vd(rd);
+            ins.add_vm(insn[25]);
         end

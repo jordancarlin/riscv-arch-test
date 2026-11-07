@@ -14,18 +14,18 @@
 `define COVER_ZCA
 covergroup Zca_c_add_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rs1_rs2_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2_nx0 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all 31 registers excluding x0
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.add"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_ADD  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
     // c.add with rd = 0, rs2 != 0 is a hint
-    cp_c_hint_add : coverpoint ins.get_gpr_reg(ins.current.rs2) iff (ins.trap == 0 && ins.get_gpr_reg(ins.current.rd) == x0) {
+    cp_c_hint_add : coverpoint ins.current.rs2 iff (ins.trap == 0 && ins.current.rd == x0) {
         ignore_bins x0 = {x0}; // rd = rs2 = x0 encodes c.ebreak
     }
 
@@ -65,7 +65,7 @@ covergroup Zca_c_add_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -106,7 +106,7 @@ covergroup Zca_c_add_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2_nx0 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -119,13 +119,13 @@ endgroup
 // ---------------------
 covergroup Zca_c_addi_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.addi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_ADDI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
     // c.addi with rd != 0, imm = 0 is a hint
-    cp_c_hint_addi : coverpoint ins.get_gpr_reg(ins.current.rd) iff (ins.trap == 0 && ins.current.imm == 0) {
+    cp_c_hint_addi : coverpoint ins.current.rd iff (ins.trap == 0 && ins.current.imm == 0) {
         ignore_bins x0 = {x0}; // rd = x0 with imm = 0 is c.nop
     }
 
@@ -165,7 +165,7 @@ covergroup Zca_c_addi_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -192,7 +192,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_addi16sp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.addi16sp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_ADDI16SP  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -207,7 +207,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_addi4spn_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.addi4spn"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_ADDI4SPN  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -229,7 +229,7 @@ covergroup Zca_c_and_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.and"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_AND  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -322,7 +322,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_andi_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.andi"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_ANDI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -390,7 +390,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_beqz_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.beqz"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_BEQZ  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -462,7 +462,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_bnez_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.bnez"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_BNEZ  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -534,7 +534,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_j_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.j"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_J  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -573,7 +573,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_jalr_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.jalr"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_JALR  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -585,7 +585,7 @@ covergroup Zca_c_jalr_cg with function sample(ins_t ins);
         // c.jalr / c.jr destination is a multiple of 4 + 0/1/2/3
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -594,7 +594,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_jr_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.jr"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_JR  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -606,7 +606,7 @@ covergroup Zca_c_jr_cg with function sample(ins_t ins);
         // c.jalr / c.jr destination is a multiple of 4 + 0/1/2/3
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -615,13 +615,13 @@ endgroup
 // ---------------------
 covergroup Zca_c_li_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.li"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_LI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
     // c.li with rd = 0 is a hint
-    cp_c_hint_li : coverpoint signed'(ins.current.imm) iff (ins.trap == 0 && ins.get_gpr_reg(ins.current.rd) == x0) {
+    cp_c_hint_li : coverpoint signed'(ins.current.imm) iff (ins.trap == 0 && ins.current.rd == x0) {
         bins imm[] = {[-32:31]};
     }
 
@@ -641,7 +641,7 @@ covergroup Zca_c_li_cg with function sample(ins_t ins);
         bins b_63 = {-1};
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -650,13 +650,13 @@ endgroup
 // ---------------------
 covergroup Zca_c_lui_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.lui"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_LUI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
     // c.lui with rd = 0, imm != 0 is a hint
-    cp_c_hint_lui : coverpoint signed'(ins.current.imm) iff (ins.trap == 0 && ins.get_gpr_reg(ins.current.rd) == x0) {
+    cp_c_hint_lui : coverpoint signed'(ins.current.imm) iff (ins.trap == 0 && ins.current.rd == x0) {
         bins imm[] = {[-32:31]};
         ignore_bins zero = {0}; // imm = 0 is reserved
     }
@@ -676,7 +676,7 @@ covergroup Zca_c_lui_cg with function sample(ins_t ins);
         bins b_63 = {-1};
     }
 
-    cp_rs1_nx2 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx2 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0 and x2)
         ignore_bins x0 = {x0};
         ignore_bins x2 = {x2};
@@ -690,7 +690,7 @@ covergroup Zca_c_lw_cg with function sample(ins_t ins);
         // RD and RS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.lw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_LW  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -720,7 +720,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_lwsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.lwsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_LWSP  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -738,7 +738,7 @@ covergroup Zca_c_lwsp_cg with function sample(ins_t ins);
         bins mone = {32'hffffffff};
     }
 
-    cp_rd_nx0 : coverpoint ins.get_gpr_reg(ins.current.rd) iff (ins.trap == 0) {
+    cp_rd_nx0 : coverpoint ins.current.rd iff (ins.trap == 0) {
         // RD register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -747,22 +747,22 @@ endgroup
 // ---------------------
 covergroup Zca_c_mv_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cmp_rs1_rs2_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1)  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
+    cmp_rs1_rs2_nx0 : coverpoint ins.current.rs1  iff (ins.current.rs1 == ins.current.rs2 & ins.trap == 0 )  {
         // Compare assignments of all 31 registers excluding x0
         ignore_bins x0 = {x0};
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.mv"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_MV  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
 
     // c.mv with rd = 0, rs2 != 0 is a hint
-    cp_c_hint_mv : coverpoint ins.get_gpr_reg(ins.current.rs2) iff (ins.trap == 0 && ins.get_gpr_reg(ins.current.rd) == x0) {
+    cp_c_hint_mv : coverpoint ins.current.rs2 iff (ins.trap == 0 && ins.current.rd == x0) {
         ignore_bins x0 = {x0}; // rd = rs2 = x0 is reserved
     }
 
-    cp_rd_nx0 : coverpoint ins.get_gpr_reg(ins.current.rd) iff (ins.trap == 0) {
+    cp_rd_nx0 : coverpoint ins.current.rd iff (ins.trap == 0) {
         // RD register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -803,7 +803,7 @@ covergroup Zca_c_mv_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs2_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2_nx0 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -812,7 +812,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_nop_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count_nop : coverpoint ins.ins_str == "c.nop" iff (ins.trap == 0 && ins.current.imm == 0) {
+    cp_asm_count_nop : coverpoint ins.current.inst_id == INST_C_NOP iff (ins.trap == 0 && ins.current.imm == 0) {
         // Number of times the canonical c.nop (imm == 0) is executed
         bins count[] = {1};
     }
@@ -831,7 +831,7 @@ covergroup Zca_c_or_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.or"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_OR  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -924,7 +924,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_slli_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.slli"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_SLLI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -965,7 +965,7 @@ covergroup Zca_c_slli_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -1002,7 +1002,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_srai_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.srai"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_SRAI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1079,7 +1079,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_srli_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.srli"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_SRLI  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1160,7 +1160,7 @@ covergroup Zca_c_sub_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.sub"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_SUB  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1253,7 +1253,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_sw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_SW  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1311,7 +1311,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_swsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.swsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_SWSP  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1321,7 +1321,7 @@ covergroup Zca_c_swsp_cg with function sample(ins_t ins);
         bins offset[] = {[0:252]} with (item % 4 == 0);
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -1369,7 +1369,7 @@ covergroup Zca_c_xor_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.xor"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_XOR  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1463,7 +1463,7 @@ endgroup
 `ifdef UDB_MXLEN_32
 covergroup Zca_c_jal_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.jal"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_JAL  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1504,7 +1504,7 @@ endgroup
 `ifdef UDB_MXLEN_64
 covergroup Zca_c_addiw_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.addiw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_ADDIW  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1545,7 +1545,7 @@ covergroup Zca_c_addiw_cg with function sample(ins_t ins);
         `endif
     }
 
-    cp_rs1_nx0 : coverpoint ins.get_gpr_reg(ins.current.rs1) iff (ins.trap == 0) {
+    cp_rs1_nx0 : coverpoint ins.current.rs1 iff (ins.trap == 0) {
         // RS1 register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -1577,7 +1577,7 @@ covergroup Zca_c_addw_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.addw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_ADDW  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1674,7 +1674,7 @@ covergroup Zca_c_ld_cg with function sample(ins_t ins);
         // RD and RS1 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.ld"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_LD  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1704,7 +1704,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_ldsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.ldsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_LDSP  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1722,7 +1722,7 @@ covergroup Zca_c_ldsp_cg with function sample(ins_t ins);
         bins mone = {64'hffffffffffffffff};
     }
 
-    cp_rd_nx0 : coverpoint ins.get_gpr_reg(ins.current.rd) iff (ins.trap == 0) {
+    cp_rd_nx0 : coverpoint ins.current.rd iff (ins.trap == 0) {
         // RD register assignment (excluding x0)
         ignore_bins x0 = {x0};
     }
@@ -1731,7 +1731,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_sd_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sd"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_SD  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1789,7 +1789,7 @@ endgroup
 // ---------------------
 covergroup Zca_c_sdsp_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_asm_count : coverpoint ins.ins_str == "c.sdsp"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_SDSP  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }
@@ -1799,7 +1799,7 @@ covergroup Zca_c_sdsp_cg with function sample(ins_t ins);
         bins offset[] = {[0:504]} with (item % 8 == 0);
     }
 
-    cp_rs2 : coverpoint ins.get_gpr_reg(ins.current.rs2)  iff (ins.trap == 0 )  {
+    cp_rs2 : coverpoint ins.current.rs2  iff (ins.trap == 0 )  {
         // RS2 register assignment
     }
 
@@ -1847,7 +1847,7 @@ covergroup Zca_c_subw_cg with function sample(ins_t ins);
         // RD and RS2 register (assignment) WAR Hazard
     }
 
-    cp_asm_count : coverpoint ins.ins_str == "c.subw"  iff (ins.trap == 0 )  {
+    cp_asm_count : coverpoint ins.current.inst_id == INST_C_SUBW  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
     }

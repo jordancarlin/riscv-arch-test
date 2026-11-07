@@ -2,7 +2,7 @@
     // cp_vd_nv0
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vd_nv0 : coverpoint ins.get_vr_reg(ins.current.vd) iff (ins.trap == 0) {
+    cp_vd_nv0 : coverpoint ins.current.vd iff (ins.trap == 0) {
         // VD register assignment (excluding v0)
         ignore_bins v0 = {v0};
     }

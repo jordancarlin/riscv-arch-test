@@ -2,7 +2,7 @@
     // cmp_vd_vs1_emul2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cmp_vd_vs1_emul2 : coverpoint ins.get_vr_reg(ins.current.vd)  iff (ins.current.vd == ins.current.vs1 & ins.trap == 0 )  {
+    cmp_vd_vs1_emul2 : coverpoint ins.current.vd  iff (ins.current.vd == ins.current.vs1 & ins.trap == 0 )  {
         // Compare assignments of all 32 registers, vd only even registers (widen)
         bins v0  = {v0 };
         bins v2  = {v2 };

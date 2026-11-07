@@ -14,7 +14,7 @@
 `define COVER_ZICNTR
 covergroup Zicntr_csrrc_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_cntr : coverpoint ins.current.insn[31:20] iff (ins.get_gpr_reg(ins.current.rs1) == x0) {
+    cp_cntr : coverpoint ins.current.insn[31:20] iff (ins.current.rs1 == x0) {
         bins csr_cycle   = {CSR_CYCLE};
         bins csr_time    = {CSR_TIME};
         bins csr_instret = {CSR_INSTRET};
@@ -29,7 +29,7 @@ endgroup
 // ---------------------
 covergroup Zicntr_csrrs_cg with function sample(ins_t ins);
     option.per_instance = 0;
-    cp_cntr : coverpoint ins.current.insn[31:20] iff (ins.get_gpr_reg(ins.current.rs1) == x0) {
+    cp_cntr : coverpoint ins.current.insn[31:20] iff (ins.current.rs1 == x0) {
         bins csr_cycle   = {CSR_CYCLE};
         bins csr_time    = {CSR_TIME};
         bins csr_instret = {CSR_INSTRET};

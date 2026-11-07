@@ -2,7 +2,7 @@
     // cp_vs1_emul2
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs1_emul2 : coverpoint ins.get_vr_reg(ins.current.vs1) iff (ins.trap == 0) {
+    cp_vs1_emul2 : coverpoint ins.current.vs1 iff (ins.trap == 0) {
         // VS1 register assignment (widening operand, excluding odd registers)
         ignore_bins v1 = {v1};
         ignore_bins v3 = {v3};

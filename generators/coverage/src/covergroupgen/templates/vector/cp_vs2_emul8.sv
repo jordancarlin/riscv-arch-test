@@ -2,7 +2,7 @@
     // cp_vs2_emul8
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vs2_emul8 : coverpoint ins.get_vr_reg(ins.current.vs2) iff (ins.trap == 0) {
+    cp_vs2_emul8 : coverpoint ins.current.vs2 iff (ins.trap == 0) {
         // VS2 register assignment (widening instruction, including only registers of multiple of 8)
         ignore_bins v1 = {v1};
         ignore_bins v2 = {v2};

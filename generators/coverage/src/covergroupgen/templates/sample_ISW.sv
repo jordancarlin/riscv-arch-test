@@ -1,5 +1,5 @@
         @INSTRID@     : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_imm(2);
+            ins.add_rd(rd);
+            ins.add_rs1(rs1);
+            ins.add_imm(imm_shamtw(insn));
         end

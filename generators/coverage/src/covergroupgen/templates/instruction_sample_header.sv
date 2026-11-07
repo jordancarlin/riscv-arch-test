@@ -13,7 +13,18 @@
 
     ins_t ins;
     inst_id_t inst_id;
+    bit [31:0] insn;
+    // Register fields of the encoding: rd/rs1/rs2/rs3 also hold FPR and vector register numbers
+    bit [4:0] rd, rs1, rs2, rs3, crs2, rs1p, rs2p;
     ins = new(hart, issue, traceDataQ);
     inst_id = ins.current.inst_id;
+    insn = ins.current.insn;
+    rd   = insn[11:7];
+    rs1  = insn[19:15];
+    rs2  = insn[24:20];
+    rs3  = insn[31:27];
+    crs2 = insn[6:2];
+    rs1p = {2'b01, insn[9:7]};
+    rs2p = {2'b01, insn[4:2]};
 
     case (inst_id)

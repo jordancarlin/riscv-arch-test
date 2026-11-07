@@ -1,6 +1,6 @@
         @INSTRID@     : begin
-            ins.add_vs3(0);
-            ins.add_rs1(1);
-            ins.add_vm(2);
+            ins.add_vs3(rd);
+            ins.add_rs1(rs1);
+            ins.add_vm(insn[25]);
             ins.add_v0();
         end
