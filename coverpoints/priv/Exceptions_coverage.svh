@@ -25,10 +25,10 @@ covergroup Exceptions_F_cg with function sample(ins_t ins);
     option.per_instance = 0;
 
     // building blocks for the main coverpoints
-    mstatus_FS_zero: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "fs")[1:0] {
+    mstatus_FS_zero: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_FS)[1:0] {
         bins disabled = {2'b00};
     }
-    mstatus_FS_status: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "fs")[1:0] {
+    mstatus_FS_status: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_FS)[1:0] {
         `ifdef UDB_MSTATUS_FS_LEGAL_VALUES_1
             bins fs_initial = {2'b01};
         `endif
@@ -37,7 +37,7 @@ covergroup Exceptions_F_cg with function sample(ins_t ins);
         `endif
         bins fs_dirty   = {2'b11};
     }
-    frm_legal: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_FCSR, "frm")[2:0] {
+    frm_legal: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, FCSR_FRM)[2:0] {
         bins legal_frm = {3'b000, 3'b001, 3'b010, 3'b011, 3'b100};
     }
     instrs: coverpoint ins.current.insn {
@@ -245,10 +245,10 @@ covergroup Exceptions_S_cg with function sample(ins_t ins);
     csr_0x000: coverpoint ins.current.insn[31:20] {
         bins zero = {12'h000};
     }
-    mstatus_MIE: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "mie")[0] {
+    mstatus_MIE: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_MIE)[0] {
         // auto fills 1 and 0
     }
-    mstatus_SIE: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "sie")[0] {
+    mstatus_SIE: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_SIE)[0] {
         // auto fills 1 and 0
     }
     pc_bit_1: coverpoint ins.current.pc_rdata[1] {
@@ -426,7 +426,7 @@ covergroup Exceptions_Sm_cg with function sample(ins_t ins);
     seed: coverpoint ins.current.insn[31:20] {
         bins seed = {CSR_SEED};
     }
-    mstatus_MIE: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "mie")[0] {
+    mstatus_MIE: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_MIE)[0] {
         // auto fills 1 and 0
     }
     pc_bit_1: coverpoint ins.current.pc_rdata[1] {
@@ -463,7 +463,7 @@ covergroup Exceptions_Sm_cg with function sample(ins_t ins);
             bins storepagefault_enabled   = {16'b1000_0000_0000_0000};
             wildcard bins ones            = {16'b1011_00?1_1111_111?};
         }
-        mstatus_SIE: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "sie")[0] {
+        mstatus_SIE: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_SIE)[0] {
             // auto fills 1 and 0
         }
         medeleg_b8: coverpoint get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MEDELEG)[8] {
@@ -657,7 +657,7 @@ covergroup Exceptions_U_cg with function sample(ins_t ins);
     seed: coverpoint ins.current.insn[31:20] {
         bins seed = {CSR_SEED};
     }
-    mstatus_MIE: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "mie")[0] {
+    mstatus_MIE: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_MIE)[0] {
         // auto fills 1 and 0
     }
     pc_bit_1: coverpoint ins.current.pc_rdata[1] {
@@ -1000,10 +1000,10 @@ covergroup Exceptions_ZicboS_cg with function sample(ins_t ins);
             wildcard bins cbo_clean = {CBO_CLEAN};
         }
         `ifdef SM1P12P0_OR_LATER_SUPPORTED
-            menvcfg_cbie: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "cbie")[1:0] {
+            menvcfg_cbie: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_CBIE)[1:0] {
                 ignore_bins reserved = {2'b10};
             }
-            menvcfg_cbcfe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "cbcfe")[0] {
+            menvcfg_cbcfe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_CBCFE)[0] {
             }
             // cbo.inval only executes with cbie enabled; 00 traps and 10 is reserved
             menvcfg_cbie_enabled: coverpoint ins.current.csr[CSR_MENVCFG][5:4] {
@@ -1012,10 +1012,10 @@ covergroup Exceptions_ZicboS_cg with function sample(ins_t ins);
             }
         `endif
         `ifdef S1P12P0_OR_LATER_SUPPORTED
-            senvcfg_cbie: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SENVCFG, "cbie")[1:0] {
+            senvcfg_cbie: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SENVCFG_CBIE)[1:0] {
                 ignore_bins reserved = {2'b10};
             }
-            senvcfg_cbcfe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SENVCFG, "cbcfe")[0] {
+            senvcfg_cbcfe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SENVCFG_CBCFE)[0] {
             }
             senvcfg_cbie_enabled: coverpoint ins.current.csr[CSR_SENVCFG][5:4] {
                 bins flush = {2'b01};
@@ -1028,11 +1028,11 @@ covergroup Exceptions_ZicboS_cg with function sample(ins_t ins);
             wildcard bins cbo_zero = {CBO_ZERO};
         }
         `ifdef SM1P12P0_OR_LATER_SUPPORTED
-            menvcfg_cbze: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "cbze")[0] {
+            menvcfg_cbze: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_CBZE)[0] {
             }
         `endif
         `ifdef S1P12P0_OR_LATER_SUPPORTED
-            senvcfg_cbze: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SENVCFG, "cbze")[0] {
+            senvcfg_cbze: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SENVCFG_CBZE)[0] {
             }
         `endif
     `endif
@@ -1122,10 +1122,10 @@ covergroup Exceptions_ZicboSm_cg with function sample(ins_t ins);
         // menvcfg does not exist before Sm1.12.0
         `ifdef SM1P12P0_OR_LATER_SUPPORTED
             `ifdef U_SUPPORTED
-                menvcfg_cbie: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "cbie")[1:0] {
+                menvcfg_cbie: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_CBIE)[1:0] {
                     ignore_bins reserved = {2'b10};
                 }
-                menvcfg_cbcfe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "cbcfe")[0] {
+                menvcfg_cbcfe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_CBCFE)[0] {
                 }
             `endif
         `endif
@@ -1138,7 +1138,7 @@ covergroup Exceptions_ZicboSm_cg with function sample(ins_t ins);
 
         `ifdef SM1P12P0_OR_LATER_SUPPORTED
             `ifdef U_SUPPORTED
-                menvcfg_cbze: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "cbze")[0] {
+                menvcfg_cbze: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_CBZE)[0] {
                 }
             `endif
         `endif
@@ -1228,10 +1228,10 @@ covergroup Exceptions_ZicboU_cg with function sample(ins_t ins);
         }
         // menvcfg does not exist before Sm1.12.0
         `ifdef SM1P12P0_OR_LATER_SUPPORTED
-            menvcfg_cbie: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "cbie")[1:0] {
+            menvcfg_cbie: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_CBIE)[1:0] {
                 ignore_bins reserved = {2'b10};
             }
-            menvcfg_cbcfe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "cbcfe")[0] {
+            menvcfg_cbcfe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_CBCFE)[0] {
             }
             // cbo.inval only executes with cbie enabled; 00 traps and 10 is reserved
             menvcfg_cbie_enabled: coverpoint ins.current.csr[CSR_MENVCFG][5:4] {
@@ -1251,7 +1251,7 @@ covergroup Exceptions_ZicboU_cg with function sample(ins_t ins);
             wildcard bins cbo_zero = {CBO_ZERO};
         }
         `ifdef SM1P12P0_OR_LATER_SUPPORTED
-            menvcfg_cbze: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "cbze")[0] {
+            menvcfg_cbze: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_CBZE)[0] {
             }
         `endif
     `endif
@@ -1431,17 +1431,17 @@ covergroup Exceptions_H_cg with function sample(ins_t ins);
     // ============================================================================
 
     // medeleg as set up by BOOT_TO_SMODE: every exception but the ecalls from HS-mode and M-mode
-    medeleg_delegation: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MEDELEG, "deleg") {
+    medeleg_delegation: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MEDELEG_DELEG) {
         wildcard bins ones = {32'b????_????_1111_??00_1011_0101_1111_111?};
     }
-    medeleg_ecall_u_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MEDELEG, "deleg")[8] {
+    medeleg_ecall_u_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MEDELEG_DELEG)[8] {
         bins delegated = {1};
     }
-    medeleg_ecall_u_vs_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MEDELEG, "deleg")[10:8] {
+    medeleg_ecall_u_vs_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MEDELEG_DELEG)[10:8] {
         wildcard bins delegated = {3'b1?1};
     }
     // Bits 16 and 20-23 are read-only 0; bit 0 is writable only when IALIGN = 32
-    hedeleg_walk: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HEDELEG, "deleg") {
+    hedeleg_walk: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HEDELEG_DELEG) {
         bins zeros              = {32'h00000000};
         `ifndef ZCA_SUPPORTED
             bins instrmisaligned = {32'h00000001};
@@ -1456,31 +1456,31 @@ covergroup Exceptions_H_cg with function sample(ins_t ins);
         bins ecallu             = {32'h00000100};
         wildcard bins ones      = {32'b????_????_0000_1100_1011_0001_1111_111?};
     }
-    hedeleg_writable: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HEDELEG, "deleg") {
+    hedeleg_writable: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HEDELEG_DELEG) {
         wildcard bins ones = {32'b????_????_0000_1100_1011_0001_1111_111?};
     }
-    hedeleg_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HEDELEG, "deleg") {
+    hedeleg_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HEDELEG_DELEG) {
         bins disabled = {32'h00000000};
     }
-    hedeleg_ecall_u_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HEDELEG, "deleg")[8] {
+    hedeleg_ecall_u_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HEDELEG_DELEG)[8] {
         bins delegated = {1};
     }
-    hedeleg_ecall_u_vs_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HEDELEG, "deleg")[10:8] {
+    hedeleg_ecall_u_vs_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HEDELEG_DELEG)[10:8] {
         wildcard bins not_delegated = {3'b0?0};
     }
-    hstatus_spvp: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HSTATUS, "spvp")[0] {}
-    hstatus_hu: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HSTATUS, "hu")[0] {}
-    hstatus_vtsr_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HSTATUS, "vtsr") {
+    hstatus_spvp: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HSTATUS_SPVP)[0] {}
+    hstatus_hu: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HSTATUS_HU)[0] {}
+    hstatus_vtsr_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HSTATUS_VTSR) {
         bins one = {1};
     }
-    hstatus_vtvm_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HSTATUS, "vtvm") {
+    hstatus_vtvm_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HSTATUS_VTVM) {
         bins one = {1};
     }
-    vsstatus_sie: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VSSTATUS, "sie")[0] {}
-    mstatus_tvm_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "tvm") {
+    vsstatus_sie: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VSSTATUS_SIE)[0] {}
+    mstatus_tvm_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_TVM) {
         bins tvm_disabled = {0};
     }
-    mstatus_tw_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "tw") {
+    mstatus_tw_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_TW) {
         bins tw_disabled = {0};
     }
     // Written before entering VS-mode, so the trap record shows what the exception writes
@@ -1514,8 +1514,8 @@ covergroup Exceptions_H_cg with function sample(ins_t ins);
 
     // Traps delegated to VS-mode go through vstvec, which points to a different handler than stvec
     vstvec_trap: coverpoint ins.current.insn {
-        bins ecall  = {ECALL}  iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HEDELEG, "deleg")[8]);
-        bins ebreak = {EBREAK} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HEDELEG, "deleg")[3]);
+        bins ecall  = {ECALL}  iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HEDELEG_DELEG)[8]);
+        bins ebreak = {EBREAK} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HEDELEG_DELEG)[3]);
     }
     vstvec_not_stvec: coverpoint (get_csr_val(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VSTVEC) != get_csr_val(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_STVEC)) {
         bins different = {1};
@@ -1589,7 +1589,7 @@ covergroup Exceptions_H_cg with function sample(ins_t ins);
         bins aligned    = {2'b00};
         bins misaligned = {2'b01};
     }
-    hstatus_gva_set: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_HSTATUS, "gva") {
+    hstatus_gva_set: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, HSTATUS_GVA) {
         bins set = {1};
     }
     `ifdef RVMODEL_ACCESS_FAULT_ADDRESS_FETCH
@@ -1746,20 +1746,20 @@ covergroup Exceptions_HSm_cg with function sample(ins_t ins);
     // CSR fields
     // ============================================================================
 
-    medeleg_delegation: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MEDELEG, "deleg") {
+    medeleg_delegation: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MEDELEG_DELEG) {
         bins zeros = {32'h00000000};
     }
     // With medeleg = 0, hedeleg has no effect: none and all of its writable bits (bit 0 only when IALIGN = 32)
-    hedeleg_none_all: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HEDELEG, "deleg") {
+    hedeleg_none_all: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HEDELEG_DELEG) {
         bins zeros         = {32'h00000000};
         wildcard bins ones = {32'b????_????_0000_1100_1011_0001_1111_111?};
     }
-    hedeleg_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HEDELEG, "deleg") {
+    hedeleg_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HEDELEG_DELEG) {
         bins disabled = {32'h00000000};
     }
-    hstatus_hu: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HSTATUS, "hu")[0] {}
-    hstatus_vtsr: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HSTATUS, "vtsr")[0] {}
-    mstatus_tsr_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "tsr") {
+    hstatus_hu: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HSTATUS_HU)[0] {}
+    hstatus_vtsr: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HSTATUS_VTSR)[0] {}
+    mstatus_tsr_enabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_TSR) {
         bins tsr_enabled = {1};
     }
     // Written before entering VS-mode, so the trap record shows what the exception writes

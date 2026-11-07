@@ -9,7 +9,7 @@
         bins target = {1'b1};
     }
 
-    vtype_all_lmulge1: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul") {
+    vtype_all_lmulge1: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VLMUL) {
         bins one    = {0};
         bins two    = {1};
         bins four   = {2};

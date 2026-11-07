@@ -150,8 +150,8 @@ function automatic logic sdtrig_trap_exception(ins_t ins);
 endfunction
 // Mode the trap was taken from: an interrupt taken on an xRET record is taken in the mode the xRET returns to
 function automatic logic [1:0] sdtrig_trap_origin(ins_t ins);
-    if (ins.current.insn == MRET) return get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "mpp")[1:0];
-    if (ins.current.insn == SRET) return {1'b0, get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "spp")[0]};
+    if (ins.current.insn == MRET) return get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_MPP)[1:0];
+    if (ins.current.insn == SRET) return {1'b0, get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_SPP)[0]};
     return ins.prev.mode;
 endfunction
 // {handler, tdata1 priv bit for the origin mode (itrigger/etrigger m 9, s 7, u 6), fired}
@@ -215,7 +215,7 @@ endfunction
 // at tdata2, seen retiring or as the breakpoint that replaced it; 0 for anything else. The test puts a c.nop target at
 // an address that is 2 mod 4 and an addi target at 0 mod 4, so tdata2[1] names a target that did not retire.
 function automatic logic [3:0] sdtrig_exec_adr_size_case(ins_t ins);
-    logic [2:0] size = get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "size")[2:0];
+    logic [2:0] size = get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_SIZE)[2:0];
     if (sdtrig_exec_fired(ins) && sdtrig_bp_epc(ins) == ins.current.csr[CSR_TDATA2])
         return {size, ins.current.csr[CSR_TDATA2][1]};
     if (ins.current.pc_rdata != ins.current.csr[CSR_TDATA2]) return 4'd0;
@@ -230,7 +230,7 @@ function automatic logic [1:0] sdtrig_size_data_case(ins_t ins);
     int bytes, size_bytes;
     if (ins.current.insn[6:0] != 7'b0100011 || ins.current.insn[14]) return 2'd0;
     bytes = 1 << ins.current.insn[13:12];
-    case (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "size")[2:0])
+    case (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_SIZE)[2:0])
         3'd1:    size_bytes = 1;
         3'd2:    size_bytes = 2;
         3'd3:    size_bytes = 4;
@@ -255,16 +255,16 @@ endfunction
 function automatic logic [1:0] sdtrig_ms_case(ins_t ins, logic [2:0] xsl);
     int when = sdtrig_ms_when(ins);
     logic [1:0] origin = sdtrig_trap_origin(ins);
-    string mode_bit = (origin == 2'd3) ? "m" : (origin == 2'd1) ? "s" : "u";
+    csr_field_t mode_bit = (origin == 2'd3) ? TDATA1_M : (origin == 2'd1) ? TDATA1_S : TDATA1_U;
     int bytes, size_bytes;
     logic fired;
-    if (get_csr_field(ins.hart, ins.issue, when, CSR_TDATA1, "type")[3:0] != 4'd6 ||
-        get_csr_field(ins.hart, ins.issue, when, CSR_TDATA1, mode_bit)[0] != 1'b1 ||
-        get_csr_field(ins.hart, ins.issue, when, CSR_TDATA1, "chain")[0] != 1'b0 ||
-        get_csr_field(ins.hart, ins.issue, when, CSR_TDATA1, "select")[0] != 1'b1 ||
-        {get_csr_field(ins.hart, ins.issue, when, CSR_TDATA1, "execute")[0], get_csr_field(ins.hart, ins.issue, when, CSR_TDATA1, "store")[0],
-         get_csr_field(ins.hart, ins.issue, when, CSR_TDATA1, "load")[0]} != xsl) return 2'd0;
-    case (get_csr_field(ins.hart, ins.issue, when, CSR_TDATA1, "size")[2:0])
+    if (get_csr_field(ins.hart, ins.issue, when, TDATA1_TYPE)[3:0] != 4'd6 ||
+        get_csr_field(ins.hart, ins.issue, when, mode_bit)[0] != 1'b1 ||
+        get_csr_field(ins.hart, ins.issue, when, TDATA1_CHAIN)[0] != 1'b0 ||
+        get_csr_field(ins.hart, ins.issue, when, TDATA1_SELECT)[0] != 1'b1 ||
+        {get_csr_field(ins.hart, ins.issue, when, TDATA1_EXECUTE)[0], get_csr_field(ins.hart, ins.issue, when, TDATA1_STORE)[0],
+         get_csr_field(ins.hart, ins.issue, when, TDATA1_LOAD)[0]} != xsl) return 2'd0;
+    case (get_csr_field(ins.hart, ins.issue, when, TDATA1_SIZE)[2:0])
         3'd1:    size_bytes = 1;
         3'd2:    size_bytes = 2;
         3'd3:    size_bytes = 4;
@@ -330,7 +330,7 @@ endfunction
 // SdtrigS/U textra cases: the type of the trigger the instruction on this record acts on, an icount trigger armed
 // with count = 1 (a nop) or an mcontrol6 XLEN-wide data-store trigger (the store); 0 for any other instruction
 function automatic logic [3:0] sdtrig_textra_action(ins_t ins);
-    logic [3:0] trig_type = get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_TDATA1, "type")[3:0];
+    logic [3:0] trig_type = get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, TDATA1_TYPE)[3:0];
     `ifdef UDB_MXLEN_64
         logic store_xlen = ins.current.insn ==? SD;
     `else

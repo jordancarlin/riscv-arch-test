@@ -8,7 +8,7 @@
     // transitioning-model bugs.
     //////////////////////////////////////////////////////////////////////////////////
 
-    mstatus_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "fs") {
+    mstatus_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_FS) {
         `ifdef UDB_MSTATUS_FS_LEGAL_VALUES_1
             bins fs_initial = {1};
         `endif
@@ -18,7 +18,7 @@
         bins fs_dirty   = {3};
     }
 
-    mstatus_vs_active_for_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "vs") {
+    mstatus_vs_active_for_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_VS) {
         bins active = {[1:3]};
     }
 

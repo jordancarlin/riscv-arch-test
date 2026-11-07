@@ -13,12 +13,12 @@
 //
 ///////////////////////////////////////////
 // csrr tdata1 of an armed icount trigger
-icount_readback: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_TDATA1, "type")[3:0] iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "type")[3:0] == 4'd3) {
+icount_readback: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, TDATA1_TYPE)[3:0] iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_TYPE)[3:0] == 4'd3) {
     type_option.weight = 0;
     bins icount = {4'd3};
 }
 // the breakpoint taken on this record while an icount trigger is armed
-icount_fired: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "type")[3:0] iff (sdtrig_bp_taken(ins)) {
+icount_fired: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_TYPE)[3:0] iff (sdtrig_bp_taken(ins)) {
     type_option.weight = 0;
     bins icount = {4'd3};
 }

@@ -70,7 +70,7 @@ covergroup Smstateen_cg with function sample(ins_t ins);
 
     // imsic and aia
     `ifdef SSAIA_SUPPORTED
-        imsic_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "imsic", 1), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "imsic", 1)} {
+        imsic_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, MSTATEEN0_IMSIC), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, HSTATEEN0_IMSIC)} {
             wildcard bins imsic_disabled = {2'b0?};
             bins imsic_enabled  = {2'b11};
         }
@@ -80,7 +80,7 @@ covergroup Smstateen_cg with function sample(ins_t ins);
               wildcard bins vstopei = {CSR_VSTOPEI};
             `endif
         }
-        aia_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "aia", 1), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "aia", 1)} {
+        aia_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, MSTATEEN0_AIA), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, HSTATEEN0_AIA)} {
             wildcard bins aia_disabled = {2'b0?};
             bins aia_enabled  = {2'b11};
         }
@@ -96,7 +96,7 @@ covergroup Smstateen_cg with function sample(ins_t ins);
 
     // csrind
     `ifdef SSCSRIND_SUPPORTED
-        csrind_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "csrind", 1), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "csrind", 1)} {
+        csrind_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, MSTATEEN0_CSRIND), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, HSTATEEN0_CSRIND)} {
             wildcard bins csrind_disabled = {2'b0?};
             bins csrind_enabled  = {2'b11};
         }
@@ -122,10 +122,10 @@ covergroup Smstateen_cg with function sample(ins_t ins);
 
     // fcsr
     `ifdef ZFINX_SUPPORTED
-        misa_F_clear: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MISA, "exts")[5] {
+        misa_F_clear: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MISA_EXTS)[5] {
             bins F_clear = {1'b0};
         }
-        fcsr_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "fcsr", 0), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "fcsr", 0), sstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "fcsr")} {
+        fcsr_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, MSTATEEN0_FCSR), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, HSTATEEN0_FCSR), sstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, SSTATEEN0_FCSR)} {
             wildcard bins fcsr_disabled = {3'b0??};
             bins fcsr_enabled  = {3'b111};
         }
@@ -144,7 +144,7 @@ covergroup Smstateen_cg with function sample(ins_t ins);
 
     // envcfg
     `ifdef SM1P12P0_OR_LATER_SUPPORTED
-        envcfg_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_AFTER, "envcfg", 1), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_AFTER, "envcfg", 1)} {
+        envcfg_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_AFTER, MSTATEEN0_ENVCFG), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_AFTER, HSTATEEN0_ENVCFG)} {
             wildcard bins envcfg_disabled = {2'b0?};
             bins envcfg_enabled  = {2'b11};
         }
@@ -161,7 +161,7 @@ covergroup Smstateen_cg with function sample(ins_t ins);
 
     // jvt
     `ifdef ZCMT_SUPPORTED
-        jvt_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "jvt", 0), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "jvt", 0), sstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "jvt")} {
+        jvt_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, MSTATEEN0_JVT), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, HSTATEEN0_JVT), sstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, SSTATEEN0_JVT)} {
             wildcard bins jvt_disabled = {3'b0??};
             bins jvt_enabled  = {3'b111};
         }
@@ -180,7 +180,7 @@ covergroup Smstateen_cg with function sample(ins_t ins);
       `endif
     `endif
     `ifdef CONTEXT_SUPPORTED
-        context_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "context", 1), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "context", 1)} {
+        context_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, MSTATEEN0_CONTEXT), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, HSTATEEN0_CONTEXT)} {
             wildcard bins context_disabled = {2'b0?};
             bins context_enabled  = {2'b11};
         }
@@ -200,7 +200,7 @@ covergroup Smstateen_cg with function sample(ins_t ins);
       // with the hypervisor extension; anywhere else the bit is read-only zero.
       `ifdef H_SUPPORTED
       `ifdef UDB_MXLEN_32
-          p1p13_state: coverpoint mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "p1p13", 1) {}
+          p1p13_state: coverpoint mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, MSTATEEN0_P1P13) {}
           hedelegh_csr: coverpoint ins.current.insn[31:20] {
               wildcard bins hedelegh = {CSR_HEDELEGH};
           }
@@ -210,7 +210,7 @@ covergroup Smstateen_cg with function sample(ins_t ins);
 
     // srmcfg
     `ifdef SSQOSID_SUPPORTED
-        srmcfg_state: coverpoint mstateen0_bit(ins.hart, ins.issue, `SAMPLE_AFTER, "srmcfg", 1) {}
+        srmcfg_state: coverpoint mstateen0_bit(ins.hart, ins.issue, `SAMPLE_AFTER, MSTATEEN0_SRMCFG) {}
         srmcfg_csr: coverpoint ins.current.insn[31:20] {
             wildcard bins srmcfg = {CSR_SRMCFG};
         }
@@ -218,7 +218,7 @@ covergroup Smstateen_cg with function sample(ins_t ins);
 
     // ctr
     `ifdef SSCTR_SUPPORTED
-        ctr_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "ctr", 1), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, "ctr", 1)} {
+        ctr_state: coverpoint {mstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, MSTATEEN0_CTR), hstateen0_bit(ins.hart, ins.issue, `SAMPLE_CURRENT, HSTATEEN0_CTR)} {
             wildcard bins ctr_disabled = {2'b0?};
             bins ctr_enabled  = {2'b11};
         }

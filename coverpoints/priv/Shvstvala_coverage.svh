@@ -95,21 +95,21 @@ covergroup Shvstvala_cg with function sample(ins_t ins);
     }
 
     `ifdef RVMODEL_ACCESS_FAULT_ADDRESS_FETCH
-        instr_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSCAUSE, "code")
+        instr_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_VSCAUSE]) {
             bins vscause = {1};
         }
         cp_instr_access_fault: cross priv_mode_vs_vu, jalr,     instr_access_fault, vstval_target;
     `endif
     `ifdef RVMODEL_ACCESS_FAULT_ADDRESS_LOAD
-        load_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSCAUSE, "code")
+        load_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_VSCAUSE]) {
             bins vscause = {5};
         }
         cp_load_access_fault:  cross priv_mode_vs_vu, loadops,  load_access_fault,  vstval_address;
     `endif
     `ifdef RVMODEL_ACCESS_FAULT_ADDRESS_STORE
-        store_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSCAUSE, "code")
+        store_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_VSCAUSE]) {
             bins vscause = {7};
         }
@@ -118,11 +118,11 @@ covergroup Shvstvala_cg with function sample(ins_t ins);
 
     // Misaligned loads and stores trap only when the implementation does not perform them
     `ifndef UDB_MISALIGNED_LDST
-        load_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSCAUSE, "code")
+        load_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_VSCAUSE]) {
             bins vscause = {4};
         }
-        store_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSCAUSE, "code")
+        store_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_VSCAUSE]) {
             bins vscause = {6};
         }
@@ -167,14 +167,14 @@ covergroup Shvstvala_cg with function sample(ins_t ins);
 
     // Misaligned fetches trap only when IALIGN = 32
     `ifndef ZCA_SUPPORTED
-        instr_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSCAUSE, "code")
+        instr_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_VSCAUSE]) {
             bins vscause = {0};
         }
         cp_instr_adr_misaligned_jalr: cross priv_mode_vs_vu, jalr, instr_misaligned, vstval_target;
     `endif
 
-    illegal_instruction : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSCAUSE, "code")
+    illegal_instruction : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_VSCAUSE]) {
         bins vscause = {2};
     }
@@ -182,15 +182,15 @@ covergroup Shvstvala_cg with function sample(ins_t ins);
 
     // VS-stage leaves without R, W or X under two-stage translation
     `ifdef H_TWO_STAGE
-        instr_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSCAUSE, "code")
+        instr_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_VSCAUSE]) {
             bins vscause = {12};
         }
-        load_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSCAUSE, "code")
+        load_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_VSCAUSE]) {
             bins vscause = {13};
         }
-        store_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSCAUSE, "code")
+        store_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_VSCAUSE]) {
             bins vscause = {15};
         }

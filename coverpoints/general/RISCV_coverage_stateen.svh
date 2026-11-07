@@ -14,30 +14,22 @@
 `ifndef RISCV_COVERAGE_STATEEN_SVH
 `define RISCV_COVERAGE_STATEEN_SVH
 
-// Bit of a field in mstateen0. upper is set for a field in bits 63:32, which is in mstateen0h on RV32.
-function bit mstateen0_bit(int hart, int issue, int prev, string field, bit upper);
-    `ifdef UDB_MXLEN_32
-        return get_csr_field(hart, issue, prev, upper ? CSR_MSTATEEN0H : CSR_MSTATEEN0, field)[0];
-    `else
-        return get_csr_field(hart, issue, prev, CSR_MSTATEEN0, field)[0];
-    `endif
+// Bit f of mstateen0, hstateen0, or sstateen0. hstateen0_bit and sstateen0_bit return 1 when the CSR is not implemented.
+function bit mstateen0_bit(int hart, int issue, int prev, csr_field_t f);
+    return get_csr_field(hart, issue, prev, f)[0];
 endfunction
 
-function bit hstateen0_bit(int hart, int issue, int prev, string field, bit upper);
+function bit hstateen0_bit(int hart, int issue, int prev, csr_field_t f);
     `ifdef H_SUPPORTED
-        `ifdef UDB_MXLEN_32
-            return get_csr_field(hart, issue, prev, upper ? CSR_HSTATEEN0H : CSR_HSTATEEN0, field)[0];
-        `else
-            return get_csr_field(hart, issue, prev, CSR_HSTATEEN0, field)[0];
-        `endif
+        return get_csr_field(hart, issue, prev, f)[0];
     `else
         return 1'b1;
     `endif
 endfunction
 
-function bit sstateen0_bit(int hart, int issue, int prev, string field);
+function bit sstateen0_bit(int hart, int issue, int prev, csr_field_t f);
     `ifdef S_SUPPORTED
-        return get_csr_field(hart, issue, prev, CSR_SSTATEEN0, field)[0];
+        return get_csr_field(hart, issue, prev, f)[0];
     `else
         return 1'b1;
     `endif

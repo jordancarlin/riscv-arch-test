@@ -17,22 +17,22 @@ covergroup Sstc_cg with function sample(ins_t ins);
     `include "general/RISCV_coverage_standard_coverpoints.svh"
 
     // building blocks for the main coverpoints
-    mcounteren_tm: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MCOUNTEREN, "tm")[0] {}
-    mcounteren_tm_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MCOUNTEREN, "tm") {
+    mcounteren_tm: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MCOUNTEREN_TM)[0] {}
+    mcounteren_tm_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MCOUNTEREN_TM) {
         bins one = {1};
     }
-    scounteren_tm: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_SCOUNTEREN, "tm")[0] {}
-    scounteren_tm_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_SCOUNTEREN, "tm") {
+    scounteren_tm: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, SCOUNTEREN_TM)[0] {}
+    scounteren_tm_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, SCOUNTEREN_TM) {
         bins one = {1};
     }
     `ifdef UDB_MXLEN_64
-        menvcfg_stce: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "stce")[0] {}
-        menvcfg_stce_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "stce") {
+        menvcfg_stce: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0] {}
+        menvcfg_stce_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE) {
             bins one = {1};
         }
     `else
-        menvcfg_stce: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFGH, "stce")[0] {}
-        menvcfg_stce_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFGH, "stce") {
+        menvcfg_stce: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0] {}
+        menvcfg_stce_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE) {
             bins one = {1};
         }
     `endif
@@ -68,18 +68,18 @@ covergroup Sstc_Sm_cg with function sample(ins_t ins);
     `include "general/RISCV_coverage_standard_coverpoints.svh"
 
     // building blocks for the main coverpoints
-    mcounteren_tm: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MCOUNTEREN, "tm")[0] {}
-    mcounteren_tm_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MCOUNTEREN, "tm") {
+    mcounteren_tm: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MCOUNTEREN_TM)[0] {}
+    mcounteren_tm_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MCOUNTEREN_TM) {
         bins one = {1};
     }
     `ifdef UDB_MXLEN_64
-        menvcfg_stce: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "stce")[0] {}
-        menvcfg_stce_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "stce") {
+        menvcfg_stce: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0] {}
+        menvcfg_stce_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE) {
             bins one = {1};
         }
     `else
-        menvcfg_stce: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFGH, "stce")[0] {}
-        menvcfg_stce_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFGH, "stce") {
+        menvcfg_stce: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0] {}
+        menvcfg_stce_one: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE) {
             bins one = {1};
         }
     `endif
@@ -115,49 +115,49 @@ covergroup Sstc_H_cg with function sample(ins_t ins);
 
     // building blocks for the main coverpoints
     `ifdef UDB_MXLEN_64
-        stce_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "stce")[0],
-                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFG, "stce")[0]} {
+        stce_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m0_h0 = {2'b00};
             bins m1_h0 = {2'b10};
             bins m1_h1 = {2'b11};
         }
-        stce_pair_ones: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "stce")[0],
-                                    get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFG, "stce")[0]} {
+        stce_pair_ones: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                                    get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m1_h1 = {2'b11};
         }
-        stce_pair_m1_h0: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "stce")[0],
-                                     get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFG, "stce")[0]} {
+        stce_pair_m1_h0: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                                     get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m1_h0 = {2'b10};
         }
     `else
-        stce_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFGH, "stce")[0],
-                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFGH, "stce")[0]} {
+        stce_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m0_h0 = {2'b00};
             bins m1_h0 = {2'b10};
             bins m1_h1 = {2'b11};
         }
-        stce_pair_ones: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFGH, "stce")[0],
-                                    get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFGH, "stce")[0]} {
+        stce_pair_ones: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                                    get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m1_h1 = {2'b11};
         }
-        stce_pair_m1_h0: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFGH, "stce")[0],
-                                     get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFGH, "stce")[0]} {
+        stce_pair_m1_h0: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                                     get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m1_h0 = {2'b10};
         }
     `endif
-    tm_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MCOUNTEREN, "tm")[0],
-                         get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HCOUNTEREN, "tm")[0]} {
+    tm_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MCOUNTEREN_TM)[0],
+                         get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HCOUNTEREN_TM)[0]} {
         bins m0_h0 = {2'b00};
         bins m0_h1 = {2'b01};
         bins m1_h0 = {2'b10};
         bins m1_h1 = {2'b11};
     }
-    tm_pair_ones: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MCOUNTEREN, "tm")[0],
-                              get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HCOUNTEREN, "tm")[0]} {
+    tm_pair_ones: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MCOUNTEREN_TM)[0],
+                              get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HCOUNTEREN_TM)[0]} {
         bins m1_h1 = {2'b11};
     }
-    tm_pair_m1_h0: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MCOUNTEREN, "tm")[0],
-                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HCOUNTEREN, "tm")[0]} {
+    tm_pair_m1_h0: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MCOUNTEREN_TM)[0],
+                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HCOUNTEREN_TM)[0]} {
         bins m1_h0 = {2'b10};
     }
     csrr: coverpoint ins.current.insn {
@@ -195,7 +195,7 @@ covergroup Sstc_H_cg with function sample(ins_t ins);
     hip: coverpoint ins.current.insn[31:20] {
         bins hip = {CSR_HIP};
     }
-    hvip_vstip: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HVIP, "vstip")[0] {
+    hvip_vstip: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HVIP_VSTIP)[0] {
         // autofill 0/1
     }
     `ifdef UDB_MXLEN_64
@@ -282,45 +282,45 @@ covergroup Sstc_HSm_cg with function sample(ins_t ins);
 
     // building blocks for the main coverpoints
     `ifdef UDB_MXLEN_64
-        stce_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "stce")[0],
-                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFG, "stce")[0]} {
+        stce_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m0_h0 = {2'b00};
             bins m1_h0 = {2'b10};
             bins m1_h1 = {2'b11};
         }
-        stce_pair_ones: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "stce")[0],
-                                    get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFG, "stce")[0]} {
+        stce_pair_ones: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                                    get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m1_h1 = {2'b11};
         }
-        stce_pair_m1_h0: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "stce")[0],
-                                     get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFG, "stce")[0]} {
+        stce_pair_m1_h0: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                                     get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m1_h0 = {2'b10};
         }
     `else
-        stce_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFGH, "stce")[0],
-                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFGH, "stce")[0]} {
+        stce_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m0_h0 = {2'b00};
             bins m1_h0 = {2'b10};
             bins m1_h1 = {2'b11};
         }
-        stce_pair_ones: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFGH, "stce")[0],
-                                    get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFGH, "stce")[0]} {
+        stce_pair_ones: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                                    get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m1_h1 = {2'b11};
         }
-        stce_pair_m1_h0: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFGH, "stce")[0],
-                                     get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFGH, "stce")[0]} {
+        stce_pair_m1_h0: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_STCE)[0],
+                                     get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_STCE)[0]} {
             bins m1_h0 = {2'b10};
         }
     `endif
-    tm_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MCOUNTEREN, "tm")[0],
-                         get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HCOUNTEREN, "tm")[0]} {
+    tm_pair: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MCOUNTEREN_TM)[0],
+                         get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HCOUNTEREN_TM)[0]} {
         bins m0_h0 = {2'b00};
         bins m0_h1 = {2'b01};
         bins m1_h0 = {2'b10};
         bins m1_h1 = {2'b11};
     }
-    tm_pair_zeros: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MCOUNTEREN, "tm")[0],
-                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HCOUNTEREN, "tm")[0]} {
+    tm_pair_zeros: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MCOUNTEREN_TM)[0],
+                               get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HCOUNTEREN_TM)[0]} {
         bins m0_h0 = {2'b00};
     }
     csrr: coverpoint ins.current.insn {
@@ -343,7 +343,7 @@ covergroup Sstc_HSm_cg with function sample(ins_t ins);
     hip: coverpoint ins.current.insn[31:20] {
         bins hip = {CSR_HIP};
     }
-    hvip_vstip: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HVIP, "vstip")[0] {
+    hvip_vstip: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HVIP_VSTIP)[0] {
         // autofill 0/1
     }
     `ifdef UDB_MXLEN_64

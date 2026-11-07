@@ -15,7 +15,7 @@
 // Triggers are armed in M through T-SBI; this covers the type of the trigger selected when a breakpoint is taken.
 // itrigger/etrigger are left out: in these tests (medeleg[3] = 1) they are suppressed on harts that use the
 // interrupt enables and fire into M on harts that use tcontrol, so neither outcome is a bin.
-bp_type: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_TDATA1, "type")[3:0] iff (sdtrig_bp_taken(ins)) {
+bp_type: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, TDATA1_TYPE)[3:0] iff (sdtrig_bp_taken(ins)) {
     type_option.weight = 0;
     bins icount    = {4'd3};
     bins mcontrol6 = {4'd6};

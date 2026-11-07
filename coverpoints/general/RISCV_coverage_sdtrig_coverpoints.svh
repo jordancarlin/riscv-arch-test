@@ -156,75 +156,75 @@ mret: coverpoint ins.current.insn {
 }
 
 // mcontrol6 fields of the selected trigger's tdata1
-tdata1_type_mcontrol6: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "type")[3:0] {
+tdata1_type_mcontrol6: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_TYPE)[3:0] {
     type_option.weight = 0;
     bins mcontrol6 = {4'd6};
 }
-tdata1_m_on: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "m")[0] {
+tdata1_m_on: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_M)[0] {
     type_option.weight = 0;
     bins on = {1'b1};
 }
-tdata1_s_on: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "s")[0] {
+tdata1_s_on: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_S)[0] {
     type_option.weight = 0;
     bins on = {1'b1};
 }
-tdata1_u_on: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "u")[0] {
+tdata1_u_on: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_U)[0] {
     type_option.weight = 0;
     bins on = {1'b1};
 }
-tdata1_chain_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "chain")[0] {
+tdata1_chain_disabled: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_CHAIN)[0] {
     type_option.weight = 0;
     bins disabled = {1'b0};
 }
-tdata1_execute_on: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "execute")[0] {
+tdata1_execute_on: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_EXECUTE)[0] {
     type_option.weight = 0;
     bins on = {1'b1};
 }
-tdata1_action_breakpoint: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "action") {
+tdata1_action_breakpoint: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_ACTION) {
     type_option.weight = 0;
     bins breakpoint = {0};
 }
-tdata1_select_adr: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "select")[0] {
+tdata1_select_adr: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_SELECT)[0] {
     type_option.weight = 0;
     bins adr = {1'b0};
 }
-tdata1_select_data: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "select")[0] {
+tdata1_select_data: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_SELECT)[0] {
     type_option.weight = 0;
     bins data = {1'b1};
 }
-tdata1_xsl: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "execute")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "store")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "load")[0]} {
+tdata1_xsl: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_EXECUTE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_STORE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_LOAD)[0]} {
     type_option.weight = 0;
     bins xsl[] = {[0:7]};
 }
-tdata1_xsl_one: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "execute")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "store")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "load")[0]} {
+tdata1_xsl_one: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_EXECUTE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_STORE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_LOAD)[0]} {
     type_option.weight = 0;
     bins execute = {3'b100};
     bins store   = {3'b010};
     bins load    = {3'b001};
 }
-tdata1_xsl_store: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "execute")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "store")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "load")[0]} {
+tdata1_xsl_store: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_EXECUTE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_STORE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_LOAD)[0]} {
     type_option.weight = 0;
     bins store = {3'b010};
 }
-tdata1_xsl_load_store: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "execute")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "store")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "load")[0]} {
+tdata1_xsl_load_store: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_EXECUTE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_STORE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_LOAD)[0]} {
     type_option.weight = 0;
     bins load_store = {3'b011};
 }
-tdata1_xsl_load_store_execute: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "execute")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "store")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "load")[0]} {
+tdata1_xsl_load_store_execute: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_EXECUTE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_STORE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_LOAD)[0]} {
     type_option.weight = 0;
     bins execute = {3'b111};
 }
 // tdata1 defaults, crossed where a coverpoint does not vary them
-tdata1_match_equal: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "match")[3:0] {
+tdata1_match_equal: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_MATCH)[3:0] {
     type_option.weight = 0;
     bins equal = {4'd0};
 }
-tdata1_size_any: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "size")[2:0] {
+tdata1_size_any: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_SIZE)[2:0] {
     type_option.weight = 0;
     bins any = {3'd0};
 }
 // every size the hart supports (UDB_SDTRIG_MCONTROL6_SIZE_LEGAL_VALUES)
-tdata1_size: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "size")[2:0] {
+tdata1_size: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_SIZE)[2:0] {
     type_option.weight = 0;
     bins any = {3'd0};
     `ifdef UDB_SDTRIG_MCONTROL6_SIZE_LEGAL_VALUES_1 bins size_1 = {3'd1}; `endif

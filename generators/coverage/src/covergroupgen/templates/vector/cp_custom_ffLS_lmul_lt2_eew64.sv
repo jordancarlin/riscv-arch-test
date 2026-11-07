@@ -15,7 +15,7 @@
     `ifdef RVMODEL_ACCESS_FAULT_ADDRESS_LOAD
         `ifdef ZVL128B_SUPPORTED
 
-            ffLS_valid: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") == 0 &
+            ffLS_valid: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VILL) == 0 &
                 get_csr_val(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VSTART) == 0 &
                 get_csr_val(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VL) != 0
             } {

@@ -99,21 +99,21 @@ covergroup Sstvala_cg with function sample(ins_t ins);
     }
 
     `ifdef RVMODEL_ACCESS_FAULT_ADDRESS_FETCH
-        instr_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        instr_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {1};
         }
         cp_instr_access_fault: cross priv_mode_s_u, jalr,     instr_access_fault, stval_target;
     `endif
     `ifdef RVMODEL_ACCESS_FAULT_ADDRESS_LOAD
-        load_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        load_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {5};
         }
         cp_load_access_fault:  cross priv_mode_s_u, loadops,  load_access_fault,  stval_address;
     `endif
     `ifdef RVMODEL_ACCESS_FAULT_ADDRESS_STORE
-        store_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        store_access_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {7};
         }
@@ -122,11 +122,11 @@ covergroup Sstvala_cg with function sample(ins_t ins);
 
     // Misaligned loads and stores trap only when the implementation does not perform them
     `ifndef UDB_MISALIGNED_LDST
-        load_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        load_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {4};
         }
-        store_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        store_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {6};
         }
@@ -171,14 +171,14 @@ covergroup Sstvala_cg with function sample(ins_t ins);
 
     // Misaligned fetches trap only when IALIGN = 32
     `ifndef ZCA_SUPPORTED
-        instr_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        instr_misaligned : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {0};
         }
         cp_instr_adr_misaligned_jalr: cross priv_mode_s_u, jalr, instr_misaligned, stval_target;
     `endif
 
-    illegal_instruction : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+    illegal_instruction : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
         bins scause = {2};
     }
@@ -193,15 +193,15 @@ covergroup Sstvala_cg with function sample(ins_t ins);
         `define SSTVALA_PAGE_FAULTS
     `endif
     `ifdef SSTVALA_PAGE_FAULTS
-        instr_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        instr_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {12};
         }
-        load_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        load_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {13};
         }
-        store_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        store_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {15};
         }

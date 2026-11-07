@@ -72,35 +72,35 @@ covergroup EndianH_cg with function sample(ins_t ins);
     }
 
 
-    hstatus_vsbe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_HSTATUS, "vsbe")[0] {
+    hstatus_vsbe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, HSTATUS_VSBE)[0] {
     }
 
 
-    mstatus_mprv: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MSTATUS, "mprv")[0] {
+    mstatus_mprv: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MSTATUS_MPRV)[0] {
     }
 
-    mstatus_mpp: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MSTATUS, "mpp")[1:0] {
+    mstatus_mpp: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MSTATUS_MPP)[1:0] {
         bins S_Mode = {2'b01};
         bins M_Mode = {2'b11};
     }
 
     `ifdef UDB_MXLEN_64
-        mstatus_mpv: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MSTATUS, "mpv")[0] {
+        mstatus_mpv: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MSTATUS_MPV)[0] {
         }
     `else
-        mstatus_mpv: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MSTATUSH, "mpv")[0] {
+        mstatus_mpv: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MSTATUS_MPV)[0] {
         }
     `endif
 
     `ifdef UDB_MXLEN_64
-        mstatus_mbe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MSTATUS, "mbe")[0] {
+        mstatus_mbe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MSTATUS_MBE)[0] {
         }
     `else
-        mstatus_mbe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MSTATUSH, "mbe")[0] {
+        mstatus_mbe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MSTATUS_MBE)[0] {
         }
     `endif
 
-    vsstatus_ube: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_VSSTATUS, "ube")[0] {
+    vsstatus_ube: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, VSSTATUS_UBE)[0] {
     }
 
 

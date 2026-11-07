@@ -11,7 +11,7 @@
 //   Weight 0: only the crosses count.
 //
 ///////////////////////////////////////////
-cbo_select: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "select")[0] {
+cbo_select: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_SELECT)[0] {
     type_option.weight = 0;
 }
 // tdata2 relative to the cache block address in rs1

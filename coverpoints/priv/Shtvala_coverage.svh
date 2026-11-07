@@ -29,15 +29,15 @@ covergroup Shtvala_cg with function sample(ins_t ins);
         jalr : coverpoint ins.current.insn {
             wildcard bins jalr = {JALR};
         }
-        instr_guest_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        instr_guest_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {20};
         }
-        load_guest_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        load_guest_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {21};
         }
-        store_guest_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+        store_guest_page_fault : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
             iff (ins.current.csr_wb[CSR_SCAUSE]) {
             bins scause = {23};
         }
@@ -72,7 +72,7 @@ covergroup Shtvala_cg with function sample(ins_t ins);
             bins implicit_gpa = {2'b10};
         }
 
-        hstatus_hu: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HSTATUS, "hu")[0] {
+        hstatus_hu: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HSTATUS_HU)[0] {
             bins on = {1};
         }
 

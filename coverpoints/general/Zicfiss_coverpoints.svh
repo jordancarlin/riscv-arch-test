@@ -96,7 +96,7 @@
     }
 
     // ── Enable-chain building blocks ──────────────────────────────────────
-    menvcfg_sse: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "sse") {
+    menvcfg_sse: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_SSE) {
         bins sse_off = {1'b0};
         bins sse_on  = {1'b1};
     }
@@ -130,7 +130,7 @@
         type_option.weight = 0;
     }
     // MXR governs whether an R=0 page is readable; the SS page is R=0 by construction.
-    sstatus_mxr: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_SSTATUS, "mxr")[0] {
+    sstatus_mxr: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, SSTATUS_MXR)[0] {
         type_option.weight = 0;
     }
     ordinary_storeops: coverpoint ins.current.insn {
@@ -232,7 +232,7 @@
     }
     // The trap this instruction took is a software-check exception, so an unrelated memory fault
     // on a pop cannot fill the mismatch bins.
-    scause_sw_check: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code")
+    scause_sw_check: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE)
                      iff (ins.current.csr_wb[CSR_SEPC] && (get_csr_val(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SEPC) == ins.current.pc_rdata)) {
         type_option.weight = 0;
         bins sw_check = {SOFTWARE_CHECK};
