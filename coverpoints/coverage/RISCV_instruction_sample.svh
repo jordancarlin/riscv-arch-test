@@ -4719,6 +4719,15 @@
             ins.add_vm(2);
             ins.add_v0();
         end
+        "vsetvl"     : begin
+            ins.add_rd(0);
+            ins.add_rs1(1);
+            ins.add_rs2(2);
+        end
+        "vsetvli"     : begin
+            ins.add_rd(0);
+            ins.add_rs1(1);
+        end
         "vsext.vf2"     : begin
             ins.add_vd(0);
             ins.add_vs2(1);
@@ -6625,13 +6634,4 @@
             ins.add_rs2(2);
         end
 `endif
-        "vsetvl"    : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-            ins.add_rs2(2);
-        end
-        "vsetvli"   : begin
-            ins.add_rd(0);
-            ins.add_rs1(1);
-        end
     endcase
