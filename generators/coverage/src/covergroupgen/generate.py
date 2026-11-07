@@ -398,7 +398,7 @@ def read_covergroup_templates(package: str = "covergroupgen.templates") -> dict[
 def customize_template(templates: dict[str, str], name: str, arch: str = "", instr: str = "", effew: str = "") -> str:
     """Look up a template by name and substitute placeholders.
 
-    Placeholders replaced: @INSTRNODOT@, @INSTR@, @ARCHPREFIXUPPER@, @ARCHPREFIX@,
+    Placeholders replaced: @INSTRNODOT@, @INSTRID@, @INSTR@, @ARCHPREFIXUPPER@, @ARCHPREFIX@,
     @ARCHUPPER@, @ARCHCASE@, @ARCH@, and (if effew is set) @TWOEFFEW@, @EFFEW@, @EFFVSEW@.
     ARCHPREFIX is the arch with any trailing digits stripped (e.g. "Vx16" -> "Vx").
     """
@@ -416,6 +416,7 @@ def customize_template(templates: dict[str, str], name: str, arch: str = "", ins
     result = (
         templates[name]
         .replace("@INSTRNODOT@", instr.replace(".", "_"))
+        .replace("@INSTRID@", inst_id(instr))
         .replace("@INSTR@", instr)
         .replace("@ARCHPREFIXUPPER@", arch_prefix.upper())
         .replace("@ARCHPREFIX@", arch_prefix)
@@ -992,6 +993,157 @@ def write_instruction_sample_file(
     _write_if_changed(coverage_dir / "RISCV_instruction_sample.svh", "".join(lines))
 
 
+##################################
+# Instruction decode
+##################################
+
+_DECODE_PKG_DIR = Path(__file__).resolve().parents[4] / "framework" / "src" / "act" / "fcov" / "coverage"
+_DECODE_PKG_FILES = ("RISCV_imported_decode_pkg.svh", "RISCV_decode_pkg.svh")
+
+# Field constraints that the decode package patterns do not hold (riscv-opcodes rd_n0, c_nzimm6 and similar).
+# When the pattern matches and the guard is false, the decode gives INST_NONE.
+DECODE_GUARDS = {
+    "C_ADDI4SPN": "insn[12:5] != 0",
+    "C_NOP": "insn[11:7] == 0",
+    "C_ADDI": "insn[11:7] != 0",
+    "C_ADDI16SP": "insn[11:7] == 2 && {insn[12], insn[6:2]} != 0",
+    "C_LUI": "insn[11:7] != 2 && {insn[12], insn[6:2]} != 0",
+    "C_SLLI": "insn[11:7] != 0",
+    "C_LWSP": "insn[11:7] != 0",
+    "C_LDSP": "insn[11:7] != 0",
+    "C_ADDIW": "insn[11:7] != 0",
+    "C_JR": "insn[11:7] != 0 && insn[6:2] == 0",
+    "C_JALR": "insn[11:7] != 0 && insn[6:2] == 0",
+    "C_MV": "insn[6:2] != 0",
+    "C_ADD": "insn[6:2] != 0",
+}
+
+# Preprocessor conditions for decode arms. Hints decode only when their own coverage is compiled,
+# so the base instruction (ori, add, fence) keeps their encodings otherwise.
+DECODE_CONDITIONS = {
+    "PAUSE": ("`ifdef ZIHINTPAUSE_COVERAGE",),
+    **dict.fromkeys(("PREFETCH_I", "PREFETCH_R", "PREFETCH_W"), ("`ifdef ZICBOP_COVERAGE",)),
+    **dict.fromkeys(
+        ("NTL_ALL", "NTL_PALL", "NTL_P1", "NTL_S1", "C_NTL_ALL", "C_NTL_PALL", "C_NTL_P1", "C_NTL_S1"),
+        ("`ifdef ZIHINTNTL_COVERAGE",),
+    ),
+    **dict.fromkeys(("C_SSPUSH_X1", "C_SSPOPCHK_X5"), ("`ifdef ZICFISS_SUPPORTED", "`ifndef ZCMOP_COVERAGE")),
+    **dict.fromkeys(
+        ("SSPUSH_X1", "SSPUSH_X5", "SSPOPCHK_X1", "SSPOPCHK_X5", "SSRDP"),
+        ("`ifdef ZICFISS_SUPPORTED", "`ifndef ZIMOP_COVERAGE"),
+    ),
+    "LPAD": ("`ifdef ZICFILP_SUPPORTED", "`ifndef I_COVERAGE"),
+}
+
+# Instructions whose decode package macros do not match their names
+DECODE_MACROS = {
+    "sspush": ("SSPUSH_X1", "SSPUSH_X5"),
+    "sspopchk": ("SSPOPCHK_X1", "SSPOPCHK_X5"),
+    "c.sspush": ("C_SSPUSH_X1",),
+    "c.sspopchk": ("C_SSPOPCHK_X5",),
+}
+
+
+@dataclass(frozen=True)
+class _DecodeArm:
+    macro: str
+    pattern: str
+    inst_id: str
+    xlen: int | None  # None: both XLENs
+
+
+def inst_id(instr: str) -> str:
+    """Instruction ID enum label, e.g. c.addi -> INST_C_ADDI."""
+    return "INST_" + instr.upper().replace(".", "_")
+
+
+def _load_decode_patterns() -> dict[str, str]:
+    """Map each decode package macro to its 32-character pattern of 0, 1 and ?."""
+    patterns: dict[str, str] = {}
+    for name in _DECODE_PKG_FILES:
+        text = (_DECODE_PKG_DIR / name).read_text()
+        for m in re.finditer(r"localparam\s+\[31:0\]\s+(\w+)\s*=\s*32'b([01?_]+)", text):
+            patterns[m.group(1)] = m.group(2).replace("_", "")
+    return patterns
+
+
+def _instruction_xlens(
+    test_plans: dict[str, Testplan],
+    instruction_formats: Testplan,
+    extra_testplans: dict[str, dict[tuple[str, ...], Testplan]],
+) -> dict[str, set[int]]:
+    """XLENs on which each instruction has a testplan row."""
+    xlens: dict[str, set[int]] = defaultdict(set)
+    plans = [instruction_formats, *test_plans.values()]
+    plans += [group for groups in extra_testplans.values() for group in groups.values()]
+    for tp in plans:
+        for (instr, _), cps in tp.items():
+            if instr:
+                xlens[instr].update(x for x in (32, 64) if f"RV{x}" in cps)
+    return {instr: x or {32, 64} for instr, x in xlens.items()}
+
+
+def _decode_arms(xlens: dict[str, set[int]], patterns: dict[str, str]) -> list[_DecodeArm]:
+    """Build decode arms for all instructions, most specific pattern first."""
+    arms: list[_DecodeArm] = []
+    for instr, instr_xlens in sorted(xlens.items()):
+        for macro in DECODE_MACROS.get(instr, (instr.upper().replace(".", "_"),)):
+            if macro not in patterns:
+                raise ValueError(f"Instruction {instr} has no {macro} pattern in the decode packages")
+            # Compressed shifts keep the generic pattern, so RV32 encodings with shamt[5]=1 decode as the shift.
+            rv32_macro = f"{macro}_RV32"
+            if rv32_macro in patterns and 32 in instr_xlens and not instr.startswith("c."):
+                arms.append(_DecodeArm(rv32_macro, patterns[rv32_macro], inst_id(instr), 32))
+                if 64 in instr_xlens:
+                    arms.append(_DecodeArm(macro, patterns[macro], inst_id(instr), 64))
+            else:
+                xlen = None if instr_xlens == {32, 64} else min(instr_xlens)
+                arms.append(_DecodeArm(macro, patterns[macro], inst_id(instr), xlen))
+
+    # A more specific pattern must come first. Conditional arms (c.sspush over c.mop.1) come first among
+    # equally specific patterns.
+    def key(arm: _DecodeArm) -> tuple[int, bool, str]:
+        return (-sum(c != "?" for c in arm.pattern), arm.macro not in DECODE_CONDITIONS, arm.macro)
+
+    return sorted(arms, key=key)
+
+
+def write_instruction_decode_files(
+    test_plans: dict[str, Testplan],
+    instruction_formats: Testplan,
+    extra_testplans: dict[str, dict[tuple[str, ...], Testplan]],
+    templates: dict[str, str],
+    output_dir: Path,
+) -> None:
+    """Write the instruction ID enum (RISCV_instruction_id.svh) and decode function (RISCV_instruction_decode.svh).
+
+    Both hold all instructions regardless of extension filtering.
+    """
+    coverage_dir = output_dir / "coverage"
+    coverage_dir.mkdir(parents=True, exist_ok=True)
+    xlens = _instruction_xlens(test_plans, instruction_formats, extra_testplans)
+    arms = _decode_arms(xlens, _load_decode_patterns())
+
+    ids = ["INST_NONE", *(inst_id(instr) for instr in sorted(xlens))]
+    lines = [customize_template(templates, "instruction_id_header")]
+    lines.append(",\n".join(f"  {i}" for i in ids) + "\n")
+    lines.append("} inst_id_t;\n")
+    _write_if_changed(coverage_dir / "RISCV_instruction_id.svh", "".join(lines))
+
+    lines = [customize_template(templates, "instruction_decode_header")]
+    for arm in arms:
+        conds = list(DECODE_CONDITIONS.get(arm.macro, ()))
+        if arm.xlen:
+            conds.insert(0, f"`ifdef UDB_MXLEN_{arm.xlen}")
+        guard = DECODE_GUARDS.get(arm.macro)
+        result = f"({guard}) ? {arm.inst_id} : INST_NONE" if guard else arm.inst_id
+        lines += [f"{c}\n" for c in conds]
+        lines.append(f"    {arm.macro}: return {result};\n")
+        lines += ["`endif\n"] * len(conds)
+    lines.append(customize_template(templates, "instruction_decode_end"))
+    _write_if_changed(coverage_dir / "RISCV_instruction_decode.svh", "".join(lines))
+
+
 def _plan_priv_jobs(
     testplan_dir: Path,
     output_dir: Path,
@@ -1056,4 +1208,5 @@ def generate_covergroups(testplan_dir: Path, output_dir: Path, extensions: str =
 
     write_coverage_headers(all_test_plans, output_dir, templates)
     write_instruction_sample_file(all_test_plans, instruction_formats, templates, output_dir, extra_testplans)
+    write_instruction_decode_files(all_test_plans, instruction_formats, extra_testplans, templates, output_dir)
     rprint(f"[bold green]✓ Generated covergroups for {len(test_plans)} extension(s)[/]")

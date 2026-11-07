@@ -3047,20 +3047,20 @@ endgroup
 // ---------------------
 `endif
 function void zfa_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
+    case (inst_id)
 `ifdef D_SUPPORTED
-        "fcvtmod.w.d"     : begin
+        INST_FCVTMOD_W_D     : begin
             ZfaD_fcvtmod_w_d_cg.sample(ins);
         end
 `endif
 `ifdef D_SUPPORTED
-        "fleq.d"     : begin
+        INST_FLEQ_D     : begin
             ZfaD_fleq_d_cg.sample(ins);
         end
 `endif
-        "fleq.h"     : begin
+        INST_FLEQ_H     : begin
 `ifdef ZFH_SUPPORTED
             ZfaZfh_fleq_h_cg.sample(ins);
 `endif
@@ -3070,18 +3070,18 @@ function void zfa_sample(int hart, int issue, ins_t ins);
 `endif
 `endif
         end
-        "fleq.s"     : begin
+        INST_FLEQ_S     : begin
             Zfa_fleq_s_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfaD_fleq_s_cg.sample(ins);
 `endif
         end
 `ifdef D_SUPPORTED
-        "fli.d"     : begin
+        INST_FLI_D     : begin
             ZfaD_fli_d_cg.sample(ins);
         end
 `endif
-        "fli.h"     : begin
+        INST_FLI_H     : begin
 `ifdef ZFH_SUPPORTED
             ZfaZfh_fli_h_cg.sample(ins);
 `endif
@@ -3094,18 +3094,18 @@ function void zfa_sample(int hart, int issue, ins_t ins);
             ZfaZvfh_fli_h_cg.sample(ins);
 `endif
         end
-        "fli.s"     : begin
+        INST_FLI_S     : begin
             Zfa_fli_s_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfaD_fli_s_cg.sample(ins);
 `endif
         end
 `ifdef D_SUPPORTED
-        "fltq.d"     : begin
+        INST_FLTQ_D     : begin
             ZfaD_fltq_d_cg.sample(ins);
         end
 `endif
-        "fltq.h"     : begin
+        INST_FLTQ_H     : begin
 `ifdef ZFH_SUPPORTED
             ZfaZfh_fltq_h_cg.sample(ins);
 `endif
@@ -3115,18 +3115,18 @@ function void zfa_sample(int hart, int issue, ins_t ins);
 `endif
 `endif
         end
-        "fltq.s"     : begin
+        INST_FLTQ_S     : begin
             Zfa_fltq_s_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfaD_fltq_s_cg.sample(ins);
 `endif
         end
 `ifdef D_SUPPORTED
-        "fmaxm.d"     : begin
+        INST_FMAXM_D     : begin
             ZfaD_fmaxm_d_cg.sample(ins);
         end
 `endif
-        "fmaxm.h"     : begin
+        INST_FMAXM_H     : begin
 `ifdef ZFH_SUPPORTED
             ZfaZfh_fmaxm_h_cg.sample(ins);
 `endif
@@ -3136,18 +3136,18 @@ function void zfa_sample(int hart, int issue, ins_t ins);
 `endif
 `endif
         end
-        "fmaxm.s"     : begin
+        INST_FMAXM_S     : begin
             Zfa_fmaxm_s_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfaD_fmaxm_s_cg.sample(ins);
 `endif
         end
 `ifdef D_SUPPORTED
-        "fminm.d"     : begin
+        INST_FMINM_D     : begin
             ZfaD_fminm_d_cg.sample(ins);
         end
 `endif
-        "fminm.h"     : begin
+        INST_FMINM_H     : begin
 `ifdef ZFH_SUPPORTED
             ZfaZfh_fminm_h_cg.sample(ins);
 `endif
@@ -3157,18 +3157,18 @@ function void zfa_sample(int hart, int issue, ins_t ins);
 `endif
 `endif
         end
-        "fminm.s"     : begin
+        INST_FMINM_S     : begin
             Zfa_fminm_s_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfaD_fminm_s_cg.sample(ins);
 `endif
         end
 `ifdef D_SUPPORTED
-        "fround.d"     : begin
+        INST_FROUND_D     : begin
             ZfaD_fround_d_cg.sample(ins);
         end
 `endif
-        "fround.h"     : begin
+        INST_FROUND_H     : begin
 `ifdef ZFH_SUPPORTED
             ZfaZfh_fround_h_cg.sample(ins);
 `endif
@@ -3178,18 +3178,18 @@ function void zfa_sample(int hart, int issue, ins_t ins);
 `endif
 `endif
         end
-        "fround.s"     : begin
+        INST_FROUND_S     : begin
             Zfa_fround_s_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfaD_fround_s_cg.sample(ins);
 `endif
         end
 `ifdef D_SUPPORTED
-        "froundnx.d"     : begin
+        INST_FROUNDNX_D     : begin
             ZfaD_froundnx_d_cg.sample(ins);
         end
 `endif
-        "froundnx.h"     : begin
+        INST_FROUNDNX_H     : begin
 `ifdef ZFH_SUPPORTED
             ZfaZfh_froundnx_h_cg.sample(ins);
 `endif
@@ -3199,7 +3199,7 @@ function void zfa_sample(int hart, int issue, ins_t ins);
 `endif
 `endif
         end
-        "froundnx.s"     : begin
+        INST_FROUNDNX_S     : begin
             Zfa_froundnx_s_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfaD_froundnx_s_cg.sample(ins);
@@ -3207,12 +3207,12 @@ function void zfa_sample(int hart, int issue, ins_t ins);
         end
 `ifdef UDB_MXLEN_32
 `ifdef D_SUPPORTED
-        "fmvh.x.d"     : begin
+        INST_FMVH_X_D     : begin
             ZfaD_fmvh_x_d_cg.sample(ins);
         end
 `endif
 `ifdef D_SUPPORTED
-        "fmvp.d.x"     : begin
+        INST_FMVP_D_X     : begin
             ZfaD_fmvp_d_x_cg.sample(ins);
         end
 `endif

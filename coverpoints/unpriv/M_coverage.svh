@@ -1484,47 +1484,47 @@ endgroup
 // ---------------------
 `endif
 function void m_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "div"     : begin
+    case (inst_id)
+        INST_DIV     : begin
             M_div_cg.sample(ins);
         end
-        "divu"     : begin
+        INST_DIVU     : begin
             M_divu_cg.sample(ins);
         end
-        "mul"     : begin
+        INST_MUL     : begin
             M_mul_cg.sample(ins);
         end
-        "mulh"     : begin
+        INST_MULH     : begin
             M_mulh_cg.sample(ins);
         end
-        "mulhsu"     : begin
+        INST_MULHSU     : begin
             M_mulhsu_cg.sample(ins);
         end
-        "mulhu"     : begin
+        INST_MULHU     : begin
             M_mulhu_cg.sample(ins);
         end
-        "rem"     : begin
+        INST_REM     : begin
             M_rem_cg.sample(ins);
         end
-        "remu"     : begin
+        INST_REMU     : begin
             M_remu_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "divuw"     : begin
+        INST_DIVUW     : begin
             M_divuw_cg.sample(ins);
         end
-        "divw"     : begin
+        INST_DIVW     : begin
             M_divw_cg.sample(ins);
         end
-        "mulw"     : begin
+        INST_MULW     : begin
             M_mulw_cg.sample(ins);
         end
-        "remuw"     : begin
+        INST_REMUW     : begin
             M_remuw_cg.sample(ins);
         end
-        "remw"     : begin
+        INST_REMW     : begin
             M_remw_cg.sample(ins);
         end
 `endif

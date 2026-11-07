@@ -2709,127 +2709,127 @@ covergroup Zimop_mop_rr_7_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zimop_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "mop.r.0"     : begin
+    case (inst_id)
+        INST_MOP_R_0     : begin
             Zimop_mop_r_0_cg.sample(ins);
         end
-        "mop.r.1"     : begin
+        INST_MOP_R_1     : begin
             Zimop_mop_r_1_cg.sample(ins);
         end
-        "mop.r.10"     : begin
+        INST_MOP_R_10     : begin
             Zimop_mop_r_10_cg.sample(ins);
         end
-        "mop.r.11"     : begin
+        INST_MOP_R_11     : begin
             Zimop_mop_r_11_cg.sample(ins);
         end
-        "mop.r.12"     : begin
+        INST_MOP_R_12     : begin
             Zimop_mop_r_12_cg.sample(ins);
         end
-        "mop.r.13"     : begin
+        INST_MOP_R_13     : begin
             Zimop_mop_r_13_cg.sample(ins);
         end
-        "mop.r.14"     : begin
+        INST_MOP_R_14     : begin
             Zimop_mop_r_14_cg.sample(ins);
         end
-        "mop.r.15"     : begin
+        INST_MOP_R_15     : begin
             Zimop_mop_r_15_cg.sample(ins);
         end
-        "mop.r.16"     : begin
+        INST_MOP_R_16     : begin
             Zimop_mop_r_16_cg.sample(ins);
         end
-        "mop.r.17"     : begin
+        INST_MOP_R_17     : begin
             Zimop_mop_r_17_cg.sample(ins);
         end
-        "mop.r.18"     : begin
+        INST_MOP_R_18     : begin
             Zimop_mop_r_18_cg.sample(ins);
         end
-        "mop.r.19"     : begin
+        INST_MOP_R_19     : begin
             Zimop_mop_r_19_cg.sample(ins);
         end
-        "mop.r.2"     : begin
+        INST_MOP_R_2     : begin
             Zimop_mop_r_2_cg.sample(ins);
         end
-        "mop.r.20"     : begin
+        INST_MOP_R_20     : begin
             Zimop_mop_r_20_cg.sample(ins);
         end
-        "mop.r.21"     : begin
+        INST_MOP_R_21     : begin
             Zimop_mop_r_21_cg.sample(ins);
         end
-        "mop.r.22"     : begin
+        INST_MOP_R_22     : begin
             Zimop_mop_r_22_cg.sample(ins);
         end
-        "mop.r.23"     : begin
+        INST_MOP_R_23     : begin
             Zimop_mop_r_23_cg.sample(ins);
         end
-        "mop.r.24"     : begin
+        INST_MOP_R_24     : begin
             Zimop_mop_r_24_cg.sample(ins);
         end
-        "mop.r.25"     : begin
+        INST_MOP_R_25     : begin
             Zimop_mop_r_25_cg.sample(ins);
         end
-        "mop.r.26"     : begin
+        INST_MOP_R_26     : begin
             Zimop_mop_r_26_cg.sample(ins);
         end
-        "mop.r.27"     : begin
+        INST_MOP_R_27     : begin
             Zimop_mop_r_27_cg.sample(ins);
         end
-        "mop.r.28"     : begin
+        INST_MOP_R_28     : begin
             Zimop_mop_r_28_cg.sample(ins);
         end
-        "mop.r.29"     : begin
+        INST_MOP_R_29     : begin
             Zimop_mop_r_29_cg.sample(ins);
         end
-        "mop.r.3"     : begin
+        INST_MOP_R_3     : begin
             Zimop_mop_r_3_cg.sample(ins);
         end
-        "mop.r.30"     : begin
+        INST_MOP_R_30     : begin
             Zimop_mop_r_30_cg.sample(ins);
         end
-        "mop.r.31"     : begin
+        INST_MOP_R_31     : begin
             Zimop_mop_r_31_cg.sample(ins);
         end
-        "mop.r.4"     : begin
+        INST_MOP_R_4     : begin
             Zimop_mop_r_4_cg.sample(ins);
         end
-        "mop.r.5"     : begin
+        INST_MOP_R_5     : begin
             Zimop_mop_r_5_cg.sample(ins);
         end
-        "mop.r.6"     : begin
+        INST_MOP_R_6     : begin
             Zimop_mop_r_6_cg.sample(ins);
         end
-        "mop.r.7"     : begin
+        INST_MOP_R_7     : begin
             Zimop_mop_r_7_cg.sample(ins);
         end
-        "mop.r.8"     : begin
+        INST_MOP_R_8     : begin
             Zimop_mop_r_8_cg.sample(ins);
         end
-        "mop.r.9"     : begin
+        INST_MOP_R_9     : begin
             Zimop_mop_r_9_cg.sample(ins);
         end
-        "mop.rr.0"     : begin
+        INST_MOP_RR_0     : begin
             Zimop_mop_rr_0_cg.sample(ins);
         end
-        "mop.rr.1"     : begin
+        INST_MOP_RR_1     : begin
             Zimop_mop_rr_1_cg.sample(ins);
         end
-        "mop.rr.2"     : begin
+        INST_MOP_RR_2     : begin
             Zimop_mop_rr_2_cg.sample(ins);
         end
-        "mop.rr.3"     : begin
+        INST_MOP_RR_3     : begin
             Zimop_mop_rr_3_cg.sample(ins);
         end
-        "mop.rr.4"     : begin
+        INST_MOP_RR_4     : begin
             Zimop_mop_rr_4_cg.sample(ins);
         end
-        "mop.rr.5"     : begin
+        INST_MOP_RR_5     : begin
             Zimop_mop_rr_5_cg.sample(ins);
         end
-        "mop.rr.6"     : begin
+        INST_MOP_RR_6     : begin
             Zimop_mop_rr_6_cg.sample(ins);
         end
-        "mop.rr.7"     : begin
+        INST_MOP_RR_7     : begin
             Zimop_mop_rr_7_cg.sample(ins);
         end
         default: ; // a case needs at least one item, and some configurations select none

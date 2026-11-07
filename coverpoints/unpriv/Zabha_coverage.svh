@@ -1669,61 +1669,61 @@ covergroup Zabha_amoxor_h_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zabha_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "amoadd.b"     : begin
+    case (inst_id)
+        INST_AMOADD_B     : begin
             Zabha_amoadd_b_cg.sample(ins);
         end
-        "amoadd.h"     : begin
+        INST_AMOADD_H     : begin
             Zabha_amoadd_h_cg.sample(ins);
         end
-        "amoand.b"     : begin
+        INST_AMOAND_B     : begin
             Zabha_amoand_b_cg.sample(ins);
         end
-        "amoand.h"     : begin
+        INST_AMOAND_H     : begin
             Zabha_amoand_h_cg.sample(ins);
         end
-        "amomax.b"     : begin
+        INST_AMOMAX_B     : begin
             Zabha_amomax_b_cg.sample(ins);
         end
-        "amomax.h"     : begin
+        INST_AMOMAX_H     : begin
             Zabha_amomax_h_cg.sample(ins);
         end
-        "amomaxu.b"     : begin
+        INST_AMOMAXU_B     : begin
             Zabha_amomaxu_b_cg.sample(ins);
         end
-        "amomaxu.h"     : begin
+        INST_AMOMAXU_H     : begin
             Zabha_amomaxu_h_cg.sample(ins);
         end
-        "amomin.b"     : begin
+        INST_AMOMIN_B     : begin
             Zabha_amomin_b_cg.sample(ins);
         end
-        "amomin.h"     : begin
+        INST_AMOMIN_H     : begin
             Zabha_amomin_h_cg.sample(ins);
         end
-        "amominu.b"     : begin
+        INST_AMOMINU_B     : begin
             Zabha_amominu_b_cg.sample(ins);
         end
-        "amominu.h"     : begin
+        INST_AMOMINU_H     : begin
             Zabha_amominu_h_cg.sample(ins);
         end
-        "amoor.b"     : begin
+        INST_AMOOR_B     : begin
             Zabha_amoor_b_cg.sample(ins);
         end
-        "amoor.h"     : begin
+        INST_AMOOR_H     : begin
             Zabha_amoor_h_cg.sample(ins);
         end
-        "amoswap.b"     : begin
+        INST_AMOSWAP_B     : begin
             Zabha_amoswap_b_cg.sample(ins);
         end
-        "amoswap.h"     : begin
+        INST_AMOSWAP_H     : begin
             Zabha_amoswap_h_cg.sample(ins);
         end
-        "amoxor.b"     : begin
+        INST_AMOXOR_B     : begin
             Zabha_amoxor_b_cg.sample(ins);
         end
-        "amoxor.h"     : begin
+        INST_AMOXOR_H     : begin
             Zabha_amoxor_h_cg.sample(ins);
         end
         default: ; // a case needs at least one item, and some configurations select none

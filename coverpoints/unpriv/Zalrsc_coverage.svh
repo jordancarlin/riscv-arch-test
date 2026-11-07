@@ -80,7 +80,7 @@ covergroup Zalrsc_sc_w_cg with function sample(ins_t ins);
     // Custom coverpoints for Store Conditional
 
 
-    cp_prev_lr : coverpoint ((ins.prev.inst_name == "lr.w" & ins.current.inst_name == "sc.w") | (ins.prev.inst_name == "lr.d" & ins.current.inst_name == "sc.d")) {
+    cp_prev_lr : coverpoint ((ins.prev.inst_id == INST_LR_W & ins.current.inst_id == INST_SC_W) | (ins.prev.inst_id == INST_LR_D & ins.current.inst_id == INST_SC_D)) {
         bins lr_sc_size_match = {1};
     }
 
@@ -95,7 +95,7 @@ covergroup Zalrsc_sc_w_cg with function sample(ins_t ins);
         // Combinations of acquire and release
         ignore_bins aq_norl = {2'b10};
     }
-    cp_custom_sc_after_sc : coverpoint (ins.prev.inst_name == "sc.w" | ins.prev.inst_name == "sc.d") {
+    cp_custom_sc_after_sc : coverpoint (ins.prev.inst_id == INST_SC_W | ins.prev.inst_id == INST_SC_D) {
         // previous instruction was store conditional
     }
     cp_custom_sc_lr : cross cp_prev_lr, cp_sc_pass_fail;
@@ -221,7 +221,7 @@ covergroup Zalrsc_sc_d_cg with function sample(ins_t ins);
     // Custom coverpoints for Store Conditional
 
 
-    cp_prev_lr : coverpoint ((ins.prev.inst_name == "lr.w" & ins.current.inst_name == "sc.w") | (ins.prev.inst_name == "lr.d" & ins.current.inst_name == "sc.d")) {
+    cp_prev_lr : coverpoint ((ins.prev.inst_id == INST_LR_W & ins.current.inst_id == INST_SC_W) | (ins.prev.inst_id == INST_LR_D & ins.current.inst_id == INST_SC_D)) {
         bins lr_sc_size_match = {1};
     }
 
@@ -236,7 +236,7 @@ covergroup Zalrsc_sc_d_cg with function sample(ins_t ins);
         // Combinations of acquire and release
         ignore_bins aq_norl = {2'b10};
     }
-    cp_custom_sc_after_sc : coverpoint (ins.prev.inst_name == "sc.w" | ins.prev.inst_name == "sc.d") {
+    cp_custom_sc_after_sc : coverpoint (ins.prev.inst_id == INST_SC_W | ins.prev.inst_id == INST_SC_D) {
         // previous instruction was store conditional
     }
     cp_custom_sc_lr : cross cp_prev_lr, cp_sc_pass_fail;
@@ -295,20 +295,20 @@ endgroup
 // ---------------------
 `endif
 function void zalrsc_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "lr.w"     : begin
+    case (inst_id)
+        INST_LR_W     : begin
             Zalrsc_lr_w_cg.sample(ins);
         end
-        "sc.w"     : begin
+        INST_SC_W     : begin
             Zalrsc_sc_w_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "lr.d"     : begin
+        INST_LR_D     : begin
             Zalrsc_lr_d_cg.sample(ins);
         end
-        "sc.d"     : begin
+        INST_SC_D     : begin
             Zalrsc_sc_d_cg.sample(ins);
         end
 `endif

@@ -2484,80 +2484,80 @@ endgroup
 // ---------------------
 `endif
 function void zbb_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "andn"     : begin
+    case (inst_id)
+        INST_ANDN     : begin
             Zbb_andn_cg.sample(ins);
         end
-        "clz"     : begin
+        INST_CLZ     : begin
             Zbb_clz_cg.sample(ins);
         end
-        "cpop"     : begin
+        INST_CPOP     : begin
             Zbb_cpop_cg.sample(ins);
         end
-        "ctz"     : begin
+        INST_CTZ     : begin
             Zbb_ctz_cg.sample(ins);
         end
-        "max"     : begin
+        INST_MAX     : begin
             Zbb_max_cg.sample(ins);
         end
-        "maxu"     : begin
+        INST_MAXU     : begin
             Zbb_maxu_cg.sample(ins);
         end
-        "min"     : begin
+        INST_MIN     : begin
             Zbb_min_cg.sample(ins);
         end
-        "minu"     : begin
+        INST_MINU     : begin
             Zbb_minu_cg.sample(ins);
         end
-        "orc.b"     : begin
+        INST_ORC_B     : begin
             Zbb_orc_b_cg.sample(ins);
         end
-        "orn"     : begin
+        INST_ORN     : begin
             Zbb_orn_cg.sample(ins);
         end
-        "rev8"     : begin
+        INST_REV8     : begin
             Zbb_rev8_cg.sample(ins);
         end
-        "rol"     : begin
+        INST_ROL     : begin
             Zbb_rol_cg.sample(ins);
         end
-        "ror"     : begin
+        INST_ROR     : begin
             Zbb_ror_cg.sample(ins);
         end
-        "rori"     : begin
+        INST_RORI     : begin
             Zbb_rori_cg.sample(ins);
         end
-        "sext.b"     : begin
+        INST_SEXT_B     : begin
             Zbb_sext_b_cg.sample(ins);
         end
-        "sext.h"     : begin
+        INST_SEXT_H     : begin
             Zbb_sext_h_cg.sample(ins);
         end
-        "xnor"     : begin
+        INST_XNOR     : begin
             Zbb_xnor_cg.sample(ins);
         end
-        "zext.h"     : begin
+        INST_ZEXT_H     : begin
             Zbb_zext_h_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "clzw"     : begin
+        INST_CLZW     : begin
             Zbb_clzw_cg.sample(ins);
         end
-        "cpopw"     : begin
+        INST_CPOPW     : begin
             Zbb_cpopw_cg.sample(ins);
         end
-        "ctzw"     : begin
+        INST_CTZW     : begin
             Zbb_ctzw_cg.sample(ins);
         end
-        "rolw"     : begin
+        INST_ROLW     : begin
             Zbb_rolw_cg.sample(ins);
         end
-        "roriw"     : begin
+        INST_RORIW     : begin
             Zbb_roriw_cg.sample(ins);
         end
-        "rorw"     : begin
+        INST_RORW     : begin
             Zbb_rorw_cg.sample(ins);
         end
 `endif

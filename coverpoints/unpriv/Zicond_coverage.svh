@@ -239,13 +239,13 @@ covergroup Zicond_czero_nez_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zicond_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "czero.eqz"     : begin
+    case (inst_id)
+        INST_CZERO_EQZ     : begin
             Zicond_czero_eqz_cg.sample(ins);
         end
-        "czero.nez"     : begin
+        INST_CZERO_NEZ     : begin
             Zicond_czero_nez_cg.sample(ins);
         end
         default: ; // a case needs at least one item, and some configurations select none

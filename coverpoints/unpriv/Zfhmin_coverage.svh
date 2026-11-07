@@ -801,50 +801,50 @@ endgroup
 // ---------------------
 `endif
 function void zfhmin_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
+    case (inst_id)
 `ifdef D_SUPPORTED
-        "fcvt.d.h"     : begin
+        INST_FCVT_D_H     : begin
             ZfhminD_fcvt_d_h_cg.sample(ins);
         end
 `endif
 `ifdef D_SUPPORTED
-        "fcvt.h.d"     : begin
+        INST_FCVT_H_D     : begin
             ZfhminD_fcvt_h_d_cg.sample(ins);
         end
 `endif
-        "fcvt.h.s"     : begin
+        INST_FCVT_H_S     : begin
             Zfhmin_fcvt_h_s_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhminD_fcvt_h_s_cg.sample(ins);
 `endif
         end
-        "fcvt.s.h"     : begin
+        INST_FCVT_S_H     : begin
             Zfhmin_fcvt_s_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhminD_fcvt_s_h_cg.sample(ins);
 `endif
         end
-        "flh"     : begin
+        INST_FLH     : begin
             Zfhmin_flh_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhminD_flh_cg.sample(ins);
 `endif
         end
-        "fmv.h.x"     : begin
+        INST_FMV_H_X     : begin
             Zfhmin_fmv_h_x_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhminD_fmv_h_x_cg.sample(ins);
 `endif
         end
-        "fmv.x.h"     : begin
+        INST_FMV_X_H     : begin
             Zfhmin_fmv_x_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhminD_fmv_x_h_cg.sample(ins);
 `endif
         end
-        "fsh"     : begin
+        INST_FSH     : begin
             Zfhmin_fsh_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhminD_fsh_cg.sample(ins);

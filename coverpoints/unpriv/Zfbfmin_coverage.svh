@@ -466,25 +466,25 @@ covergroup Zfbfmin_fsh_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zfbfmin_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "fcvt.bf16.s"     : begin
+    case (inst_id)
+        INST_FCVT_BF16_S     : begin
             Zfbfmin_fcvt_bf16_s_cg.sample(ins);
         end
-        "fcvt.s.bf16"     : begin
+        INST_FCVT_S_BF16     : begin
             Zfbfmin_fcvt_s_bf16_cg.sample(ins);
         end
-        "flh"     : begin
+        INST_FLH     : begin
             Zfbfmin_flh_cg.sample(ins);
         end
-        "fmv.h.x"     : begin
+        INST_FMV_H_X     : begin
             Zfbfmin_fmv_h_x_cg.sample(ins);
         end
-        "fmv.x.h"     : begin
+        INST_FMV_X_H     : begin
             Zfbfmin_fmv_x_h_cg.sample(ins);
         end
-        "fsh"     : begin
+        INST_FSH     : begin
             Zfbfmin_fsh_cg.sample(ins);
         end
         default: ; // a case needs at least one item, and some configurations select none

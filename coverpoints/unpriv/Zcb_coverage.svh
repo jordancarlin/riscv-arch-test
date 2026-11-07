@@ -601,53 +601,53 @@ endgroup
 // ---------------------
 `endif
 function void zcb_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "c.lbu"     : begin
+    case (inst_id)
+        INST_C_LBU     : begin
             Zcb_c_lbu_cg.sample(ins);
         end
-        "c.lh"     : begin
+        INST_C_LH     : begin
             Zcb_c_lh_cg.sample(ins);
         end
-        "c.lhu"     : begin
+        INST_C_LHU     : begin
             Zcb_c_lhu_cg.sample(ins);
         end
 `ifdef ZMMUL_SUPPORTED
-        "c.mul"     : begin
+        INST_C_MUL     : begin
             ZcbZmmul_c_mul_cg.sample(ins);
         end
 `endif
-        "c.not"     : begin
+        INST_C_NOT     : begin
             Zcb_c_not_cg.sample(ins);
         end
-        "c.sb"     : begin
+        INST_C_SB     : begin
             Zcb_c_sb_cg.sample(ins);
         end
 `ifdef ZBB_SUPPORTED
-        "c.sext.b"     : begin
+        INST_C_SEXT_B     : begin
             ZcbZbb_c_sext_b_cg.sample(ins);
         end
 `endif
 `ifdef ZBB_SUPPORTED
-        "c.sext.h"     : begin
+        INST_C_SEXT_H     : begin
             ZcbZbb_c_sext_h_cg.sample(ins);
         end
 `endif
-        "c.sh"     : begin
+        INST_C_SH     : begin
             Zcb_c_sh_cg.sample(ins);
         end
-        "c.zext.b"     : begin
+        INST_C_ZEXT_B     : begin
             Zcb_c_zext_b_cg.sample(ins);
         end
 `ifdef ZBB_SUPPORTED
-        "c.zext.h"     : begin
+        INST_C_ZEXT_H     : begin
             ZcbZbb_c_zext_h_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
 `ifdef ZBA_SUPPORTED
-        "c.zext.w"     : begin
+        INST_C_ZEXT_W     : begin
             ZcbZba_c_zext_w_cg.sample(ins);
         end
 `endif

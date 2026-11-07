@@ -30973,315 +30973,315 @@ covergroup Vf32_vmfne_vv_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void vf32_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
     // Want to sample only if the SEW matches the target SEW of the file, some tests require
     // testing when vill is set, if vill=1 all other vtype bits are set to 0 so there is no
     // associated sew with these tests
     if (get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew") == 2 ||
         get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") == 1) begin
-        case (inst_name)
-            "vfadd.vf"     : begin
+        case (inst_id)
+            INST_VFADD_VF     : begin
                 Vf32_vfadd_vf_cg.sample(ins);
             end
-            "vfadd.vv"     : begin
+            INST_VFADD_VV     : begin
                 Vf32_vfadd_vv_cg.sample(ins);
             end
-            "vfclass.v"     : begin
+            INST_VFCLASS_V     : begin
                 Vf32_vfclass_v_cg.sample(ins);
             end
-            "vfcvt.f.x.v"     : begin
+            INST_VFCVT_F_X_V     : begin
                 Vf32_vfcvt_f_x_v_cg.sample(ins);
             end
-            "vfcvt.f.xu.v"     : begin
+            INST_VFCVT_F_XU_V     : begin
                 Vf32_vfcvt_f_xu_v_cg.sample(ins);
             end
-            "vfcvt.rtz.x.f.v"     : begin
+            INST_VFCVT_RTZ_X_F_V     : begin
                 Vf32_vfcvt_rtz_x_f_v_cg.sample(ins);
             end
-            "vfcvt.rtz.xu.f.v"     : begin
+            INST_VFCVT_RTZ_XU_F_V     : begin
                 Vf32_vfcvt_rtz_xu_f_v_cg.sample(ins);
             end
-            "vfcvt.x.f.v"     : begin
+            INST_VFCVT_X_F_V     : begin
                 Vf32_vfcvt_x_f_v_cg.sample(ins);
             end
-            "vfcvt.xu.f.v"     : begin
+            INST_VFCVT_XU_F_V     : begin
                 Vf32_vfcvt_xu_f_v_cg.sample(ins);
             end
-            "vfdiv.vf"     : begin
+            INST_VFDIV_VF     : begin
                 Vf32_vfdiv_vf_cg.sample(ins);
             end
-            "vfdiv.vv"     : begin
+            INST_VFDIV_VV     : begin
                 Vf32_vfdiv_vv_cg.sample(ins);
             end
-            "vfmacc.vf"     : begin
+            INST_VFMACC_VF     : begin
                 Vf32_vfmacc_vf_cg.sample(ins);
             end
-            "vfmacc.vv"     : begin
+            INST_VFMACC_VV     : begin
                 Vf32_vfmacc_vv_cg.sample(ins);
             end
-            "vfmadd.vf"     : begin
+            INST_VFMADD_VF     : begin
                 Vf32_vfmadd_vf_cg.sample(ins);
             end
-            "vfmadd.vv"     : begin
+            INST_VFMADD_VV     : begin
                 Vf32_vfmadd_vv_cg.sample(ins);
             end
-            "vfmax.vf"     : begin
+            INST_VFMAX_VF     : begin
                 Vf32_vfmax_vf_cg.sample(ins);
             end
-            "vfmax.vv"     : begin
+            INST_VFMAX_VV     : begin
                 Vf32_vfmax_vv_cg.sample(ins);
             end
-            "vfmerge.vfm"     : begin
+            INST_VFMERGE_VFM     : begin
                 Vf32_vfmerge_vfm_cg.sample(ins);
             end
-            "vfmin.vf"     : begin
+            INST_VFMIN_VF     : begin
                 Vf32_vfmin_vf_cg.sample(ins);
             end
-            "vfmin.vv"     : begin
+            INST_VFMIN_VV     : begin
                 Vf32_vfmin_vv_cg.sample(ins);
             end
-            "vfmsac.vf"     : begin
+            INST_VFMSAC_VF     : begin
                 Vf32_vfmsac_vf_cg.sample(ins);
             end
-            "vfmsac.vv"     : begin
+            INST_VFMSAC_VV     : begin
                 Vf32_vfmsac_vv_cg.sample(ins);
             end
-            "vfmsub.vf"     : begin
+            INST_VFMSUB_VF     : begin
                 Vf32_vfmsub_vf_cg.sample(ins);
             end
-            "vfmsub.vv"     : begin
+            INST_VFMSUB_VV     : begin
                 Vf32_vfmsub_vv_cg.sample(ins);
             end
-            "vfmul.vf"     : begin
+            INST_VFMUL_VF     : begin
                 Vf32_vfmul_vf_cg.sample(ins);
             end
-            "vfmul.vv"     : begin
+            INST_VFMUL_VV     : begin
                 Vf32_vfmul_vv_cg.sample(ins);
             end
-            "vfmv.f.s"     : begin
+            INST_VFMV_F_S     : begin
                 Vf32_vfmv_f_s_cg.sample(ins);
             end
-            "vfmv.s.f"     : begin
+            INST_VFMV_S_F     : begin
                 Vf32_vfmv_s_f_cg.sample(ins);
             end
-            "vfmv.v.f"     : begin
+            INST_VFMV_V_F     : begin
                 Vf32_vfmv_v_f_cg.sample(ins);
             end
-            "vfncvt.f.f.w"     : begin
+            INST_VFNCVT_F_F_W     : begin
                 Vf32_vfncvt_f_f_w_cg.sample(ins);
             end
-            "vfncvt.f.x.w"     : begin
+            INST_VFNCVT_F_X_W     : begin
                 Vf32_vfncvt_f_x_w_cg.sample(ins);
             end
-            "vfncvt.f.xu.w"     : begin
+            INST_VFNCVT_F_XU_W     : begin
                 Vf32_vfncvt_f_xu_w_cg.sample(ins);
             end
-            "vfncvt.rod.f.f.w"     : begin
+            INST_VFNCVT_ROD_F_F_W     : begin
                 Vf32_vfncvt_rod_f_f_w_cg.sample(ins);
             end
-            "vfncvt.rtz.x.f.w"     : begin
+            INST_VFNCVT_RTZ_X_F_W     : begin
                 Vf32_vfncvt_rtz_x_f_w_cg.sample(ins);
             end
-            "vfncvt.rtz.xu.f.w"     : begin
+            INST_VFNCVT_RTZ_XU_F_W     : begin
                 Vf32_vfncvt_rtz_xu_f_w_cg.sample(ins);
             end
-            "vfncvt.x.f.w"     : begin
+            INST_VFNCVT_X_F_W     : begin
                 Vf32_vfncvt_x_f_w_cg.sample(ins);
             end
-            "vfncvt.xu.f.w"     : begin
+            INST_VFNCVT_XU_F_W     : begin
                 Vf32_vfncvt_xu_f_w_cg.sample(ins);
             end
-            "vfnmacc.vf"     : begin
+            INST_VFNMACC_VF     : begin
                 Vf32_vfnmacc_vf_cg.sample(ins);
             end
-            "vfnmacc.vv"     : begin
+            INST_VFNMACC_VV     : begin
                 Vf32_vfnmacc_vv_cg.sample(ins);
             end
-            "vfnmadd.vf"     : begin
+            INST_VFNMADD_VF     : begin
                 Vf32_vfnmadd_vf_cg.sample(ins);
             end
-            "vfnmadd.vv"     : begin
+            INST_VFNMADD_VV     : begin
                 Vf32_vfnmadd_vv_cg.sample(ins);
             end
-            "vfnmsac.vf"     : begin
+            INST_VFNMSAC_VF     : begin
                 Vf32_vfnmsac_vf_cg.sample(ins);
             end
-            "vfnmsac.vv"     : begin
+            INST_VFNMSAC_VV     : begin
                 Vf32_vfnmsac_vv_cg.sample(ins);
             end
-            "vfnmsub.vf"     : begin
+            INST_VFNMSUB_VF     : begin
                 Vf32_vfnmsub_vf_cg.sample(ins);
             end
-            "vfnmsub.vv"     : begin
+            INST_VFNMSUB_VV     : begin
                 Vf32_vfnmsub_vv_cg.sample(ins);
             end
-            "vfrdiv.vf"     : begin
+            INST_VFRDIV_VF     : begin
                 Vf32_vfrdiv_vf_cg.sample(ins);
             end
-            "vfrec7.v"     : begin
+            INST_VFREC7_V     : begin
                 Vf32_vfrec7_v_cg.sample(ins);
             end
-            "vfredmax.vs"     : begin
+            INST_VFREDMAX_VS     : begin
                 Vf32_vfredmax_vs_cg.sample(ins);
             end
-            "vfredmin.vs"     : begin
+            INST_VFREDMIN_VS     : begin
                 Vf32_vfredmin_vs_cg.sample(ins);
             end
-            "vfredosum.vs"     : begin
+            INST_VFREDOSUM_VS     : begin
                 Vf32_vfredosum_vs_cg.sample(ins);
             end
-            "vfredusum.vs"     : begin
+            INST_VFREDUSUM_VS     : begin
                 Vf32_vfredusum_vs_cg.sample(ins);
             end
-            "vfrsqrt7.v"     : begin
+            INST_VFRSQRT7_V     : begin
                 Vf32_vfrsqrt7_v_cg.sample(ins);
             end
-            "vfrsub.vf"     : begin
+            INST_VFRSUB_VF     : begin
                 Vf32_vfrsub_vf_cg.sample(ins);
             end
-            "vfsgnj.vf"     : begin
+            INST_VFSGNJ_VF     : begin
                 Vf32_vfsgnj_vf_cg.sample(ins);
             end
-            "vfsgnj.vv"     : begin
+            INST_VFSGNJ_VV     : begin
                 Vf32_vfsgnj_vv_cg.sample(ins);
             end
-            "vfsgnjn.vf"     : begin
+            INST_VFSGNJN_VF     : begin
                 Vf32_vfsgnjn_vf_cg.sample(ins);
             end
-            "vfsgnjn.vv"     : begin
+            INST_VFSGNJN_VV     : begin
                 Vf32_vfsgnjn_vv_cg.sample(ins);
             end
-            "vfsgnjx.vf"     : begin
+            INST_VFSGNJX_VF     : begin
                 Vf32_vfsgnjx_vf_cg.sample(ins);
             end
-            "vfsgnjx.vv"     : begin
+            INST_VFSGNJX_VV     : begin
                 Vf32_vfsgnjx_vv_cg.sample(ins);
             end
-            "vfslide1down.vf"     : begin
+            INST_VFSLIDE1DOWN_VF     : begin
                 Vf32_vfslide1down_vf_cg.sample(ins);
             end
-            "vfslide1up.vf"     : begin
+            INST_VFSLIDE1UP_VF     : begin
                 Vf32_vfslide1up_vf_cg.sample(ins);
             end
-            "vfsqrt.v"     : begin
+            INST_VFSQRT_V     : begin
                 Vf32_vfsqrt_v_cg.sample(ins);
             end
-            "vfsub.vf"     : begin
+            INST_VFSUB_VF     : begin
                 Vf32_vfsub_vf_cg.sample(ins);
             end
-            "vfsub.vv"     : begin
+            INST_VFSUB_VV     : begin
                 Vf32_vfsub_vv_cg.sample(ins);
             end
-            "vfwadd.vf"     : begin
+            INST_VFWADD_VF     : begin
                 Vf32_vfwadd_vf_cg.sample(ins);
             end
-            "vfwadd.vv"     : begin
+            INST_VFWADD_VV     : begin
                 Vf32_vfwadd_vv_cg.sample(ins);
             end
-            "vfwadd.wf"     : begin
+            INST_VFWADD_WF     : begin
                 Vf32_vfwadd_wf_cg.sample(ins);
             end
-            "vfwadd.wv"     : begin
+            INST_VFWADD_WV     : begin
                 Vf32_vfwadd_wv_cg.sample(ins);
             end
-            "vfwcvt.f.f.v"     : begin
+            INST_VFWCVT_F_F_V     : begin
                 Vf32_vfwcvt_f_f_v_cg.sample(ins);
             end
-            "vfwcvt.f.x.v"     : begin
+            INST_VFWCVT_F_X_V     : begin
                 Vf32_vfwcvt_f_x_v_cg.sample(ins);
             end
-            "vfwcvt.f.xu.v"     : begin
+            INST_VFWCVT_F_XU_V     : begin
                 Vf32_vfwcvt_f_xu_v_cg.sample(ins);
             end
-            "vfwcvt.rtz.x.f.v"     : begin
+            INST_VFWCVT_RTZ_X_F_V     : begin
                 Vf32_vfwcvt_rtz_x_f_v_cg.sample(ins);
             end
-            "vfwcvt.rtz.xu.f.v"     : begin
+            INST_VFWCVT_RTZ_XU_F_V     : begin
                 Vf32_vfwcvt_rtz_xu_f_v_cg.sample(ins);
             end
-            "vfwcvt.x.f.v"     : begin
+            INST_VFWCVT_X_F_V     : begin
                 Vf32_vfwcvt_x_f_v_cg.sample(ins);
             end
-            "vfwcvt.xu.f.v"     : begin
+            INST_VFWCVT_XU_F_V     : begin
                 Vf32_vfwcvt_xu_f_v_cg.sample(ins);
             end
-            "vfwmacc.vf"     : begin
+            INST_VFWMACC_VF     : begin
                 Vf32_vfwmacc_vf_cg.sample(ins);
             end
-            "vfwmacc.vv"     : begin
+            INST_VFWMACC_VV     : begin
                 Vf32_vfwmacc_vv_cg.sample(ins);
             end
-            "vfwmsac.vf"     : begin
+            INST_VFWMSAC_VF     : begin
                 Vf32_vfwmsac_vf_cg.sample(ins);
             end
-            "vfwmsac.vv"     : begin
+            INST_VFWMSAC_VV     : begin
                 Vf32_vfwmsac_vv_cg.sample(ins);
             end
-            "vfwmul.vf"     : begin
+            INST_VFWMUL_VF     : begin
                 Vf32_vfwmul_vf_cg.sample(ins);
             end
-            "vfwmul.vv"     : begin
+            INST_VFWMUL_VV     : begin
                 Vf32_vfwmul_vv_cg.sample(ins);
             end
-            "vfwnmacc.vf"     : begin
+            INST_VFWNMACC_VF     : begin
                 Vf32_vfwnmacc_vf_cg.sample(ins);
             end
-            "vfwnmacc.vv"     : begin
+            INST_VFWNMACC_VV     : begin
                 Vf32_vfwnmacc_vv_cg.sample(ins);
             end
-            "vfwnmsac.vf"     : begin
+            INST_VFWNMSAC_VF     : begin
                 Vf32_vfwnmsac_vf_cg.sample(ins);
             end
-            "vfwnmsac.vv"     : begin
+            INST_VFWNMSAC_VV     : begin
                 Vf32_vfwnmsac_vv_cg.sample(ins);
             end
-            "vfwredosum.vs"     : begin
+            INST_VFWREDOSUM_VS     : begin
                 Vf32_vfwredosum_vs_cg.sample(ins);
             end
-            "vfwredusum.vs"     : begin
+            INST_VFWREDUSUM_VS     : begin
                 Vf32_vfwredusum_vs_cg.sample(ins);
             end
-            "vfwsub.vf"     : begin
+            INST_VFWSUB_VF     : begin
                 Vf32_vfwsub_vf_cg.sample(ins);
             end
-            "vfwsub.vv"     : begin
+            INST_VFWSUB_VV     : begin
                 Vf32_vfwsub_vv_cg.sample(ins);
             end
-            "vfwsub.wf"     : begin
+            INST_VFWSUB_WF     : begin
                 Vf32_vfwsub_wf_cg.sample(ins);
             end
-            "vfwsub.wv"     : begin
+            INST_VFWSUB_WV     : begin
                 Vf32_vfwsub_wv_cg.sample(ins);
             end
-            "vmfeq.vf"     : begin
+            INST_VMFEQ_VF     : begin
                 Vf32_vmfeq_vf_cg.sample(ins);
             end
-            "vmfeq.vv"     : begin
+            INST_VMFEQ_VV     : begin
                 Vf32_vmfeq_vv_cg.sample(ins);
             end
-            "vmfge.vf"     : begin
+            INST_VMFGE_VF     : begin
                 Vf32_vmfge_vf_cg.sample(ins);
             end
-            "vmfgt.vf"     : begin
+            INST_VMFGT_VF     : begin
                 Vf32_vmfgt_vf_cg.sample(ins);
             end
-            "vmfle.vf"     : begin
+            INST_VMFLE_VF     : begin
                 Vf32_vmfle_vf_cg.sample(ins);
             end
-            "vmfle.vv"     : begin
+            INST_VMFLE_VV     : begin
                 Vf32_vmfle_vv_cg.sample(ins);
             end
-            "vmflt.vf"     : begin
+            INST_VMFLT_VF     : begin
                 Vf32_vmflt_vf_cg.sample(ins);
             end
-            "vmflt.vv"     : begin
+            INST_VMFLT_VV     : begin
                 Vf32_vmflt_vv_cg.sample(ins);
             end
-            "vmfne.vf"     : begin
+            INST_VMFNE_VF     : begin
                 Vf32_vmfne_vf_cg.sample(ins);
             end
-            "vmfne.vv"     : begin
+            INST_VMFNE_VV     : begin
                 Vf32_vmfne_vv_cg.sample(ins);
             end
             default: ; // a case needs at least one item, and some configurations select none

@@ -335,13 +335,13 @@ covergroup ExceptionsVfmin_vfwcvt_f_f_v_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void exceptionsvfmin_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "vfncvt.f.f.w"     : begin
+    case (inst_id)
+        INST_VFNCVT_F_F_W     : begin
             ExceptionsVfmin_vfncvt_f_f_w_cg.sample(ins);
         end
-        "vfwcvt.f.f.v"     : begin
+        INST_VFWCVT_F_F_V     : begin
             ExceptionsVfmin_vfwcvt_f_f_v_cg.sample(ins);
         end
         default: ; // a case needs at least one item, and some configurations select none

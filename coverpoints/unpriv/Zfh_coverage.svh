@@ -6212,207 +6212,207 @@ endgroup
 `endif
 `endif
 function void zfh_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "fadd.h"     : begin
+    case (inst_id)
+        INST_FADD_H     : begin
             Zfh_fadd_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fadd_h_cg.sample(ins);
 `endif
         end
-        "fclass.h"     : begin
+        INST_FCLASS_H     : begin
             Zfh_fclass_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fclass_h_cg.sample(ins);
 `endif
         end
 `ifdef D_SUPPORTED
-        "fcvt.d.h"     : begin
+        INST_FCVT_D_H     : begin
             ZfhD_fcvt_d_h_cg.sample(ins);
         end
 `endif
 `ifdef D_SUPPORTED
-        "fcvt.h.d"     : begin
+        INST_FCVT_H_D     : begin
             ZfhD_fcvt_h_d_cg.sample(ins);
         end
 `endif
-        "fcvt.h.s"     : begin
+        INST_FCVT_H_S     : begin
             Zfh_fcvt_h_s_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fcvt_h_s_cg.sample(ins);
 `endif
         end
-        "fcvt.h.w"     : begin
+        INST_FCVT_H_W     : begin
             Zfh_fcvt_h_w_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fcvt_h_w_cg.sample(ins);
 `endif
         end
-        "fcvt.h.wu"     : begin
+        INST_FCVT_H_WU     : begin
             Zfh_fcvt_h_wu_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fcvt_h_wu_cg.sample(ins);
 `endif
         end
-        "fcvt.s.h"     : begin
+        INST_FCVT_S_H     : begin
             Zfh_fcvt_s_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fcvt_s_h_cg.sample(ins);
 `endif
         end
-        "fcvt.w.h"     : begin
+        INST_FCVT_W_H     : begin
             Zfh_fcvt_w_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fcvt_w_h_cg.sample(ins);
 `endif
         end
-        "fcvt.wu.h"     : begin
+        INST_FCVT_WU_H     : begin
             Zfh_fcvt_wu_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fcvt_wu_h_cg.sample(ins);
 `endif
         end
-        "fdiv.h"     : begin
+        INST_FDIV_H     : begin
             Zfh_fdiv_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fdiv_h_cg.sample(ins);
 `endif
         end
-        "feq.h"     : begin
+        INST_FEQ_H     : begin
             Zfh_feq_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_feq_h_cg.sample(ins);
 `endif
         end
-        "fle.h"     : begin
+        INST_FLE_H     : begin
             Zfh_fle_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fle_h_cg.sample(ins);
 `endif
         end
-        "flh"     : begin
+        INST_FLH     : begin
             Zfh_flh_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_flh_cg.sample(ins);
 `endif
         end
-        "flt.h"     : begin
+        INST_FLT_H     : begin
             Zfh_flt_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_flt_h_cg.sample(ins);
 `endif
         end
-        "fmadd.h"     : begin
+        INST_FMADD_H     : begin
             Zfh_fmadd_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fmadd_h_cg.sample(ins);
 `endif
         end
-        "fmax.h"     : begin
+        INST_FMAX_H     : begin
             Zfh_fmax_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fmax_h_cg.sample(ins);
 `endif
         end
-        "fmin.h"     : begin
+        INST_FMIN_H     : begin
             Zfh_fmin_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fmin_h_cg.sample(ins);
 `endif
         end
-        "fmsub.h"     : begin
+        INST_FMSUB_H     : begin
             Zfh_fmsub_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fmsub_h_cg.sample(ins);
 `endif
         end
-        "fmul.h"     : begin
+        INST_FMUL_H     : begin
             Zfh_fmul_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fmul_h_cg.sample(ins);
 `endif
         end
-        "fmv.h.x"     : begin
+        INST_FMV_H_X     : begin
             Zfh_fmv_h_x_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fmv_h_x_cg.sample(ins);
 `endif
         end
-        "fmv.x.h"     : begin
+        INST_FMV_X_H     : begin
             Zfh_fmv_x_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fmv_x_h_cg.sample(ins);
 `endif
         end
-        "fnmadd.h"     : begin
+        INST_FNMADD_H     : begin
             Zfh_fnmadd_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fnmadd_h_cg.sample(ins);
 `endif
         end
-        "fnmsub.h"     : begin
+        INST_FNMSUB_H     : begin
             Zfh_fnmsub_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fnmsub_h_cg.sample(ins);
 `endif
         end
-        "fsgnj.h"     : begin
+        INST_FSGNJ_H     : begin
             Zfh_fsgnj_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fsgnj_h_cg.sample(ins);
 `endif
         end
-        "fsgnjn.h"     : begin
+        INST_FSGNJN_H     : begin
             Zfh_fsgnjn_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fsgnjn_h_cg.sample(ins);
 `endif
         end
-        "fsgnjx.h"     : begin
+        INST_FSGNJX_H     : begin
             Zfh_fsgnjx_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fsgnjx_h_cg.sample(ins);
 `endif
         end
-        "fsh"     : begin
+        INST_FSH     : begin
             Zfh_fsh_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fsh_cg.sample(ins);
 `endif
         end
-        "fsqrt.h"     : begin
+        INST_FSQRT_H     : begin
             Zfh_fsqrt_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fsqrt_h_cg.sample(ins);
 `endif
         end
-        "fsub.h"     : begin
+        INST_FSUB_H     : begin
             Zfh_fsub_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fsub_h_cg.sample(ins);
 `endif
         end
 `ifdef UDB_MXLEN_64
-        "fcvt.h.l"     : begin
+        INST_FCVT_H_L     : begin
             Zfh_fcvt_h_l_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fcvt_h_l_cg.sample(ins);
 `endif
         end
-        "fcvt.h.lu"     : begin
+        INST_FCVT_H_LU     : begin
             Zfh_fcvt_h_lu_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fcvt_h_lu_cg.sample(ins);
 `endif
         end
-        "fcvt.l.h"     : begin
+        INST_FCVT_L_H     : begin
             Zfh_fcvt_l_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fcvt_l_h_cg.sample(ins);
 `endif
         end
-        "fcvt.lu.h"     : begin
+        INST_FCVT_LU_H     : begin
             Zfh_fcvt_lu_h_cg.sample(ins);
 `ifdef D_SUPPORTED
             ZfhD_fcvt_lu_h_cg.sample(ins);

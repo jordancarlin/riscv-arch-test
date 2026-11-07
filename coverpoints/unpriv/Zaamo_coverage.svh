@@ -1676,62 +1676,62 @@ endgroup
 // ---------------------
 `endif
 function void zaamo_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "amoadd.w"     : begin
+    case (inst_id)
+        INST_AMOADD_W     : begin
             Zaamo_amoadd_w_cg.sample(ins);
         end
-        "amoand.w"     : begin
+        INST_AMOAND_W     : begin
             Zaamo_amoand_w_cg.sample(ins);
         end
-        "amomax.w"     : begin
+        INST_AMOMAX_W     : begin
             Zaamo_amomax_w_cg.sample(ins);
         end
-        "amomaxu.w"     : begin
+        INST_AMOMAXU_W     : begin
             Zaamo_amomaxu_w_cg.sample(ins);
         end
-        "amomin.w"     : begin
+        INST_AMOMIN_W     : begin
             Zaamo_amomin_w_cg.sample(ins);
         end
-        "amominu.w"     : begin
+        INST_AMOMINU_W     : begin
             Zaamo_amominu_w_cg.sample(ins);
         end
-        "amoor.w"     : begin
+        INST_AMOOR_W     : begin
             Zaamo_amoor_w_cg.sample(ins);
         end
-        "amoswap.w"     : begin
+        INST_AMOSWAP_W     : begin
             Zaamo_amoswap_w_cg.sample(ins);
         end
-        "amoxor.w"     : begin
+        INST_AMOXOR_W     : begin
             Zaamo_amoxor_w_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "amoadd.d"     : begin
+        INST_AMOADD_D     : begin
             Zaamo_amoadd_d_cg.sample(ins);
         end
-        "amoand.d"     : begin
+        INST_AMOAND_D     : begin
             Zaamo_amoand_d_cg.sample(ins);
         end
-        "amomax.d"     : begin
+        INST_AMOMAX_D     : begin
             Zaamo_amomax_d_cg.sample(ins);
         end
-        "amomaxu.d"     : begin
+        INST_AMOMAXU_D     : begin
             Zaamo_amomaxu_d_cg.sample(ins);
         end
-        "amomin.d"     : begin
+        INST_AMOMIN_D     : begin
             Zaamo_amomin_d_cg.sample(ins);
         end
-        "amominu.d"     : begin
+        INST_AMOMINU_D     : begin
             Zaamo_amominu_d_cg.sample(ins);
         end
-        "amoor.d"     : begin
+        INST_AMOOR_D     : begin
             Zaamo_amoor_d_cg.sample(ins);
         end
-        "amoswap.d"     : begin
+        INST_AMOSWAP_D     : begin
             Zaamo_amoswap_d_cg.sample(ins);
         end
-        "amoxor.d"     : begin
+        INST_AMOXOR_D     : begin
             Zaamo_amoxor_d_cg.sample(ins);
         end
 `endif

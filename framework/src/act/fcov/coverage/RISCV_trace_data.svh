@@ -89,7 +89,7 @@ class riscvTraceData
   int                         issue;
   // Decoded instruction info
   string                      disass;
-  string                      inst_name;
+  inst_id_t                   inst_id;
 
   int                         inst_category;
 

@@ -1526,58 +1526,58 @@ endgroup
 // ---------------------
 `endif
 function void zbkb_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "andn"     : begin
+    case (inst_id)
+        INST_ANDN     : begin
             Zbkb_andn_cg.sample(ins);
         end
-        "brev8"     : begin
+        INST_BREV8     : begin
             Zbkb_brev8_cg.sample(ins);
         end
-        "orn"     : begin
+        INST_ORN     : begin
             Zbkb_orn_cg.sample(ins);
         end
-        "pack"     : begin
+        INST_PACK     : begin
             Zbkb_pack_cg.sample(ins);
         end
-        "packh"     : begin
+        INST_PACKH     : begin
             Zbkb_packh_cg.sample(ins);
         end
-        "rev8"     : begin
+        INST_REV8     : begin
             Zbkb_rev8_cg.sample(ins);
         end
-        "rol"     : begin
+        INST_ROL     : begin
             Zbkb_rol_cg.sample(ins);
         end
-        "ror"     : begin
+        INST_ROR     : begin
             Zbkb_ror_cg.sample(ins);
         end
-        "rori"     : begin
+        INST_RORI     : begin
             Zbkb_rori_cg.sample(ins);
         end
-        "xnor"     : begin
+        INST_XNOR     : begin
             Zbkb_xnor_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_32
-        "unzip"     : begin
+        INST_UNZIP     : begin
             Zbkb_unzip_cg.sample(ins);
         end
-        "zip"     : begin
+        INST_ZIP     : begin
             Zbkb_zip_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
-        "packw"     : begin
+        INST_PACKW     : begin
             Zbkb_packw_cg.sample(ins);
         end
-        "rolw"     : begin
+        INST_ROLW     : begin
             Zbkb_rolw_cg.sample(ins);
         end
-        "roriw"     : begin
+        INST_RORIW     : begin
             Zbkb_roriw_cg.sample(ins);
         end
-        "rorw"     : begin
+        INST_RORW     : begin
             Zbkb_rorw_cg.sample(ins);
         end
 `endif

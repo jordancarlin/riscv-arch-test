@@ -42525,1134 +42525,1134 @@ covergroup Vls8_vsuxseg8ei8_v_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void vls8_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
     // Want to sample only if the SEW matches the target SEW of the file, some tests require
     // testing when vill is set, if vill=1 all other vtype bits are set to 0 so there is no
     // associated sew with these tests
     if (get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew") == 0 ||
         get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") == 1) begin
-        case (inst_name)
-            "vl1re16.v"     : begin
+        case (inst_id)
+            INST_VL1RE16_V     : begin
                 Vls8_vl1re16_v_cg.sample(ins);
             end
-            "vl1re32.v"     : begin
+            INST_VL1RE32_V     : begin
                 Vls8_vl1re32_v_cg.sample(ins);
             end
-            "vl1re64.v"     : begin
+            INST_VL1RE64_V     : begin
                 Vls8_vl1re64_v_cg.sample(ins);
             end
-            "vl1re8.v"     : begin
+            INST_VL1RE8_V     : begin
                 Vls8_vl1re8_v_cg.sample(ins);
             end
-            "vl2re16.v"     : begin
+            INST_VL2RE16_V     : begin
                 Vls8_vl2re16_v_cg.sample(ins);
             end
-            "vl2re32.v"     : begin
+            INST_VL2RE32_V     : begin
                 Vls8_vl2re32_v_cg.sample(ins);
             end
-            "vl2re64.v"     : begin
+            INST_VL2RE64_V     : begin
                 Vls8_vl2re64_v_cg.sample(ins);
             end
-            "vl2re8.v"     : begin
+            INST_VL2RE8_V     : begin
                 Vls8_vl2re8_v_cg.sample(ins);
             end
-            "vl4re16.v"     : begin
+            INST_VL4RE16_V     : begin
                 Vls8_vl4re16_v_cg.sample(ins);
             end
-            "vl4re32.v"     : begin
+            INST_VL4RE32_V     : begin
                 Vls8_vl4re32_v_cg.sample(ins);
             end
-            "vl4re64.v"     : begin
+            INST_VL4RE64_V     : begin
                 Vls8_vl4re64_v_cg.sample(ins);
             end
-            "vl4re8.v"     : begin
+            INST_VL4RE8_V     : begin
                 Vls8_vl4re8_v_cg.sample(ins);
             end
-            "vl8re16.v"     : begin
+            INST_VL8RE16_V     : begin
                 Vls8_vl8re16_v_cg.sample(ins);
             end
-            "vl8re32.v"     : begin
+            INST_VL8RE32_V     : begin
                 Vls8_vl8re32_v_cg.sample(ins);
             end
-            "vl8re64.v"     : begin
+            INST_VL8RE64_V     : begin
                 Vls8_vl8re64_v_cg.sample(ins);
             end
-            "vl8re8.v"     : begin
+            INST_VL8RE8_V     : begin
                 Vls8_vl8re8_v_cg.sample(ins);
             end
-            "vle16.v"     : begin
+            INST_VLE16_V     : begin
                 Vls8_vle16_v_cg.sample(ins);
             end
-            "vle16ff.v"     : begin
+            INST_VLE16FF_V     : begin
                 Vls8_vle16ff_v_cg.sample(ins);
             end
-            "vle32.v"     : begin
+            INST_VLE32_V     : begin
                 Vls8_vle32_v_cg.sample(ins);
             end
-            "vle32ff.v"     : begin
+            INST_VLE32FF_V     : begin
                 Vls8_vle32ff_v_cg.sample(ins);
             end
-            "vle64.v"     : begin
+            INST_VLE64_V     : begin
                 Vls8_vle64_v_cg.sample(ins);
             end
-            "vle64ff.v"     : begin
+            INST_VLE64FF_V     : begin
                 Vls8_vle64ff_v_cg.sample(ins);
             end
-            "vle8.v"     : begin
+            INST_VLE8_V     : begin
                 Vls8_vle8_v_cg.sample(ins);
             end
-            "vle8ff.v"     : begin
+            INST_VLE8FF_V     : begin
                 Vls8_vle8ff_v_cg.sample(ins);
             end
-            "vlm.v"     : begin
+            INST_VLM_V     : begin
                 Vls8_vlm_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vloxei16.v"     : begin
+            INST_VLOXEI16_V     : begin
                 Vls8_vloxei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vloxei32.v"     : begin
+            INST_VLOXEI32_V     : begin
                 Vls8_vloxei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vloxei64.v"     : begin
+            INST_VLOXEI64_V     : begin
                 Vls8_vloxei64_v_cg.sample(ins);
             end
 `endif
-            "vloxei8.v"     : begin
+            INST_VLOXEI8_V     : begin
                 Vls8_vloxei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vloxseg2ei16.v"     : begin
+            INST_VLOXSEG2EI16_V     : begin
                 Vls8_vloxseg2ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vloxseg2ei32.v"     : begin
+            INST_VLOXSEG2EI32_V     : begin
                 Vls8_vloxseg2ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vloxseg2ei64.v"     : begin
+            INST_VLOXSEG2EI64_V     : begin
                 Vls8_vloxseg2ei64_v_cg.sample(ins);
             end
 `endif
-            "vloxseg2ei8.v"     : begin
+            INST_VLOXSEG2EI8_V     : begin
                 Vls8_vloxseg2ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vloxseg3ei16.v"     : begin
+            INST_VLOXSEG3EI16_V     : begin
                 Vls8_vloxseg3ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vloxseg3ei32.v"     : begin
+            INST_VLOXSEG3EI32_V     : begin
                 Vls8_vloxseg3ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vloxseg3ei64.v"     : begin
+            INST_VLOXSEG3EI64_V     : begin
                 Vls8_vloxseg3ei64_v_cg.sample(ins);
             end
 `endif
-            "vloxseg3ei8.v"     : begin
+            INST_VLOXSEG3EI8_V     : begin
                 Vls8_vloxseg3ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vloxseg4ei16.v"     : begin
+            INST_VLOXSEG4EI16_V     : begin
                 Vls8_vloxseg4ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vloxseg4ei32.v"     : begin
+            INST_VLOXSEG4EI32_V     : begin
                 Vls8_vloxseg4ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vloxseg4ei64.v"     : begin
+            INST_VLOXSEG4EI64_V     : begin
                 Vls8_vloxseg4ei64_v_cg.sample(ins);
             end
 `endif
-            "vloxseg4ei8.v"     : begin
+            INST_VLOXSEG4EI8_V     : begin
                 Vls8_vloxseg4ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vloxseg5ei16.v"     : begin
+            INST_VLOXSEG5EI16_V     : begin
                 Vls8_vloxseg5ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vloxseg5ei32.v"     : begin
+            INST_VLOXSEG5EI32_V     : begin
                 Vls8_vloxseg5ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vloxseg5ei64.v"     : begin
+            INST_VLOXSEG5EI64_V     : begin
                 Vls8_vloxseg5ei64_v_cg.sample(ins);
             end
 `endif
-            "vloxseg5ei8.v"     : begin
+            INST_VLOXSEG5EI8_V     : begin
                 Vls8_vloxseg5ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vloxseg6ei16.v"     : begin
+            INST_VLOXSEG6EI16_V     : begin
                 Vls8_vloxseg6ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vloxseg6ei32.v"     : begin
+            INST_VLOXSEG6EI32_V     : begin
                 Vls8_vloxseg6ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vloxseg6ei64.v"     : begin
+            INST_VLOXSEG6EI64_V     : begin
                 Vls8_vloxseg6ei64_v_cg.sample(ins);
             end
 `endif
-            "vloxseg6ei8.v"     : begin
+            INST_VLOXSEG6EI8_V     : begin
                 Vls8_vloxseg6ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vloxseg7ei16.v"     : begin
+            INST_VLOXSEG7EI16_V     : begin
                 Vls8_vloxseg7ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vloxseg7ei32.v"     : begin
+            INST_VLOXSEG7EI32_V     : begin
                 Vls8_vloxseg7ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vloxseg7ei64.v"     : begin
+            INST_VLOXSEG7EI64_V     : begin
                 Vls8_vloxseg7ei64_v_cg.sample(ins);
             end
 `endif
-            "vloxseg7ei8.v"     : begin
+            INST_VLOXSEG7EI8_V     : begin
                 Vls8_vloxseg7ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vloxseg8ei16.v"     : begin
+            INST_VLOXSEG8EI16_V     : begin
                 Vls8_vloxseg8ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vloxseg8ei32.v"     : begin
+            INST_VLOXSEG8EI32_V     : begin
                 Vls8_vloxseg8ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vloxseg8ei64.v"     : begin
+            INST_VLOXSEG8EI64_V     : begin
                 Vls8_vloxseg8ei64_v_cg.sample(ins);
             end
 `endif
-            "vloxseg8ei8.v"     : begin
+            INST_VLOXSEG8EI8_V     : begin
                 Vls8_vloxseg8ei8_v_cg.sample(ins);
             end
-            "vlse16.v"     : begin
+            INST_VLSE16_V     : begin
                 Vls8_vlse16_v_cg.sample(ins);
             end
-            "vlse32.v"     : begin
+            INST_VLSE32_V     : begin
                 Vls8_vlse32_v_cg.sample(ins);
             end
-            "vlse64.v"     : begin
+            INST_VLSE64_V     : begin
                 Vls8_vlse64_v_cg.sample(ins);
             end
-            "vlse8.v"     : begin
+            INST_VLSE8_V     : begin
                 Vls8_vlse8_v_cg.sample(ins);
             end
-            "vlseg2e16.v"     : begin
+            INST_VLSEG2E16_V     : begin
                 Vls8_vlseg2e16_v_cg.sample(ins);
             end
-            "vlseg2e16ff.v"     : begin
+            INST_VLSEG2E16FF_V     : begin
                 Vls8_vlseg2e16ff_v_cg.sample(ins);
             end
-            "vlseg2e32.v"     : begin
+            INST_VLSEG2E32_V     : begin
                 Vls8_vlseg2e32_v_cg.sample(ins);
             end
-            "vlseg2e32ff.v"     : begin
+            INST_VLSEG2E32FF_V     : begin
                 Vls8_vlseg2e32ff_v_cg.sample(ins);
             end
-            "vlseg2e64.v"     : begin
+            INST_VLSEG2E64_V     : begin
                 Vls8_vlseg2e64_v_cg.sample(ins);
             end
-            "vlseg2e64ff.v"     : begin
+            INST_VLSEG2E64FF_V     : begin
                 Vls8_vlseg2e64ff_v_cg.sample(ins);
             end
-            "vlseg2e8.v"     : begin
+            INST_VLSEG2E8_V     : begin
                 Vls8_vlseg2e8_v_cg.sample(ins);
             end
-            "vlseg2e8ff.v"     : begin
+            INST_VLSEG2E8FF_V     : begin
                 Vls8_vlseg2e8ff_v_cg.sample(ins);
             end
-            "vlseg3e16.v"     : begin
+            INST_VLSEG3E16_V     : begin
                 Vls8_vlseg3e16_v_cg.sample(ins);
             end
-            "vlseg3e16ff.v"     : begin
+            INST_VLSEG3E16FF_V     : begin
                 Vls8_vlseg3e16ff_v_cg.sample(ins);
             end
-            "vlseg3e32.v"     : begin
+            INST_VLSEG3E32_V     : begin
                 Vls8_vlseg3e32_v_cg.sample(ins);
             end
-            "vlseg3e32ff.v"     : begin
+            INST_VLSEG3E32FF_V     : begin
                 Vls8_vlseg3e32ff_v_cg.sample(ins);
             end
-            "vlseg3e64.v"     : begin
+            INST_VLSEG3E64_V     : begin
                 Vls8_vlseg3e64_v_cg.sample(ins);
             end
-            "vlseg3e64ff.v"     : begin
+            INST_VLSEG3E64FF_V     : begin
                 Vls8_vlseg3e64ff_v_cg.sample(ins);
             end
-            "vlseg3e8.v"     : begin
+            INST_VLSEG3E8_V     : begin
                 Vls8_vlseg3e8_v_cg.sample(ins);
             end
-            "vlseg3e8ff.v"     : begin
+            INST_VLSEG3E8FF_V     : begin
                 Vls8_vlseg3e8ff_v_cg.sample(ins);
             end
-            "vlseg4e16.v"     : begin
+            INST_VLSEG4E16_V     : begin
                 Vls8_vlseg4e16_v_cg.sample(ins);
             end
-            "vlseg4e16ff.v"     : begin
+            INST_VLSEG4E16FF_V     : begin
                 Vls8_vlseg4e16ff_v_cg.sample(ins);
             end
-            "vlseg4e32.v"     : begin
+            INST_VLSEG4E32_V     : begin
                 Vls8_vlseg4e32_v_cg.sample(ins);
             end
-            "vlseg4e32ff.v"     : begin
+            INST_VLSEG4E32FF_V     : begin
                 Vls8_vlseg4e32ff_v_cg.sample(ins);
             end
-            "vlseg4e64.v"     : begin
+            INST_VLSEG4E64_V     : begin
                 Vls8_vlseg4e64_v_cg.sample(ins);
             end
-            "vlseg4e64ff.v"     : begin
+            INST_VLSEG4E64FF_V     : begin
                 Vls8_vlseg4e64ff_v_cg.sample(ins);
             end
-            "vlseg4e8.v"     : begin
+            INST_VLSEG4E8_V     : begin
                 Vls8_vlseg4e8_v_cg.sample(ins);
             end
-            "vlseg4e8ff.v"     : begin
+            INST_VLSEG4E8FF_V     : begin
                 Vls8_vlseg4e8ff_v_cg.sample(ins);
             end
-            "vlseg5e16.v"     : begin
+            INST_VLSEG5E16_V     : begin
                 Vls8_vlseg5e16_v_cg.sample(ins);
             end
-            "vlseg5e16ff.v"     : begin
+            INST_VLSEG5E16FF_V     : begin
                 Vls8_vlseg5e16ff_v_cg.sample(ins);
             end
-            "vlseg5e32.v"     : begin
+            INST_VLSEG5E32_V     : begin
                 Vls8_vlseg5e32_v_cg.sample(ins);
             end
-            "vlseg5e32ff.v"     : begin
+            INST_VLSEG5E32FF_V     : begin
                 Vls8_vlseg5e32ff_v_cg.sample(ins);
             end
-            "vlseg5e64.v"     : begin
+            INST_VLSEG5E64_V     : begin
                 Vls8_vlseg5e64_v_cg.sample(ins);
             end
-            "vlseg5e64ff.v"     : begin
+            INST_VLSEG5E64FF_V     : begin
                 Vls8_vlseg5e64ff_v_cg.sample(ins);
             end
-            "vlseg5e8.v"     : begin
+            INST_VLSEG5E8_V     : begin
                 Vls8_vlseg5e8_v_cg.sample(ins);
             end
-            "vlseg5e8ff.v"     : begin
+            INST_VLSEG5E8FF_V     : begin
                 Vls8_vlseg5e8ff_v_cg.sample(ins);
             end
-            "vlseg6e16.v"     : begin
+            INST_VLSEG6E16_V     : begin
                 Vls8_vlseg6e16_v_cg.sample(ins);
             end
-            "vlseg6e16ff.v"     : begin
+            INST_VLSEG6E16FF_V     : begin
                 Vls8_vlseg6e16ff_v_cg.sample(ins);
             end
-            "vlseg6e32.v"     : begin
+            INST_VLSEG6E32_V     : begin
                 Vls8_vlseg6e32_v_cg.sample(ins);
             end
-            "vlseg6e32ff.v"     : begin
+            INST_VLSEG6E32FF_V     : begin
                 Vls8_vlseg6e32ff_v_cg.sample(ins);
             end
-            "vlseg6e64.v"     : begin
+            INST_VLSEG6E64_V     : begin
                 Vls8_vlseg6e64_v_cg.sample(ins);
             end
-            "vlseg6e64ff.v"     : begin
+            INST_VLSEG6E64FF_V     : begin
                 Vls8_vlseg6e64ff_v_cg.sample(ins);
             end
-            "vlseg6e8.v"     : begin
+            INST_VLSEG6E8_V     : begin
                 Vls8_vlseg6e8_v_cg.sample(ins);
             end
-            "vlseg6e8ff.v"     : begin
+            INST_VLSEG6E8FF_V     : begin
                 Vls8_vlseg6e8ff_v_cg.sample(ins);
             end
-            "vlseg7e16.v"     : begin
+            INST_VLSEG7E16_V     : begin
                 Vls8_vlseg7e16_v_cg.sample(ins);
             end
-            "vlseg7e16ff.v"     : begin
+            INST_VLSEG7E16FF_V     : begin
                 Vls8_vlseg7e16ff_v_cg.sample(ins);
             end
-            "vlseg7e32.v"     : begin
+            INST_VLSEG7E32_V     : begin
                 Vls8_vlseg7e32_v_cg.sample(ins);
             end
-            "vlseg7e32ff.v"     : begin
+            INST_VLSEG7E32FF_V     : begin
                 Vls8_vlseg7e32ff_v_cg.sample(ins);
             end
-            "vlseg7e64.v"     : begin
+            INST_VLSEG7E64_V     : begin
                 Vls8_vlseg7e64_v_cg.sample(ins);
             end
-            "vlseg7e64ff.v"     : begin
+            INST_VLSEG7E64FF_V     : begin
                 Vls8_vlseg7e64ff_v_cg.sample(ins);
             end
-            "vlseg7e8.v"     : begin
+            INST_VLSEG7E8_V     : begin
                 Vls8_vlseg7e8_v_cg.sample(ins);
             end
-            "vlseg7e8ff.v"     : begin
+            INST_VLSEG7E8FF_V     : begin
                 Vls8_vlseg7e8ff_v_cg.sample(ins);
             end
-            "vlseg8e16.v"     : begin
+            INST_VLSEG8E16_V     : begin
                 Vls8_vlseg8e16_v_cg.sample(ins);
             end
-            "vlseg8e16ff.v"     : begin
+            INST_VLSEG8E16FF_V     : begin
                 Vls8_vlseg8e16ff_v_cg.sample(ins);
             end
-            "vlseg8e32.v"     : begin
+            INST_VLSEG8E32_V     : begin
                 Vls8_vlseg8e32_v_cg.sample(ins);
             end
-            "vlseg8e32ff.v"     : begin
+            INST_VLSEG8E32FF_V     : begin
                 Vls8_vlseg8e32ff_v_cg.sample(ins);
             end
-            "vlseg8e64.v"     : begin
+            INST_VLSEG8E64_V     : begin
                 Vls8_vlseg8e64_v_cg.sample(ins);
             end
-            "vlseg8e64ff.v"     : begin
+            INST_VLSEG8E64FF_V     : begin
                 Vls8_vlseg8e64ff_v_cg.sample(ins);
             end
-            "vlseg8e8.v"     : begin
+            INST_VLSEG8E8_V     : begin
                 Vls8_vlseg8e8_v_cg.sample(ins);
             end
-            "vlseg8e8ff.v"     : begin
+            INST_VLSEG8E8FF_V     : begin
                 Vls8_vlseg8e8ff_v_cg.sample(ins);
             end
-            "vlsseg2e16.v"     : begin
+            INST_VLSSEG2E16_V     : begin
                 Vls8_vlsseg2e16_v_cg.sample(ins);
             end
-            "vlsseg2e32.v"     : begin
+            INST_VLSSEG2E32_V     : begin
                 Vls8_vlsseg2e32_v_cg.sample(ins);
             end
-            "vlsseg2e64.v"     : begin
+            INST_VLSSEG2E64_V     : begin
                 Vls8_vlsseg2e64_v_cg.sample(ins);
             end
-            "vlsseg2e8.v"     : begin
+            INST_VLSSEG2E8_V     : begin
                 Vls8_vlsseg2e8_v_cg.sample(ins);
             end
-            "vlsseg3e16.v"     : begin
+            INST_VLSSEG3E16_V     : begin
                 Vls8_vlsseg3e16_v_cg.sample(ins);
             end
-            "vlsseg3e32.v"     : begin
+            INST_VLSSEG3E32_V     : begin
                 Vls8_vlsseg3e32_v_cg.sample(ins);
             end
-            "vlsseg3e64.v"     : begin
+            INST_VLSSEG3E64_V     : begin
                 Vls8_vlsseg3e64_v_cg.sample(ins);
             end
-            "vlsseg3e8.v"     : begin
+            INST_VLSSEG3E8_V     : begin
                 Vls8_vlsseg3e8_v_cg.sample(ins);
             end
-            "vlsseg4e16.v"     : begin
+            INST_VLSSEG4E16_V     : begin
                 Vls8_vlsseg4e16_v_cg.sample(ins);
             end
-            "vlsseg4e32.v"     : begin
+            INST_VLSSEG4E32_V     : begin
                 Vls8_vlsseg4e32_v_cg.sample(ins);
             end
-            "vlsseg4e64.v"     : begin
+            INST_VLSSEG4E64_V     : begin
                 Vls8_vlsseg4e64_v_cg.sample(ins);
             end
-            "vlsseg4e8.v"     : begin
+            INST_VLSSEG4E8_V     : begin
                 Vls8_vlsseg4e8_v_cg.sample(ins);
             end
-            "vlsseg5e16.v"     : begin
+            INST_VLSSEG5E16_V     : begin
                 Vls8_vlsseg5e16_v_cg.sample(ins);
             end
-            "vlsseg5e32.v"     : begin
+            INST_VLSSEG5E32_V     : begin
                 Vls8_vlsseg5e32_v_cg.sample(ins);
             end
-            "vlsseg5e64.v"     : begin
+            INST_VLSSEG5E64_V     : begin
                 Vls8_vlsseg5e64_v_cg.sample(ins);
             end
-            "vlsseg5e8.v"     : begin
+            INST_VLSSEG5E8_V     : begin
                 Vls8_vlsseg5e8_v_cg.sample(ins);
             end
-            "vlsseg6e16.v"     : begin
+            INST_VLSSEG6E16_V     : begin
                 Vls8_vlsseg6e16_v_cg.sample(ins);
             end
-            "vlsseg6e32.v"     : begin
+            INST_VLSSEG6E32_V     : begin
                 Vls8_vlsseg6e32_v_cg.sample(ins);
             end
-            "vlsseg6e64.v"     : begin
+            INST_VLSSEG6E64_V     : begin
                 Vls8_vlsseg6e64_v_cg.sample(ins);
             end
-            "vlsseg6e8.v"     : begin
+            INST_VLSSEG6E8_V     : begin
                 Vls8_vlsseg6e8_v_cg.sample(ins);
             end
-            "vlsseg7e16.v"     : begin
+            INST_VLSSEG7E16_V     : begin
                 Vls8_vlsseg7e16_v_cg.sample(ins);
             end
-            "vlsseg7e32.v"     : begin
+            INST_VLSSEG7E32_V     : begin
                 Vls8_vlsseg7e32_v_cg.sample(ins);
             end
-            "vlsseg7e64.v"     : begin
+            INST_VLSSEG7E64_V     : begin
                 Vls8_vlsseg7e64_v_cg.sample(ins);
             end
-            "vlsseg7e8.v"     : begin
+            INST_VLSSEG7E8_V     : begin
                 Vls8_vlsseg7e8_v_cg.sample(ins);
             end
-            "vlsseg8e16.v"     : begin
+            INST_VLSSEG8E16_V     : begin
                 Vls8_vlsseg8e16_v_cg.sample(ins);
             end
-            "vlsseg8e32.v"     : begin
+            INST_VLSSEG8E32_V     : begin
                 Vls8_vlsseg8e32_v_cg.sample(ins);
             end
-            "vlsseg8e64.v"     : begin
+            INST_VLSSEG8E64_V     : begin
                 Vls8_vlsseg8e64_v_cg.sample(ins);
             end
-            "vlsseg8e8.v"     : begin
+            INST_VLSSEG8E8_V     : begin
                 Vls8_vlsseg8e8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vluxei16.v"     : begin
+            INST_VLUXEI16_V     : begin
                 Vls8_vluxei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vluxei32.v"     : begin
+            INST_VLUXEI32_V     : begin
                 Vls8_vluxei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vluxei64.v"     : begin
+            INST_VLUXEI64_V     : begin
                 Vls8_vluxei64_v_cg.sample(ins);
             end
 `endif
-            "vluxei8.v"     : begin
+            INST_VLUXEI8_V     : begin
                 Vls8_vluxei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vluxseg2ei16.v"     : begin
+            INST_VLUXSEG2EI16_V     : begin
                 Vls8_vluxseg2ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vluxseg2ei32.v"     : begin
+            INST_VLUXSEG2EI32_V     : begin
                 Vls8_vluxseg2ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vluxseg2ei64.v"     : begin
+            INST_VLUXSEG2EI64_V     : begin
                 Vls8_vluxseg2ei64_v_cg.sample(ins);
             end
 `endif
-            "vluxseg2ei8.v"     : begin
+            INST_VLUXSEG2EI8_V     : begin
                 Vls8_vluxseg2ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vluxseg3ei16.v"     : begin
+            INST_VLUXSEG3EI16_V     : begin
                 Vls8_vluxseg3ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vluxseg3ei32.v"     : begin
+            INST_VLUXSEG3EI32_V     : begin
                 Vls8_vluxseg3ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vluxseg3ei64.v"     : begin
+            INST_VLUXSEG3EI64_V     : begin
                 Vls8_vluxseg3ei64_v_cg.sample(ins);
             end
 `endif
-            "vluxseg3ei8.v"     : begin
+            INST_VLUXSEG3EI8_V     : begin
                 Vls8_vluxseg3ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vluxseg4ei16.v"     : begin
+            INST_VLUXSEG4EI16_V     : begin
                 Vls8_vluxseg4ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vluxseg4ei32.v"     : begin
+            INST_VLUXSEG4EI32_V     : begin
                 Vls8_vluxseg4ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vluxseg4ei64.v"     : begin
+            INST_VLUXSEG4EI64_V     : begin
                 Vls8_vluxseg4ei64_v_cg.sample(ins);
             end
 `endif
-            "vluxseg4ei8.v"     : begin
+            INST_VLUXSEG4EI8_V     : begin
                 Vls8_vluxseg4ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vluxseg5ei16.v"     : begin
+            INST_VLUXSEG5EI16_V     : begin
                 Vls8_vluxseg5ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vluxseg5ei32.v"     : begin
+            INST_VLUXSEG5EI32_V     : begin
                 Vls8_vluxseg5ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vluxseg5ei64.v"     : begin
+            INST_VLUXSEG5EI64_V     : begin
                 Vls8_vluxseg5ei64_v_cg.sample(ins);
             end
 `endif
-            "vluxseg5ei8.v"     : begin
+            INST_VLUXSEG5EI8_V     : begin
                 Vls8_vluxseg5ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vluxseg6ei16.v"     : begin
+            INST_VLUXSEG6EI16_V     : begin
                 Vls8_vluxseg6ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vluxseg6ei32.v"     : begin
+            INST_VLUXSEG6EI32_V     : begin
                 Vls8_vluxseg6ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vluxseg6ei64.v"     : begin
+            INST_VLUXSEG6EI64_V     : begin
                 Vls8_vluxseg6ei64_v_cg.sample(ins);
             end
 `endif
-            "vluxseg6ei8.v"     : begin
+            INST_VLUXSEG6EI8_V     : begin
                 Vls8_vluxseg6ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vluxseg7ei16.v"     : begin
+            INST_VLUXSEG7EI16_V     : begin
                 Vls8_vluxseg7ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vluxseg7ei32.v"     : begin
+            INST_VLUXSEG7EI32_V     : begin
                 Vls8_vluxseg7ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vluxseg7ei64.v"     : begin
+            INST_VLUXSEG7EI64_V     : begin
                 Vls8_vluxseg7ei64_v_cg.sample(ins);
             end
 `endif
-            "vluxseg7ei8.v"     : begin
+            INST_VLUXSEG7EI8_V     : begin
                 Vls8_vluxseg7ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vluxseg8ei16.v"     : begin
+            INST_VLUXSEG8EI16_V     : begin
                 Vls8_vluxseg8ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vluxseg8ei32.v"     : begin
+            INST_VLUXSEG8EI32_V     : begin
                 Vls8_vluxseg8ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vluxseg8ei64.v"     : begin
+            INST_VLUXSEG8EI64_V     : begin
                 Vls8_vluxseg8ei64_v_cg.sample(ins);
             end
 `endif
-            "vluxseg8ei8.v"     : begin
+            INST_VLUXSEG8EI8_V     : begin
                 Vls8_vluxseg8ei8_v_cg.sample(ins);
             end
-            "vs1r.v"     : begin
+            INST_VS1R_V     : begin
                 Vls8_vs1r_v_cg.sample(ins);
             end
-            "vs2r.v"     : begin
+            INST_VS2R_V     : begin
                 Vls8_vs2r_v_cg.sample(ins);
             end
-            "vs4r.v"     : begin
+            INST_VS4R_V     : begin
                 Vls8_vs4r_v_cg.sample(ins);
             end
-            "vs8r.v"     : begin
+            INST_VS8R_V     : begin
                 Vls8_vs8r_v_cg.sample(ins);
             end
-            "vse16.v"     : begin
+            INST_VSE16_V     : begin
                 Vls8_vse16_v_cg.sample(ins);
             end
-            "vse32.v"     : begin
+            INST_VSE32_V     : begin
                 Vls8_vse32_v_cg.sample(ins);
             end
-            "vse64.v"     : begin
+            INST_VSE64_V     : begin
                 Vls8_vse64_v_cg.sample(ins);
             end
-            "vse8.v"     : begin
+            INST_VSE8_V     : begin
                 Vls8_vse8_v_cg.sample(ins);
             end
-            "vsm.v"     : begin
+            INST_VSM_V     : begin
                 Vls8_vsm_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsoxei16.v"     : begin
+            INST_VSOXEI16_V     : begin
                 Vls8_vsoxei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsoxei32.v"     : begin
+            INST_VSOXEI32_V     : begin
                 Vls8_vsoxei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsoxei64.v"     : begin
+            INST_VSOXEI64_V     : begin
                 Vls8_vsoxei64_v_cg.sample(ins);
             end
 `endif
-            "vsoxei8.v"     : begin
+            INST_VSOXEI8_V     : begin
                 Vls8_vsoxei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsoxseg2ei16.v"     : begin
+            INST_VSOXSEG2EI16_V     : begin
                 Vls8_vsoxseg2ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsoxseg2ei32.v"     : begin
+            INST_VSOXSEG2EI32_V     : begin
                 Vls8_vsoxseg2ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsoxseg2ei64.v"     : begin
+            INST_VSOXSEG2EI64_V     : begin
                 Vls8_vsoxseg2ei64_v_cg.sample(ins);
             end
 `endif
-            "vsoxseg2ei8.v"     : begin
+            INST_VSOXSEG2EI8_V     : begin
                 Vls8_vsoxseg2ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsoxseg3ei16.v"     : begin
+            INST_VSOXSEG3EI16_V     : begin
                 Vls8_vsoxseg3ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsoxseg3ei32.v"     : begin
+            INST_VSOXSEG3EI32_V     : begin
                 Vls8_vsoxseg3ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsoxseg3ei64.v"     : begin
+            INST_VSOXSEG3EI64_V     : begin
                 Vls8_vsoxseg3ei64_v_cg.sample(ins);
             end
 `endif
-            "vsoxseg3ei8.v"     : begin
+            INST_VSOXSEG3EI8_V     : begin
                 Vls8_vsoxseg3ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsoxseg4ei16.v"     : begin
+            INST_VSOXSEG4EI16_V     : begin
                 Vls8_vsoxseg4ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsoxseg4ei32.v"     : begin
+            INST_VSOXSEG4EI32_V     : begin
                 Vls8_vsoxseg4ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsoxseg4ei64.v"     : begin
+            INST_VSOXSEG4EI64_V     : begin
                 Vls8_vsoxseg4ei64_v_cg.sample(ins);
             end
 `endif
-            "vsoxseg4ei8.v"     : begin
+            INST_VSOXSEG4EI8_V     : begin
                 Vls8_vsoxseg4ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsoxseg5ei16.v"     : begin
+            INST_VSOXSEG5EI16_V     : begin
                 Vls8_vsoxseg5ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsoxseg5ei32.v"     : begin
+            INST_VSOXSEG5EI32_V     : begin
                 Vls8_vsoxseg5ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsoxseg5ei64.v"     : begin
+            INST_VSOXSEG5EI64_V     : begin
                 Vls8_vsoxseg5ei64_v_cg.sample(ins);
             end
 `endif
-            "vsoxseg5ei8.v"     : begin
+            INST_VSOXSEG5EI8_V     : begin
                 Vls8_vsoxseg5ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsoxseg6ei16.v"     : begin
+            INST_VSOXSEG6EI16_V     : begin
                 Vls8_vsoxseg6ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsoxseg6ei32.v"     : begin
+            INST_VSOXSEG6EI32_V     : begin
                 Vls8_vsoxseg6ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsoxseg6ei64.v"     : begin
+            INST_VSOXSEG6EI64_V     : begin
                 Vls8_vsoxseg6ei64_v_cg.sample(ins);
             end
 `endif
-            "vsoxseg6ei8.v"     : begin
+            INST_VSOXSEG6EI8_V     : begin
                 Vls8_vsoxseg6ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsoxseg7ei16.v"     : begin
+            INST_VSOXSEG7EI16_V     : begin
                 Vls8_vsoxseg7ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsoxseg7ei32.v"     : begin
+            INST_VSOXSEG7EI32_V     : begin
                 Vls8_vsoxseg7ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsoxseg7ei64.v"     : begin
+            INST_VSOXSEG7EI64_V     : begin
                 Vls8_vsoxseg7ei64_v_cg.sample(ins);
             end
 `endif
-            "vsoxseg7ei8.v"     : begin
+            INST_VSOXSEG7EI8_V     : begin
                 Vls8_vsoxseg7ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsoxseg8ei16.v"     : begin
+            INST_VSOXSEG8EI16_V     : begin
                 Vls8_vsoxseg8ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsoxseg8ei32.v"     : begin
+            INST_VSOXSEG8EI32_V     : begin
                 Vls8_vsoxseg8ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsoxseg8ei64.v"     : begin
+            INST_VSOXSEG8EI64_V     : begin
                 Vls8_vsoxseg8ei64_v_cg.sample(ins);
             end
 `endif
-            "vsoxseg8ei8.v"     : begin
+            INST_VSOXSEG8EI8_V     : begin
                 Vls8_vsoxseg8ei8_v_cg.sample(ins);
             end
-            "vsse16.v"     : begin
+            INST_VSSE16_V     : begin
                 Vls8_vsse16_v_cg.sample(ins);
             end
-            "vsse32.v"     : begin
+            INST_VSSE32_V     : begin
                 Vls8_vsse32_v_cg.sample(ins);
             end
-            "vsse64.v"     : begin
+            INST_VSSE64_V     : begin
                 Vls8_vsse64_v_cg.sample(ins);
             end
-            "vsse8.v"     : begin
+            INST_VSSE8_V     : begin
                 Vls8_vsse8_v_cg.sample(ins);
             end
-            "vsseg2e16.v"     : begin
+            INST_VSSEG2E16_V     : begin
                 Vls8_vsseg2e16_v_cg.sample(ins);
             end
-            "vsseg2e32.v"     : begin
+            INST_VSSEG2E32_V     : begin
                 Vls8_vsseg2e32_v_cg.sample(ins);
             end
-            "vsseg2e64.v"     : begin
+            INST_VSSEG2E64_V     : begin
                 Vls8_vsseg2e64_v_cg.sample(ins);
             end
-            "vsseg2e8.v"     : begin
+            INST_VSSEG2E8_V     : begin
                 Vls8_vsseg2e8_v_cg.sample(ins);
             end
-            "vsseg3e16.v"     : begin
+            INST_VSSEG3E16_V     : begin
                 Vls8_vsseg3e16_v_cg.sample(ins);
             end
-            "vsseg3e32.v"     : begin
+            INST_VSSEG3E32_V     : begin
                 Vls8_vsseg3e32_v_cg.sample(ins);
             end
-            "vsseg3e64.v"     : begin
+            INST_VSSEG3E64_V     : begin
                 Vls8_vsseg3e64_v_cg.sample(ins);
             end
-            "vsseg3e8.v"     : begin
+            INST_VSSEG3E8_V     : begin
                 Vls8_vsseg3e8_v_cg.sample(ins);
             end
-            "vsseg4e16.v"     : begin
+            INST_VSSEG4E16_V     : begin
                 Vls8_vsseg4e16_v_cg.sample(ins);
             end
-            "vsseg4e32.v"     : begin
+            INST_VSSEG4E32_V     : begin
                 Vls8_vsseg4e32_v_cg.sample(ins);
             end
-            "vsseg4e64.v"     : begin
+            INST_VSSEG4E64_V     : begin
                 Vls8_vsseg4e64_v_cg.sample(ins);
             end
-            "vsseg4e8.v"     : begin
+            INST_VSSEG4E8_V     : begin
                 Vls8_vsseg4e8_v_cg.sample(ins);
             end
-            "vsseg5e16.v"     : begin
+            INST_VSSEG5E16_V     : begin
                 Vls8_vsseg5e16_v_cg.sample(ins);
             end
-            "vsseg5e32.v"     : begin
+            INST_VSSEG5E32_V     : begin
                 Vls8_vsseg5e32_v_cg.sample(ins);
             end
-            "vsseg5e64.v"     : begin
+            INST_VSSEG5E64_V     : begin
                 Vls8_vsseg5e64_v_cg.sample(ins);
             end
-            "vsseg5e8.v"     : begin
+            INST_VSSEG5E8_V     : begin
                 Vls8_vsseg5e8_v_cg.sample(ins);
             end
-            "vsseg6e16.v"     : begin
+            INST_VSSEG6E16_V     : begin
                 Vls8_vsseg6e16_v_cg.sample(ins);
             end
-            "vsseg6e32.v"     : begin
+            INST_VSSEG6E32_V     : begin
                 Vls8_vsseg6e32_v_cg.sample(ins);
             end
-            "vsseg6e64.v"     : begin
+            INST_VSSEG6E64_V     : begin
                 Vls8_vsseg6e64_v_cg.sample(ins);
             end
-            "vsseg6e8.v"     : begin
+            INST_VSSEG6E8_V     : begin
                 Vls8_vsseg6e8_v_cg.sample(ins);
             end
-            "vsseg7e16.v"     : begin
+            INST_VSSEG7E16_V     : begin
                 Vls8_vsseg7e16_v_cg.sample(ins);
             end
-            "vsseg7e32.v"     : begin
+            INST_VSSEG7E32_V     : begin
                 Vls8_vsseg7e32_v_cg.sample(ins);
             end
-            "vsseg7e64.v"     : begin
+            INST_VSSEG7E64_V     : begin
                 Vls8_vsseg7e64_v_cg.sample(ins);
             end
-            "vsseg7e8.v"     : begin
+            INST_VSSEG7E8_V     : begin
                 Vls8_vsseg7e8_v_cg.sample(ins);
             end
-            "vsseg8e16.v"     : begin
+            INST_VSSEG8E16_V     : begin
                 Vls8_vsseg8e16_v_cg.sample(ins);
             end
-            "vsseg8e32.v"     : begin
+            INST_VSSEG8E32_V     : begin
                 Vls8_vsseg8e32_v_cg.sample(ins);
             end
-            "vsseg8e64.v"     : begin
+            INST_VSSEG8E64_V     : begin
                 Vls8_vsseg8e64_v_cg.sample(ins);
             end
-            "vsseg8e8.v"     : begin
+            INST_VSSEG8E8_V     : begin
                 Vls8_vsseg8e8_v_cg.sample(ins);
             end
-            "vssseg2e16.v"     : begin
+            INST_VSSSEG2E16_V     : begin
                 Vls8_vssseg2e16_v_cg.sample(ins);
             end
-            "vssseg2e32.v"     : begin
+            INST_VSSSEG2E32_V     : begin
                 Vls8_vssseg2e32_v_cg.sample(ins);
             end
-            "vssseg2e64.v"     : begin
+            INST_VSSSEG2E64_V     : begin
                 Vls8_vssseg2e64_v_cg.sample(ins);
             end
-            "vssseg2e8.v"     : begin
+            INST_VSSSEG2E8_V     : begin
                 Vls8_vssseg2e8_v_cg.sample(ins);
             end
-            "vssseg3e16.v"     : begin
+            INST_VSSSEG3E16_V     : begin
                 Vls8_vssseg3e16_v_cg.sample(ins);
             end
-            "vssseg3e32.v"     : begin
+            INST_VSSSEG3E32_V     : begin
                 Vls8_vssseg3e32_v_cg.sample(ins);
             end
-            "vssseg3e64.v"     : begin
+            INST_VSSSEG3E64_V     : begin
                 Vls8_vssseg3e64_v_cg.sample(ins);
             end
-            "vssseg3e8.v"     : begin
+            INST_VSSSEG3E8_V     : begin
                 Vls8_vssseg3e8_v_cg.sample(ins);
             end
-            "vssseg4e16.v"     : begin
+            INST_VSSSEG4E16_V     : begin
                 Vls8_vssseg4e16_v_cg.sample(ins);
             end
-            "vssseg4e32.v"     : begin
+            INST_VSSSEG4E32_V     : begin
                 Vls8_vssseg4e32_v_cg.sample(ins);
             end
-            "vssseg4e64.v"     : begin
+            INST_VSSSEG4E64_V     : begin
                 Vls8_vssseg4e64_v_cg.sample(ins);
             end
-            "vssseg4e8.v"     : begin
+            INST_VSSSEG4E8_V     : begin
                 Vls8_vssseg4e8_v_cg.sample(ins);
             end
-            "vssseg5e16.v"     : begin
+            INST_VSSSEG5E16_V     : begin
                 Vls8_vssseg5e16_v_cg.sample(ins);
             end
-            "vssseg5e32.v"     : begin
+            INST_VSSSEG5E32_V     : begin
                 Vls8_vssseg5e32_v_cg.sample(ins);
             end
-            "vssseg5e64.v"     : begin
+            INST_VSSSEG5E64_V     : begin
                 Vls8_vssseg5e64_v_cg.sample(ins);
             end
-            "vssseg5e8.v"     : begin
+            INST_VSSSEG5E8_V     : begin
                 Vls8_vssseg5e8_v_cg.sample(ins);
             end
-            "vssseg6e16.v"     : begin
+            INST_VSSSEG6E16_V     : begin
                 Vls8_vssseg6e16_v_cg.sample(ins);
             end
-            "vssseg6e32.v"     : begin
+            INST_VSSSEG6E32_V     : begin
                 Vls8_vssseg6e32_v_cg.sample(ins);
             end
-            "vssseg6e64.v"     : begin
+            INST_VSSSEG6E64_V     : begin
                 Vls8_vssseg6e64_v_cg.sample(ins);
             end
-            "vssseg6e8.v"     : begin
+            INST_VSSSEG6E8_V     : begin
                 Vls8_vssseg6e8_v_cg.sample(ins);
             end
-            "vssseg7e16.v"     : begin
+            INST_VSSSEG7E16_V     : begin
                 Vls8_vssseg7e16_v_cg.sample(ins);
             end
-            "vssseg7e32.v"     : begin
+            INST_VSSSEG7E32_V     : begin
                 Vls8_vssseg7e32_v_cg.sample(ins);
             end
-            "vssseg7e64.v"     : begin
+            INST_VSSSEG7E64_V     : begin
                 Vls8_vssseg7e64_v_cg.sample(ins);
             end
-            "vssseg7e8.v"     : begin
+            INST_VSSSEG7E8_V     : begin
                 Vls8_vssseg7e8_v_cg.sample(ins);
             end
-            "vssseg8e16.v"     : begin
+            INST_VSSSEG8E16_V     : begin
                 Vls8_vssseg8e16_v_cg.sample(ins);
             end
-            "vssseg8e32.v"     : begin
+            INST_VSSSEG8E32_V     : begin
                 Vls8_vssseg8e32_v_cg.sample(ins);
             end
-            "vssseg8e64.v"     : begin
+            INST_VSSSEG8E64_V     : begin
                 Vls8_vssseg8e64_v_cg.sample(ins);
             end
-            "vssseg8e8.v"     : begin
+            INST_VSSSEG8E8_V     : begin
                 Vls8_vssseg8e8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsuxei16.v"     : begin
+            INST_VSUXEI16_V     : begin
                 Vls8_vsuxei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsuxei32.v"     : begin
+            INST_VSUXEI32_V     : begin
                 Vls8_vsuxei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsuxei64.v"     : begin
+            INST_VSUXEI64_V     : begin
                 Vls8_vsuxei64_v_cg.sample(ins);
             end
 `endif
-            "vsuxei8.v"     : begin
+            INST_VSUXEI8_V     : begin
                 Vls8_vsuxei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsuxseg2ei16.v"     : begin
+            INST_VSUXSEG2EI16_V     : begin
                 Vls8_vsuxseg2ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsuxseg2ei32.v"     : begin
+            INST_VSUXSEG2EI32_V     : begin
                 Vls8_vsuxseg2ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsuxseg2ei64.v"     : begin
+            INST_VSUXSEG2EI64_V     : begin
                 Vls8_vsuxseg2ei64_v_cg.sample(ins);
             end
 `endif
-            "vsuxseg2ei8.v"     : begin
+            INST_VSUXSEG2EI8_V     : begin
                 Vls8_vsuxseg2ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsuxseg3ei16.v"     : begin
+            INST_VSUXSEG3EI16_V     : begin
                 Vls8_vsuxseg3ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsuxseg3ei32.v"     : begin
+            INST_VSUXSEG3EI32_V     : begin
                 Vls8_vsuxseg3ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsuxseg3ei64.v"     : begin
+            INST_VSUXSEG3EI64_V     : begin
                 Vls8_vsuxseg3ei64_v_cg.sample(ins);
             end
 `endif
-            "vsuxseg3ei8.v"     : begin
+            INST_VSUXSEG3EI8_V     : begin
                 Vls8_vsuxseg3ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsuxseg4ei16.v"     : begin
+            INST_VSUXSEG4EI16_V     : begin
                 Vls8_vsuxseg4ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsuxseg4ei32.v"     : begin
+            INST_VSUXSEG4EI32_V     : begin
                 Vls8_vsuxseg4ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsuxseg4ei64.v"     : begin
+            INST_VSUXSEG4EI64_V     : begin
                 Vls8_vsuxseg4ei64_v_cg.sample(ins);
             end
 `endif
-            "vsuxseg4ei8.v"     : begin
+            INST_VSUXSEG4EI8_V     : begin
                 Vls8_vsuxseg4ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsuxseg5ei16.v"     : begin
+            INST_VSUXSEG5EI16_V     : begin
                 Vls8_vsuxseg5ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsuxseg5ei32.v"     : begin
+            INST_VSUXSEG5EI32_V     : begin
                 Vls8_vsuxseg5ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsuxseg5ei64.v"     : begin
+            INST_VSUXSEG5EI64_V     : begin
                 Vls8_vsuxseg5ei64_v_cg.sample(ins);
             end
 `endif
-            "vsuxseg5ei8.v"     : begin
+            INST_VSUXSEG5EI8_V     : begin
                 Vls8_vsuxseg5ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsuxseg6ei16.v"     : begin
+            INST_VSUXSEG6EI16_V     : begin
                 Vls8_vsuxseg6ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsuxseg6ei32.v"     : begin
+            INST_VSUXSEG6EI32_V     : begin
                 Vls8_vsuxseg6ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsuxseg6ei64.v"     : begin
+            INST_VSUXSEG6EI64_V     : begin
                 Vls8_vsuxseg6ei64_v_cg.sample(ins);
             end
 `endif
-            "vsuxseg6ei8.v"     : begin
+            INST_VSUXSEG6EI8_V     : begin
                 Vls8_vsuxseg6ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsuxseg7ei16.v"     : begin
+            INST_VSUXSEG7EI16_V     : begin
                 Vls8_vsuxseg7ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsuxseg7ei32.v"     : begin
+            INST_VSUXSEG7EI32_V     : begin
                 Vls8_vsuxseg7ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsuxseg7ei64.v"     : begin
+            INST_VSUXSEG7EI64_V     : begin
                 Vls8_vsuxseg7ei64_v_cg.sample(ins);
             end
 `endif
-            "vsuxseg7ei8.v"     : begin
+            INST_VSUXSEG7EI8_V     : begin
                 Vls8_vsuxseg7ei8_v_cg.sample(ins);
             end
 `ifdef MAXINDEXEEW_GE16
-            "vsuxseg8ei16.v"     : begin
+            INST_VSUXSEG8EI16_V     : begin
                 Vls8_vsuxseg8ei16_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE32
-            "vsuxseg8ei32.v"     : begin
+            INST_VSUXSEG8EI32_V     : begin
                 Vls8_vsuxseg8ei32_v_cg.sample(ins);
             end
 `endif
 `ifdef MAXINDEXEEW_GE64
-            "vsuxseg8ei64.v"     : begin
+            INST_VSUXSEG8EI64_V     : begin
                 Vls8_vsuxseg8ei64_v_cg.sample(ins);
             end
 `endif
-            "vsuxseg8ei8.v"     : begin
+            INST_VSUXSEG8EI8_V     : begin
                 Vls8_vsuxseg8ei8_v_cg.sample(ins);
             end
             default: ; // a case needs at least one item, and some configurations select none

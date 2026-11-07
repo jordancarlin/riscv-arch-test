@@ -580,23 +580,23 @@ endgroup
 // ---------------------
 `endif
 function void zmmul_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "mul"     : begin
+    case (inst_id)
+        INST_MUL     : begin
             Zmmul_mul_cg.sample(ins);
         end
-        "mulh"     : begin
+        INST_MULH     : begin
             Zmmul_mulh_cg.sample(ins);
         end
-        "mulhsu"     : begin
+        INST_MULHSU     : begin
             Zmmul_mulhsu_cg.sample(ins);
         end
-        "mulhu"     : begin
+        INST_MULHU     : begin
             Zmmul_mulhu_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "mulw"     : begin
+        INST_MULW     : begin
             Zmmul_mulw_cg.sample(ins);
         end
 `endif

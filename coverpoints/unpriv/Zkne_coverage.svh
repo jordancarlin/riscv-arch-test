@@ -678,28 +678,28 @@ endgroup
 // ---------------------
 `endif
 function void zkne_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
+    case (inst_id)
 `ifdef UDB_MXLEN_32
-        "aes32esi"     : begin
+        INST_AES32ESI     : begin
             Zkne_aes32esi_cg.sample(ins);
         end
-        "aes32esmi"     : begin
+        INST_AES32ESMI     : begin
             Zkne_aes32esmi_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
-        "aes64es"     : begin
+        INST_AES64ES     : begin
             Zkne_aes64es_cg.sample(ins);
         end
-        "aes64esm"     : begin
+        INST_AES64ESM     : begin
             Zkne_aes64esm_cg.sample(ins);
         end
-        "aes64ks1i"     : begin
+        INST_AES64KS1I     : begin
             Zkne_aes64ks1i_cg.sample(ins);
         end
-        "aes64ks2"     : begin
+        INST_AES64KS2     : begin
             Zkne_aes64ks2_cg.sample(ins);
         end
 `endif

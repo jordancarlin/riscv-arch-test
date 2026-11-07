@@ -22,6 +22,9 @@
 package RISCV_coverage_pkg;
   import RISCV_decode_pkg::*;
   `include "coverage/RISCV_coverage_common.svh"
+  `include "coverage/RISCV_instruction_id.svh"
+  `include "coverage/RISCV_disasm_fallback.svh"
+  `include "coverage/RISCV_instruction_decode.svh"
   `include "coverage/RISCV_trace_data.svh"
   `include "coverage/RISCV_instruction_base.svh"
   `include "coverage/RISCV_coverage_base.svh"

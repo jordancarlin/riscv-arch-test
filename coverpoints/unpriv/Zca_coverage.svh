@@ -1940,109 +1940,109 @@ endgroup
 // ---------------------
 `endif
 function void zca_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "c.add"     : begin
+    case (inst_id)
+        INST_C_ADD     : begin
             Zca_c_add_cg.sample(ins);
         end
-        "c.addi"     : begin
+        INST_C_ADDI     : begin
             Zca_c_addi_cg.sample(ins);
         end
-        "c.addi16sp"     : begin
+        INST_C_ADDI16SP     : begin
             Zca_c_addi16sp_cg.sample(ins);
         end
-        "c.addi4spn"     : begin
+        INST_C_ADDI4SPN     : begin
             Zca_c_addi4spn_cg.sample(ins);
         end
-        "c.and"     : begin
+        INST_C_AND     : begin
             Zca_c_and_cg.sample(ins);
         end
-        "c.andi"     : begin
+        INST_C_ANDI     : begin
             Zca_c_andi_cg.sample(ins);
         end
-        "c.beqz"     : begin
+        INST_C_BEQZ     : begin
             Zca_c_beqz_cg.sample(ins);
         end
-        "c.bnez"     : begin
+        INST_C_BNEZ     : begin
             Zca_c_bnez_cg.sample(ins);
         end
-        "c.j"     : begin
+        INST_C_J     : begin
             Zca_c_j_cg.sample(ins);
         end
-        "c.jalr"     : begin
+        INST_C_JALR     : begin
             Zca_c_jalr_cg.sample(ins);
         end
-        "c.jr"     : begin
+        INST_C_JR     : begin
             Zca_c_jr_cg.sample(ins);
         end
-        "c.li"     : begin
+        INST_C_LI     : begin
             Zca_c_li_cg.sample(ins);
         end
-        "c.lui"     : begin
+        INST_C_LUI     : begin
             Zca_c_lui_cg.sample(ins);
         end
-        "c.lw"     : begin
+        INST_C_LW     : begin
             Zca_c_lw_cg.sample(ins);
         end
-        "c.lwsp"     : begin
+        INST_C_LWSP     : begin
             Zca_c_lwsp_cg.sample(ins);
         end
-        "c.mv"     : begin
+        INST_C_MV     : begin
             Zca_c_mv_cg.sample(ins);
         end
-        "c.nop"     : begin
+        INST_C_NOP     : begin
             Zca_c_nop_cg.sample(ins);
         end
-        "c.or"     : begin
+        INST_C_OR     : begin
             Zca_c_or_cg.sample(ins);
         end
-        "c.slli"     : begin
+        INST_C_SLLI     : begin
             Zca_c_slli_cg.sample(ins);
         end
-        "c.srai"     : begin
+        INST_C_SRAI     : begin
             Zca_c_srai_cg.sample(ins);
         end
-        "c.srli"     : begin
+        INST_C_SRLI     : begin
             Zca_c_srli_cg.sample(ins);
         end
-        "c.sub"     : begin
+        INST_C_SUB     : begin
             Zca_c_sub_cg.sample(ins);
         end
-        "c.sw"     : begin
+        INST_C_SW     : begin
             Zca_c_sw_cg.sample(ins);
         end
-        "c.swsp"     : begin
+        INST_C_SWSP     : begin
             Zca_c_swsp_cg.sample(ins);
         end
-        "c.xor"     : begin
+        INST_C_XOR     : begin
             Zca_c_xor_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_32
-        "c.jal"     : begin
+        INST_C_JAL     : begin
             Zca_c_jal_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
-        "c.addiw"     : begin
+        INST_C_ADDIW     : begin
             Zca_c_addiw_cg.sample(ins);
         end
-        "c.addw"     : begin
+        INST_C_ADDW     : begin
             Zca_c_addw_cg.sample(ins);
         end
-        "c.ld"     : begin
+        INST_C_LD     : begin
             Zca_c_ld_cg.sample(ins);
         end
-        "c.ldsp"     : begin
+        INST_C_LDSP     : begin
             Zca_c_ldsp_cg.sample(ins);
         end
-        "c.sd"     : begin
+        INST_C_SD     : begin
             Zca_c_sd_cg.sample(ins);
         end
-        "c.sdsp"     : begin
+        INST_C_SDSP     : begin
             Zca_c_sdsp_cg.sample(ins);
         end
-        "c.subw"     : begin
+        INST_C_SUBW     : begin
             Zca_c_subw_cg.sample(ins);
         end
 `endif

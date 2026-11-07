@@ -65,13 +65,6 @@ class RISCV_coverage
     `include "coverage/RISCV_coverage_base_init.svh"
   endfunction
 
-  // Returns just the instruction name from the disassembly
-  function string get_inst_name(bit trap, int hart, int issue, string disass);
-    string insbin, ins_str, ops;
-    int num = $sscanf (disass, "%s %s %s", insbin, ins_str, ops);
-    return ins_str;
-  endfunction
-
   // Runs all of the sample functions created per extension from templates
   function void sample_extensions(int hart, int issue);
     `include "coverage/RISCV_instruction_sample.svh"

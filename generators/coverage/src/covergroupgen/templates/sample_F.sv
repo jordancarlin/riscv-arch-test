@@ -1,2 +1,2 @@
-        "@INSTR@"     : begin
+        @INSTRID@     : begin
         end

@@ -43,13 +43,13 @@ covergroup Zicntr_csrrs_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zicntr_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "csrrc"     : begin
+    case (inst_id)
+        INST_CSRRC     : begin
             Zicntr_csrrc_cg.sample(ins);
         end
-        "csrrs"     : begin
+        INST_CSRRS     : begin
             Zicntr_csrrs_cg.sample(ins);
         end
         default: ; // a case needs at least one item, and some configurations select none

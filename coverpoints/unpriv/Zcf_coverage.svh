@@ -155,20 +155,20 @@ endgroup
 // ---------------------
 `endif
 function void zcf_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
+    case (inst_id)
 `ifdef UDB_MXLEN_32
-        "c.flw"     : begin
+        INST_C_FLW     : begin
             Zcf_c_flw_cg.sample(ins);
         end
-        "c.flwsp"     : begin
+        INST_C_FLWSP     : begin
             Zcf_c_flwsp_cg.sample(ins);
         end
-        "c.fsw"     : begin
+        INST_C_FSW     : begin
             Zcf_c_fsw_cg.sample(ins);
         end
-        "c.fswsp"     : begin
+        INST_C_FSWSP     : begin
             Zcf_c_fswsp_cg.sample(ins);
         end
 `endif

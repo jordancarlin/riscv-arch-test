@@ -612,32 +612,32 @@ endgroup
 // ---------------------
 `endif
 function void zacas_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
+    case (inst_id)
 `ifdef ZABHA_SUPPORTED
-        "amocas.b"     : begin
+        INST_AMOCAS_B     : begin
             ZacasZabha_amocas_b_cg.sample(ins);
         end
 `endif
 `ifdef ZABHA_SUPPORTED
-        "amocas.h"     : begin
+        INST_AMOCAS_H     : begin
             ZacasZabha_amocas_h_cg.sample(ins);
         end
 `endif
-        "amocas.w"     : begin
+        INST_AMOCAS_W     : begin
             Zacas_amocas_w_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_32
-        "amocas.d"     : begin
+        INST_AMOCAS_D     : begin
             Zacas_amocas_d_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
-        "amocas.d"     : begin
+        INST_AMOCAS_D     : begin
             Zacas_amocas_d_cg.sample(ins);
         end
-        "amocas.q"     : begin
+        INST_AMOCAS_Q     : begin
             Zacas_amocas_q_cg.sample(ins);
         end
 `endif

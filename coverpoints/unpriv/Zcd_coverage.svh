@@ -153,19 +153,19 @@ covergroup Zcd_c_fsdsp_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zcd_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "c.fld"     : begin
+    case (inst_id)
+        INST_C_FLD     : begin
             Zcd_c_fld_cg.sample(ins);
         end
-        "c.fldsp"     : begin
+        INST_C_FLDSP     : begin
             Zcd_c_fldsp_cg.sample(ins);
         end
-        "c.fsd"     : begin
+        INST_C_FSD     : begin
             Zcd_c_fsd_cg.sample(ins);
         end
-        "c.fsdsp"     : begin
+        INST_C_FSDSP     : begin
             Zcd_c_fsdsp_cg.sample(ins);
         end
         default: ; // a case needs at least one item, and some configurations select none

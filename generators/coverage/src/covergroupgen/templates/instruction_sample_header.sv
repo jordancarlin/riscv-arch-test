@@ -12,8 +12,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
     ins_t ins;
-    string inst_name;
+    inst_id_t inst_id;
     ins = new(hart, issue, traceDataQ);
-    inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id = ins.current.inst_id;
 
-    case (inst_name)
+    case (inst_id)

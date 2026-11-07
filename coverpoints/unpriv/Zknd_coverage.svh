@@ -735,31 +735,31 @@ endgroup
 // ---------------------
 `endif
 function void zknd_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
+    case (inst_id)
 `ifdef UDB_MXLEN_32
-        "aes32dsi"     : begin
+        INST_AES32DSI     : begin
             Zknd_aes32dsi_cg.sample(ins);
         end
-        "aes32dsmi"     : begin
+        INST_AES32DSMI     : begin
             Zknd_aes32dsmi_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
-        "aes64ds"     : begin
+        INST_AES64DS     : begin
             Zknd_aes64ds_cg.sample(ins);
         end
-        "aes64dsm"     : begin
+        INST_AES64DSM     : begin
             Zknd_aes64dsm_cg.sample(ins);
         end
-        "aes64im"     : begin
+        INST_AES64IM     : begin
             Zknd_aes64im_cg.sample(ins);
         end
-        "aes64ks1i"     : begin
+        INST_AES64KS1I     : begin
             Zknd_aes64ks1i_cg.sample(ins);
         end
-        "aes64ks2"     : begin
+        INST_AES64KS2     : begin
             Zknd_aes64ks2_cg.sample(ins);
         end
 `endif

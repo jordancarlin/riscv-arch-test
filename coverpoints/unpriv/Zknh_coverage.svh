@@ -1151,52 +1151,52 @@ endgroup
 // ---------------------
 `endif
 function void zknh_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "sha256sig0"     : begin
+    case (inst_id)
+        INST_SHA256SIG0     : begin
             Zknh_sha256sig0_cg.sample(ins);
         end
-        "sha256sig1"     : begin
+        INST_SHA256SIG1     : begin
             Zknh_sha256sig1_cg.sample(ins);
         end
-        "sha256sum0"     : begin
+        INST_SHA256SUM0     : begin
             Zknh_sha256sum0_cg.sample(ins);
         end
-        "sha256sum1"     : begin
+        INST_SHA256SUM1     : begin
             Zknh_sha256sum1_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_32
-        "sha512sig0h"     : begin
+        INST_SHA512SIG0H     : begin
             Zknh_sha512sig0h_cg.sample(ins);
         end
-        "sha512sig0l"     : begin
+        INST_SHA512SIG0L     : begin
             Zknh_sha512sig0l_cg.sample(ins);
         end
-        "sha512sig1h"     : begin
+        INST_SHA512SIG1H     : begin
             Zknh_sha512sig1h_cg.sample(ins);
         end
-        "sha512sig1l"     : begin
+        INST_SHA512SIG1L     : begin
             Zknh_sha512sig1l_cg.sample(ins);
         end
-        "sha512sum0r"     : begin
+        INST_SHA512SUM0R     : begin
             Zknh_sha512sum0r_cg.sample(ins);
         end
-        "sha512sum1r"     : begin
+        INST_SHA512SUM1R     : begin
             Zknh_sha512sum1r_cg.sample(ins);
         end
 `endif
 `ifdef UDB_MXLEN_64
-        "sha512sig0"     : begin
+        INST_SHA512SIG0     : begin
             Zknh_sha512sig0_cg.sample(ins);
         end
-        "sha512sig1"     : begin
+        INST_SHA512SIG1     : begin
             Zknh_sha512sig1_cg.sample(ins);
         end
-        "sha512sum0"     : begin
+        INST_SHA512SUM0     : begin
             Zknh_sha512sum0_cg.sample(ins);
         end
-        "sha512sum1"     : begin
+        INST_SHA512SUM1     : begin
             Zknh_sha512sum1_cg.sample(ins);
         end
 `endif

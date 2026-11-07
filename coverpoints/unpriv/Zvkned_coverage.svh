@@ -3548,45 +3548,45 @@ covergroup Zvkned_vaesz_vs_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zvkned_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
     // Want to sample only if the SEW matches the target SEW of the file, some tests require
     // testing when vill is set, if vill=1 all other vtype bits are set to 0 so there is no
     // associated sew with these tests
     if (get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew") == 2 ||
         get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") == 1) begin
-        case (inst_name)
-            "vaesdf.vs"     : begin
+        case (inst_id)
+            INST_VAESDF_VS     : begin
                 Zvkned_vaesdf_vs_cg.sample(ins);
             end
-            "vaesdf.vv"     : begin
+            INST_VAESDF_VV     : begin
                 Zvkned_vaesdf_vv_cg.sample(ins);
             end
-            "vaesdm.vs"     : begin
+            INST_VAESDM_VS     : begin
                 Zvkned_vaesdm_vs_cg.sample(ins);
             end
-            "vaesdm.vv"     : begin
+            INST_VAESDM_VV     : begin
                 Zvkned_vaesdm_vv_cg.sample(ins);
             end
-            "vaesef.vs"     : begin
+            INST_VAESEF_VS     : begin
                 Zvkned_vaesef_vs_cg.sample(ins);
             end
-            "vaesef.vv"     : begin
+            INST_VAESEF_VV     : begin
                 Zvkned_vaesef_vv_cg.sample(ins);
             end
-            "vaesem.vs"     : begin
+            INST_VAESEM_VS     : begin
                 Zvkned_vaesem_vs_cg.sample(ins);
             end
-            "vaesem.vv"     : begin
+            INST_VAESEM_VV     : begin
                 Zvkned_vaesem_vv_cg.sample(ins);
             end
-            "vaeskf1.vi"     : begin
+            INST_VAESKF1_VI     : begin
                 Zvkned_vaeskf1_vi_cg.sample(ins);
             end
-            "vaeskf2.vi"     : begin
+            INST_VAESKF2_VI     : begin
                 Zvkned_vaeskf2_vi_cg.sample(ins);
             end
-            "vaesz.vs"     : begin
+            INST_VAESZ_VS     : begin
                 Zvkned_vaesz_vs_cg.sample(ins);
             end
             default: ; // a case needs at least one item, and some configurations select none

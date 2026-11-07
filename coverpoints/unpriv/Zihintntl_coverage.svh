@@ -87,39 +87,39 @@ endgroup
 // ---------------------
 `endif
 function void zihintntl_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
+    case (inst_id)
 `ifdef ZCA_SUPPORTED
-        "c.ntl.all"     : begin
+        INST_C_NTL_ALL     : begin
             ZihintntlZca_c_ntl_all_cg.sample(ins);
         end
 `endif
 `ifdef ZCA_SUPPORTED
-        "c.ntl.p1"     : begin
+        INST_C_NTL_P1     : begin
             ZihintntlZca_c_ntl_p1_cg.sample(ins);
         end
 `endif
 `ifdef ZCA_SUPPORTED
-        "c.ntl.pall"     : begin
+        INST_C_NTL_PALL     : begin
             ZihintntlZca_c_ntl_pall_cg.sample(ins);
         end
 `endif
 `ifdef ZCA_SUPPORTED
-        "c.ntl.s1"     : begin
+        INST_C_NTL_S1     : begin
             ZihintntlZca_c_ntl_s1_cg.sample(ins);
         end
 `endif
-        "ntl.all"     : begin
+        INST_NTL_ALL     : begin
             Zihintntl_ntl_all_cg.sample(ins);
         end
-        "ntl.p1"     : begin
+        INST_NTL_P1     : begin
             Zihintntl_ntl_p1_cg.sample(ins);
         end
-        "ntl.pall"     : begin
+        INST_NTL_PALL     : begin
             Zihintntl_ntl_pall_cg.sample(ins);
         end
-        "ntl.s1"     : begin
+        INST_NTL_S1     : begin
             Zihintntl_ntl_s1_cg.sample(ins);
         end
         default: ; // a case needs at least one item, and some configurations select none

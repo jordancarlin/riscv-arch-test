@@ -655,18 +655,18 @@ covergroup Zvksh_vsm3me_vv_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zvksh_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
     // Want to sample only if the SEW matches the target SEW of the file, some tests require
     // testing when vill is set, if vill=1 all other vtype bits are set to 0 so there is no
     // associated sew with these tests
     if (get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew") == 2 ||
         get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") == 1) begin
-        case (inst_name)
-            "vsm3c.vi"     : begin
+        case (inst_id)
+            INST_VSM3C_VI     : begin
                 Zvksh_vsm3c_vi_cg.sample(ins);
             end
-            "vsm3me.vv"     : begin
+            INST_VSM3ME_VV     : begin
                 Zvksh_vsm3me_vv_cg.sample(ins);
             end
             default: ; // a case needs at least one item, and some configurations select none

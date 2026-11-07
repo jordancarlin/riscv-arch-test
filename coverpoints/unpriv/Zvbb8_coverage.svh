@@ -2978,60 +2978,60 @@ covergroup Zvbb8_vwsll_vx_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zvbb8_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
     // Want to sample only if the SEW matches the target SEW of the file, some tests require
     // testing when vill is set, if vill=1 all other vtype bits are set to 0 so there is no
     // associated sew with these tests
     if (get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew") == 0 ||
         get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") == 1) begin
-        case (inst_name)
-            "vandn.vv"     : begin
+        case (inst_id)
+            INST_VANDN_VV     : begin
                 Zvbb8_vandn_vv_cg.sample(ins);
             end
-            "vandn.vx"     : begin
+            INST_VANDN_VX     : begin
                 Zvbb8_vandn_vx_cg.sample(ins);
             end
-            "vbrev.v"     : begin
+            INST_VBREV_V     : begin
                 Zvbb8_vbrev_v_cg.sample(ins);
             end
-            "vbrev8.v"     : begin
+            INST_VBREV8_V     : begin
                 Zvbb8_vbrev8_v_cg.sample(ins);
             end
-            "vclz.v"     : begin
+            INST_VCLZ_V     : begin
                 Zvbb8_vclz_v_cg.sample(ins);
             end
-            "vcpop.v"     : begin
+            INST_VCPOP_V     : begin
                 Zvbb8_vcpop_v_cg.sample(ins);
             end
-            "vctz.v"     : begin
+            INST_VCTZ_V     : begin
                 Zvbb8_vctz_v_cg.sample(ins);
             end
-            "vrev8.v"     : begin
+            INST_VREV8_V     : begin
                 Zvbb8_vrev8_v_cg.sample(ins);
             end
-            "vrol.vv"     : begin
+            INST_VROL_VV     : begin
                 Zvbb8_vrol_vv_cg.sample(ins);
             end
-            "vrol.vx"     : begin
+            INST_VROL_VX     : begin
                 Zvbb8_vrol_vx_cg.sample(ins);
             end
-            "vror.vi"     : begin
+            INST_VROR_VI     : begin
                 Zvbb8_vror_vi_cg.sample(ins);
             end
-            "vror.vv"     : begin
+            INST_VROR_VV     : begin
                 Zvbb8_vror_vv_cg.sample(ins);
             end
-            "vror.vx"     : begin
+            INST_VROR_VX     : begin
                 Zvbb8_vror_vx_cg.sample(ins);
             end
-            "vwsll.vi"     : begin
+            INST_VWSLL_VI     : begin
                 Zvbb8_vwsll_vi_cg.sample(ins);
             end
-            "vwsll.vv"     : begin
+            INST_VWSLL_VV     : begin
                 Zvbb8_vwsll_vv_cg.sample(ins);
             end
-            "vwsll.vx"     : begin
+            INST_VWSLL_VX     : begin
                 Zvbb8_vwsll_vx_cg.sample(ins);
             end
             default: ; // a case needs at least one item, and some configurations select none

@@ -19171,210 +19171,210 @@ covergroup Vf64_vmfne_vv_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void vf64_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
     // Want to sample only if the SEW matches the target SEW of the file, some tests require
     // testing when vill is set, if vill=1 all other vtype bits are set to 0 so there is no
     // associated sew with these tests
     if (get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew") == 3 ||
         get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") == 1) begin
-        case (inst_name)
-            "vfadd.vf"     : begin
+        case (inst_id)
+            INST_VFADD_VF     : begin
                 Vf64_vfadd_vf_cg.sample(ins);
             end
-            "vfadd.vv"     : begin
+            INST_VFADD_VV     : begin
                 Vf64_vfadd_vv_cg.sample(ins);
             end
-            "vfclass.v"     : begin
+            INST_VFCLASS_V     : begin
                 Vf64_vfclass_v_cg.sample(ins);
             end
-            "vfcvt.f.x.v"     : begin
+            INST_VFCVT_F_X_V     : begin
                 Vf64_vfcvt_f_x_v_cg.sample(ins);
             end
-            "vfcvt.f.xu.v"     : begin
+            INST_VFCVT_F_XU_V     : begin
                 Vf64_vfcvt_f_xu_v_cg.sample(ins);
             end
-            "vfcvt.rtz.x.f.v"     : begin
+            INST_VFCVT_RTZ_X_F_V     : begin
                 Vf64_vfcvt_rtz_x_f_v_cg.sample(ins);
             end
-            "vfcvt.rtz.xu.f.v"     : begin
+            INST_VFCVT_RTZ_XU_F_V     : begin
                 Vf64_vfcvt_rtz_xu_f_v_cg.sample(ins);
             end
-            "vfcvt.x.f.v"     : begin
+            INST_VFCVT_X_F_V     : begin
                 Vf64_vfcvt_x_f_v_cg.sample(ins);
             end
-            "vfcvt.xu.f.v"     : begin
+            INST_VFCVT_XU_F_V     : begin
                 Vf64_vfcvt_xu_f_v_cg.sample(ins);
             end
-            "vfdiv.vf"     : begin
+            INST_VFDIV_VF     : begin
                 Vf64_vfdiv_vf_cg.sample(ins);
             end
-            "vfdiv.vv"     : begin
+            INST_VFDIV_VV     : begin
                 Vf64_vfdiv_vv_cg.sample(ins);
             end
-            "vfmacc.vf"     : begin
+            INST_VFMACC_VF     : begin
                 Vf64_vfmacc_vf_cg.sample(ins);
             end
-            "vfmacc.vv"     : begin
+            INST_VFMACC_VV     : begin
                 Vf64_vfmacc_vv_cg.sample(ins);
             end
-            "vfmadd.vf"     : begin
+            INST_VFMADD_VF     : begin
                 Vf64_vfmadd_vf_cg.sample(ins);
             end
-            "vfmadd.vv"     : begin
+            INST_VFMADD_VV     : begin
                 Vf64_vfmadd_vv_cg.sample(ins);
             end
-            "vfmax.vf"     : begin
+            INST_VFMAX_VF     : begin
                 Vf64_vfmax_vf_cg.sample(ins);
             end
-            "vfmax.vv"     : begin
+            INST_VFMAX_VV     : begin
                 Vf64_vfmax_vv_cg.sample(ins);
             end
-            "vfmerge.vfm"     : begin
+            INST_VFMERGE_VFM     : begin
                 Vf64_vfmerge_vfm_cg.sample(ins);
             end
-            "vfmin.vf"     : begin
+            INST_VFMIN_VF     : begin
                 Vf64_vfmin_vf_cg.sample(ins);
             end
-            "vfmin.vv"     : begin
+            INST_VFMIN_VV     : begin
                 Vf64_vfmin_vv_cg.sample(ins);
             end
-            "vfmsac.vf"     : begin
+            INST_VFMSAC_VF     : begin
                 Vf64_vfmsac_vf_cg.sample(ins);
             end
-            "vfmsac.vv"     : begin
+            INST_VFMSAC_VV     : begin
                 Vf64_vfmsac_vv_cg.sample(ins);
             end
-            "vfmsub.vf"     : begin
+            INST_VFMSUB_VF     : begin
                 Vf64_vfmsub_vf_cg.sample(ins);
             end
-            "vfmsub.vv"     : begin
+            INST_VFMSUB_VV     : begin
                 Vf64_vfmsub_vv_cg.sample(ins);
             end
-            "vfmul.vf"     : begin
+            INST_VFMUL_VF     : begin
                 Vf64_vfmul_vf_cg.sample(ins);
             end
-            "vfmul.vv"     : begin
+            INST_VFMUL_VV     : begin
                 Vf64_vfmul_vv_cg.sample(ins);
             end
-            "vfmv.f.s"     : begin
+            INST_VFMV_F_S     : begin
                 Vf64_vfmv_f_s_cg.sample(ins);
             end
-            "vfmv.s.f"     : begin
+            INST_VFMV_S_F     : begin
                 Vf64_vfmv_s_f_cg.sample(ins);
             end
-            "vfmv.v.f"     : begin
+            INST_VFMV_V_F     : begin
                 Vf64_vfmv_v_f_cg.sample(ins);
             end
-            "vfnmacc.vf"     : begin
+            INST_VFNMACC_VF     : begin
                 Vf64_vfnmacc_vf_cg.sample(ins);
             end
-            "vfnmacc.vv"     : begin
+            INST_VFNMACC_VV     : begin
                 Vf64_vfnmacc_vv_cg.sample(ins);
             end
-            "vfnmadd.vf"     : begin
+            INST_VFNMADD_VF     : begin
                 Vf64_vfnmadd_vf_cg.sample(ins);
             end
-            "vfnmadd.vv"     : begin
+            INST_VFNMADD_VV     : begin
                 Vf64_vfnmadd_vv_cg.sample(ins);
             end
-            "vfnmsac.vf"     : begin
+            INST_VFNMSAC_VF     : begin
                 Vf64_vfnmsac_vf_cg.sample(ins);
             end
-            "vfnmsac.vv"     : begin
+            INST_VFNMSAC_VV     : begin
                 Vf64_vfnmsac_vv_cg.sample(ins);
             end
-            "vfnmsub.vf"     : begin
+            INST_VFNMSUB_VF     : begin
                 Vf64_vfnmsub_vf_cg.sample(ins);
             end
-            "vfnmsub.vv"     : begin
+            INST_VFNMSUB_VV     : begin
                 Vf64_vfnmsub_vv_cg.sample(ins);
             end
-            "vfrdiv.vf"     : begin
+            INST_VFRDIV_VF     : begin
                 Vf64_vfrdiv_vf_cg.sample(ins);
             end
-            "vfrec7.v"     : begin
+            INST_VFREC7_V     : begin
                 Vf64_vfrec7_v_cg.sample(ins);
             end
-            "vfredmax.vs"     : begin
+            INST_VFREDMAX_VS     : begin
                 Vf64_vfredmax_vs_cg.sample(ins);
             end
-            "vfredmin.vs"     : begin
+            INST_VFREDMIN_VS     : begin
                 Vf64_vfredmin_vs_cg.sample(ins);
             end
-            "vfredosum.vs"     : begin
+            INST_VFREDOSUM_VS     : begin
                 Vf64_vfredosum_vs_cg.sample(ins);
             end
-            "vfredusum.vs"     : begin
+            INST_VFREDUSUM_VS     : begin
                 Vf64_vfredusum_vs_cg.sample(ins);
             end
-            "vfrsqrt7.v"     : begin
+            INST_VFRSQRT7_V     : begin
                 Vf64_vfrsqrt7_v_cg.sample(ins);
             end
-            "vfrsub.vf"     : begin
+            INST_VFRSUB_VF     : begin
                 Vf64_vfrsub_vf_cg.sample(ins);
             end
-            "vfsgnj.vf"     : begin
+            INST_VFSGNJ_VF     : begin
                 Vf64_vfsgnj_vf_cg.sample(ins);
             end
-            "vfsgnj.vv"     : begin
+            INST_VFSGNJ_VV     : begin
                 Vf64_vfsgnj_vv_cg.sample(ins);
             end
-            "vfsgnjn.vf"     : begin
+            INST_VFSGNJN_VF     : begin
                 Vf64_vfsgnjn_vf_cg.sample(ins);
             end
-            "vfsgnjn.vv"     : begin
+            INST_VFSGNJN_VV     : begin
                 Vf64_vfsgnjn_vv_cg.sample(ins);
             end
-            "vfsgnjx.vf"     : begin
+            INST_VFSGNJX_VF     : begin
                 Vf64_vfsgnjx_vf_cg.sample(ins);
             end
-            "vfsgnjx.vv"     : begin
+            INST_VFSGNJX_VV     : begin
                 Vf64_vfsgnjx_vv_cg.sample(ins);
             end
-            "vfslide1down.vf"     : begin
+            INST_VFSLIDE1DOWN_VF     : begin
                 Vf64_vfslide1down_vf_cg.sample(ins);
             end
-            "vfslide1up.vf"     : begin
+            INST_VFSLIDE1UP_VF     : begin
                 Vf64_vfslide1up_vf_cg.sample(ins);
             end
-            "vfsqrt.v"     : begin
+            INST_VFSQRT_V     : begin
                 Vf64_vfsqrt_v_cg.sample(ins);
             end
-            "vfsub.vf"     : begin
+            INST_VFSUB_VF     : begin
                 Vf64_vfsub_vf_cg.sample(ins);
             end
-            "vfsub.vv"     : begin
+            INST_VFSUB_VV     : begin
                 Vf64_vfsub_vv_cg.sample(ins);
             end
-            "vmfeq.vf"     : begin
+            INST_VMFEQ_VF     : begin
                 Vf64_vmfeq_vf_cg.sample(ins);
             end
-            "vmfeq.vv"     : begin
+            INST_VMFEQ_VV     : begin
                 Vf64_vmfeq_vv_cg.sample(ins);
             end
-            "vmfge.vf"     : begin
+            INST_VMFGE_VF     : begin
                 Vf64_vmfge_vf_cg.sample(ins);
             end
-            "vmfgt.vf"     : begin
+            INST_VMFGT_VF     : begin
                 Vf64_vmfgt_vf_cg.sample(ins);
             end
-            "vmfle.vf"     : begin
+            INST_VMFLE_VF     : begin
                 Vf64_vmfle_vf_cg.sample(ins);
             end
-            "vmfle.vv"     : begin
+            INST_VMFLE_VV     : begin
                 Vf64_vmfle_vv_cg.sample(ins);
             end
-            "vmflt.vf"     : begin
+            INST_VMFLT_VF     : begin
                 Vf64_vmflt_vf_cg.sample(ins);
             end
-            "vmflt.vv"     : begin
+            INST_VMFLT_VV     : begin
                 Vf64_vmflt_vv_cg.sample(ins);
             end
-            "vmfne.vf"     : begin
+            INST_VMFNE_VF     : begin
                 Vf64_vmfne_vf_cg.sample(ins);
             end
-            "vmfne.vv"     : begin
+            INST_VMFNE_VV     : begin
                 Vf64_vmfne_vv_cg.sample(ins);
             end
             default: ; // a case needs at least one item, and some configurations select none

@@ -2902,98 +2902,98 @@ endgroup
 // ---------------------
 `endif
 function void f_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "fadd.s"     : begin
+    case (inst_id)
+        INST_FADD_S     : begin
             F_fadd_s_cg.sample(ins);
         end
-        "fclass.s"     : begin
+        INST_FCLASS_S     : begin
             F_fclass_s_cg.sample(ins);
         end
-        "fcvt.s.w"     : begin
+        INST_FCVT_S_W     : begin
             F_fcvt_s_w_cg.sample(ins);
         end
-        "fcvt.s.wu"     : begin
+        INST_FCVT_S_WU     : begin
             F_fcvt_s_wu_cg.sample(ins);
         end
-        "fcvt.w.s"     : begin
+        INST_FCVT_W_S     : begin
             F_fcvt_w_s_cg.sample(ins);
         end
-        "fcvt.wu.s"     : begin
+        INST_FCVT_WU_S     : begin
             F_fcvt_wu_s_cg.sample(ins);
         end
-        "fdiv.s"     : begin
+        INST_FDIV_S     : begin
             F_fdiv_s_cg.sample(ins);
         end
-        "feq.s"     : begin
+        INST_FEQ_S     : begin
             F_feq_s_cg.sample(ins);
         end
-        "fle.s"     : begin
+        INST_FLE_S     : begin
             F_fle_s_cg.sample(ins);
         end
-        "flt.s"     : begin
+        INST_FLT_S     : begin
             F_flt_s_cg.sample(ins);
         end
-        "flw"     : begin
+        INST_FLW     : begin
             F_flw_cg.sample(ins);
         end
-        "fmadd.s"     : begin
+        INST_FMADD_S     : begin
             F_fmadd_s_cg.sample(ins);
         end
-        "fmax.s"     : begin
+        INST_FMAX_S     : begin
             F_fmax_s_cg.sample(ins);
         end
-        "fmin.s"     : begin
+        INST_FMIN_S     : begin
             F_fmin_s_cg.sample(ins);
         end
-        "fmsub.s"     : begin
+        INST_FMSUB_S     : begin
             F_fmsub_s_cg.sample(ins);
         end
-        "fmul.s"     : begin
+        INST_FMUL_S     : begin
             F_fmul_s_cg.sample(ins);
         end
-        "fmv.w.x"     : begin
+        INST_FMV_W_X     : begin
             F_fmv_w_x_cg.sample(ins);
         end
-        "fmv.x.w"     : begin
+        INST_FMV_X_W     : begin
             F_fmv_x_w_cg.sample(ins);
         end
-        "fnmadd.s"     : begin
+        INST_FNMADD_S     : begin
             F_fnmadd_s_cg.sample(ins);
         end
-        "fnmsub.s"     : begin
+        INST_FNMSUB_S     : begin
             F_fnmsub_s_cg.sample(ins);
         end
-        "fsgnj.s"     : begin
+        INST_FSGNJ_S     : begin
             F_fsgnj_s_cg.sample(ins);
         end
-        "fsgnjn.s"     : begin
+        INST_FSGNJN_S     : begin
             F_fsgnjn_s_cg.sample(ins);
         end
-        "fsgnjx.s"     : begin
+        INST_FSGNJX_S     : begin
             F_fsgnjx_s_cg.sample(ins);
         end
-        "fsqrt.s"     : begin
+        INST_FSQRT_S     : begin
             F_fsqrt_s_cg.sample(ins);
         end
-        "fsub.s"     : begin
+        INST_FSUB_S     : begin
             F_fsub_s_cg.sample(ins);
         end
-        "fsw"     : begin
+        INST_FSW     : begin
             F_fsw_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "fcvt.l.s"     : begin
+        INST_FCVT_L_S     : begin
             F_fcvt_l_s_cg.sample(ins);
         end
-        "fcvt.lu.s"     : begin
+        INST_FCVT_LU_S     : begin
             F_fcvt_lu_s_cg.sample(ins);
         end
-        "fcvt.s.l"     : begin
+        INST_FCVT_S_L     : begin
             F_fcvt_s_l_cg.sample(ins);
         end
-        "fcvt.s.lu"     : begin
+        INST_FCVT_S_LU     : begin
             F_fcvt_s_lu_cg.sample(ins);
         end
 `endif

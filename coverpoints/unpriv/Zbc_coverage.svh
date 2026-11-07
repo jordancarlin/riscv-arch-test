@@ -352,16 +352,16 @@ covergroup Zbc_clmulr_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zbc_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "clmul"     : begin
+    case (inst_id)
+        INST_CLMUL     : begin
             Zbc_clmul_cg.sample(ins);
         end
-        "clmulh"     : begin
+        INST_CLMULH     : begin
             Zbc_clmulh_cg.sample(ins);
         end
-        "clmulr"     : begin
+        INST_CLMULR     : begin
             Zbc_clmulr_cg.sample(ins);
         end
         default: ; // a case needs at least one item, and some configurations select none

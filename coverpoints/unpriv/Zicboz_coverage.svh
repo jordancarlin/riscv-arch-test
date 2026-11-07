@@ -34,10 +34,10 @@ covergroup Zicboz_cbo_zero_cg with function sample(ins_t ins);
 endgroup
 // ---------------------
 function void zicboz_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "cbo.zero"     : begin
+    case (inst_id)
+        INST_CBO_ZERO     : begin
             Zicboz_cbo_zero_cg.sample(ins);
         end
         default: ; // a case needs at least one item, and some configurations select none

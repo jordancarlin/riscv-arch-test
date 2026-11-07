@@ -885,32 +885,32 @@ endgroup
 // ---------------------
 `endif
 function void zba_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "sh1add"     : begin
+    case (inst_id)
+        INST_SH1ADD     : begin
             Zba_sh1add_cg.sample(ins);
         end
-        "sh2add"     : begin
+        INST_SH2ADD     : begin
             Zba_sh2add_cg.sample(ins);
         end
-        "sh3add"     : begin
+        INST_SH3ADD     : begin
             Zba_sh3add_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "add.uw"     : begin
+        INST_ADD_UW     : begin
             Zba_add_uw_cg.sample(ins);
         end
-        "sh1add.uw"     : begin
+        INST_SH1ADD_UW     : begin
             Zba_sh1add_uw_cg.sample(ins);
         end
-        "sh2add.uw"     : begin
+        INST_SH2ADD_UW     : begin
             Zba_sh2add_uw_cg.sample(ins);
         end
-        "sh3add.uw"     : begin
+        INST_SH3ADD_UW     : begin
             Zba_sh3add_uw_cg.sample(ins);
         end
-        "slli.uw"     : begin
+        INST_SLLI_UW     : begin
             Zba_slli_uw_cg.sample(ins);
         end
 `endif

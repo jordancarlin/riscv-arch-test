@@ -1,4 +1,4 @@
-        "@INSTR@"     : begin
+        @INSTRID@     : begin
             ins.add_vs3(0);
             ins.add_rs1(1);
             ins.add_rs2(2);

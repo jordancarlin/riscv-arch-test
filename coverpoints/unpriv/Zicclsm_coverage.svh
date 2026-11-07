@@ -403,92 +403,92 @@ endgroup
 `endif
 `endif
 function void zicclsm_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
+    case (inst_id)
 `ifdef ZCA_SUPPORTED
-        "c.lw"     : begin
+        INST_C_LW     : begin
             ZicclsmZca_c_lw_cg.sample(ins);
         end
 `endif
 `ifdef ZCA_SUPPORTED
-        "c.lwsp"     : begin
+        INST_C_LWSP     : begin
             ZicclsmZca_c_lwsp_cg.sample(ins);
         end
 `endif
 `ifdef ZCA_SUPPORTED
-        "c.sw"     : begin
+        INST_C_SW     : begin
             ZicclsmZca_c_sw_cg.sample(ins);
         end
 `endif
 `ifdef ZCA_SUPPORTED
-        "c.swsp"     : begin
+        INST_C_SWSP     : begin
             ZicclsmZca_c_swsp_cg.sample(ins);
         end
 `endif
 `ifdef D_SUPPORTED
-        "fld"     : begin
+        INST_FLD     : begin
             ZicclsmD_fld_cg.sample(ins);
         end
 `endif
 `ifdef F_SUPPORTED
-        "flw"     : begin
+        INST_FLW     : begin
             ZicclsmF_flw_cg.sample(ins);
         end
 `endif
 `ifdef D_SUPPORTED
-        "fsd"     : begin
+        INST_FSD     : begin
             ZicclsmD_fsd_cg.sample(ins);
         end
 `endif
 `ifdef F_SUPPORTED
-        "fsw"     : begin
+        INST_FSW     : begin
             ZicclsmF_fsw_cg.sample(ins);
         end
 `endif
-        "lh"     : begin
+        INST_LH     : begin
             Zicclsm_lh_cg.sample(ins);
         end
-        "lhu"     : begin
+        INST_LHU     : begin
             Zicclsm_lhu_cg.sample(ins);
         end
-        "lw"     : begin
+        INST_LW     : begin
             Zicclsm_lw_cg.sample(ins);
         end
-        "sh"     : begin
+        INST_SH     : begin
             Zicclsm_sh_cg.sample(ins);
         end
-        "sw"     : begin
+        INST_SW     : begin
             Zicclsm_sw_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
 `ifdef ZCA_SUPPORTED
-        "c.ld"     : begin
+        INST_C_LD     : begin
             ZicclsmZca_c_ld_cg.sample(ins);
         end
 `endif
 `ifdef ZCA_SUPPORTED
-        "c.ldsp"     : begin
+        INST_C_LDSP     : begin
             ZicclsmZca_c_ldsp_cg.sample(ins);
         end
 `endif
 `ifdef ZCA_SUPPORTED
-        "c.sd"     : begin
+        INST_C_SD     : begin
             ZicclsmZca_c_sd_cg.sample(ins);
         end
 `endif
 `ifdef ZCA_SUPPORTED
-        "c.sdsp"     : begin
+        INST_C_SDSP     : begin
             ZicclsmZca_c_sdsp_cg.sample(ins);
         end
 `endif
-        "ld"     : begin
+        INST_LD     : begin
             Zicclsm_ld_cg.sample(ins);
         end
-        "lwu"     : begin
+        INST_LWU     : begin
             Zicclsm_lwu_cg.sample(ins);
         end
-        "sd"     : begin
+        INST_SD     : begin
             Zicclsm_sd_cg.sample(ins);
         end
 `endif

@@ -1,1 +1,1 @@
-        "@INSTR@"     : begin
+        @INSTRID@     : begin

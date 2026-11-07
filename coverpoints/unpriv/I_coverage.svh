@@ -4394,161 +4394,161 @@ endgroup
 // ---------------------
 `endif
 function void i_sample(int hart, int issue, ins_t ins);
-    string inst_name = traceDataQ[hart][issue][0].inst_name;
+    inst_id_t inst_id = ins.current.inst_id;
 
-    case (inst_name)
-        "add"     : begin
+    case (inst_id)
+        INST_ADD     : begin
             I_add_cg.sample(ins);
         end
-        "addi"     : begin
+        INST_ADDI     : begin
             I_addi_cg.sample(ins);
         end
-        "and"     : begin
+        INST_AND     : begin
             I_and_cg.sample(ins);
         end
-        "andi"     : begin
+        INST_ANDI     : begin
             I_andi_cg.sample(ins);
         end
-        "auipc"     : begin
+        INST_AUIPC     : begin
             I_auipc_cg.sample(ins);
         end
-        "beq"     : begin
+        INST_BEQ     : begin
             I_beq_cg.sample(ins);
         end
-        "bge"     : begin
+        INST_BGE     : begin
             I_bge_cg.sample(ins);
         end
-        "bgeu"     : begin
+        INST_BGEU     : begin
             I_bgeu_cg.sample(ins);
         end
-        "blt"     : begin
+        INST_BLT     : begin
             I_blt_cg.sample(ins);
         end
-        "bltu"     : begin
+        INST_BLTU     : begin
             I_bltu_cg.sample(ins);
         end
-        "bne"     : begin
+        INST_BNE     : begin
             I_bne_cg.sample(ins);
         end
-        "fence"     : begin
+        INST_FENCE     : begin
             I_fence_cg.sample(ins);
         end
-        "jal"     : begin
+        INST_JAL     : begin
             I_jal_cg.sample(ins);
         end
-        "jalr"     : begin
+        INST_JALR     : begin
             I_jalr_cg.sample(ins);
         end
-        "lb"     : begin
+        INST_LB     : begin
             I_lb_cg.sample(ins);
         end
-        "lbu"     : begin
+        INST_LBU     : begin
             I_lbu_cg.sample(ins);
         end
-        "lh"     : begin
+        INST_LH     : begin
             I_lh_cg.sample(ins);
         end
-        "lhu"     : begin
+        INST_LHU     : begin
             I_lhu_cg.sample(ins);
         end
-        "lui"     : begin
+        INST_LUI     : begin
             I_lui_cg.sample(ins);
         end
-        "lw"     : begin
+        INST_LW     : begin
             I_lw_cg.sample(ins);
         end
-        "nop"     : begin
+        INST_NOP     : begin
             I_nop_cg.sample(ins);
         end
-        "or"     : begin
+        INST_OR     : begin
             I_or_cg.sample(ins);
         end
-        "ori"     : begin
+        INST_ORI     : begin
             I_ori_cg.sample(ins);
         end
-        "sb"     : begin
+        INST_SB     : begin
             I_sb_cg.sample(ins);
         end
-        "sh"     : begin
+        INST_SH     : begin
             I_sh_cg.sample(ins);
         end
-        "sll"     : begin
+        INST_SLL     : begin
             I_sll_cg.sample(ins);
         end
-        "slli"     : begin
+        INST_SLLI     : begin
             I_slli_cg.sample(ins);
         end
-        "slt"     : begin
+        INST_SLT     : begin
             I_slt_cg.sample(ins);
         end
-        "slti"     : begin
+        INST_SLTI     : begin
             I_slti_cg.sample(ins);
         end
-        "sltiu"     : begin
+        INST_SLTIU     : begin
             I_sltiu_cg.sample(ins);
         end
-        "sltu"     : begin
+        INST_SLTU     : begin
             I_sltu_cg.sample(ins);
         end
-        "sra"     : begin
+        INST_SRA     : begin
             I_sra_cg.sample(ins);
         end
-        "srai"     : begin
+        INST_SRAI     : begin
             I_srai_cg.sample(ins);
         end
-        "srl"     : begin
+        INST_SRL     : begin
             I_srl_cg.sample(ins);
         end
-        "srli"     : begin
+        INST_SRLI     : begin
             I_srli_cg.sample(ins);
         end
-        "sub"     : begin
+        INST_SUB     : begin
             I_sub_cg.sample(ins);
         end
-        "sw"     : begin
+        INST_SW     : begin
             I_sw_cg.sample(ins);
         end
-        "xor"     : begin
+        INST_XOR     : begin
             I_xor_cg.sample(ins);
         end
-        "xori"     : begin
+        INST_XORI     : begin
             I_xori_cg.sample(ins);
         end
 `ifdef UDB_MXLEN_64
-        "addiw"     : begin
+        INST_ADDIW     : begin
             I_addiw_cg.sample(ins);
         end
-        "addw"     : begin
+        INST_ADDW     : begin
             I_addw_cg.sample(ins);
         end
-        "ld"     : begin
+        INST_LD     : begin
             I_ld_cg.sample(ins);
         end
-        "lwu"     : begin
+        INST_LWU     : begin
             I_lwu_cg.sample(ins);
         end
-        "sd"     : begin
+        INST_SD     : begin
             I_sd_cg.sample(ins);
         end
-        "slliw"     : begin
+        INST_SLLIW     : begin
             I_slliw_cg.sample(ins);
         end
-        "sllw"     : begin
+        INST_SLLW     : begin
             I_sllw_cg.sample(ins);
         end
-        "sraiw"     : begin
+        INST_SRAIW     : begin
             I_sraiw_cg.sample(ins);
         end
-        "sraw"     : begin
+        INST_SRAW     : begin
             I_sraw_cg.sample(ins);
         end
-        "srliw"     : begin
+        INST_SRLIW     : begin
             I_srliw_cg.sample(ins);
         end
-        "srlw"     : begin
+        INST_SRLW     : begin
             I_srlw_cg.sample(ins);
         end
-        "subw"     : begin
+        INST_SUBW     : begin
             I_subw_cg.sample(ins);
         end
 `endif
