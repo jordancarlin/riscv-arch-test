@@ -15,7 +15,7 @@
 ///////////////////////////////////////////
 
 //cross vtype_prev_vill_clear, vstart_zero, vl_nonzero, no_trap;
-std_vec: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") == 0 &
+std_vec: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VILL) == 0 &
                     get_csr_val(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VSTART) == 0 &
                     get_csr_val(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VL) != 0 &
                     ins.trap == 0
@@ -32,7 +32,7 @@ vfmv_f_s : coverpoint ins.current.insn {
     wildcard bins instruction = {VFMV_F_S};
 }
 
-fflags_modified_after_clear : coverpoint (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_FCSR, "fflags") == 0 & get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_FCSR, "fflags") != 0);
+fflags_modified_after_clear : coverpoint (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, FCSR_FFLAGS) == 0 & get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, FCSR_FFLAGS) != 0);
 
 vs1_zero : coverpoint ins.current.vs1_val == 0;
 vs2_zero : coverpoint ins.current.vs2_val == 0;

@@ -11,8 +11,8 @@
 
 function int get_vtype_vlmax(int hart, int issue, int prev);
 
-  logic[2:0] vsew  = get_csr_field(hart, issue, prev, CSR_VTYPE, "vsew") [2:0];
-  logic[2:0] vlmul = get_csr_field(hart, issue, prev, CSR_VTYPE, "vlmul")[2:0];
+  logic[2:0] vsew  = get_csr_field(hart, issue, prev, VTYPE_VSEW) [2:0];
+  logic[2:0] vlmul = get_csr_field(hart, issue, prev, VTYPE_VLMUL)[2:0];
 
   case (vlmul)
         3'b000: begin end
@@ -39,7 +39,7 @@ function int get_vtype_vlmax(int hart, int issue, int prev);
         end
     endcase
 
-  if(get_csr_field(hart, issue, prev, CSR_VTYPE, "vill") == 1) begin
+  if(get_csr_field(hart, issue, prev, VTYPE_VILL) == 1) begin
     return -1;   // make sure no coverpoint can ever be hit when vill bit is set
   end
 
@@ -116,7 +116,7 @@ typedef enum {
 
 // Check for vector operand edge values, assuming vl = 1
 function edge_vs_values_t vs_edges_check(int hart, int issue, `VLEN_BITS val, string sew_multiplier);
-  `XLEN_BITS vsew = get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew");
+  `XLEN_BITS vsew = get_csr_field(hart, issue, `SAMPLE_BEFORE, VTYPE_VSEW);
   int sew = 2 ** (3 + unsigned'(vsew[2:0]));
   int eew;
 
@@ -234,8 +234,8 @@ endfunction
 `endif
 
 function edge_vs_values_t vs_edges_check_egs4(int hart, int issue, bit [`UDB_VLEN*4-1:0] val); // string vector_reg, riscvTraceData prev);
-  `XLEN_BITS vsew = get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew");
-  `XLEN_BITS lmul = get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul");
+  `XLEN_BITS vsew = get_csr_field(hart, issue, `SAMPLE_BEFORE, VTYPE_VSEW);
+  `XLEN_BITS lmul = get_csr_field(hart, issue, `SAMPLE_BEFORE, VTYPE_VLMUL);
   int sew = 2 ** (3 + unsigned'(vsew[2:0]));
 
   if (sew == 32) begin
@@ -261,8 +261,8 @@ function edge_vs_values_t vs_edges_check_egs4(int hart, int issue, bit [`UDB_VLE
 endfunction
 
 function edge_vs_values_t vs_edges_check_sew32_egs8(int hart, int issue, bit [`UDB_VLEN*8-1:0] val); // string vector_reg, riscvTraceData prev);
-  `XLEN_BITS vsew = get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew");
-  `XLEN_BITS lmul = get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul");
+  `XLEN_BITS vsew = get_csr_field(hart, issue, `SAMPLE_BEFORE, VTYPE_VSEW);
+  `XLEN_BITS lmul = get_csr_field(hart, issue, `SAMPLE_BEFORE, VTYPE_VLMUL);
   int sew = 2 ** (3 + unsigned'(vsew[2:0]));
 
   if (sew != 32) begin
@@ -309,7 +309,7 @@ endfunction
 // range when it is below 2*VLMAX times the segment size (nf * SEW/8, rounded up to a power of two).
 function edge_vs2_ls_values_t vs2_ls_edges_check (int hart, int issue, `VLEN_BITS val, logic [31:0] insn);
   int vl            = int'(get_csr_val(hart, issue, `SAMPLE_BEFORE, CSR_VL));
-  logic [2:0] vsew  = get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew")[2:0];
+  logic [2:0] vsew  = get_csr_field(hart, issue, `SAMPLE_BEFORE, VTYPE_VSEW)[2:0];
   int vlmax         = get_vtype_vlmax(hart, issue, `SAMPLE_BEFORE);
   bit [2:0] nf      = insn[31:29];
   bit [2:0] width   = insn[14:12];
@@ -352,7 +352,7 @@ function edge_vs2_ls_values_t vs2_ls_edges_check (int hart, int issue, `VLEN_BIT
 endfunction
 
 function logic[63:0] get_vr_element_zero(int hart, int issue, `VLEN_BITS val);
-    logic [2:0] vsew = get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew")[2:0];
+    logic [2:0] vsew = get_csr_field(hart, issue, `SAMPLE_BEFORE, VTYPE_VSEW)[2:0];
 
     case (vsew)
     `ifdef SEW8_SUPPORTED
@@ -379,7 +379,7 @@ endfunction
 // Like get_vr_element_zero but extracts at 2*SEW for widening instructions
 // where the operand (e.g. vs1 accumulator in vfwredosum) is at double width.
 function logic[63:0] get_vr_element_zero_widen(int hart, int issue, `VLEN_BITS val);
-    logic [2:0] vsew = get_csr_field(hart, issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew")[2:0];
+    logic [2:0] vsew = get_csr_field(hart, issue, `SAMPLE_BEFORE, VTYPE_VSEW)[2:0];
 
     case (vsew)
     `ifdef SEW8_SUPPORTED

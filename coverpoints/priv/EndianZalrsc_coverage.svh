@@ -29,10 +29,10 @@ covergroup EndianZalrsc_cg with function sample(ins_t ins);
     }
 
     `ifdef UDB_MXLEN_64
-        mstatus_mbe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MSTATUS, "mbe")[0] {
+        mstatus_mbe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MSTATUS_MBE)[0] {
         }
     `else
-        mstatus_mbe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MSTATUSH, "mbe")[0] {
+        mstatus_mbe: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MSTATUS_MBE)[0] {
         }
     `endif
     // main coverpoints

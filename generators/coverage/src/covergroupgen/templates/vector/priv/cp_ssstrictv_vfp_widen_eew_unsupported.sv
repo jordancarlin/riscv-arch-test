@@ -5,7 +5,7 @@
 
     // Widening/narrowing FP: wider operand EEW=2*SEW not a supported FP width
 
-    sew_widen_unsupported_fp: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew") {
+    sew_widen_unsupported_fp: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VSEW) {
         `ifndef D_COVERAGE
             // SEW=32 (vsew=2) widens to EEW=64, unsupported without D extension
             bins sew32 = {2};
@@ -20,7 +20,7 @@
         bins zero = {0};
     }
 
-    mstatus_vs_active_155ca2: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "vs") {
+    mstatus_vs_active_155ca2: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_VS) {
         bins active = {[1:3]};
     }
 

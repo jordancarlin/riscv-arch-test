@@ -60,9 +60,9 @@
     `ifdef COVER_VLS64
         // SEW=64, EEW=32 -> rule (c). LMUL >= 2 -> vd aligned to 2.
         cp_custom_indexed_overlap_eew32_sew64 : coverpoint ins.current.vd iff (
-            (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul") < 4) &
+            (get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VLMUL) < 4) &
             (ins.current.vs2 > ins.current.vd) &
-            (ins.current.vs2 < ins.current.vd + (1 << get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul"))) &
+            (ins.current.vs2 < ins.current.vd + (1 << get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VLMUL))) &
             (ins.trap == 0)
         ) {
             bins v0  = {v0};

@@ -35,38 +35,38 @@ covergroup Svade_cg with function sample(ins_t ins);
     `ifdef UDB_MXLEN_64
         PageType_i: coverpoint ins.current.page_type_i {
             `ifdef SV48_SUPPORTED
-                bins sv48_tera = {2'b11} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-                bins sv48_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-                bins sv48_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-                bins sv48_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
+                bins sv48_tera = {2'b11} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+                bins sv48_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+                bins sv48_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+                bins sv48_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
             `endif
             `ifdef SV39_SUPPORTED
-                bins sv39_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
-                bins sv39_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
-                bins sv39_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
+                bins sv39_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
+                bins sv39_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
+                bins sv39_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
             `endif
         }
         PageType_d: coverpoint ins.current.page_type_d {
             `ifdef SV48_SUPPORTED
-                bins sv48_tera = {2'b11} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-                bins sv48_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-                bins sv48_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-                bins sv48_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
+                bins sv48_tera = {2'b11} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+                bins sv48_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+                bins sv48_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+                bins sv48_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
             `endif
             `ifdef SV39_SUPPORTED
-                bins sv39_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
-                bins sv39_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
-                bins sv39_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
+                bins sv39_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
+                bins sv39_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
+                bins sv39_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
             `endif
         }
     `else
         PageType_i: coverpoint ins.current.page_type_i {
-            bins sv32_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[0]);
-            bins sv32_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[0]);
+            bins sv32_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[0]);
+            bins sv32_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[0]);
         }
         PageType_d: coverpoint ins.current.page_type_d {
-            bins sv32_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[0]);
-            bins sv32_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[0]);
+            bins sv32_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[0]);
+            bins sv32_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[0]);
         }
     `endif
 
@@ -79,22 +79,22 @@ covergroup Svade_cg with function sample(ins_t ins);
     write_acc: coverpoint ins.current.write_access{
         bins set = {1};
     }
-    ins_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code") {
+    ins_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE) {
         bins ins_page_fault = {INSTRUCTION_PAGE_FAULT} iff (ins.current.trap);
     }
-    load_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code") {
+    load_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE) {
         bins load_page_fault = {LOAD_PAGE_FAULT} iff (ins.current.trap);
     }
-    store_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code") {
+    store_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE) {
         bins store_amo_page_fault = {STORE_AMO_PAGE_FAULT} iff (ins.current.trap);
     }
 
     `ifdef UDB_MXLEN_64
-        Svade_enabled: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "adue")[0] {
+        Svade_enabled: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_ADUE)[0] {
             bins ADUE_unset = {1'b0};
         }
     `else
-        Svade_enabled: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFGH, "adue")[0] {
+        Svade_enabled: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_ADUE)[0] {
             bins ADUE_unset = {1'b0};
         }
     `endif

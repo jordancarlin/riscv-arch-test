@@ -21,11 +21,11 @@ covergroup ExceptionsVfmin_vfncvt_f_f_w_cg with function sample(ins_t ins);
     // a non-Off value so the trap can only be attributed to FS being Off (not VS).
     //////////////////////////////////////////////////////////////////////////////////
 
-    mstatus_fs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "fs") {
+    mstatus_fs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_FS) {
         bins inactive = {0};
     }
 
-    mstatus_vs_active_for_fs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "vs") {
+    mstatus_vs_active_for_fs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_VS) {
         bins active = {[1:3]};
     }
 
@@ -40,11 +40,11 @@ covergroup ExceptionsVfmin_vfncvt_f_f_w_cg with function sample(ins_t ins);
     // a non-Off value so the trap can only be attributed to VS being Off (not FS).
     //////////////////////////////////////////////////////////////////////////////////
 
-    mstatus_vs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "vs") {
+    mstatus_vs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_VS) {
         bins inactive = {0};
     }
 
-    mstatus_fs_active_for_vs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "fs") {
+    mstatus_fs_active_for_vs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_FS) {
         bins active = {[1:3]};
     }
 
@@ -62,7 +62,7 @@ covergroup ExceptionsVfmin_vfncvt_f_f_w_cg with function sample(ins_t ins);
     // transitioning-model bugs.
     //////////////////////////////////////////////////////////////////////////////////
 
-    mstatus_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "fs") {
+    mstatus_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_FS) {
         `ifdef UDB_MSTATUS_FS_LEGAL_VALUES_1
             bins fs_initial = {1};
         `endif
@@ -72,7 +72,7 @@ covergroup ExceptionsVfmin_vfncvt_f_f_w_cg with function sample(ins_t ins);
         bins fs_dirty   = {3};
     }
 
-    mstatus_vs_active_for_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "vs") {
+    mstatus_vs_active_for_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_VS) {
         bins active = {[1:3]};
     }
 
@@ -141,7 +141,7 @@ covergroup ExceptionsVfmin_vfncvt_f_f_w_cg with function sample(ins_t ins);
     // cp_vill
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vill: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") {
+    cp_vill: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VILL) {
         bins one  = {1};
     }
 
@@ -182,11 +182,11 @@ covergroup ExceptionsVfmin_vfwcvt_f_f_v_cg with function sample(ins_t ins);
     // a non-Off value so the trap can only be attributed to FS being Off (not VS).
     //////////////////////////////////////////////////////////////////////////////////
 
-    mstatus_fs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "fs") {
+    mstatus_fs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_FS) {
         bins inactive = {0};
     }
 
-    mstatus_vs_active_for_fs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "vs") {
+    mstatus_vs_active_for_fs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_VS) {
         bins active = {[1:3]};
     }
 
@@ -201,11 +201,11 @@ covergroup ExceptionsVfmin_vfwcvt_f_f_v_cg with function sample(ins_t ins);
     // a non-Off value so the trap can only be attributed to VS being Off (not FS).
     //////////////////////////////////////////////////////////////////////////////////
 
-    mstatus_vs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "vs") {
+    mstatus_vs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_VS) {
         bins inactive = {0};
     }
 
-    mstatus_fs_active_for_vs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "fs") {
+    mstatus_fs_active_for_vs_off : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_FS) {
         bins active = {[1:3]};
     }
 
@@ -223,7 +223,7 @@ covergroup ExceptionsVfmin_vfwcvt_f_f_v_cg with function sample(ins_t ins);
     // transitioning-model bugs.
     //////////////////////////////////////////////////////////////////////////////////
 
-    mstatus_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "fs") {
+    mstatus_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_FS) {
         `ifdef UDB_MSTATUS_FS_LEGAL_VALUES_1
             bins fs_initial = {1};
         `endif
@@ -233,7 +233,7 @@ covergroup ExceptionsVfmin_vfwcvt_f_f_v_cg with function sample(ins_t ins);
         bins fs_dirty   = {3};
     }
 
-    mstatus_vs_active_for_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "vs") {
+    mstatus_vs_active_for_fs_state : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_VS) {
         bins active = {[1:3]};
     }
 
@@ -302,7 +302,7 @@ covergroup ExceptionsVfmin_vfwcvt_f_f_v_cg with function sample(ins_t ins);
     // cp_vill
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vill: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") {
+    cp_vill: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VILL) {
         bins one  = {1};
     }
 

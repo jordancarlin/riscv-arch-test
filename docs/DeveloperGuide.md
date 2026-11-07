@@ -658,10 +658,10 @@ An alternate idiom is to specify bitfields directly. For example, this is necess
 
 #### CSR Values
 
-The preferred idiom to check the value of a CSR bitfield is to use the `get_csr_field` function, specifying the CSR address and bitfield (`CSR_MSTATUS` and `tsr`). The `CSR_*` addresses come from the generated decode package. `` `SAMPLE_BEFORE `` means to get the value before the instruction retires, while `` `SAMPLE_AFTER `` means to get the value after the instruction retires. The field names match the ISA manual, and are listed in `framework/src/act/fcov/coverage/RISCV_coverage_csr.svh`.
+The preferred idiom to check the value of a CSR bitfield is to use the `get_csr_field` function with a field descriptor named `<CSR>_<FIELD>`, such as `MSTATUS_TSR`. `` `SAMPLE_BEFORE `` means to get the value before the instruction retires, while `` `SAMPLE_AFTER `` means to get the value after the instruction retires. The field names match the ISA manual. The descriptors are listed in `framework/src/act/fcov/coverage/RISCV_coverage_csr.svh`. On RV32, a descriptor for a field in bits 63:32 reads the high-half CSR, so `MENVCFG_STCE` reads `menvcfgh` on RV32 and `menvcfg` on RV64.
 
 ```SystemVerilog
-    old_mstatus_tsr: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "tsr")[0] {
+    old_mstatus_tsr: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_TSR)[0] {
     }
 ```
 

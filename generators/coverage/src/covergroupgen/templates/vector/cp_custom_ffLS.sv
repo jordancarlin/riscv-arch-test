@@ -14,7 +14,7 @@
 
     `ifdef RVMODEL_ACCESS_FAULT_ADDRESS_LOAD
 
-    ffLS_valid: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") == 0 &
+    ffLS_valid: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VILL) == 0 &
         get_csr_val(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VSTART) == 0 &
         get_csr_val(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VL) != 0
     } {
@@ -29,7 +29,7 @@
         bins masked = {1'b0};
     }
 
-    ffLS_vtype_lmul_2: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul") {
+    ffLS_vtype_lmul_2: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VLMUL) {
         bins two = {1};
     }
 

@@ -62,1540 +62,1282 @@ function `XLEN_BITS get_csr_val(int hart, int issue, int prev, bit [11:0] addr);
   return traceDataQ[hart][issue][prev].csr[addr];
 endfunction
 
-// Named field of the CSR at addr, shifted to bit 0
-function `XLEN_BITS get_csr_field(int hart, int issue, int prev, bit [11:0] addr, string field);
+// CSR field: CSR address, LSB position, and width in bits.
+// On RV32, a field in bits 63:32 of a CSR is in the high-half CSR (for example, MENVCFG_STCE is in menvcfgh).
+typedef struct packed {
+  bit [11:0] addr;
+  bit [5:0]  lsb;
+  bit [6:0]  width;
+} csr_field_t;
 
-  `XLEN_BITS val;
-  val = traceDataQ[hart][issue][prev].csr[addr];
+localparam csr_field_t DCSR_CAUSE = '{CSR_DCSR, 6, 3};
+localparam csr_field_t DCSR_EBREAKM = '{CSR_DCSR, 15, 1};
+localparam csr_field_t DCSR_EBREAKS = '{CSR_DCSR, 13, 1};
+localparam csr_field_t DCSR_EBREAKU = '{CSR_DCSR, 12, 1};
+localparam csr_field_t DCSR_MPRVEN = '{CSR_DCSR, 4, 1};
+localparam csr_field_t DCSR_NMIP = '{CSR_DCSR, 3, 1};
+localparam csr_field_t DCSR_PRV = '{CSR_DCSR, 0, 2};
+localparam csr_field_t DCSR_STEP = '{CSR_DCSR, 2, 1};
+localparam csr_field_t DCSR_STEPIE = '{CSR_DCSR, 11, 1};
+localparam csr_field_t DCSR_STOPCOUNT = '{CSR_DCSR, 10, 1};
+localparam csr_field_t DCSR_STOPTIME = '{CSR_DCSR, 9, 1};
+localparam csr_field_t DCSR_XDEBUGVER = '{CSR_DCSR, 28, 4};
+localparam csr_field_t FCSR_FFLAGS = '{CSR_FCSR, 0, 5};
+localparam csr_field_t FCSR_FRM = '{CSR_FCSR, 5, 3};
+localparam csr_field_t FFLAGS_FFLAGS = '{CSR_FFLAGS, 0, 5};
+localparam csr_field_t FRM_FRM = '{CSR_FRM, 0, 3};
+localparam csr_field_t HCOUNTEREN_CY = '{CSR_HCOUNTEREN, 0, 1};
+localparam csr_field_t HCOUNTEREN_ENABLE = '{CSR_HCOUNTEREN, 3, 29};
+localparam csr_field_t HCOUNTEREN_IR = '{CSR_HCOUNTEREN, 2, 1};
+localparam csr_field_t HCOUNTEREN_TM = '{CSR_HCOUNTEREN, 1, 1};
+localparam csr_field_t HEDELEG_DELEG = '{CSR_HEDELEG, 0, 32};
+localparam csr_field_t HENVCFG_FIOM = '{CSR_HENVCFG, 0, 1};
+localparam csr_field_t HENVCFG_LPE = '{CSR_HENVCFG, 2, 1};
+localparam csr_field_t HENVCFG_SSE = '{CSR_HENVCFG, 3, 1};
+localparam csr_field_t HENVCFG_CBIE = '{CSR_HENVCFG, 4, 2};
+localparam csr_field_t HENVCFG_CBCFE = '{CSR_HENVCFG, 6, 1};
+localparam csr_field_t HENVCFG_CBZE = '{CSR_HENVCFG, 7, 1};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t HENVCFG_PMM = '{CSR_HENVCFG, 32, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HENVCFG_DTE = '{CSR_HENVCFGH, 27, 1};
+`else
+localparam csr_field_t HENVCFG_DTE = '{CSR_HENVCFG, 59, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HENVCFG_ADUE = '{CSR_HENVCFGH, 29, 1};
+`else
+localparam csr_field_t HENVCFG_ADUE = '{CSR_HENVCFG, 61, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HENVCFG_PBMTE = '{CSR_HENVCFGH, 30, 1};
+`else
+localparam csr_field_t HENVCFG_PBMTE = '{CSR_HENVCFG, 62, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HENVCFG_STCE = '{CSR_HENVCFGH, 31, 1};
+`else
+localparam csr_field_t HENVCFG_STCE = '{CSR_HENVCFG, 63, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HGATP_VMID = '{CSR_HGATP, 22, 7};
+`else
+localparam csr_field_t HGATP_VMID = '{CSR_HGATP, 44, 14};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HGATP_MODE = '{CSR_HGATP, 31, 1};
+`else
+localparam csr_field_t HGATP_MODE = '{CSR_HGATP, 60, 4};
+`endif
+localparam csr_field_t HGEIE_ENABLE = '{CSR_HGEIE, 1, 31};
+localparam csr_field_t HGEIP_PENDING = '{CSR_HGEIP, 1, 31};
+localparam csr_field_t HIDELEG_MEIP = '{CSR_HIDELEG, 11, 1};
+localparam csr_field_t HIDELEG_MSIP = '{CSR_HIDELEG, 3, 1};
+localparam csr_field_t HIDELEG_MTIP = '{CSR_HIDELEG, 7, 1};
+localparam csr_field_t HIDELEG_SEIP = '{CSR_HIDELEG, 9, 1};
+localparam csr_field_t HIDELEG_SGEIP = '{CSR_HIDELEG, 12, 1};
+localparam csr_field_t HIDELEG_SSIP = '{CSR_HIDELEG, 1, 1};
+localparam csr_field_t HIDELEG_STIP = '{CSR_HIDELEG, 5, 1};
+localparam csr_field_t HIDELEG_VGEIP = '{CSR_HIDELEG, 10, 1};
+localparam csr_field_t HIDELEG_VSSIP = '{CSR_HIDELEG, 2, 1};
+localparam csr_field_t HIDELEG_VSTIP = '{CSR_HIDELEG, 6, 1};
+localparam csr_field_t HIE_SGEIE = '{CSR_HIE, 12, 1};
+localparam csr_field_t HIE_VSEIE = '{CSR_HIE, 10, 1};
+localparam csr_field_t HIE_VSSIE = '{CSR_HIE, 2, 1};
+localparam csr_field_t HIE_VSTIE = '{CSR_HIE, 6, 1};
+localparam csr_field_t HIP_SGEIP = '{CSR_HIP, 12, 1};
+localparam csr_field_t HIP_VSEIP = '{CSR_HIP, 10, 1};
+localparam csr_field_t HIP_VSSIP = '{CSR_HIP, 2, 1};
+localparam csr_field_t HIP_VSTIP = '{CSR_HIP, 6, 1};
+localparam csr_field_t HSTATEEN0_C = '{CSR_HSTATEEN0, 0, 1};
+localparam csr_field_t HSTATEEN0_FCSR = '{CSR_HSTATEEN0, 1, 1};
+localparam csr_field_t HSTATEEN0_JVT = '{CSR_HSTATEEN0, 2, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HSTATEEN0_CTR = '{CSR_HSTATEEN0H, 22, 1};
+`else
+localparam csr_field_t HSTATEEN0_CTR = '{CSR_HSTATEEN0, 54, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HSTATEEN0_CONTEXT = '{CSR_HSTATEEN0H, 25, 1};
+`else
+localparam csr_field_t HSTATEEN0_CONTEXT = '{CSR_HSTATEEN0, 57, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HSTATEEN0_IMSIC = '{CSR_HSTATEEN0H, 26, 1};
+`else
+localparam csr_field_t HSTATEEN0_IMSIC = '{CSR_HSTATEEN0, 58, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HSTATEEN0_AIA = '{CSR_HSTATEEN0H, 27, 1};
+`else
+localparam csr_field_t HSTATEEN0_AIA = '{CSR_HSTATEEN0, 59, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HSTATEEN0_CSRIND = '{CSR_HSTATEEN0H, 28, 1};
+`else
+localparam csr_field_t HSTATEEN0_CSRIND = '{CSR_HSTATEEN0, 60, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HSTATEEN0_ENVCFG = '{CSR_HSTATEEN0H, 30, 1};
+`else
+localparam csr_field_t HSTATEEN0_ENVCFG = '{CSR_HSTATEEN0, 62, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t HSTATEEN0_SE0 = '{CSR_HSTATEEN0H, 31, 1};
+`else
+localparam csr_field_t HSTATEEN0_SE0 = '{CSR_HSTATEEN0, 63, 1};
+`endif
+localparam csr_field_t HSTATUS_GVA = '{CSR_HSTATUS, 6, 1};
+localparam csr_field_t HSTATUS_HU = '{CSR_HSTATUS, 9, 1};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t HSTATUS_HUPMM = '{CSR_HSTATUS, 48, 2};
+`endif
+localparam csr_field_t HSTATUS_SPV = '{CSR_HSTATUS, 7, 1};
+localparam csr_field_t HSTATUS_SPVP = '{CSR_HSTATUS, 8, 1};
+localparam csr_field_t HSTATUS_VSBE = '{CSR_HSTATUS, 5, 1};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t HSTATUS_VSXL = '{CSR_HSTATUS, 32, 2};
+`endif
+localparam csr_field_t HSTATUS_VTSR = '{CSR_HSTATUS, 22, 1};
+localparam csr_field_t HSTATUS_VTVM = '{CSR_HSTATUS, 20, 1};
+localparam csr_field_t HSTATUS_VTW = '{CSR_HSTATUS, 21, 1};
+localparam csr_field_t HVIP_VSEIP = '{CSR_HVIP, 10, 1};
+localparam csr_field_t HVIP_VSSIP = '{CSR_HVIP, 2, 1};
+localparam csr_field_t HVIP_VSTIP = '{CSR_HVIP, 6, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t JVT_BASE = '{CSR_JVT, 6, 26};
+`else
+localparam csr_field_t JVT_BASE = '{CSR_JVT, 6, 58};
+`endif
+localparam csr_field_t JVT_MODE = '{CSR_JVT, 0, 6};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MCAUSE_CODE = '{CSR_MCAUSE, 0, 31};
+`else
+localparam csr_field_t MCAUSE_CODE = '{CSR_MCAUSE, 0, 63};
+`endif
+localparam csr_field_t MCOUNTEREN_CY = '{CSR_MCOUNTEREN, 0, 1};
+localparam csr_field_t MCOUNTEREN_ENABLE = '{CSR_MCOUNTEREN, 3, 29};
+localparam csr_field_t MCOUNTEREN_IR = '{CSR_MCOUNTEREN, 2, 1};
+localparam csr_field_t MCOUNTEREN_TM = '{CSR_MCOUNTEREN, 1, 1};
+localparam csr_field_t MCOUNTINHIBIT_CY = '{CSR_MCOUNTINHIBIT, 0, 1};
+localparam csr_field_t MCOUNTINHIBIT_INHIBIT = '{CSR_MCOUNTINHIBIT, 3, 29};
+localparam csr_field_t MCOUNTINHIBIT_IR = '{CSR_MCOUNTINHIBIT, 2, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MCYCLECFG_MINH = '{CSR_MCYCLECFGH, 30, 1};
+`else
+localparam csr_field_t MCYCLECFG_MINH = '{CSR_MCYCLECFG, 62, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MCYCLECFG_SINH = '{CSR_MCYCLECFGH, 29, 1};
+`else
+localparam csr_field_t MCYCLECFG_SINH = '{CSR_MCYCLECFG, 61, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MCYCLECFG_UINH = '{CSR_MCYCLECFGH, 28, 1};
+`else
+localparam csr_field_t MCYCLECFG_UINH = '{CSR_MCYCLECFG, 60, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MCYCLECFG_VSINH = '{CSR_MCYCLECFGH, 27, 1};
+`else
+localparam csr_field_t MCYCLECFG_VSINH = '{CSR_MCYCLECFG, 59, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MCYCLECFG_VUINH = '{CSR_MCYCLECFGH, 26, 1};
+`else
+localparam csr_field_t MCYCLECFG_VUINH = '{CSR_MCYCLECFG, 58, 1};
+`endif
+localparam csr_field_t MEDELEG_DELEG = '{CSR_MEDELEG, 0, 32};
+localparam csr_field_t MENVCFG_FIOM = '{CSR_MENVCFG, 0, 1};
+localparam csr_field_t MENVCFG_LPE = '{CSR_MENVCFG, 2, 1};
+localparam csr_field_t MENVCFG_SSE = '{CSR_MENVCFG, 3, 1};
+localparam csr_field_t MENVCFG_CBIE = '{CSR_MENVCFG, 4, 2};
+localparam csr_field_t MENVCFG_CBCFE = '{CSR_MENVCFG, 6, 1};
+localparam csr_field_t MENVCFG_CBZE = '{CSR_MENVCFG, 7, 1};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t MENVCFG_PMM = '{CSR_MENVCFG, 32, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MENVCFG_DTE = '{CSR_MENVCFGH, 27, 1};
+`else
+localparam csr_field_t MENVCFG_DTE = '{CSR_MENVCFG, 59, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MENVCFG_CDE = '{CSR_MENVCFGH, 28, 1};
+`else
+localparam csr_field_t MENVCFG_CDE = '{CSR_MENVCFG, 60, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MENVCFG_ADUE = '{CSR_MENVCFGH, 29, 1};
+`else
+localparam csr_field_t MENVCFG_ADUE = '{CSR_MENVCFG, 61, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t MENVCFG_PBMTE = '{CSR_MENVCFG, 62, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MENVCFG_STCE = '{CSR_MENVCFGH, 31, 1};
+`else
+localparam csr_field_t MENVCFG_STCE = '{CSR_MENVCFG, 63, 1};
+`endif
+localparam csr_field_t MIDELEG_LCOFIP = '{CSR_MIDELEG, 13, 1};
+localparam csr_field_t MIDELEG_MEIP = '{CSR_MIDELEG, 11, 1};
+localparam csr_field_t MIDELEG_MSIP = '{CSR_MIDELEG, 3, 1};
+localparam csr_field_t MIDELEG_MTIP = '{CSR_MIDELEG, 7, 1};
+localparam csr_field_t MIDELEG_SEIP = '{CSR_MIDELEG, 9, 1};
+localparam csr_field_t MIDELEG_SGEIP = '{CSR_MIDELEG, 12, 1};
+localparam csr_field_t MIDELEG_SSIP = '{CSR_MIDELEG, 1, 1};
+localparam csr_field_t MIDELEG_STIP = '{CSR_MIDELEG, 5, 1};
+localparam csr_field_t MIDELEG_VGEIP = '{CSR_MIDELEG, 10, 1};
+localparam csr_field_t MIDELEG_VSSIP = '{CSR_MIDELEG, 2, 1};
+localparam csr_field_t MIDELEG_VSTIP = '{CSR_MIDELEG, 6, 1};
+localparam csr_field_t MIE_LCOFIE = '{CSR_MIE, 13, 1};
+localparam csr_field_t MIE_MEIE = '{CSR_MIE, 11, 1};
+localparam csr_field_t MIE_MSIE = '{CSR_MIE, 3, 1};
+localparam csr_field_t MIE_MTIE = '{CSR_MIE, 7, 1};
+localparam csr_field_t MIE_SEIE = '{CSR_MIE, 9, 1};
+localparam csr_field_t MIE_SGEIE = '{CSR_MIE, 12, 1};
+localparam csr_field_t MIE_SSIE = '{CSR_MIE, 1, 1};
+localparam csr_field_t MIE_STIE = '{CSR_MIE, 5, 1};
+localparam csr_field_t MIE_VGEIE = '{CSR_MIE, 10, 1};
+localparam csr_field_t MIE_VSSIE = '{CSR_MIE, 2, 1};
+localparam csr_field_t MIE_VSTIE = '{CSR_MIE, 6, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MINSTRETCFG_MINH = '{CSR_MINSTRETCFGH, 30, 1};
+`else
+localparam csr_field_t MINSTRETCFG_MINH = '{CSR_MINSTRETCFG, 62, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MINSTRETCFG_SINH = '{CSR_MINSTRETCFGH, 29, 1};
+`else
+localparam csr_field_t MINSTRETCFG_SINH = '{CSR_MINSTRETCFG, 61, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MINSTRETCFG_UINH = '{CSR_MINSTRETCFGH, 28, 1};
+`else
+localparam csr_field_t MINSTRETCFG_UINH = '{CSR_MINSTRETCFG, 60, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MINSTRETCFG_VSINH = '{CSR_MINSTRETCFGH, 27, 1};
+`else
+localparam csr_field_t MINSTRETCFG_VSINH = '{CSR_MINSTRETCFG, 59, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MINSTRETCFG_VUINH = '{CSR_MINSTRETCFGH, 26, 1};
+`else
+localparam csr_field_t MINSTRETCFG_VUINH = '{CSR_MINSTRETCFG, 58, 1};
+`endif
+localparam csr_field_t MIP_LCOFIP = '{CSR_MIP, 13, 1};
+localparam csr_field_t MIP_MEIP = '{CSR_MIP, 11, 1};
+localparam csr_field_t MIP_MSIP = '{CSR_MIP, 3, 1};
+localparam csr_field_t MIP_MTIP = '{CSR_MIP, 7, 1};
+localparam csr_field_t MIP_SEIP = '{CSR_MIP, 9, 1};
+localparam csr_field_t MIP_SGEIP = '{CSR_MIP, 12, 1};
+localparam csr_field_t MIP_SSIP = '{CSR_MIP, 1, 1};
+localparam csr_field_t MIP_STIP = '{CSR_MIP, 5, 1};
+localparam csr_field_t MIP_VGEIP = '{CSR_MIP, 10, 1};
+localparam csr_field_t MIP_VSSIP = '{CSR_MIP, 2, 1};
+localparam csr_field_t MIP_VSTIP = '{CSR_MIP, 6, 1};
+localparam csr_field_t MISA_EXTS = '{CSR_MISA, 0, 26};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MISA_MXL = '{CSR_MISA, 30, 2};
+`else
+localparam csr_field_t MISA_MXL = '{CSR_MISA, 62, 2};
+`endif
+localparam csr_field_t MSECCFG_MML = '{CSR_MSECCFG, 0, 1};
+localparam csr_field_t MSECCFG_MMWP = '{CSR_MSECCFG, 1, 1};
+localparam csr_field_t MSECCFG_RLB = '{CSR_MSECCFG, 2, 1};
+localparam csr_field_t MSECCFG_USEED = '{CSR_MSECCFG, 8, 1};
+localparam csr_field_t MSECCFG_SSEED = '{CSR_MSECCFG, 9, 1};
+localparam csr_field_t MSECCFG_MLPE = '{CSR_MSECCFG, 10, 1};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t MSECCFG_PMM = '{CSR_MSECCFG, 32, 2};
+`endif
+localparam csr_field_t MSTATUS_FS = '{CSR_MSTATUS, 13, 2};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATUS_GVA = '{CSR_MSTATUSH, 6, 1};
+`else
+localparam csr_field_t MSTATUS_GVA = '{CSR_MSTATUS, 38, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATUS_MBE = '{CSR_MSTATUSH, 5, 1};
+`else
+localparam csr_field_t MSTATUS_MBE = '{CSR_MSTATUS, 37, 1};
+`endif
+localparam csr_field_t MSTATUS_MIE = '{CSR_MSTATUS, 3, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATUS_MPELP = '{CSR_MSTATUSH, 9, 1};
+`else
+localparam csr_field_t MSTATUS_MPELP = '{CSR_MSTATUS, 41, 1};
+`endif
+localparam csr_field_t MSTATUS_MPIE = '{CSR_MSTATUS, 7, 1};
+localparam csr_field_t MSTATUS_MPP = '{CSR_MSTATUS, 11, 2};
+localparam csr_field_t MSTATUS_MPRV = '{CSR_MSTATUS, 17, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATUS_MPV = '{CSR_MSTATUSH, 7, 1};
+`else
+localparam csr_field_t MSTATUS_MPV = '{CSR_MSTATUS, 39, 1};
+`endif
+localparam csr_field_t MSTATUS_MXR = '{CSR_MSTATUS, 19, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATUS_SBE = '{CSR_MSTATUSH, 4, 1};
+`else
+localparam csr_field_t MSTATUS_SBE = '{CSR_MSTATUS, 36, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATUS_SD = '{CSR_MSTATUS, 31, 1};
+`else
+localparam csr_field_t MSTATUS_SD = '{CSR_MSTATUS, 63, 1};
+`endif
+localparam csr_field_t MSTATUS_SIE = '{CSR_MSTATUS, 1, 1};
+localparam csr_field_t MSTATUS_SPELP = '{CSR_MSTATUS, 23, 1};
+localparam csr_field_t MSTATUS_SPIE = '{CSR_MSTATUS, 5, 1};
+localparam csr_field_t MSTATUS_SPP = '{CSR_MSTATUS, 8, 1};
+localparam csr_field_t MSTATUS_SUM = '{CSR_MSTATUS, 18, 1};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t MSTATUS_SXL = '{CSR_MSTATUS, 34, 2};
+`endif
+localparam csr_field_t MSTATUS_TSR = '{CSR_MSTATUS, 22, 1};
+localparam csr_field_t MSTATUS_TVM = '{CSR_MSTATUS, 20, 1};
+localparam csr_field_t MSTATUS_TW = '{CSR_MSTATUS, 21, 1};
+localparam csr_field_t MSTATUS_UBE = '{CSR_MSTATUS, 6, 1};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t MSTATUS_UXL = '{CSR_MSTATUS, 32, 2};
+`endif
+localparam csr_field_t MSTATUS_VS = '{CSR_MSTATUS, 9, 2};
+localparam csr_field_t MSTATUS_XS = '{CSR_MSTATUS, 15, 2};
+localparam csr_field_t MTVEC_MODE = '{CSR_MTVEC, 0, 2};
+localparam csr_field_t PMPCFG0_PMP0CFG_A = '{CSR_PMPCFG0, 3, 2};
+localparam csr_field_t PMPCFG0_PMP0CFG_L = '{CSR_PMPCFG0, 7, 1};
+localparam csr_field_t PMPCFG0_PMP0CFG_XWR = '{CSR_PMPCFG0, 0, 3};
+localparam csr_field_t PMPCFG0_PMP1CFG_A = '{CSR_PMPCFG0, 11, 2};
+localparam csr_field_t PMPCFG0_PMP1CFG_L = '{CSR_PMPCFG0, 15, 1};
+localparam csr_field_t PMPCFG0_PMP1CFG_XWR = '{CSR_PMPCFG0, 8, 3};
+localparam csr_field_t PMPCFG0_PMP2CFG_A = '{CSR_PMPCFG0, 19, 2};
+localparam csr_field_t PMPCFG0_PMP2CFG_L = '{CSR_PMPCFG0, 23, 1};
+localparam csr_field_t PMPCFG0_PMP2CFG_XWR = '{CSR_PMPCFG0, 16, 3};
+localparam csr_field_t PMPCFG0_PMP3CFG_A = '{CSR_PMPCFG0, 27, 2};
+localparam csr_field_t PMPCFG0_PMP3CFG_L = '{CSR_PMPCFG0, 31, 1};
+localparam csr_field_t PMPCFG0_PMP3CFG_XWR = '{CSR_PMPCFG0, 24, 3};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP4CFG_A = '{CSR_PMPCFG0, 35, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP4CFG_L = '{CSR_PMPCFG0, 39, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP4CFG_XWR = '{CSR_PMPCFG0, 32, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP5CFG_A = '{CSR_PMPCFG0, 43, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP5CFG_L = '{CSR_PMPCFG0, 47, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP5CFG_XWR = '{CSR_PMPCFG0, 40, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP6CFG_A = '{CSR_PMPCFG0, 51, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP6CFG_L = '{CSR_PMPCFG0, 55, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP6CFG_XWR = '{CSR_PMPCFG0, 48, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP7CFG_A = '{CSR_PMPCFG0, 59, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP7CFG_L = '{CSR_PMPCFG0, 63, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG0_PMP7CFG_XWR = '{CSR_PMPCFG0, 56, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP4CFG_A = '{CSR_PMPCFG1, 3, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP4CFG_L = '{CSR_PMPCFG1, 7, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP4CFG_XWR = '{CSR_PMPCFG1, 0, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP5CFG_A = '{CSR_PMPCFG1, 11, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP5CFG_L = '{CSR_PMPCFG1, 15, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP5CFG_XWR = '{CSR_PMPCFG1, 8, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP6CFG_A = '{CSR_PMPCFG1, 19, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP6CFG_L = '{CSR_PMPCFG1, 23, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP6CFG_XWR = '{CSR_PMPCFG1, 16, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP7CFG_A = '{CSR_PMPCFG1, 27, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP7CFG_L = '{CSR_PMPCFG1, 31, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG1_PMP7CFG_XWR = '{CSR_PMPCFG1, 24, 3};
+`endif
+localparam csr_field_t PMPCFG2_PMP10CFG_A = '{CSR_PMPCFG2, 19, 2};
+localparam csr_field_t PMPCFG2_PMP10CFG_L = '{CSR_PMPCFG2, 23, 1};
+localparam csr_field_t PMPCFG2_PMP10CFG_XWR = '{CSR_PMPCFG2, 16, 3};
+localparam csr_field_t PMPCFG2_PMP11CFG_A = '{CSR_PMPCFG2, 27, 2};
+localparam csr_field_t PMPCFG2_PMP11CFG_L = '{CSR_PMPCFG2, 31, 1};
+localparam csr_field_t PMPCFG2_PMP11CFG_XWR = '{CSR_PMPCFG2, 24, 3};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP12CFG_A = '{CSR_PMPCFG2, 35, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP12CFG_L = '{CSR_PMPCFG2, 39, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP12CFG_XWR = '{CSR_PMPCFG2, 32, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP13CFG_A = '{CSR_PMPCFG2, 43, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP13CFG_L = '{CSR_PMPCFG2, 47, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP13CFG_XWR = '{CSR_PMPCFG2, 40, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP14CFG_A = '{CSR_PMPCFG2, 51, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP14CFG_L = '{CSR_PMPCFG2, 55, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP14CFG_XWR = '{CSR_PMPCFG2, 48, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP15CFG_A = '{CSR_PMPCFG2, 59, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP15CFG_L = '{CSR_PMPCFG2, 63, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG2_PMP15CFG_XWR = '{CSR_PMPCFG2, 56, 3};
+`endif
+localparam csr_field_t PMPCFG2_PMP8CFG_A = '{CSR_PMPCFG2, 3, 2};
+localparam csr_field_t PMPCFG2_PMP8CFG_L = '{CSR_PMPCFG2, 7, 1};
+localparam csr_field_t PMPCFG2_PMP8CFG_XWR = '{CSR_PMPCFG2, 0, 3};
+localparam csr_field_t PMPCFG2_PMP9CFG_A = '{CSR_PMPCFG2, 11, 2};
+localparam csr_field_t PMPCFG2_PMP9CFG_L = '{CSR_PMPCFG2, 15, 1};
+localparam csr_field_t PMPCFG2_PMP9CFG_XWR = '{CSR_PMPCFG2, 8, 3};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP12CFG_A = '{CSR_PMPCFG3, 3, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP12CFG_L = '{CSR_PMPCFG3, 7, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP12CFG_XWR = '{CSR_PMPCFG3, 0, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP13CFG_A = '{CSR_PMPCFG3, 11, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP13CFG_L = '{CSR_PMPCFG3, 15, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP13CFG_XWR = '{CSR_PMPCFG3, 8, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP14CFG_A = '{CSR_PMPCFG3, 19, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP14CFG_L = '{CSR_PMPCFG3, 23, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP14CFG_XWR = '{CSR_PMPCFG3, 16, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP15CFG_A = '{CSR_PMPCFG3, 27, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP15CFG_L = '{CSR_PMPCFG3, 31, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG3_PMP15CFG_XWR = '{CSR_PMPCFG3, 24, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t SATP_ASID = '{CSR_SATP, 22, 9};
+`else
+localparam csr_field_t SATP_ASID = '{CSR_SATP, 44, 16};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t SATP_MODE = '{CSR_SATP, 31, 1};
+`else
+localparam csr_field_t SATP_MODE = '{CSR_SATP, 60, 4};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t SATP_PPN = '{CSR_SATP, 0, 22};
+`else
+localparam csr_field_t SATP_PPN = '{CSR_SATP, 0, 44};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t SCAUSE_CODE = '{CSR_SCAUSE, 0, 31};
+`else
+localparam csr_field_t SCAUSE_CODE = '{CSR_SCAUSE, 0, 63};
+`endif
+localparam csr_field_t SCOUNTEREN_CY = '{CSR_SCOUNTEREN, 0, 1};
+localparam csr_field_t SCOUNTEREN_ENABLE = '{CSR_SCOUNTEREN, 3, 29};
+localparam csr_field_t SCOUNTEREN_IR = '{CSR_SCOUNTEREN, 2, 1};
+localparam csr_field_t SCOUNTEREN_TM = '{CSR_SCOUNTEREN, 1, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t SEED_OPST = '{CSR_SEED, 30, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t SEED_ENTROPY = '{CSR_SEED, 0, 16};
+`endif
+localparam csr_field_t SENVCFG_FIOM = '{CSR_SENVCFG, 0, 1};
+localparam csr_field_t SENVCFG_LPE = '{CSR_SENVCFG, 2, 1};
+localparam csr_field_t SENVCFG_SSE = '{CSR_SENVCFG, 3, 1};
+localparam csr_field_t SENVCFG_CBIE = '{CSR_SENVCFG, 4, 2};
+localparam csr_field_t SENVCFG_CBCFE = '{CSR_SENVCFG, 6, 1};
+localparam csr_field_t SENVCFG_CBZE = '{CSR_SENVCFG, 7, 1};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t SENVCFG_PMM = '{CSR_SENVCFG, 32, 2};
+`endif
+localparam csr_field_t SIE_LCOFIE = '{CSR_SIE, 13, 1};
+localparam csr_field_t SIE_SEIE = '{CSR_SIE, 9, 1};
+localparam csr_field_t SIE_SSIE = '{CSR_SIE, 1, 1};
+localparam csr_field_t SIE_STIE = '{CSR_SIE, 5, 1};
+localparam csr_field_t SIP_LCOFIP = '{CSR_SIP, 13, 1};
+localparam csr_field_t SIP_SEIP = '{CSR_SIP, 9, 1};
+localparam csr_field_t SIP_SSIP = '{CSR_SIP, 1, 1};
+localparam csr_field_t SIP_STIP = '{CSR_SIP, 5, 1};
+localparam csr_field_t SSTATUS_FS = '{CSR_SSTATUS, 13, 2};
+localparam csr_field_t SSTATUS_MXR = '{CSR_SSTATUS, 19, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t SSTATUS_SD = '{CSR_SSTATUS, 31, 1};
+`else
+localparam csr_field_t SSTATUS_SD = '{CSR_SSTATUS, 63, 1};
+`endif
+localparam csr_field_t SSTATUS_SIE = '{CSR_SSTATUS, 1, 1};
+localparam csr_field_t SSTATUS_SPELP = '{CSR_SSTATUS, 23, 1};
+localparam csr_field_t SSTATUS_SPIE = '{CSR_SSTATUS, 5, 1};
+localparam csr_field_t SSTATUS_SPP = '{CSR_SSTATUS, 8, 1};
+localparam csr_field_t SSTATUS_SUM = '{CSR_SSTATUS, 18, 1};
+localparam csr_field_t SSTATUS_UBE = '{CSR_SSTATUS, 6, 1};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t SSTATUS_UXL = '{CSR_SSTATUS, 32, 2};
+`endif
+localparam csr_field_t SSTATUS_VS = '{CSR_SSTATUS, 9, 2};
+localparam csr_field_t SSTATUS_XS = '{CSR_SSTATUS, 15, 2};
+localparam csr_field_t STVEC_MODE = '{CSR_STVEC, 0, 2};
+localparam csr_field_t TCONTROL_MPTE = '{CSR_TCONTROL, 7, 1};
+localparam csr_field_t TCONTROL_MTE = '{CSR_TCONTROL, 3, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t TDATA1_TYPE = '{CSR_TDATA1, 28, 4};
+`else
+localparam csr_field_t TDATA1_TYPE = '{CSR_TDATA1, 60, 4};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t TDATA1_DMODE = '{CSR_TDATA1, 27, 1};
+`else
+localparam csr_field_t TDATA1_DMODE = '{CSR_TDATA1, 59, 1};
+`endif
+localparam csr_field_t TDATA1_UNCERTAIN = '{CSR_TDATA1, 26, 1};
+localparam csr_field_t TDATA1_HIT1 = '{CSR_TDATA1, 25, 1};
+localparam csr_field_t TDATA1_VS = '{CSR_TDATA1, 24, 1};
+localparam csr_field_t TDATA1_VU = '{CSR_TDATA1, 23, 1};
+localparam csr_field_t TDATA1_HIT0 = '{CSR_TDATA1, 22, 1};
+localparam csr_field_t TDATA1_SELECT = '{CSR_TDATA1, 21, 1};
+localparam csr_field_t TDATA1_SIZE = '{CSR_TDATA1, 16, 3};
+localparam csr_field_t TDATA1_ACTION = '{CSR_TDATA1, 12, 4};
+localparam csr_field_t TDATA1_CHAIN = '{CSR_TDATA1, 11, 1};
+localparam csr_field_t TDATA1_MATCH = '{CSR_TDATA1, 7, 4};
+localparam csr_field_t TDATA1_M = '{CSR_TDATA1, 6, 1};
+localparam csr_field_t TDATA1_UNCERTAINEN = '{CSR_TDATA1, 5, 1};
+localparam csr_field_t TDATA1_S = '{CSR_TDATA1, 4, 1};
+localparam csr_field_t TDATA1_U = '{CSR_TDATA1, 3, 1};
+localparam csr_field_t TDATA1_EXECUTE = '{CSR_TDATA1, 2, 1};
+localparam csr_field_t TDATA1_STORE = '{CSR_TDATA1, 1, 1};
+localparam csr_field_t TDATA1_LOAD = '{CSR_TDATA1, 0, 1};
+localparam csr_field_t TINFO_INFO = '{CSR_TINFO, 0, 16};
+localparam csr_field_t VCSR_VXSAT = '{CSR_VCSR, 0, 1};
+localparam csr_field_t VCSR_VXRM = '{CSR_VCSR, 1, 2};
+localparam csr_field_t VL_VL = '{CSR_VL, 0, 16};
+localparam csr_field_t VLENB_VLENB = '{CSR_VLENB, 0, 13};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t VSATP_ASID = '{CSR_VSATP, 22, 9};
+`else
+localparam csr_field_t VSATP_ASID = '{CSR_VSATP, 44, 16};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t VSATP_MODE = '{CSR_VSATP, 31, 1};
+`else
+localparam csr_field_t VSATP_MODE = '{CSR_VSATP, 60, 4};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t VSCAUSE_CODE = '{CSR_VSCAUSE, 0, 31};
+`else
+localparam csr_field_t VSCAUSE_CODE = '{CSR_VSCAUSE, 0, 63};
+`endif
+localparam csr_field_t VSIE_SEIE = '{CSR_VSIE, 9, 1};
+localparam csr_field_t VSIE_SSIE = '{CSR_VSIE, 1, 1};
+localparam csr_field_t VSIE_STIE = '{CSR_VSIE, 5, 1};
+localparam csr_field_t VSIP_SEIP = '{CSR_VSIP, 9, 1};
+localparam csr_field_t VSIP_SSIP = '{CSR_VSIP, 1, 1};
+localparam csr_field_t VSIP_STIP = '{CSR_VSIP, 5, 1};
+localparam csr_field_t VSSTATUS_FS = '{CSR_VSSTATUS, 13, 2};
+localparam csr_field_t VSSTATUS_MXR = '{CSR_VSSTATUS, 19, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t VSSTATUS_SD = '{CSR_VSSTATUS, 31, 1};
+`else
+localparam csr_field_t VSSTATUS_SD = '{CSR_VSSTATUS, 63, 1};
+`endif
+localparam csr_field_t VSSTATUS_SIE = '{CSR_VSSTATUS, 1, 1};
+localparam csr_field_t VSSTATUS_SPELP = '{CSR_VSSTATUS, 23, 1};
+localparam csr_field_t VSSTATUS_SPIE = '{CSR_VSSTATUS, 5, 1};
+localparam csr_field_t VSSTATUS_SPP = '{CSR_VSSTATUS, 8, 1};
+localparam csr_field_t VSSTATUS_SUM = '{CSR_VSSTATUS, 18, 1};
+localparam csr_field_t VSSTATUS_UBE = '{CSR_VSSTATUS, 6, 1};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t VSSTATUS_UXL = '{CSR_VSSTATUS, 32, 2};
+`endif
+localparam csr_field_t VSSTATUS_VS = '{CSR_VSSTATUS, 9, 2};
+localparam csr_field_t VSSTATUS_XS = '{CSR_VSSTATUS, 15, 2};
+localparam csr_field_t VSTART_VSTART = '{CSR_VSTART, 0, 16};
+localparam csr_field_t VSTVEC_MODE = '{CSR_VSTVEC, 0, 2};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t VTYPE_VILL = '{CSR_VTYPE, 31, 1};
+`else
+localparam csr_field_t VTYPE_VILL = '{CSR_VTYPE, 63, 1};
+`endif
+localparam csr_field_t VTYPE_VLMUL = '{CSR_VTYPE, 0, 3};
+localparam csr_field_t VTYPE_VMA = '{CSR_VTYPE, 7, 1};
+localparam csr_field_t VTYPE_VSEW = '{CSR_VTYPE, 3, 3};
+localparam csr_field_t VTYPE_VTA = '{CSR_VTYPE, 6, 1};
+localparam csr_field_t VXRM_VXRM = '{CSR_VXRM, 0, 2};
+localparam csr_field_t VXSAT_VXSAT = '{CSR_VXSAT, 0, 1};
+localparam csr_field_t SSTATEEN0_FCSR = '{CSR_SSTATEEN0, 1, 1};
+localparam csr_field_t SSTATEEN0_JVT = '{CSR_SSTATEEN0, 2, 1};
+localparam csr_field_t MSTATEEN0_C = '{CSR_MSTATEEN0, 0, 1};
+localparam csr_field_t MSTATEEN0_FCSR = '{CSR_MSTATEEN0, 1, 1};
+localparam csr_field_t MSTATEEN0_JVT = '{CSR_MSTATEEN0, 2, 1};
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATEEN0_CTR = '{CSR_MSTATEEN0H, 22, 1};
+`else
+localparam csr_field_t MSTATEEN0_CTR = '{CSR_MSTATEEN0, 54, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATEEN0_SRMCFG = '{CSR_MSTATEEN0H, 23, 1};
+`else
+localparam csr_field_t MSTATEEN0_SRMCFG = '{CSR_MSTATEEN0, 55, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATEEN0_P1P13 = '{CSR_MSTATEEN0H, 24, 1};
+`else
+localparam csr_field_t MSTATEEN0_P1P13 = '{CSR_MSTATEEN0, 56, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATEEN0_CONTEXT = '{CSR_MSTATEEN0H, 25, 1};
+`else
+localparam csr_field_t MSTATEEN0_CONTEXT = '{CSR_MSTATEEN0, 57, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATEEN0_IMSIC = '{CSR_MSTATEEN0H, 26, 1};
+`else
+localparam csr_field_t MSTATEEN0_IMSIC = '{CSR_MSTATEEN0, 58, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATEEN0_AIA = '{CSR_MSTATEEN0H, 27, 1};
+`else
+localparam csr_field_t MSTATEEN0_AIA = '{CSR_MSTATEEN0, 59, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATEEN0_CSRIND = '{CSR_MSTATEEN0H, 28, 1};
+`else
+localparam csr_field_t MSTATEEN0_CSRIND = '{CSR_MSTATEEN0, 60, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATEEN0_ENVCFG = '{CSR_MSTATEEN0H, 30, 1};
+`else
+localparam csr_field_t MSTATEEN0_ENVCFG = '{CSR_MSTATEEN0, 62, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t MSTATEEN0_SE0 = '{CSR_MSTATEEN0H, 31, 1};
+`else
+localparam csr_field_t MSTATEEN0_SE0 = '{CSR_MSTATEEN0, 63, 1};
+`endif
+localparam csr_field_t PMPCFG4_PMP16CFG_A = '{CSR_PMPCFG4, 3, 2};
+localparam csr_field_t PMPCFG4_PMP16CFG_L = '{CSR_PMPCFG4, 7, 1};
+localparam csr_field_t PMPCFG4_PMP16CFG_XWR = '{CSR_PMPCFG4, 0, 3};
+localparam csr_field_t PMPCFG4_PMP17CFG_A = '{CSR_PMPCFG4, 11, 2};
+localparam csr_field_t PMPCFG4_PMP17CFG_L = '{CSR_PMPCFG4, 15, 1};
+localparam csr_field_t PMPCFG4_PMP17CFG_XWR = '{CSR_PMPCFG4, 8, 3};
+localparam csr_field_t PMPCFG4_PMP18CFG_A = '{CSR_PMPCFG4, 19, 2};
+localparam csr_field_t PMPCFG4_PMP18CFG_L = '{CSR_PMPCFG4, 23, 1};
+localparam csr_field_t PMPCFG4_PMP18CFG_XWR = '{CSR_PMPCFG4, 16, 3};
+localparam csr_field_t PMPCFG4_PMP19CFG_A = '{CSR_PMPCFG4, 27, 2};
+localparam csr_field_t PMPCFG4_PMP19CFG_L = '{CSR_PMPCFG4, 31, 1};
+localparam csr_field_t PMPCFG4_PMP19CFG_XWR = '{CSR_PMPCFG4, 24, 3};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP20CFG_A = '{CSR_PMPCFG4, 35, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP20CFG_L = '{CSR_PMPCFG4, 39, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP20CFG_XWR = '{CSR_PMPCFG4, 32, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP21CFG_A = '{CSR_PMPCFG4, 43, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP21CFG_L = '{CSR_PMPCFG4, 47, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP21CFG_XWR = '{CSR_PMPCFG4, 40, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP22CFG_A = '{CSR_PMPCFG4, 51, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP22CFG_L = '{CSR_PMPCFG4, 55, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP22CFG_XWR = '{CSR_PMPCFG4, 48, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP23CFG_A = '{CSR_PMPCFG4, 59, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP23CFG_L = '{CSR_PMPCFG4, 63, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG4_PMP23CFG_XWR = '{CSR_PMPCFG4, 56, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP20CFG_A = '{CSR_PMPCFG5, 3, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP20CFG_L = '{CSR_PMPCFG5, 7, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP20CFG_XWR = '{CSR_PMPCFG5, 0, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP21CFG_A = '{CSR_PMPCFG5, 11, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP21CFG_L = '{CSR_PMPCFG5, 15, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP21CFG_XWR = '{CSR_PMPCFG5, 8, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP22CFG_A = '{CSR_PMPCFG5, 19, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP22CFG_L = '{CSR_PMPCFG5, 23, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP22CFG_XWR = '{CSR_PMPCFG5, 16, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP23CFG_A = '{CSR_PMPCFG5, 27, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP23CFG_L = '{CSR_PMPCFG5, 31, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG5_PMP23CFG_XWR = '{CSR_PMPCFG5, 24, 3};
+`endif
+localparam csr_field_t PMPCFG6_PMP24CFG_A = '{CSR_PMPCFG6, 3, 2};
+localparam csr_field_t PMPCFG6_PMP24CFG_L = '{CSR_PMPCFG6, 7, 1};
+localparam csr_field_t PMPCFG6_PMP24CFG_XWR = '{CSR_PMPCFG6, 0, 3};
+localparam csr_field_t PMPCFG6_PMP25CFG_A = '{CSR_PMPCFG6, 11, 2};
+localparam csr_field_t PMPCFG6_PMP25CFG_L = '{CSR_PMPCFG6, 15, 1};
+localparam csr_field_t PMPCFG6_PMP25CFG_XWR = '{CSR_PMPCFG6, 8, 3};
+localparam csr_field_t PMPCFG6_PMP26CFG_A = '{CSR_PMPCFG6, 19, 2};
+localparam csr_field_t PMPCFG6_PMP26CFG_L = '{CSR_PMPCFG6, 23, 1};
+localparam csr_field_t PMPCFG6_PMP26CFG_XWR = '{CSR_PMPCFG6, 16, 3};
+localparam csr_field_t PMPCFG6_PMP27CFG_A = '{CSR_PMPCFG6, 27, 2};
+localparam csr_field_t PMPCFG6_PMP27CFG_L = '{CSR_PMPCFG6, 31, 1};
+localparam csr_field_t PMPCFG6_PMP27CFG_XWR = '{CSR_PMPCFG6, 24, 3};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP28CFG_A = '{CSR_PMPCFG6, 35, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP28CFG_L = '{CSR_PMPCFG6, 39, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP28CFG_XWR = '{CSR_PMPCFG6, 32, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP29CFG_A = '{CSR_PMPCFG6, 43, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP29CFG_L = '{CSR_PMPCFG6, 47, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP29CFG_XWR = '{CSR_PMPCFG6, 40, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP30CFG_A = '{CSR_PMPCFG6, 51, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP30CFG_L = '{CSR_PMPCFG6, 55, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP30CFG_XWR = '{CSR_PMPCFG6, 48, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP31CFG_A = '{CSR_PMPCFG6, 59, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP31CFG_L = '{CSR_PMPCFG6, 63, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG6_PMP31CFG_XWR = '{CSR_PMPCFG6, 56, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP28CFG_A = '{CSR_PMPCFG7, 3, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP28CFG_L = '{CSR_PMPCFG7, 7, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP28CFG_XWR = '{CSR_PMPCFG7, 0, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP29CFG_A = '{CSR_PMPCFG7, 11, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP29CFG_L = '{CSR_PMPCFG7, 15, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP29CFG_XWR = '{CSR_PMPCFG7, 8, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP30CFG_A = '{CSR_PMPCFG7, 19, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP30CFG_L = '{CSR_PMPCFG7, 23, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP30CFG_XWR = '{CSR_PMPCFG7, 16, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP31CFG_A = '{CSR_PMPCFG7, 27, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP31CFG_L = '{CSR_PMPCFG7, 31, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG7_PMP31CFG_XWR = '{CSR_PMPCFG7, 24, 3};
+`endif
+localparam csr_field_t PMPCFG8_PMP32CFG_A = '{CSR_PMPCFG8, 3, 2};
+localparam csr_field_t PMPCFG8_PMP32CFG_L = '{CSR_PMPCFG8, 7, 1};
+localparam csr_field_t PMPCFG8_PMP32CFG_XWR = '{CSR_PMPCFG8, 0, 3};
+localparam csr_field_t PMPCFG8_PMP33CFG_A = '{CSR_PMPCFG8, 11, 2};
+localparam csr_field_t PMPCFG8_PMP33CFG_L = '{CSR_PMPCFG8, 15, 1};
+localparam csr_field_t PMPCFG8_PMP33CFG_XWR = '{CSR_PMPCFG8, 8, 3};
+localparam csr_field_t PMPCFG8_PMP34CFG_A = '{CSR_PMPCFG8, 19, 2};
+localparam csr_field_t PMPCFG8_PMP34CFG_L = '{CSR_PMPCFG8, 23, 1};
+localparam csr_field_t PMPCFG8_PMP34CFG_XWR = '{CSR_PMPCFG8, 16, 3};
+localparam csr_field_t PMPCFG8_PMP35CFG_A = '{CSR_PMPCFG8, 27, 2};
+localparam csr_field_t PMPCFG8_PMP35CFG_L = '{CSR_PMPCFG8, 31, 1};
+localparam csr_field_t PMPCFG8_PMP35CFG_XWR = '{CSR_PMPCFG8, 24, 3};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP36CFG_A = '{CSR_PMPCFG8, 35, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP36CFG_L = '{CSR_PMPCFG8, 39, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP36CFG_XWR = '{CSR_PMPCFG8, 32, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP37CFG_A = '{CSR_PMPCFG8, 43, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP37CFG_L = '{CSR_PMPCFG8, 47, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP37CFG_XWR = '{CSR_PMPCFG8, 40, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP38CFG_A = '{CSR_PMPCFG8, 51, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP38CFG_L = '{CSR_PMPCFG8, 55, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP38CFG_XWR = '{CSR_PMPCFG8, 48, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP39CFG_A = '{CSR_PMPCFG8, 59, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP39CFG_L = '{CSR_PMPCFG8, 63, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG8_PMP39CFG_XWR = '{CSR_PMPCFG8, 56, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP36CFG_A = '{CSR_PMPCFG9, 3, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP36CFG_L = '{CSR_PMPCFG9, 7, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP36CFG_XWR = '{CSR_PMPCFG9, 0, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP37CFG_A = '{CSR_PMPCFG9, 11, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP37CFG_L = '{CSR_PMPCFG9, 15, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP37CFG_XWR = '{CSR_PMPCFG9, 8, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP38CFG_A = '{CSR_PMPCFG9, 19, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP38CFG_L = '{CSR_PMPCFG9, 23, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP38CFG_XWR = '{CSR_PMPCFG9, 16, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP39CFG_A = '{CSR_PMPCFG9, 27, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP39CFG_L = '{CSR_PMPCFG9, 31, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG9_PMP39CFG_XWR = '{CSR_PMPCFG9, 24, 3};
+`endif
+localparam csr_field_t PMPCFG10_PMP40CFG_A = '{CSR_PMPCFG10, 3, 2};
+localparam csr_field_t PMPCFG10_PMP40CFG_L = '{CSR_PMPCFG10, 7, 1};
+localparam csr_field_t PMPCFG10_PMP40CFG_XWR = '{CSR_PMPCFG10, 0, 3};
+localparam csr_field_t PMPCFG10_PMP41CFG_A = '{CSR_PMPCFG10, 11, 2};
+localparam csr_field_t PMPCFG10_PMP41CFG_L = '{CSR_PMPCFG10, 15, 1};
+localparam csr_field_t PMPCFG10_PMP41CFG_XWR = '{CSR_PMPCFG10, 8, 3};
+localparam csr_field_t PMPCFG10_PMP42CFG_A = '{CSR_PMPCFG10, 19, 2};
+localparam csr_field_t PMPCFG10_PMP42CFG_L = '{CSR_PMPCFG10, 23, 1};
+localparam csr_field_t PMPCFG10_PMP42CFG_XWR = '{CSR_PMPCFG10, 16, 3};
+localparam csr_field_t PMPCFG10_PMP43CFG_A = '{CSR_PMPCFG10, 27, 2};
+localparam csr_field_t PMPCFG10_PMP43CFG_L = '{CSR_PMPCFG10, 31, 1};
+localparam csr_field_t PMPCFG10_PMP43CFG_XWR = '{CSR_PMPCFG10, 24, 3};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP44CFG_A = '{CSR_PMPCFG10, 35, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP44CFG_L = '{CSR_PMPCFG10, 39, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP44CFG_XWR = '{CSR_PMPCFG10, 32, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP45CFG_A = '{CSR_PMPCFG10, 43, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP45CFG_L = '{CSR_PMPCFG10, 47, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP45CFG_XWR = '{CSR_PMPCFG10, 40, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP46CFG_A = '{CSR_PMPCFG10, 51, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP46CFG_L = '{CSR_PMPCFG10, 55, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP46CFG_XWR = '{CSR_PMPCFG10, 48, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP47CFG_A = '{CSR_PMPCFG10, 59, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP47CFG_L = '{CSR_PMPCFG10, 63, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG10_PMP47CFG_XWR = '{CSR_PMPCFG10, 56, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP44CFG_A = '{CSR_PMPCFG11, 3, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP44CFG_L = '{CSR_PMPCFG11, 7, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP44CFG_XWR = '{CSR_PMPCFG11, 0, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP45CFG_A = '{CSR_PMPCFG11, 11, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP45CFG_L = '{CSR_PMPCFG11, 15, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP45CFG_XWR = '{CSR_PMPCFG11, 8, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP46CFG_A = '{CSR_PMPCFG11, 19, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP46CFG_L = '{CSR_PMPCFG11, 23, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP46CFG_XWR = '{CSR_PMPCFG11, 16, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP47CFG_A = '{CSR_PMPCFG11, 27, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP47CFG_L = '{CSR_PMPCFG11, 31, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG11_PMP47CFG_XWR = '{CSR_PMPCFG11, 24, 3};
+`endif
+localparam csr_field_t PMPCFG12_PMP48CFG_A = '{CSR_PMPCFG12, 3, 2};
+localparam csr_field_t PMPCFG12_PMP48CFG_L = '{CSR_PMPCFG12, 7, 1};
+localparam csr_field_t PMPCFG12_PMP48CFG_XWR = '{CSR_PMPCFG12, 0, 3};
+localparam csr_field_t PMPCFG12_PMP49CFG_A = '{CSR_PMPCFG12, 11, 2};
+localparam csr_field_t PMPCFG12_PMP49CFG_L = '{CSR_PMPCFG12, 15, 1};
+localparam csr_field_t PMPCFG12_PMP49CFG_XWR = '{CSR_PMPCFG12, 8, 3};
+localparam csr_field_t PMPCFG12_PMP50CFG_A = '{CSR_PMPCFG12, 19, 2};
+localparam csr_field_t PMPCFG12_PMP50CFG_L = '{CSR_PMPCFG12, 23, 1};
+localparam csr_field_t PMPCFG12_PMP50CFG_XWR = '{CSR_PMPCFG12, 16, 3};
+localparam csr_field_t PMPCFG12_PMP51CFG_A = '{CSR_PMPCFG12, 27, 2};
+localparam csr_field_t PMPCFG12_PMP51CFG_L = '{CSR_PMPCFG12, 31, 1};
+localparam csr_field_t PMPCFG12_PMP51CFG_XWR = '{CSR_PMPCFG12, 24, 3};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP52CFG_A = '{CSR_PMPCFG12, 35, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP52CFG_L = '{CSR_PMPCFG12, 39, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP52CFG_XWR = '{CSR_PMPCFG12, 32, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP53CFG_A = '{CSR_PMPCFG12, 43, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP53CFG_L = '{CSR_PMPCFG12, 47, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP53CFG_XWR = '{CSR_PMPCFG12, 40, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP54CFG_A = '{CSR_PMPCFG12, 51, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP54CFG_L = '{CSR_PMPCFG12, 55, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP54CFG_XWR = '{CSR_PMPCFG12, 48, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP55CFG_A = '{CSR_PMPCFG12, 59, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP55CFG_L = '{CSR_PMPCFG12, 63, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG12_PMP55CFG_XWR = '{CSR_PMPCFG12, 56, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP52CFG_A = '{CSR_PMPCFG13, 3, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP52CFG_L = '{CSR_PMPCFG13, 7, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP52CFG_XWR = '{CSR_PMPCFG13, 0, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP53CFG_A = '{CSR_PMPCFG13, 11, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP53CFG_L = '{CSR_PMPCFG13, 15, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP53CFG_XWR = '{CSR_PMPCFG13, 8, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP54CFG_A = '{CSR_PMPCFG13, 19, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP54CFG_L = '{CSR_PMPCFG13, 23, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP54CFG_XWR = '{CSR_PMPCFG13, 16, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP55CFG_A = '{CSR_PMPCFG13, 27, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP55CFG_L = '{CSR_PMPCFG13, 31, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG13_PMP55CFG_XWR = '{CSR_PMPCFG13, 24, 3};
+`endif
+localparam csr_field_t PMPCFG14_PMP56CFG_A = '{CSR_PMPCFG14, 3, 2};
+localparam csr_field_t PMPCFG14_PMP56CFG_L = '{CSR_PMPCFG14, 7, 1};
+localparam csr_field_t PMPCFG14_PMP56CFG_XWR = '{CSR_PMPCFG14, 0, 3};
+localparam csr_field_t PMPCFG14_PMP57CFG_A = '{CSR_PMPCFG14, 11, 2};
+localparam csr_field_t PMPCFG14_PMP57CFG_L = '{CSR_PMPCFG14, 15, 1};
+localparam csr_field_t PMPCFG14_PMP57CFG_XWR = '{CSR_PMPCFG14, 8, 3};
+localparam csr_field_t PMPCFG14_PMP58CFG_A = '{CSR_PMPCFG14, 19, 2};
+localparam csr_field_t PMPCFG14_PMP58CFG_L = '{CSR_PMPCFG14, 23, 1};
+localparam csr_field_t PMPCFG14_PMP58CFG_XWR = '{CSR_PMPCFG14, 16, 3};
+localparam csr_field_t PMPCFG14_PMP59CFG_A = '{CSR_PMPCFG14, 27, 2};
+localparam csr_field_t PMPCFG14_PMP59CFG_L = '{CSR_PMPCFG14, 31, 1};
+localparam csr_field_t PMPCFG14_PMP59CFG_XWR = '{CSR_PMPCFG14, 24, 3};
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP60CFG_A = '{CSR_PMPCFG14, 35, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP60CFG_L = '{CSR_PMPCFG14, 39, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP60CFG_XWR = '{CSR_PMPCFG14, 32, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP61CFG_A = '{CSR_PMPCFG14, 43, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP61CFG_L = '{CSR_PMPCFG14, 47, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP61CFG_XWR = '{CSR_PMPCFG14, 40, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP62CFG_A = '{CSR_PMPCFG14, 51, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP62CFG_L = '{CSR_PMPCFG14, 55, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP62CFG_XWR = '{CSR_PMPCFG14, 48, 3};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP63CFG_A = '{CSR_PMPCFG14, 59, 2};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP63CFG_L = '{CSR_PMPCFG14, 63, 1};
+`endif
+`ifdef UDB_MXLEN_64
+localparam csr_field_t PMPCFG14_PMP63CFG_XWR = '{CSR_PMPCFG14, 56, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP60CFG_A = '{CSR_PMPCFG15, 3, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP60CFG_L = '{CSR_PMPCFG15, 7, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP60CFG_XWR = '{CSR_PMPCFG15, 0, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP61CFG_A = '{CSR_PMPCFG15, 11, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP61CFG_L = '{CSR_PMPCFG15, 15, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP61CFG_XWR = '{CSR_PMPCFG15, 8, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP62CFG_A = '{CSR_PMPCFG15, 19, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP62CFG_L = '{CSR_PMPCFG15, 23, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP62CFG_XWR = '{CSR_PMPCFG15, 16, 3};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP63CFG_A = '{CSR_PMPCFG15, 27, 2};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP63CFG_L = '{CSR_PMPCFG15, 31, 1};
+`endif
+`ifdef UDB_MXLEN_32
+localparam csr_field_t PMPCFG15_PMP63CFG_XWR = '{CSR_PMPCFG15, 24, 3};
+`endif
 
-  case (addr)
-    CSR_DCSR: begin
-      case(field)
-        "cause" : val = (val >> 6) & 'h7;
-        "ebreakm" : val = (val >> 15) & 'h1;
-        "ebreaks" : val = (val >> 13) & 'h1;
-        "ebreaku" : val = (val >> 12) & 'h1;
-        "mprven" : val = (val >> 4) & 'h1;
-        "nmip" : val = (val >> 3) & 'h1;
-        "prv" : val = val & 'h3;
-        "step" : val = (val >> 2) & 'h1;
-        "stepie" : val = (val >> 11) & 'h1;
-        "stopcount" : val = (val >> 10) & 'h1;
-        "stoptime" : val = (val >> 9) & 'h1;
-        "xdebugver" : val = (val >> 28) & 'hf;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_FCSR: begin
-      case(field)
-        "fflags" : val = val & 'h1f;
-        "frm" : val = (val >> 5) & 'h7;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_FFLAGS: begin
-      case(field)
-        "fflags" : val = val & 'h1f;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_FRM: begin
-      case(field)
-        "frm" : val = val & 'h7;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HCOUNTEREN: begin
-      case(field)
-        "cy" : val = val & 'h1;
-        "enable" : val = (val >> 3) & 'h1fffffff;
-        "ir" : val = (val >> 2) & 'h1;
-        "tm" : val = (val >> 1) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HEDELEG: begin
-      case(field)
-        "deleg" : val = val & `UDB_MXLEN'(32'hffff_ffff);
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HENVCFG: begin
-      case(field)
-        "fiom" : val = val & 'h1;
-        "lpe" : val = (val >> 2) & 'h1;
-        "sse" : val = (val >> 3) & 'h1;
-        "cbie" : val = (val >> 4) & 'h3;
-        "cbcfe" : val = (val >> 6) & 'h1;
-        "cbze" : val = (val >> 7) & 'h1;
-`ifdef UDB_MXLEN_64
-        "pmm" : val = (val >> 32) & 64'h3;
-        "dte" : val = (val >> 59) & 64'h1;
-        "adue" : val = (val >> 61) & 64'h1;
-        "pbmte" : val = (val >> 62) & 64'h1;
-        "stce" : val = (val >> 63) & 64'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HENVCFGH: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "dte" : val = (val >> 27) & 32'h1;
-        "adue" : val = (val >> 29) & 32'h1;
-        "pbmte" : val = (val >> 30) & 32'h1;
-        "stce" : val = (val >> 31) & 32'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HGATP: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "vmid" : val = (val >> 22) & 32'h7f;
-`endif
-`ifdef UDB_MXLEN_64
-        "vmid" : val = (val >> 44) & 64'h3fff;
-`endif
-`ifdef UDB_MXLEN_32
-        "mode" : val = (val >> 31) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "mode" : val = (val >> 60) & 64'hf;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HGEIE: begin
-      case(field)
-        "enable" : val = (val >> 1) & 'h7fffffff;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HGEIP: begin
-      case(field)
-        "pending" : val = (val >> 1) & 'h7fffffff;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HIDELEG: begin
-      case(field)
-        "meip" : val = (val >> 11) & 'h1;
-        "msip" : val = (val >> 3) & 'h1;
-        "mtip" : val = (val >> 7) & 'h1;
-        "seip" : val = (val >> 9) & 'h1;
-        "sgeip" : val = (val >> 12) & 'h1;
-        "ssip" : val = (val >> 1) & 'h1;
-        "stip" : val = (val >> 5) & 'h1;
-        "vgeip" : val = (val >> 10) & 'h1;
-        "vssip" : val = (val >> 2) & 'h1;
-        "vstip" : val = (val >> 6) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HIE: begin
-      case(field)
-        "sgeie" : val = (val >> 12) & 'h1;
-        "vseie" : val = (val >> 10) & 'h1;
-        "vssie" : val = (val >> 2) & 'h1;
-        "vstie" : val = (val >> 6) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HIP: begin
-      case(field)
-        "sgeip" : val = (val >> 12) & 'h1;
-        "vseip" : val = (val >> 10) & 'h1;
-        "vssip" : val = (val >> 2) & 'h1;
-        "vstip" : val = (val >> 6) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HSTATEEN0: begin
-      case(field)
-        "c" : val = val & 'h1;
-        "fcsr" : val = (val >> 1) & 'h1;
-        "jvt" : val = (val >> 2) & 'h1;
-`ifdef UDB_MXLEN_64
-        "ctr" : val = (val >> 54) & 64'h1;
-        "context" : val = (val >> 57) & 64'h1;
-        "imsic" : val = (val >> 58) & 64'h1;
-        "aia" : val = (val >> 59) & 64'h1;
-        "csrind" : val = (val >> 60) & 64'h1;
-        "envcfg" : val = (val >> 62) & 64'h1;
-        "se0" : val = (val >> 63) & 64'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HSTATEEN0H: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "ctr" : val = (val >> 22) & 32'h1;
-        "context" : val = (val >> 25) & 32'h1;
-        "imsic" : val = (val >> 26) & 32'h1;
-        "aia" : val = (val >> 27) & 32'h1;
-        "csrind" : val = (val >> 28) & 32'h1;
-        "envcfg" : val = (val >> 30) & 32'h1;
-        "se0" : val = (val >> 31) & 32'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HSTATUS: begin
-      case(field)
-        "gva" : val = (val >> 6) & 'h1;
-        "hu" : val = (val >> 9) & 'h1;
-`ifdef UDB_MXLEN_64
-        "hupmm" : val = (val >> 48) & 64'h3;
-`endif
-        "spv" : val = (val >> 7) & 'h1;
-        "spvp" : val = (val >> 8) & 'h1;
-        "vsbe" : val = (val >> 5) & 'h1;
-`ifdef UDB_MXLEN_64
-        "vsxl" : val = (val >> 32) & 64'h3;
-`endif
-        "vtsr" : val = (val >> 22) & 'h1;
-        "vtvm" : val = (val >> 20) & 'h1;
-        "vtw" : val = (val >> 21) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_HVIP: begin
-      case(field)
-        "vseip" : val = (val >> 10) & 'h1;
-        "vssip" : val = (val >> 2) & 'h1;
-        "vstip" : val = (val >> 6) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_JVT: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "base" : val = (val >> 6) & 32'h3ffffff;
-`endif
-`ifdef UDB_MXLEN_64
-        "base" : val = (val >> 6) & 64'h3ffffffffffffff;
-`endif
-        "mode" : val = val & 'h3f;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MCAUSE: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "code" : val = val & 32'h7fffffff;
-`endif
-`ifdef UDB_MXLEN_64
-        "code" : val = val & 64'h7fffffffffffffff;
-`endif
-`ifdef UDB_MXLEN_32
-        "int" : val = val & 32'hffffffff;
-`endif
-`ifdef UDB_MXLEN_64
-        "int" : val = val & 64'hffffffffffffffff;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MCOUNTEREN: begin
-      case(field)
-        "cy" : val = val & 'h1;
-        "enable" : val = (val >> 3) & 'h1fffffff;
-        "ir" : val = (val >> 2) & 'h1;
-        "tm" : val = (val >> 1) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MCOUNTINHIBIT: begin
-      case(field)
-        "cy" : val = val & 'h1;
-        "inhibit" : val = (val >> 3) & 'h1fffffff;
-        "ir" : val = (val >> 2) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MCYCLECFG: begin
-      case(field)
-`ifdef UDB_MXLEN_64
-        "minh" : val = (val >> 62) & 64'h1;
-        "sinh" : val = (val >> 61) & 64'h1;
-        "uinh" : val = (val >> 60) & 64'h1;
-        "vsinh" : val = (val >> 59) & 64'h1;
-        "vuinh" : val = (val >> 58) & 64'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MCYCLECFGH: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "minh" : val = (val >> 30) & 32'h1;
-        "sinh" : val = (val >> 29) & 32'h1;
-        "uinh" : val = (val >> 28) & 32'h1;
-        "vsinh" : val = (val >> 27) & 32'h1;
-        "vuinh" : val = (val >> 26) & 32'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MEDELEG: begin
-      case(field)
-        "deleg" : val = val & `UDB_MXLEN'(32'hffff_ffff);
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MENVCFG: begin
-      case(field)
-        "fiom" : val = val & 'h1;
-        "lpe" : val = (val >> 2) & 'h1;
-        "sse" : val = (val >> 3) & 'h1;
-        "cbie" : val = (val >> 4) & 'h3;
-        "cbcfe" : val = (val >> 6) & 'h1;
-        "cbze" : val = (val >> 7) & 'h1;
-`ifdef UDB_MXLEN_64
-        "pmm" : val = (val >> 32) & 64'h3;
-        "dte" : val = (val >> 59) & 64'h1;
-        "cde" : val = (val >> 60) & 64'h1;
-        "adue" : val = (val >> 61) & 64'h1;
-        "pbmte" : val = (val >> 62) & 64'h1;
-        "stce" : val = (val >> 63) & 64'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MENVCFGH: begin
-      case(field)
-        "adue" : val = (val >> 29) & `UDB_MXLEN'(1);
-        "cde" : val = (val >> 28) & `UDB_MXLEN'(1);
-        "dte" : val = (val >> 27) & `UDB_MXLEN'(1);
-        "stce" : val = (val >> 31) & `UDB_MXLEN'(1);
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MIDELEG: begin
-      case(field)
-        "lcofip" : val = (val >> 13) & 'h1;
-        "meip" : val = (val >> 11) & 'h1;
-        "msip" : val = (val >> 3) & 'h1;
-        "mtip" : val = (val >> 7) & 'h1;
-        "seip" : val = (val >> 9) & 'h1;
-        "sgeip" : val = (val >> 12) & 'h1;
-        "ssip" : val = (val >> 1) & 'h1;
-        "stip" : val = (val >> 5) & 'h1;
-        "vgeip" : val = (val >> 10) & 'h1;
-        "vssip" : val = (val >> 2) & 'h1;
-        "vstip" : val = (val >> 6) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MIE: begin
-      case(field)
-        "lcofie" : val = (val >> 13) & 'h1;
-        "meie" : val = (val >> 11) & 'h1;
-        "msie" : val = (val >> 3) & 'h1;
-        "mtie" : val = (val >> 7) & 'h1;
-        "seie" : val = (val >> 9) & 'h1;
-        "sgeie" : val = (val >> 12) & 'h1;
-        "ssie" : val = (val >> 1) & 'h1;
-        "stie" : val = (val >> 5) & 'h1;
-        "vgeie" : val = (val >> 10) & 'h1;
-        "vssie" : val = (val >> 2) & 'h1;
-        "vstie" : val = (val >> 6) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MINSTRETCFG: begin
-      case(field)
-`ifdef UDB_MXLEN_64
-        "minh" : val = (val >> 62) & 64'h1;
-        "sinh" : val = (val >> 61) & 64'h1;
-        "uinh" : val = (val >> 60) & 64'h1;
-        "vsinh" : val = (val >> 59) & 64'h1;
-        "vuinh" : val = (val >> 58) & 64'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MINSTRETCFGH: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "minh" : val = (val >> 30) & 32'h1;
-        "sinh" : val = (val >> 29) & 32'h1;
-        "uinh" : val = (val >> 28) & 32'h1;
-        "vsinh" : val = (val >> 27) & 32'h1;
-        "vuinh" : val = (val >> 26) & 32'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MIP: begin
-      case(field)
-        "lcofip" : val = (val >> 13) & 'h1;
-        "meip" : val = (val >> 11) & 'h1;
-        "msip" : val = (val >> 3) & 'h1;
-        "mtip" : val = (val >> 7) & 'h1;
-        "seip" : val = (val >> 9) & 'h1;
-        "sgeip" : val = (val >> 12) & 'h1;
-        "ssip" : val = (val >> 1) & 'h1;
-        "stip" : val = (val >> 5) & 'h1;
-        "vgeip" : val = (val >> 10) & 'h1;
-        "vssip" : val = (val >> 2) & 'h1;
-        "vstip" : val = (val >> 6) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MISA: begin
-      case(field)
-        "exts" : val = val & 'h3ffffff;
-`ifdef UDB_MXLEN_32
-        "mxl" : val = (val >> 30) & 32'h3;
-`endif
-`ifdef UDB_MXLEN_64
-        "mxl" : val = (val >> 62) & 64'h3;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MSECCFG: begin
-      case(field)
-        "mml" : val = val & 'h1;
-        "mmwp" : val = (val >> 1) & 'h1;
-        "rlb" : val = (val >> 2) & 'h1;
-        "useed" : val = (val >> 8) & 'h1;
-        "sseed" : val = (val >> 9) & 'h1;
-        "mlpe" : val = (val >> 10) & 'h1;
-`ifdef UDB_MXLEN_64
-        "pmm" : val = (val >> 32) & 64'h3;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MSTATUS: begin
-      case(field)
-        "fs" : val = (val >> 13) & 'h3;
-`ifdef UDB_MXLEN_64
-        "gva" : val = (val >> 38) & 64'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "mbe" : val = (val >> 37) & 64'h1;
-`endif
-        "mie" : val = (val >> 3) & 'h1;
-`ifdef UDB_MXLEN_64
-        "mpelp" : val = (val >> 41) & 64'h1;
-`endif
-        "mpie" : val = (val >> 7) & 'h1;
-        "mpp" : val = (val >> 11) & 'h3;
-        "mprv" : val = (val >> 17) & 'h1;
-`ifdef UDB_MXLEN_64
-        "mpv" : val = (val >> 39) & 64'h1;
-`endif
-        "mxr" : val = (val >> 19) & 'h1;
-`ifdef UDB_MXLEN_64
-        "sbe" : val = (val >> 36) & 64'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "sd" : val = (val >> 31) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "sd" : val = (val >> 63) & 64'h1;
-`endif
-        "sie" : val = (val >> 1) & 'h1;
-        "spelp" : val = (val >> 23) & 'h1;
-        "spie" : val = (val >> 5) & 'h1;
-        "spp" : val = (val >> 8) & 'h1;
-        "sum" : val = (val >> 18) & 'h1;
-`ifdef UDB_MXLEN_64
-        "sxl" : val = (val >> 34) & 64'h3;
-`endif
-        "tsr" : val = (val >> 22) & 'h1;
-        "tvm" : val = (val >> 20) & 'h1;
-        "tw" : val = (val >> 21) & 'h1;
-        "ube" : val = (val >> 6) & 'h1;
-`ifdef UDB_MXLEN_64
-        "uxl" : val = (val >> 32) & 64'h3;
-`endif
-        "vs" : val = (val >> 9) & 'h3;
-        "xs" : val = (val >> 15) & 'h3;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MSTATUSH: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "gva" : val = (val >> 6) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "mbe" : val = (val >> 5) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "mpelp" : val = (val >> 9) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "mpv" : val = (val >> 7) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "sbe" : val = (val >> 4) & 32'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MTVEC: begin
-      case(field)
-        "mode" : val = val & 'h3;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG0: begin
-      case(field)
-        "pmp0cfg_a" : val = (val >> 3) & 'h3;
-        "pmp0cfg_l" : val = (val >> 7) & 'h1;
-        "pmp0cfg_xwr" : val = val & 'h7;
-        "pmp1cfg_a" : val = (val >> 11) & 'h3;
-        "pmp1cfg_l" : val = (val >> 15) & 'h1;
-        "pmp1cfg_xwr" : val = (val >> 8) & 'h7;
-        "pmp2cfg_a" : val = (val >> 19) & 'h3;
-        "pmp2cfg_l" : val = (val >> 23) & 'h1;
-        "pmp2cfg_xwr" : val = (val >> 16) & 'h7;
-        "pmp3cfg_a" : val = (val >> 27) & 'h3;
-        "pmp3cfg_l" : val = (val >> 31) & 'h1;
-        "pmp3cfg_xwr" : val = (val >> 24) & 'h7;
-`ifdef UDB_MXLEN_64
-        "pmp4cfg_a" : val = (val >> 35) & 64'h3;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp4cfg_l" : val = (val >> 39) & 64'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp4cfg_xwr" : val = (val >> 32) & 64'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp5cfg_a" : val = (val >> 43) & 64'h3;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp5cfg_l" : val = (val >> 47) & 64'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp5cfg_xwr" : val = (val >> 40) & 64'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp6cfg_a" : val = (val >> 51) & 64'h3;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp6cfg_l" : val = (val >> 55) & 64'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp6cfg_xwr" : val = (val >> 48) & 64'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp7cfg_a" : val = (val >> 59) & 64'h3;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp7cfg_l" : val = (val >> 63) & 64'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp7cfg_xwr" : val = (val >> 56) & 64'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG1: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp4cfg_a" : val = (val >> 3) & 32'h3;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp4cfg_l" : val = (val >> 7) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp4cfg_xwr" : val = val & 32'h7;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp5cfg_a" : val = (val >> 11) & 32'h3;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp5cfg_l" : val = (val >> 15) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp5cfg_xwr" : val = (val >> 8) & 32'h7;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp6cfg_a" : val = (val >> 19) & 32'h3;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp6cfg_l" : val = (val >> 23) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp6cfg_xwr" : val = (val >> 16) & 32'h7;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp7cfg_a" : val = (val >> 27) & 32'h3;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp7cfg_l" : val = (val >> 31) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp7cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG2: begin
-      case(field)
-        "pmp10cfg_a" : val = (val >> 19) & 'h3;
-        "pmp10cfg_l" : val = (val >> 23) & 'h1;
-        "pmp10cfg_xwr" : val = (val >> 16) & 'h7;
-        "pmp11cfg_a" : val = (val >> 27) & 'h3;
-        "pmp11cfg_l" : val = (val >> 31) & 'h1;
-        "pmp11cfg_xwr" : val = (val >> 24) & 'h7;
-`ifdef UDB_MXLEN_64
-        "pmp12cfg_a" : val = (val >> 35) & 64'h3;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp12cfg_l" : val = (val >> 39) & 64'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp12cfg_xwr" : val = (val >> 32) & 64'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp13cfg_a" : val = (val >> 43) & 64'h3;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp13cfg_l" : val = (val >> 47) & 64'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp13cfg_xwr" : val = (val >> 40) & 64'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp14cfg_a" : val = (val >> 51) & 64'h3;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp14cfg_l" : val = (val >> 55) & 64'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp14cfg_xwr" : val = (val >> 48) & 64'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp15cfg_a" : val = (val >> 59) & 64'h3;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp15cfg_l" : val = (val >> 63) & 64'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp15cfg_xwr" : val = (val >> 56) & 64'h7;
-`endif
-        "pmp8cfg_a" : val = (val >> 3) & 'h3;
-        "pmp8cfg_l" : val = (val >> 7) & 'h1;
-        "pmp8cfg_xwr" : val = val & 'h7;
-        "pmp9cfg_a" : val = (val >> 11) & 'h3;
-        "pmp9cfg_l" : val = (val >> 15) & 'h1;
-        "pmp9cfg_xwr" : val = (val >> 8) & 'h7;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG3: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp12cfg_a" : val = (val >> 3) & 32'h3;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp12cfg_l" : val = (val >> 7) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp12cfg_xwr" : val = val & 32'h7;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp13cfg_a" : val = (val >> 11) & 32'h3;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp13cfg_l" : val = (val >> 15) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp13cfg_xwr" : val = (val >> 8) & 32'h7;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp14cfg_a" : val = (val >> 19) & 32'h3;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp14cfg_l" : val = (val >> 23) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp14cfg_xwr" : val = (val >> 16) & 32'h7;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp15cfg_a" : val = (val >> 27) & 32'h3;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp15cfg_l" : val = (val >> 31) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_32
-        "pmp15cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_SATP: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "asid" : val = (val >> 22) & 32'h1ff;
-`endif
-`ifdef UDB_MXLEN_64
-        "asid" : val = (val >> 44) & 64'hffff;
-`endif
-`ifdef UDB_MXLEN_32
-        "mode" : val = (val >> 31) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "mode" : val = (val >> 60) & 64'hf;
-`endif
-`ifdef UDB_MXLEN_32
-        "ppn" : val = val & 32'h3fffff;
-`endif
-`ifdef UDB_MXLEN_64
-        "ppn" : val = val & 64'hfffffffffff;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_SCAUSE: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "code" : val = val & 32'h7fffffff;
-`endif
-`ifdef UDB_MXLEN_64
-        "code" : val = val & 64'h7fffffffffffffff;
-`endif
-`ifdef UDB_MXLEN_32
-        "int" : val = val & 32'hffffffff;
-`endif
-`ifdef UDB_MXLEN_64
-        "int" : val = val & 64'hffffffffffffffff;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_SCOUNTEREN: begin
-      case(field)
-        "cy" : val = val & 'h1;
-        "enable" : val = (val >> 3) & 'h1fffffff;
-        "ir" : val = (val >> 2) & 'h1;
-        "tm" : val = (val >> 1) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_SEED: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "OPST" : val = (val >> 30) & 32'h3;
-`endif
-`ifdef UDB_MXLEN_64
-        "entropy" : val = val & `UDB_MXLEN'(16'hffff);
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_SENVCFG: begin
-      case(field)
-        "fiom" : val = val & 'h1;
-        "lpe" : val = (val >> 2) & 'h1;
-        "sse" : val = (val >> 3) & 'h1;
-        "cbie" : val = (val >> 4) & 'h3;
-        "cbcfe" : val = (val >> 6) & 'h1;
-        "cbze" : val = (val >> 7) & 'h1;
-`ifdef UDB_MXLEN_64
-        "pmm" : val = (val >> 32) & 64'h3;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_SIE: begin
-      case(field)
-        "lcofie" : val = (val >> 13) & 'h1;
-        "seie" : val = (val >> 9) & 'h1;
-        "ssie" : val = (val >> 1) & 'h1;
-        "stie" : val = (val >> 5) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_SIP: begin
-      case(field)
-        "lcofip" : val = (val >> 13) & 'h1;
-        "seip" : val = (val >> 9) & 'h1;
-        "ssip" : val = (val >> 1) & 'h1;
-        "stip" : val = (val >> 5) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_SSTATUS: begin
-      case(field)
-        "fs" : val = (val >> 13) & 'h3;
-        "mxr" : val = (val >> 19) & 'h1;
-`ifdef UDB_MXLEN_32
-        "sd" : val = (val >> 31) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "sd" : val = (val >> 63) & 64'h1;
-`endif
-        "sie" : val = (val >> 1) & 'h1;
-        "spelp" : val = (val >> 23) & 'h1;
-        "spie" : val = (val >> 5) & 'h1;
-        "spp" : val = (val >> 8) & 'h1;
-        "sum" : val = (val >> 18) & 'h1;
-        "ube" : val = (val >> 6) & 'h1;
-`ifdef UDB_MXLEN_64
-        "uxl" : val = (val >> 32) & 64'h3;
-`endif
-        "vs" : val = (val >> 9) & 'h3;
-        "xs" : val = (val >> 15) & 'h3;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_STVEC: begin
-      case(field)
-        "mode" : val = val & 'h3;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_TCONTROL: begin
-      case(field)
-        "mpte" : val = (val >> 7) & 'h1;
-        "mte" : val = (val >> 3) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_TDATA1: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "type" : val = (val >> 28) & 32'hf;
-        "dmode" : val = (val >> 27) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "type" : val = (val >> 60) & 64'hf;
-        "dmode" : val = (val >> 59) & 64'h1;
-`endif
-        // mcontrol6 fields (type 6); other types place their fields differently
-        "uncertain" : val = (val >> 26) & 'h1;
-        "hit1" : val = (val >> 25) & 'h1;
-        "vs" : val = (val >> 24) & 'h1;
-        "vu" : val = (val >> 23) & 'h1;
-        "hit0" : val = (val >> 22) & 'h1;
-        "select" : val = (val >> 21) & 'h1;
-        "size" : val = (val >> 16) & 'h7;
-        "action" : val = (val >> 12) & 'hf;
-        "chain" : val = (val >> 11) & 'h1;
-        "match" : val = (val >> 7) & 'hf;
-        "m" : val = (val >> 6) & 'h1;
-        "uncertainen" : val = (val >> 5) & 'h1;
-        "s" : val = (val >> 4) & 'h1;
-        "u" : val = (val >> 3) & 'h1;
-        "execute" : val = (val >> 2) & 'h1;
-        "store" : val = (val >> 1) & 'h1;
-        "load" : val = val & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_TINFO: begin
-      case(field)
-        "info" : val = val & 'hffff;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VCSR: begin
-      case(field)
-        "vxsat" : val = val & 'h1;
-        "vxrm"  : val = (val >> 1) & 'h3;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VL: begin
-      case(field)
-        "vl" : val = val & 'hffff;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VLENB: begin
-      case(field)
-        "vlenb" : val = val & 'h1fff;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VSATP: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "asid" : val = (val >> 22) & 32'h1ff;
-`endif
-`ifdef UDB_MXLEN_64
-        "asid" : val = (val >> 44) & 64'hffff;
-`endif
-`ifdef UDB_MXLEN_32
-        "mode" : val = (val >> 31) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "mode" : val = (val >> 60) & 64'hf;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VSCAUSE: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "code" : val = val & 32'h7fffffff;
-`endif
-`ifdef UDB_MXLEN_64
-        "code" : val = val & 64'h7fffffffffffffff;
-`endif
-`ifdef UDB_MXLEN_32
-        "int" : val = val & 32'hffffffff;
-`endif
-`ifdef UDB_MXLEN_64
-        "int" : val = val & 64'hffffffffffffffff;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VSIE: begin
-      case(field)
-        "seie" : val = (val >> 9) & 'h1;
-        "ssie" : val = (val >> 1) & 'h1;
-        "stie" : val = (val >> 5) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VSIP: begin
-      case(field)
-        "seip" : val = (val >> 9) & 'h1;
-        "ssip" : val = (val >> 1) & 'h1;
-        "stip" : val = (val >> 5) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VSSTATUS: begin
-      case(field)
-        "fs" : val = (val >> 13) & 'h3;
-        "mxr" : val = (val >> 19) & 'h1;
-`ifdef UDB_MXLEN_32
-        "sd" : val = (val >> 31) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "sd" : val = (val >> 63) & 64'h1;
-`endif
-        "sie" : val = (val >> 1) & 'h1;
-        "spelp" : val = (val >> 23) & 'h1;
-        "spie" : val = (val >> 5) & 'h1;
-        "spp" : val = (val >> 8) & 'h1;
-        "sum" : val = (val >> 18) & 'h1;
-        "ube" : val = (val >> 6) & 'h1;
-`ifdef UDB_MXLEN_64
-        "uxl" : val = (val >> 32) & 64'h3;
-`endif
-        "vs" : val = (val >> 9) & 'h3;
-        "xs" : val = (val >> 15) & 'h3;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VSTART: begin
-      case(field)
-        "vstart" : val = val & 'hffff;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VSTVEC: begin
-      case(field)
-        "mode" : val = val & 'h3;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VTYPE: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "vill" : val = (val >> 31) & 32'h1;
-`endif
-`ifdef UDB_MXLEN_64
-        "vill" : val = (val >> 63) & 64'h1;
-`endif
-        "vlmul" : val = val & 'h7;
-        "vma" : val = (val >> 7) & 'h1;
-        "vsew" : val = (val >> 3) & 'h7;
-        "vta" : val = (val >> 6) & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VXRM: begin
-      case(field)
-        "vxrm" : val = val & 'h3;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_VXSAT: begin
-      case(field)
-        "vxsat" : val = val & 'h1;
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_SSTATEEN0: begin
-      case(field)
-          "fcsr"   : val = (val >> 1) & 'h1;
-          "jvt"    : val = (val >> 2) & 'h1;
-          default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MSTATEEN0: begin
-      case(field)
-        "c" : val = val & 'h1;
-        "fcsr" : val = (val >> 1) & 'h1;
-        "jvt" : val = (val >> 2) & 'h1;
-`ifdef UDB_MXLEN_64
-        "ctr" : val = (val >> 54) & 64'h1;
-        "srmcfg" : val = (val >> 55) & 64'h1;
-        "p1p13" : val = (val >> 56) & 64'h1;
-        "context" : val = (val >> 57) & 64'h1;
-        "imsic" : val = (val >> 58) & 64'h1;
-        "aia" : val = (val >> 59) & 64'h1;
-        "csrind" : val = (val >> 60) & 64'h1;
-        "envcfg" : val = (val >> 62) & 64'h1;
-        "se0" : val = (val >> 63) & 64'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_MSTATEEN0H: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "ctr" : val = (val >> 22) & 32'h1;
-        "srmcfg" : val = (val >> 23) & 32'h1;
-        "p1p13" : val = (val >> 24) & 32'h1;
-        "context" : val = (val >> 25) & 32'h1;
-        "imsic" : val = (val >> 26) & 32'h1;
-        "aia" : val = (val >> 27) & 32'h1;
-        "csrind" : val = (val >> 28) & 32'h1;
-        "envcfg" : val = (val >> 30) & 32'h1;
-        "se0" : val = (val >> 31) & 32'h1;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG4: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp16cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp16cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp16cfg_xwr" : val = val & 32'h7;
-        "pmp17cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp17cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp17cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp18cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp18cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp18cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp19cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp19cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp19cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp16cfg_a" : val = (val >> 3) & 64'h3;
-        "pmp16cfg_l" : val = (val >> 7) & 64'h1;
-        "pmp16cfg_xwr" : val = val & 64'h7;
-        "pmp17cfg_a" : val = (val >> 11) & 64'h3;
-        "pmp17cfg_l" : val = (val >> 15) & 64'h1;
-        "pmp17cfg_xwr" : val = (val >> 8) & 64'h7;
-        "pmp18cfg_a" : val = (val >> 19) & 64'h3;
-        "pmp18cfg_l" : val = (val >> 23) & 64'h1;
-        "pmp18cfg_xwr" : val = (val >> 16) & 64'h7;
-        "pmp19cfg_a" : val = (val >> 27) & 64'h3;
-        "pmp19cfg_l" : val = (val >> 31) & 64'h1;
-        "pmp19cfg_xwr" : val = (val >> 24) & 64'h7;
-        "pmp20cfg_a" : val = (val >> 35) & 64'h3;
-        "pmp20cfg_l" : val = (val >> 39) & 64'h1;
-        "pmp20cfg_xwr" : val = (val >> 32) & 64'h7;
-        "pmp21cfg_a" : val = (val >> 43) & 64'h3;
-        "pmp21cfg_l" : val = (val >> 47) & 64'h1;
-        "pmp21cfg_xwr" : val = (val >> 40) & 64'h7;
-        "pmp22cfg_a" : val = (val >> 51) & 64'h3;
-        "pmp22cfg_l" : val = (val >> 55) & 64'h1;
-        "pmp22cfg_xwr" : val = (val >> 48) & 64'h7;
-        "pmp23cfg_a" : val = (val >> 59) & 64'h3;
-        "pmp23cfg_l" : val = (val >> 63) & 64'h1;
-        "pmp23cfg_xwr" : val = (val >> 56) & 64'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG5: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp20cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp20cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp20cfg_xwr" : val = val & 32'h7;
-        "pmp21cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp21cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp21cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp22cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp22cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp22cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp23cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp23cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp23cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG6: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp24cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp24cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp24cfg_xwr" : val = val & 32'h7;
-        "pmp25cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp25cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp25cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp26cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp26cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp26cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp27cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp27cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp27cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp24cfg_a" : val = (val >> 3) & 64'h3;
-        "pmp24cfg_l" : val = (val >> 7) & 64'h1;
-        "pmp24cfg_xwr" : val = val & 64'h7;
-        "pmp25cfg_a" : val = (val >> 11) & 64'h3;
-        "pmp25cfg_l" : val = (val >> 15) & 64'h1;
-        "pmp25cfg_xwr" : val = (val >> 8) & 64'h7;
-        "pmp26cfg_a" : val = (val >> 19) & 64'h3;
-        "pmp26cfg_l" : val = (val >> 23) & 64'h1;
-        "pmp26cfg_xwr" : val = (val >> 16) & 64'h7;
-        "pmp27cfg_a" : val = (val >> 27) & 64'h3;
-        "pmp27cfg_l" : val = (val >> 31) & 64'h1;
-        "pmp27cfg_xwr" : val = (val >> 24) & 64'h7;
-        "pmp28cfg_a" : val = (val >> 35) & 64'h3;
-        "pmp28cfg_l" : val = (val >> 39) & 64'h1;
-        "pmp28cfg_xwr" : val = (val >> 32) & 64'h7;
-        "pmp29cfg_a" : val = (val >> 43) & 64'h3;
-        "pmp29cfg_l" : val = (val >> 47) & 64'h1;
-        "pmp29cfg_xwr" : val = (val >> 40) & 64'h7;
-        "pmp30cfg_a" : val = (val >> 51) & 64'h3;
-        "pmp30cfg_l" : val = (val >> 55) & 64'h1;
-        "pmp30cfg_xwr" : val = (val >> 48) & 64'h7;
-        "pmp31cfg_a" : val = (val >> 59) & 64'h3;
-        "pmp31cfg_l" : val = (val >> 63) & 64'h1;
-        "pmp31cfg_xwr" : val = (val >> 56) & 64'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG7: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp28cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp28cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp28cfg_xwr" : val = val & 32'h7;
-        "pmp29cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp29cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp29cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp30cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp30cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp30cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp31cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp31cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp31cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG8: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp32cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp32cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp32cfg_xwr" : val = val & 32'h7;
-        "pmp33cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp33cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp33cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp34cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp34cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp34cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp35cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp35cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp35cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp32cfg_a" : val = (val >> 3) & 64'h3;
-        "pmp32cfg_l" : val = (val >> 7) & 64'h1;
-        "pmp32cfg_xwr" : val = val & 64'h7;
-        "pmp33cfg_a" : val = (val >> 11) & 64'h3;
-        "pmp33cfg_l" : val = (val >> 15) & 64'h1;
-        "pmp33cfg_xwr" : val = (val >> 8) & 64'h7;
-        "pmp34cfg_a" : val = (val >> 19) & 64'h3;
-        "pmp34cfg_l" : val = (val >> 23) & 64'h1;
-        "pmp34cfg_xwr" : val = (val >> 16) & 64'h7;
-        "pmp35cfg_a" : val = (val >> 27) & 64'h3;
-        "pmp35cfg_l" : val = (val >> 31) & 64'h1;
-        "pmp35cfg_xwr" : val = (val >> 24) & 64'h7;
-        "pmp36cfg_a" : val = (val >> 35) & 64'h3;
-        "pmp36cfg_l" : val = (val >> 39) & 64'h1;
-        "pmp36cfg_xwr" : val = (val >> 32) & 64'h7;
-        "pmp37cfg_a" : val = (val >> 43) & 64'h3;
-        "pmp37cfg_l" : val = (val >> 47) & 64'h1;
-        "pmp37cfg_xwr" : val = (val >> 40) & 64'h7;
-        "pmp38cfg_a" : val = (val >> 51) & 64'h3;
-        "pmp38cfg_l" : val = (val >> 55) & 64'h1;
-        "pmp38cfg_xwr" : val = (val >> 48) & 64'h7;
-        "pmp39cfg_a" : val = (val >> 59) & 64'h3;
-        "pmp39cfg_l" : val = (val >> 63) & 64'h1;
-        "pmp39cfg_xwr" : val = (val >> 56) & 64'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG9: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp36cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp36cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp36cfg_xwr" : val = val & 32'h7;
-        "pmp37cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp37cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp37cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp38cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp38cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp38cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp39cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp39cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp39cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG10: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp40cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp40cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp40cfg_xwr" : val = val & 32'h7;
-        "pmp41cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp41cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp41cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp42cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp42cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp42cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp43cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp43cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp43cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp40cfg_a" : val = (val >> 3) & 64'h3;
-        "pmp40cfg_l" : val = (val >> 7) & 64'h1;
-        "pmp40cfg_xwr" : val = val & 64'h7;
-        "pmp41cfg_a" : val = (val >> 11) & 64'h3;
-        "pmp41cfg_l" : val = (val >> 15) & 64'h1;
-        "pmp41cfg_xwr" : val = (val >> 8) & 64'h7;
-        "pmp42cfg_a" : val = (val >> 19) & 64'h3;
-        "pmp42cfg_l" : val = (val >> 23) & 64'h1;
-        "pmp42cfg_xwr" : val = (val >> 16) & 64'h7;
-        "pmp43cfg_a" : val = (val >> 27) & 64'h3;
-        "pmp43cfg_l" : val = (val >> 31) & 64'h1;
-        "pmp43cfg_xwr" : val = (val >> 24) & 64'h7;
-        "pmp44cfg_a" : val = (val >> 35) & 64'h3;
-        "pmp44cfg_l" : val = (val >> 39) & 64'h1;
-        "pmp44cfg_xwr" : val = (val >> 32) & 64'h7;
-        "pmp45cfg_a" : val = (val >> 43) & 64'h3;
-        "pmp45cfg_l" : val = (val >> 47) & 64'h1;
-        "pmp45cfg_xwr" : val = (val >> 40) & 64'h7;
-        "pmp46cfg_a" : val = (val >> 51) & 64'h3;
-        "pmp46cfg_l" : val = (val >> 55) & 64'h1;
-        "pmp46cfg_xwr" : val = (val >> 48) & 64'h7;
-        "pmp47cfg_a" : val = (val >> 59) & 64'h3;
-        "pmp47cfg_l" : val = (val >> 63) & 64'h1;
-        "pmp47cfg_xwr" : val = (val >> 56) & 64'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG11: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp44cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp44cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp44cfg_xwr" : val = val & 32'h7;
-        "pmp45cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp45cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp45cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp46cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp46cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp46cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp47cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp47cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp47cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG12: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp48cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp48cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp48cfg_xwr" : val = val & 32'h7;
-        "pmp49cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp49cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp49cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp50cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp50cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp50cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp51cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp51cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp51cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp48cfg_a" : val = (val >> 3) & 64'h3;
-        "pmp48cfg_l" : val = (val >> 7) & 64'h1;
-        "pmp48cfg_xwr" : val = val & 64'h7;
-        "pmp49cfg_a" : val = (val >> 11) & 64'h3;
-        "pmp49cfg_l" : val = (val >> 15) & 64'h1;
-        "pmp49cfg_xwr" : val = (val >> 8) & 64'h7;
-        "pmp50cfg_a" : val = (val >> 19) & 64'h3;
-        "pmp50cfg_l" : val = (val >> 23) & 64'h1;
-        "pmp50cfg_xwr" : val = (val >> 16) & 64'h7;
-        "pmp51cfg_a" : val = (val >> 27) & 64'h3;
-        "pmp51cfg_l" : val = (val >> 31) & 64'h1;
-        "pmp51cfg_xwr" : val = (val >> 24) & 64'h7;
-        "pmp52cfg_a" : val = (val >> 35) & 64'h3;
-        "pmp52cfg_l" : val = (val >> 39) & 64'h1;
-        "pmp52cfg_xwr" : val = (val >> 32) & 64'h7;
-        "pmp53cfg_a" : val = (val >> 43) & 64'h3;
-        "pmp53cfg_l" : val = (val >> 47) & 64'h1;
-        "pmp53cfg_xwr" : val = (val >> 40) & 64'h7;
-        "pmp54cfg_a" : val = (val >> 51) & 64'h3;
-        "pmp54cfg_l" : val = (val >> 55) & 64'h1;
-        "pmp54cfg_xwr" : val = (val >> 48) & 64'h7;
-        "pmp55cfg_a" : val = (val >> 59) & 64'h3;
-        "pmp55cfg_l" : val = (val >> 63) & 64'h1;
-        "pmp55cfg_xwr" : val = (val >> 56) & 64'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG13: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp52cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp52cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp52cfg_xwr" : val = val & 32'h7;
-        "pmp53cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp53cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp53cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp54cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp54cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp54cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp55cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp55cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp55cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG14: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp56cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp56cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp56cfg_xwr" : val = val & 32'h7;
-        "pmp57cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp57cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp57cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp58cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp58cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp58cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp59cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp59cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp59cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-`ifdef UDB_MXLEN_64
-        "pmp56cfg_a" : val = (val >> 3) & 64'h3;
-        "pmp56cfg_l" : val = (val >> 7) & 64'h1;
-        "pmp56cfg_xwr" : val = val & 64'h7;
-        "pmp57cfg_a" : val = (val >> 11) & 64'h3;
-        "pmp57cfg_l" : val = (val >> 15) & 64'h1;
-        "pmp57cfg_xwr" : val = (val >> 8) & 64'h7;
-        "pmp58cfg_a" : val = (val >> 19) & 64'h3;
-        "pmp58cfg_l" : val = (val >> 23) & 64'h1;
-        "pmp58cfg_xwr" : val = (val >> 16) & 64'h7;
-        "pmp59cfg_a" : val = (val >> 27) & 64'h3;
-        "pmp59cfg_l" : val = (val >> 31) & 64'h1;
-        "pmp59cfg_xwr" : val = (val >> 24) & 64'h7;
-        "pmp60cfg_a" : val = (val >> 35) & 64'h3;
-        "pmp60cfg_l" : val = (val >> 39) & 64'h1;
-        "pmp60cfg_xwr" : val = (val >> 32) & 64'h7;
-        "pmp61cfg_a" : val = (val >> 43) & 64'h3;
-        "pmp61cfg_l" : val = (val >> 47) & 64'h1;
-        "pmp61cfg_xwr" : val = (val >> 40) & 64'h7;
-        "pmp62cfg_a" : val = (val >> 51) & 64'h3;
-        "pmp62cfg_l" : val = (val >> 55) & 64'h1;
-        "pmp62cfg_xwr" : val = (val >> 48) & 64'h7;
-        "pmp63cfg_a" : val = (val >> 59) & 64'h3;
-        "pmp63cfg_l" : val = (val >> 63) & 64'h1;
-        "pmp63cfg_xwr" : val = (val >> 56) & 64'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    CSR_PMPCFG15: begin
-      case(field)
-`ifdef UDB_MXLEN_32
-        "pmp60cfg_a" : val = (val >> 3) & 32'h3;
-        "pmp60cfg_l" : val = (val >> 7) & 32'h1;
-        "pmp60cfg_xwr" : val = val & 32'h7;
-        "pmp61cfg_a" : val = (val >> 11) & 32'h3;
-        "pmp61cfg_l" : val = (val >> 15) & 32'h1;
-        "pmp61cfg_xwr" : val = (val >> 8) & 32'h7;
-        "pmp62cfg_a" : val = (val >> 19) & 32'h3;
-        "pmp62cfg_l" : val = (val >> 23) & 32'h1;
-        "pmp62cfg_xwr" : val = (val >> 16) & 32'h7;
-        "pmp63cfg_a" : val = (val >> 27) & 32'h3;
-        "pmp63cfg_l" : val = (val >> 31) & 32'h1;
-        "pmp63cfg_xwr" : val = (val >> 24) & 32'h7;
-`endif
-        default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-      endcase
-    end
-    // tdata1/tdata3 type views. They have no CSR address, so these arms are disabled.
-    // etrigger: begin
-    //   case(field)
-    // `ifdef UDB_MXLEN_32
-    //     "dmode" : val = (val >> 27) & 32'h1;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "dmode" : val = (val >> 59) & 64'h1;
-    // `endif
-    // `ifdef UDB_MXLEN_32
-    //     "hit" : val = (val >> 26) & 32'h1;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "hit" : val = (val >> 58) & 64'h1;
-    // `endif
-    //     "m" : val = (val >> 9) & 'h1;
-    //     "nmi" : val = (val >> 10) & 'h1;
-    //     "s" : val = (val >> 7) & 'h1;
-    // `ifdef UDB_MXLEN_32
-    //     "type" : val = (val >> 28) & 32'hf;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "type" : val = (val >> 60) & 64'hf;
-    // `endif
-    //     "u" : val = (val >> 6) & 'h1;
-    //     default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-    //   endcase
-    // end
-    // icount: begin
-    //   case(field)
-    // `ifdef UDB_MXLEN_32
-    //     "dmode" : val = (val >> 27) & 32'h1;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "dmode" : val = (val >> 59) & 64'h1;
-    // `endif
-    //     "hit" : val = (val >> 24) & 'h1;
-    //     "m" : val = (val >> 9) & 'h1;
-    //     "s" : val = (val >> 7) & 'h1;
-    // `ifdef UDB_MXLEN_32
-    //     "type" : val = (val >> 28) & 32'hf;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "type" : val = (val >> 60) & 64'hf;
-    // `endif
-    //     "u" : val = (val >> 6) & 'h1;
-    //     default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-    //   endcase
-    // end
-    // itrigger: begin
-    //   case(field)
-    // `ifdef UDB_MXLEN_32
-    //     "dmode" : val = (val >> 27) & 32'h1;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "dmode" : val = (val >> 59) & 64'h1;
-    // `endif
-    // `ifdef UDB_MXLEN_32
-    //     "hit" : val = (val >> 26) & 32'h1;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "hit" : val = (val >> 58) & 64'h1;
-    // `endif
-    //     "m" : val = (val >> 9) & 'h1;
-    //     "s" : val = (val >> 7) & 'h1;
-    // `ifdef UDB_MXLEN_32
-    //     "type" : val = (val >> 28) & 32'hf;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "type" : val = (val >> 60) & 64'hf;
-    // `endif
-    //     "u" : val = (val >> 6) & 'h1;
-    //     default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-    //   endcase
-    // end
-    // mcontrol: begin
-    //   case(field)
-    //     "action" : val = (val >> 12) & 'hf;
-    //     "chain" : val = (val >> 11) & 'h1;
-    // `ifdef UDB_MXLEN_32
-    //     "dmode" : val = (val >> 27) & 32'h1;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "dmode" : val = (val >> 59) & 64'h1;
-    // `endif
-    //     "execute" : val = (val >> 2) & 'h1;
-    //     "hit" : val = (val >> 20) & 'h1;
-    //     "load" : val = val & 'h1;
-    //     "m" : val = (val >> 6) & 'h1;
-    // `ifdef UDB_MXLEN_32
-    //     "maskmax" : val = (val >> 21) & 32'h3f;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "maskmax" : val = (val >> 53) & 64'h3f;
-    // `endif
-    //     "match" : val = (val >> 7) & 'hf;
-    //     "s" : val = (val >> 4) & 'h1;
-    //     "select" : val = (val >> 19) & 'h1;
-    // `ifdef UDB_MXLEN_64
-    //     "sizehi" : val = (val >> 21) & 64'h3;
-    // `endif
-    //     "sizelo" : val = (val >> 16) & 'h3;
-    //     "store" : val = (val >> 1) & 'h1;
-    //     "timing" : val = (val >> 18) & 'h1;
-    // `ifdef UDB_MXLEN_32
-    //     "type" : val = (val >> 28) & 32'hf;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "type" : val = (val >> 60) & 64'hf;
-    // `endif
-    //     "u" : val = (val >> 3) & 'h1;
-    //     default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-    //   endcase
-    // end
-    // textra32: begin
-    //   case(field)
-    // `ifdef UDB_MXLEN_32
-    //     "mselect" : val = (val >> 25) & 32'h1;
-    // `endif
-    // `ifdef UDB_MXLEN_32
-    //     "sselect" : val = val & 32'h3;
-    // `endif
-    //     default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-    //   endcase
-    // end
-    // textra64: begin
-    //   case(field)
-    // `ifdef UDB_MXLEN_64
-    //     "mselect" : val = (val >> 50) & 64'h1;
-    // `endif
-    // `ifdef UDB_MXLEN_64
-    //     "sselect" : val = val & 64'h3;
-    // `endif
-    //     default: $fatal(1, "get_csr_field: RV%0d CSR 0x%03h has no field %s", `UDB_MXLEN, addr, field);
-    //   endcase
-    // end
-    default: $fatal(1, "get_csr_field: CSR 0x%03h has no field %s; use get_csr_val to read it whole", addr, field);
-  endcase
+// tdata1/tdata3 type views. They have no CSR address, so these descriptors are disabled.
+// localparam csr_field_t ETRIGGER_DMODE = '{CSR_TDATA1, 27, 1};  // RV32 only
+// localparam csr_field_t ETRIGGER_DMODE = '{CSR_TDATA1, 59, 1};  // RV64 only
+// localparam csr_field_t ETRIGGER_HIT = '{CSR_TDATA1, 26, 1};  // RV32 only
+// localparam csr_field_t ETRIGGER_HIT = '{CSR_TDATA1, 58, 1};  // RV64 only
+// localparam csr_field_t ETRIGGER_M = '{CSR_TDATA1, 9, 1};
+// localparam csr_field_t ETRIGGER_NMI = '{CSR_TDATA1, 10, 1};
+// localparam csr_field_t ETRIGGER_S = '{CSR_TDATA1, 7, 1};
+// localparam csr_field_t ETRIGGER_TYPE = '{CSR_TDATA1, 28, 4};  // RV32 only
+// localparam csr_field_t ETRIGGER_TYPE = '{CSR_TDATA1, 60, 4};  // RV64 only
+// localparam csr_field_t ETRIGGER_U = '{CSR_TDATA1, 6, 1};
+// localparam csr_field_t ICOUNT_DMODE = '{CSR_TDATA1, 27, 1};  // RV32 only
+// localparam csr_field_t ICOUNT_DMODE = '{CSR_TDATA1, 59, 1};  // RV64 only
+// localparam csr_field_t ICOUNT_HIT = '{CSR_TDATA1, 24, 1};
+// localparam csr_field_t ICOUNT_M = '{CSR_TDATA1, 9, 1};
+// localparam csr_field_t ICOUNT_S = '{CSR_TDATA1, 7, 1};
+// localparam csr_field_t ICOUNT_TYPE = '{CSR_TDATA1, 28, 4};  // RV32 only
+// localparam csr_field_t ICOUNT_TYPE = '{CSR_TDATA1, 60, 4};  // RV64 only
+// localparam csr_field_t ICOUNT_U = '{CSR_TDATA1, 6, 1};
+// localparam csr_field_t ITRIGGER_DMODE = '{CSR_TDATA1, 27, 1};  // RV32 only
+// localparam csr_field_t ITRIGGER_DMODE = '{CSR_TDATA1, 59, 1};  // RV64 only
+// localparam csr_field_t ITRIGGER_HIT = '{CSR_TDATA1, 26, 1};  // RV32 only
+// localparam csr_field_t ITRIGGER_HIT = '{CSR_TDATA1, 58, 1};  // RV64 only
+// localparam csr_field_t ITRIGGER_M = '{CSR_TDATA1, 9, 1};
+// localparam csr_field_t ITRIGGER_S = '{CSR_TDATA1, 7, 1};
+// localparam csr_field_t ITRIGGER_TYPE = '{CSR_TDATA1, 28, 4};  // RV32 only
+// localparam csr_field_t ITRIGGER_TYPE = '{CSR_TDATA1, 60, 4};  // RV64 only
+// localparam csr_field_t ITRIGGER_U = '{CSR_TDATA1, 6, 1};
+// localparam csr_field_t MCONTROL_ACTION = '{CSR_TDATA1, 12, 4};
+// localparam csr_field_t MCONTROL_CHAIN = '{CSR_TDATA1, 11, 1};
+// localparam csr_field_t MCONTROL_DMODE = '{CSR_TDATA1, 27, 1};  // RV32 only
+// localparam csr_field_t MCONTROL_DMODE = '{CSR_TDATA1, 59, 1};  // RV64 only
+// localparam csr_field_t MCONTROL_EXECUTE = '{CSR_TDATA1, 2, 1};
+// localparam csr_field_t MCONTROL_HIT = '{CSR_TDATA1, 20, 1};
+// localparam csr_field_t MCONTROL_LOAD = '{CSR_TDATA1, 0, 1};
+// localparam csr_field_t MCONTROL_M = '{CSR_TDATA1, 6, 1};
+// localparam csr_field_t MCONTROL_MASKMAX = '{CSR_TDATA1, 21, 6};  // RV32 only
+// localparam csr_field_t MCONTROL_MASKMAX = '{CSR_TDATA1, 53, 6};  // RV64 only
+// localparam csr_field_t MCONTROL_MATCH = '{CSR_TDATA1, 7, 4};
+// localparam csr_field_t MCONTROL_S = '{CSR_TDATA1, 4, 1};
+// localparam csr_field_t MCONTROL_SELECT = '{CSR_TDATA1, 19, 1};
+// localparam csr_field_t MCONTROL_SIZEHI = '{CSR_TDATA1, 21, 2};  // RV64 only
+// localparam csr_field_t MCONTROL_SIZELO = '{CSR_TDATA1, 16, 2};
+// localparam csr_field_t MCONTROL_STORE = '{CSR_TDATA1, 1, 1};
+// localparam csr_field_t MCONTROL_TIMING = '{CSR_TDATA1, 18, 1};
+// localparam csr_field_t MCONTROL_TYPE = '{CSR_TDATA1, 28, 4};  // RV32 only
+// localparam csr_field_t MCONTROL_TYPE = '{CSR_TDATA1, 60, 4};  // RV64 only
+// localparam csr_field_t MCONTROL_U = '{CSR_TDATA1, 3, 1};
+// localparam csr_field_t TEXTRA32_MSELECT = '{CSR_TDATA1, 25, 1};  // RV32 only
+// localparam csr_field_t TEXTRA32_SSELECT = '{CSR_TDATA1, 0, 2};  // RV32 only
+// localparam csr_field_t TEXTRA64_MSELECT = '{CSR_TDATA1, 50, 1};  // RV64 only
+// localparam csr_field_t TEXTRA64_SSELECT = '{CSR_TDATA1, 0, 2};  // RV64 only
 
-  return val;
+// Field f of its CSR, shifted to bit 0
+function `XLEN_BITS get_csr_field(int hart, int issue, int prev, csr_field_t f);
+  `XLEN_BITS val = traceDataQ[hart][issue][prev].csr[f.addr];
+  return (val >> f.lsb) & ~({`UDB_MXLEN{1'b1}} << f.width);
 endfunction

@@ -54,34 +54,34 @@ covergroup Svpbmt_cg with function sample(ins_t ins);
         wildcard bins pbmt_3 = {8'b11?11111} iff (ins.current.pte_d[62:61] == 2'b11);
     }
 
-    PBMTE_set: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_MENVCFG, "pbmte")[0] {
+    PBMTE_set: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, MENVCFG_PBMTE)[0] {
             bins PBMTE_set = {1'b1};
     }
 
     PageType_i: coverpoint ins.current.page_type_i {
         `ifdef SV48_SUPPORTED
-            bins sv48_tera = {2'b11} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-            bins sv48_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-            bins sv48_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-            bins sv48_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
+            bins sv48_tera = {2'b11} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+            bins sv48_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+            bins sv48_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+            bins sv48_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
         `endif
         `ifdef SV39_SUPPORTED
-            bins sv39_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
-            bins sv39_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
-            bins sv39_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
+            bins sv39_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
+            bins sv39_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
+            bins sv39_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
         `endif
     }
     PageType_d: coverpoint ins.current.page_type_d {
         `ifdef SV48_SUPPORTED
-            bins sv48_tera = {2'b11} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-            bins sv48_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-            bins sv48_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
-            bins sv48_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1001);
+            bins sv48_tera = {2'b11} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+            bins sv48_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+            bins sv48_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
+            bins sv48_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1001);
         `endif
         `ifdef SV39_SUPPORTED
-            bins sv39_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
-            bins sv39_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
-            bins sv39_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SATP, "mode")[3:0] == 4'b1000);
+            bins sv39_giga = {2'b10} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
+            bins sv39_mega = {2'b01} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
+            bins sv39_kilo = {2'b00} iff (get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SATP_MODE)[3:0] == 4'b1000);
         `endif
     }
 
@@ -95,13 +95,13 @@ covergroup Svpbmt_cg with function sample(ins_t ins);
         wildcard bins sw = {SW};
     }
 
-    ins_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code") {
+    ins_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE) {
         bins ins_page_fault = {INSTRUCTION_PAGE_FAULT} iff (ins.current.trap);
     }
-    load_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code") {
+    load_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE) {
         bins load_page_fault = {LOAD_PAGE_FAULT} iff (ins.current.trap);
     }
-    store_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_SCAUSE, "code") {
+    store_page_fault: coverpoint  get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, SCAUSE_CODE) {
         bins store_amo_page_fault = {STORE_AMO_PAGE_FAULT} iff (ins.current.trap);
     }
 
@@ -164,7 +164,7 @@ covergroup Svpbmt_H_cg with function sample(ins_t ins);
         bins henvcfg = {CSR_HENVCFG};
     }
     // Each supported VS-stage mode
-    vsatp_mode : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VSATP, "mode") {
+    vsatp_mode : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VSATP_MODE) {
         `ifdef UDB_SV39_VSMODE_TRANSLATION
             bins sv39 = {8};
         `endif
@@ -176,7 +176,7 @@ covergroup Svpbmt_H_cg with function sample(ins_t ins);
         `endif
     }
     // Each supported G-stage mode
-    hgatp_mode : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HGATP, "mode") {
+    hgatp_mode : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HGATP_MODE) {
         `ifdef UDB_SV39X4_TRANSLATION
             bins sv39x4 = {8};
         `endif
@@ -187,17 +187,17 @@ covergroup Svpbmt_H_cg with function sample(ins_t ins);
             bins sv57x4 = {10};
         `endif
     }
-    vsatp_bare : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VSATP, "mode") {
+    vsatp_bare : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VSATP_MODE) {
         bins bare = {0};
     }
-    hgatp_bare : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HGATP, "mode") {
+    hgatp_bare : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HGATP_MODE) {
         bins bare = {0};
     }
-    menvcfg_pbmte : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MENVCFG, "pbmte") {
+    menvcfg_pbmte : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MENVCFG_PBMTE) {
         bins off = {0};
         bins on  = {1};
     }
-    henvcfg_pbmte : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_HENVCFG, "pbmte") {
+    henvcfg_pbmte : coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, HENVCFG_PBMTE) {
         bins off = {0};
         bins on  = {1};
     }

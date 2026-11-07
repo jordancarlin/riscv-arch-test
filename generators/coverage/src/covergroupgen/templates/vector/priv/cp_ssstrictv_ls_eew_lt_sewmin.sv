@@ -28,7 +28,7 @@
             bins zero = {0};
         }
 
-        mstatus_vs_active_6b0501: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "vs") {
+        mstatus_vs_active_6b0501: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_VS) {
             bins active = {[1:3]};
         }
 

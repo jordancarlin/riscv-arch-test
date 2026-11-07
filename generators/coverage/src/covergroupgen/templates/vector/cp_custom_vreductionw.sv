@@ -7,7 +7,7 @@
     // be 16, because reduction scalar destinations use EMUL=1 per V spec §13.3.
 
     // Self-contained validity: vill clear, vstart=0, vl>0, no trap
-    vreductionw_valid: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") == 0 &
+    vreductionw_valid: coverpoint {get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VILL) == 0 &
                         get_csr_val(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VSTART) == 0 &
                         get_csr_val(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VL) != 0 &
                         ins.trap == 0
@@ -17,7 +17,7 @@
     }
 
     // LMUL=8 (vlmul encoding = 3)
-    vreductionw_lmul_8: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vlmul") {
+    vreductionw_lmul_8: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VLMUL) {
         bins eight = {3};
     }
 

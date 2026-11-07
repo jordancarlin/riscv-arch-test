@@ -25,8 +25,8 @@ vec_access: coverpoint ins.current.insn {
     `endif
 }
 // the trigger watches the direction of the access: load (x/s/l = 001) for vle, store (010) for vse
-vec_xsl: coverpoint {ins.current.insn[6:0] == 7'b0100111, get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "execute")[0],
-                     get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "store")[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_TDATA1, "load")[0]} {
+vec_xsl: coverpoint {ins.current.insn[6:0] == 7'b0100111, get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_EXECUTE)[0],
+                     get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_STORE)[0], get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, TDATA1_LOAD)[0]} {
     type_option.weight = 0;
     bins access_direction = {4'b0_001, 4'b1_010};
 }

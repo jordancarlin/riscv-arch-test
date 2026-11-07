@@ -13,7 +13,7 @@
     // Standard vector preconditions: vill=0, vstart=0, vl!=0, no trap
 
     // SEW = 32 (destination is 32-bit single, source is 64-bit double)
-    rod_vtype_sew_32: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew") {
+    rod_vtype_sew_32: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VSEW) {
         bins e32 = {2};
     }
 

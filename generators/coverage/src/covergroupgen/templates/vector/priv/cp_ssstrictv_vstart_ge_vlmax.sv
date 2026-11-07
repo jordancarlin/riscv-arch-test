@@ -9,7 +9,7 @@
         bins true = {1'b1};
     }
 
-    vtype_valid_8f65a1: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") {
+    vtype_valid_8f65a1: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VILL) {
         bins valid = {1'b0};
     }
 

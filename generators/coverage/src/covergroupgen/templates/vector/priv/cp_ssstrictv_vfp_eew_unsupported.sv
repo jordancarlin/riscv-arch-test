@@ -5,7 +5,7 @@
 
     // Vector FP operand EEW (=SEW) not a supported FP type width (includes FLEN < SEW)
 
-    sew_unsupported_fp: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew") {
+    sew_unsupported_fp: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VSEW) {
         // SEW=8 (vsew=0) is never a supported FP width
         bins sew8 = {0};
         `ifndef D_COVERAGE
@@ -22,7 +22,7 @@
         bins zero = {0};
     }
 
-    mstatus_vs_active_196c2e: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_MSTATUS, "vs") {
+    mstatus_vs_active_196c2e: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, MSTATUS_VS) {
         bins active = {[1:3]};
     }
 

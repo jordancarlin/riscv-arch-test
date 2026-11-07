@@ -3,18 +3,18 @@
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // SEW = 16 (destination is 16-bit bf16, source is 32-bit single)
-    vtype_sew_16: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vsew") {
+    vtype_sew_16: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VSEW) {
         bins e16 = {1};
     }
 
     // Rounding mode = RUP (round up, frm=3)
     // (sample after because fcsr doesn't update in the sail trace when we set frm)
-    frm_rup: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_FCSR, "frm") {
+    frm_rup: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, FCSR_FRM) {
         bins rup = {3};
     }
 
     // Overflow flag set after execution (fflags bit 2 = OF)
-    fflags_of: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, CSR_FCSR, "fflags")[2] {
+    fflags_of: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_AFTER, FCSR_FFLAGS)[2] {
         bins overflow = {1'b1};
     }
 

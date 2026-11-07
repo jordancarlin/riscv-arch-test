@@ -2,7 +2,7 @@
     // cp_vill
     //////////////////////////////////////////////////////////////////////////////////
 
-    cp_vill: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, CSR_VTYPE, "vill") {
+    cp_vill: coverpoint get_csr_field(ins.hart, ins.issue, `SAMPLE_BEFORE, VTYPE_VILL) {
         bins one  = {1};
     }
 
