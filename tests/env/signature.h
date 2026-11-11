@@ -1,7 +1,7 @@
-# signature.h
-# Signature region handling macros
-# Jordan Carlin jcarlin@hmc.edu October 2025
-# SPDX-License-Identifier: Apache-2.0
+// signature.h
+// Signature region handling macros
+// Jordan Carlin jcarlin@hmc.edu October 2025
+// SPDX-License-Identifier: Apache-2.0
 
 // RVTEST_SIGUPD(sigptr, linkreg, tempreg, sigreg, instptr, strptr)
 // compares the value in sigreg with the value in memory at 0(sigptr).

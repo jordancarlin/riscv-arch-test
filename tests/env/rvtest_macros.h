@@ -1,3 +1,7 @@
+// rvtest_macros.h
+// Page table, satp, and save area setup macros for virtual-memory tests
+// SPDX-License-Identifier: BSD-3-Clause
+
 // Page Table Macros
 
 /* Set up the Page table entry for Sv32 Translation scheme

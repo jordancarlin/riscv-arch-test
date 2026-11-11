@@ -1,8 +1,8 @@
-# check_defines.h
-# Ensures all RVMODEL macros are defined
-# Define _M flavors of RVMODEL_CLR_<type>_INT_M to match non-M if not defined by user
-# Jordan Carlin jcarlin@hmc.edu December 2025
-# SPDX-License-Identifier: BSD-3-Clause
+// check_defines.h
+// Ensures all RVMODEL macros are defined
+// Define _M flavors of RVMODEL_CLR_<type>_INT_M to match non-M if not defined by user
+// Jordan Carlin jcarlin@hmc.edu December 2025
+// SPDX-License-Identifier: BSD-3-Clause
 
 ########## test.S CHECKS ##########
 #ifndef TEST_FILE

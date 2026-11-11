@@ -1,7 +1,7 @@
-# utils.h
-# Utility macros for riscv-arch-test
-# Jordan Carlin jcarlin@hmc.edu November 2025
-# SPDX-License-Identifier: BSD-3-Clause
+// utils.h
+// Utility macros for riscv-arch-test
+// Jordan Carlin jcarlin@hmc.edu November 2025
+// SPDX-License-Identifier: BSD-3-Clause
 
 // General utility macros
 #define MIN(a,b) (((a)<(b))?(a):(b))

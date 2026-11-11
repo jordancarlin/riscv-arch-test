@@ -1,7 +1,7 @@
-# failure_code.h
-# riscv-arch-test assembly test failure handling code
-# Jordan Carlin jcarlin@hmc.edu October 2025
-# SPDX-License-Identifier: Apache-2.0
+// rvtest_failure_code.h
+// riscv-arch-test assembly test failure handling code
+// Jordan Carlin jcarlin@hmc.edu October 2025
+// SPDX-License-Identifier: Apache-2.0
 // Load the UDB_MXLEN-sized pointer at _OFF(DEFAULT_LINK_REG) into x6. The pointers follow
 // the jal of a failed check, which can follow compressed code, so they are only halfword
 // aligned. Load them with lhu so cores without misaligned-load support do not trap.
@@ -27,7 +27,7 @@
 #endif
 
 // Macro to define failure detection code (functions)
-// This is instantiated after test code near the end of RVTEST_CODE_END in test_setup.h
+// This is instantiated after test code near the end of RVTEST_CODE_END in rvtest_setup.h
 .macro RVTEST_FAILURE_CODE
     # Log failure. DEFAULT_LINK_REG (x5) contains return address of jal from the failure and DEFAULT_TEMP_REG (x4) is a vacant temporary register
     # The canary check reaches this entry with jalr through DEFAULT_DATA_REG (x3), which sets ELP when

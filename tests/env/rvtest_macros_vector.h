@@ -1,3 +1,5 @@
+// rvtest_macros_vector.h
+// Vector test macros
 // Copyright (c) 2023. RISC-V International. All rights reserved.
 // SPDX-License-Identifier: BSD-3-Clause
 // -----------

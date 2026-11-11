@@ -1,7 +1,7 @@
-# sail_macros.h
-# RVMODEL macro definitions for Sail reference model
-# Jordan Carlin jcarlin@hmc.edu October 2025, Sadhvi Narayana sanarayanan@hmc.edu February 2026
-# SPDX-License-Identifier: BSD-3-Clause
+// sail_macros.h
+// RVMODEL macro definitions for Sail reference model
+// Jordan Carlin jcarlin@hmc.edu October 2025, Sadhvi Narayanan sanarayanan@hmc.edu February 2026
+// SPDX-License-Identifier: BSD-3-Clause
 
 // This header is included AFTER rvmodel_macros.h for signature ELF builds
 // (non-selfcheck). It overrides DUT-specific macros with Sail-compatible

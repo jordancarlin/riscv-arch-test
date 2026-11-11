@@ -1,7 +1,7 @@
-# test_setup.h
-# Main riscv-arch-test test macros
-# Jordan Carlin jcarlin@hmc.edu October 2025, Sadhvi Narayanan sanarayanan@hmc.edu February 2026
-# SPDX-License-Identifier: BSD-3-Clause
+// rvtest_setup.h
+// Main riscv-arch-test test macros
+// Jordan Carlin jcarlin@hmc.edu October 2025, Sadhvi Narayanan sanarayanan@hmc.edu February 2026
+// SPDX-License-Identifier: BSD-3-Clause
 
 // Absolute .option arch strings used to bracket the FP/vector register init below.
 // An absolute arch string resets the arch for the block (rather than adding to the
