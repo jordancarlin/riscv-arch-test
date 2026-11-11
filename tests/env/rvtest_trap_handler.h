@@ -1445,30 +1445,6 @@ tsbi_\__MODE__\()forward_goto_ecall:
 .endif  // --------- END S-MODE AND VS-MODE T-SBI DISPATCH ---------
 
 //==============================================================================
-// M-MODE FORWARDED ECALL HANDLING (TODO)
-//
-// When M-mode receives an ecall from S-mode (cause 9) with a0!=0,
-// it could be the S-mode handler forwarding a T-SBI request.
-// The M-mode dispatch code above (tsbi_Mdispatch) handles the a0 value
-// regardless of which mode the ecall came from. However, for forwarded
-// GOTO operations, mepc points to the S-mode handler's ecall instruction,
-// not the original U-mode caller's ecall. This needs special handling:
-//
-// For forwarded GOTOs: M-mode should set mepc = sepc (the original
-// caller's return address, already bumped by the S-mode handler)
-// so that mret goes directly to the original caller.
-//
-// This is currently a TODO — it works correctly when medeleg[8]=0
-// (U-mode ecalls go directly to M-mode, so there's no forwarding).
-// It will be completed when medeleg is updated to delegate U-mode ecalls.
-//==============================================================================
-
-.ifc \__MODE__ , M
-tsbi_\__MODE__\()handle_forwarded:
-        nop                                        // placeholder for future forwarded ecall handling
-.endif
-
-//==============================================================================
 // TSBI Instruction Dispatch
 //
 // The T-SBI dispatch mechanism uses a table of known instructions to avoid self-modifying code.
