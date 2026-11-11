@@ -8,7 +8,7 @@
 //==============================================================================
 //==============================================================================
 //
-//  SECTION 13B: RVTEST_FAST_TRAP_HANDLER
+//  RVTEST_FAST_TRAP_HANDLER
 //
 //  Minimal-overhead illegal-instruction trap handler for test suites that
 //  generate very large numbers of illegal-instruction traps (e.g. the
@@ -104,8 +104,8 @@
 .balign UDB_MTVEC_BASE_ALIGNMENT_DIRECT
 #endif
 // ENTRY PROTOCOL: the caller's a0/a1 MUST survive the forward path — the
-// standard handler dispatches on the caller's a0 (a0==0 is the GOTO signal;
-// T-SBI ops are a0 values). Clobbering a0 before `j Mtrampoline` breaks every
+// standard handler dispatches T-SBI calls on the caller's a0 and reads
+// arguments from a1. Clobbering a0 before `j Mtrampoline` breaks every
 // ecall that arrives through this handler.
 trap_handler_fastillegalinstr:
         csrrw a0, CSR_MSCRATCH, a0      // a0 = M save-area ptr; mscratch = caller's a0

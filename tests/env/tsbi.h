@@ -59,11 +59,9 @@
 #ifdef __ASSEMBLER__
 
 //==============================================================================
-// SECTION 10: T-SBI CONVENIENCE MACROS FOR TESTS
+// T-SBI TEST MACROS (assembly only)
 //
-// These macros provide a clean test-facing interface for the a0-based T-SBI
-// calling convention. Unlike the legacy GOTO_MMODE, these
-// set a0 to the operation code and ecall.
+// Each macro loads a T-SBI operation code into a0 and executes ecall.
 //
 // Usage in tests:
 //   RVTEST_TSBI_GOTO_MMODE              // switch to M-mode, clobbers a0
@@ -71,10 +69,11 @@
 //   RVTEST_TSBI_ECALL_TEST              // ecall recorded in the trap signature, xEPC in a0
 //   RVTEST_TSBI_CSR_ACCESS 0x30002573   // read mstatus into a0
 //
-// CLOBBERS: a0 (operation code / return value), a1 (CSR_ACCESS argument only)
+// CLOBBERS: a0 (operation code / return value). RVTEST_TSBI_CSR_SET, _CLEAR,
+//           and _WRITE also load their argument into a1.
 // PRESERVES: all other registers
-// PRECONDITION: a0 must be non-zero (it always is during normal test execution)
 //==============================================================================
+
 // Switch to M-mode via T-SBI.
 // After this macro, the processor is in M-mode and a0 is undefined.
 // The S-mode handler forwards a GOTO_MMODE from U, VS or VU to M-mode and then

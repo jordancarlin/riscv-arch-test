@@ -1,5 +1,5 @@
 // rvtest_trap_handler.h
-// RISC-V Architecture Test Framework — Trap Handler, T-SBI, and Helper Macros
+// RISC-V Architecture Test Framework — Trap Handler
 //
 // Copyright (c) 2020-2023. RISC-V International. All rights reserved.
 // SPDX-License-Identifier: BSD-3-Clause
@@ -9,58 +9,39 @@
 //  FILE OVERVIEW
 //  =============
 //
-//  This file is the core of the ACT4 (Architecture Compliance Test, version 4)
-//  trap handling infrastructure. It is #included by test programs and provides:
+//  This file defines the framework trap handler. INSTANTIATE_MODE_MACRO creates one
+//  copy of each per-mode macro for M-mode, S/HS-mode, and VS-mode.
 //
-//    1. REGISTER ALIASES        — T1..T4 mapped to x6..x9, T5/T6 to x14/x15;
-//                                  DEFAULT_SIG/DATA/TEMP/LINK. a0/a1 (x10/x11) are
-//                                  deliberately NOT used as handler temporaries: they
-//                                  are the T-SBI argument/return registers.
-//    2. ARCHITECTURE CONSTANTS  — interrupt/exception cause counts, masks, mode encodings
-//    3. T-SBI DEFINITIONS       — Test Supervisor Binary Interface operation codes (in tsbi.h)
-//    4. CSR RENAME MACROS       — XCSR_RENAME parameterizes CSR names by privilege mode
-//    5. T-SBI CONVENIENCE MACROS— Test-facing macros for the a0-based SBI calling convention
-//    6. DEFAULT INTERRUPT MACROS— Stubs for RVMODEL interrupt set/clear if not DUT-defined
-//    7. RVTEST_TRAP_PROLOG      — Per-mode initialization: xSCRATCH, xTVEC, xEDELEG, xSATP
-//    8. RVTEST_TRAP_HANDLER     — Per-mode trap entry, T-SBI dispatch, signature recording,
+//    1. CONSTANTS               — cause counts, cause masks, trap signature mode codes
+//    2. SAVE AREA LAYOUT        — trampoline size, save area size, and save area offsets
+//    3. INSTANTIATE_MODE_MACRO  — instantiates a macro for each supported mode
+//    4. CSR RENAME MACROS       — map the CSR_X* names to the CSRs of one mode
+//    5. DEFAULT INTERRUPT MACROS— RVMODEL interrupt macros that the DUT does not define
+//    6. RVTEST_TRAP_PROLOG      — per-mode setup: xSCRATCH, xTVEC, xEDELEG, xSATP
+//    7. HANDLER HELPER MACROS   — CLR_INT_ENTER/RETURN and TSBI_RELOCATE_EPC
+//    8. RVTEST_TRAP_HANDLER     — per-mode trap entry, T-SBI dispatch, trap signature,
 //                                 exception/interrupt handling, and restore/return
-//    9. RVTEST_TRAP_EPILOG      — Per-mode cleanup: restore xTVEC, xEDELEG, xSATP, xSCRATCH
-//   10. RVTEST_TRAP_SAVEAREA    — Per-mode data: trampoline save, pointers, register save areas
+//    9. RVTEST_TRAP_EPILOG      — per-mode cleanup: restore the CSRs that the prolog changed
+//   10. RVTEST_TRAP_SAVEAREA    — per-mode save area in .data
 //
-//  MEMORY LAYOUT (per privilege mode)
-//  ===================================
+//  Related files:
+//    tsbi.h                           — T-SBI operation codes and RVTEST_TSBI_* test macros
+//    rvtest_fast_trap_handler.h       — fast illegal-instruction handler (RVTEST_USE_FAST_TRAP_HANDLER)
+//    rvtest_invisible_trap_handler.h  — M-mode instruction emulation and medeleg[2] tracking
+//    utils.h                          — register aliases (T1..T6, DEFAULT_*_REG) and
+//                                       mstatus/hstatus/satp field positions
 //
-//  Each privilege mode (M, S/HS, VS) gets one "save area" of size sv_area_sz bytes,
-//  allocated by RVTEST_TRAP_SAVEAREA in the .data section. The save area contains:
+//  REGISTER USE
+//  ============
 //
-//    Offset                 | Size          | Contents
-//    -----------------------|---------------|--------------------------------------------
-//    0                      | tramp_sz      | Saved original trampoline (if xTVEC was not writable)
-//    tramp_sz + 0*8         | 8             | code_bgn_ptr   — rvtest_code_begin address
-//    tramp_sz + 1*8         | 8             | code_seg_siz   — code segment size in bytes
-//    tramp_sz + 2*8         | 8             | data_bgn_ptr   — rvtest_data_begin address
-//    tramp_sz + 3*8         | 8             | data_seg_siz   — data segment size in bytes
-//    tramp_sz + 4*8         | 8             | sig_bgn_ptr    — rvtest_sig_begin address
-//    tramp_sz + 5*8         | 8             | sig_seg_siz    — signature segment size in bytes
-//    tramp_sz + 6*8         | 8             | vmem_bgn_ptr   — virtual memory region begin
-//    tramp_sz + 7*8         | 8             | vmem_seg_siz   — virtual memory region size
-//    tramp_sz + 8*8         | 8             | trap_sig_ptr   — current trap signature write pointer
-//    tramp_sz + 9*8         | 8             | xsatp_sv       — saved xSATP value
-//    tramp_sz + 10*8        | 8             | sved_shared   — S-mode area: saved hgatp
-//    tramp_sz + 11*8        | 8             | tentry_sv      — common handler entry point address
-//    tramp_sz + 12*8        | 8             | xedeleg_sv     — saved xEDELEG value
-//    tramp_sz + 13*8        | 8             | xtvec_new      — trampoline address currently in xTVEC
-//    tramp_sz + 14*8        | 8             | xtvec_save     — original xTVEC value before prolog
-//    tramp_sz + 15*8        | 8             | xscratch_save  — original xSCRATCH value before prolog
-//    tramp_sz + 16*8        | 8             | medeleg_illegal_sv — shadow value of medeleg[2]
-//    tramp_sz + 17*8        | 8             | tramp_copy_size — bytes saved for trampoline relocation
-//    tramp_sz + 18*8        | 8*REGWIDTH    | trapreg_sv     — ra scratch (slot 0), T1..T6 (slots 1-6), sp (slot 7)
-//    (after trapreg_sv)     | 8*REGWIDTH    | rvmodel_sv     — shared scratch area:
-//                           |               |   slot 0: fast-handler invisible-trap handoff marker
-//                           |               |   slots 2-3: fast-handler a1 and a2 save
+//  The handler temporaries are T1..T6 (x6..x9, x14, x15). The handler saves them in
+//  the save area on entry and restores them before xret. The handler does not use
+//  a0/a1 (x10/x11) as temporaries: they hold the T-SBI operation code and argument.
+//  resto_Xrtn does not restore a0/a1, so a T-SBI routine returns its result in a0.
 //
 //  xSCRATCH always points to the top of the current mode's save area (Xtramptbl_sv).
 //  On trap entry, sp is swapped with xSCRATCH so sp points to the save area.
+//  Section 2 gives the save area layout.
 //
 //  TRAP ENTRY CONTROL FLOW
 //  ========================
@@ -76,43 +57,12 @@
 //    9. Interrupt: record xIP and xtval, clear interrupt source via dispatch table
 //   10. resto_Xrtn: restore T1..T6 and sp, xret to resume execution
 //
-//  T-SBI (TEST SUPERVISOR BINARY INTERFACE)
-//  =========================================
+//  T-SBI DISPATCH
+//  ==============
 //
-//  The T-SBI enables S-mode and U-mode tests to request services from the
-//  execution environment without assuming a conforming M-mode. It is a
-//  lightweight alternative to the ratified SBI (OpenSBI), designed for:
-//    - Minimal code footprint (no ~1MB firmware binary)
-//    - RV32E compatibility (doesn't use a6/a7)
-//    - Non-conforming M-mode support (via RVMODEL overrides)
+//  tsbi.h defines the T-SBI calling convention and operation codes. Each handler
+//  services some operations and forwards the others to a more privileged handler:
 //
-//  Calling convention:
-//    - Invoke with `ecall`
-//    - a0 = operation code (see TSBI_* constants below)
-//    - a1 = optional argument (e.g., CSR rs1 value)
-//    - Result returned in a0
-//    - a0/a1 are the ONLY registers the handler may leave modified (a0 as the
-//      return value). The handler never uses a0/a1 as internal temporaries;
-//      its temporaries are T1..T6 (x6..x9, x14, x15), which are always
-//      saved/restored through the save area.
-//
-//  Operations:
-//    TSBI_GOTO_MMODE  (a0=1)          — Switch caller to M-mode
-//    TSBI_GOTO_SMODE  (a0=2)          — Switch caller to S/HS-mode
-//    TSBI_GOTO_UMODE  (a0=3)          — Switch caller to U-mode
-//    TSBI_GOTO_VSMODE (a0=4)          — Switch caller to VS-mode (H required)
-//    TSBI_GOTO_VUMODE (a0=5)          — Switch caller to VU-mode (H required)
-//      All five GOTO ops relocate the resume address when a test runs with
-//      translation on and has registered a code alias for its code region
-//      (see TSBI_RELOCATE_EPC).
-//    TSBI_ECALL_TEST  (a0=0x73)       — Record the ecall in the trap signature and return
-//                                       past it with xEPC in a0
-//    CSR_ACCESS       (a0=CSR opcode) — Execute CSR instruction; rd must be a0
-//    TSBI_LW/LWP4/LD  (a0=load opcode) — Load from physical address a1 into a0
-//    TSBI_SW/SWP4/SD  (a0=store opcode)— Store a2 to physical address a1
-//    Any other value                  — Fails the test or returns -1 in a0 (TSBI_RESERVED_RET)
-//
-//  Dispatch hierarchy:
 //    M-mode handler:  handles all operations directly
 //    S-mode handler:  handles ECALL_TEST, GOTO_S/U/VS/VU, S-mode CSR_ACCESS locally;
 //                     forwards GOTO_M, M-mode CSR_ACCESS, and loads/stores to M-mode via ecall
@@ -124,21 +74,29 @@
 //                     instead of the VS handler. An ecall from VS-mode (cause 10)
 //                     always goes to HS-mode because hedeleg[10] is read-only 0.
 //
+//  All five GOTO operations relocate the resume address when a test runs with
+//  translation on and has registered a code alias for its code region
+//  (see TSBI_RELOCATE_EPC).
+//
 //  CSR_ACCESS from a guest runs in HS-mode, so S-mode CSR numbers access the
 //  HS-mode CSRs. A guest must use the vs* CSR numbers to access its own state.
 //
 //************************************************************************************
 
 //==============================================================================
-// SECTION 2: ARCHITECTURE CONSTANTS
+// SECTION 1: CONSTANTS
 //
-// NUM_SPECD_INTCAUSES:  number of specified interrupt causes (0..23)
+// NUM_SPECD_INTCAUSES:   number of specified interrupt causes (0..23)
 // NUM_SPECD_EXCPTCAUSES: number of specified exception causes (0..23)
-// INT_CAUSE_MSK:        mask for cause bits used in interrupt dispatch (5 bits)
-// EXCPT_CAUSE_MSK:      mask for cause bits used in exception dispatch (5 bits)
+// INT_CAUSE_MSK:         mask for cause bits used in interrupt dispatch (5 bits)
+// EXCPT_CAUSE_MSK:       mask for cause bits used in exception dispatch (5 bits)
 //
 // These define the sizes of the trampoline spreader region and the
 // interrupt/exception dispatch tables in the handler.
+//
+// *MODE_SIG is the 2-bit mode code in bits 1:0 of trap signature word 0.
+// Word 0 packs: mode(1:0), entry size in bytes(5:2), vector(10:6), xIE(11),
+// xIP(12), xstatus(30:13). See RVTEST_TRAP_HANDLER for the full encoding.
 //==============================================================================
 
 #ifndef   NUM_SPECD_INTCAUSES
@@ -151,24 +109,12 @@
   #define EXCPT_CAUSE_MSK ((1<<5)-1)             // 5-bit mask to extract cause index
 #endif
 
-//==============================================================================
-// SECTION 5: MODE ENCODING CONSTANTS
-//
-// These constants encode privilege modes in various formats:
-//   - *MODE_SIG: 2-bit mode identifier stored in trap signature word 0 (bits 1:0)
-//   - MPP_*:     mstatus.MPP field values (bits 12:11)
-//   - *_LSB:     bit positions of key mstatus/hstatus fields
-//
-// The trap signature word 0 packs: mode(1:0), entry size in bytes(5:2), vector(10:6),
-// xIE(11), xIP(12), xstatus(30:13). See RVTEST_TRAP_HANDLER for full encoding.
-//==============================================================================
-
 .set MMODE_SIG, 3                                // M-mode signature encoding (bits 1:0 = 11)
 .set SMODE_SIG, 1                                // S-mode signature encoding (bits 1:0 = 01)
 .set VMODE_SIG, 2                                // VS-mode signature encoding (bits 1:0 = 10)
 
 //==============================================================================
-// SECTION 6: TRAMPOLINE AND SAVE AREA SIZE CALCULATIONS
+// SECTION 2: SAVE AREA LAYOUT
 //
 // The trampoline is the vectored interrupt entry point. It consists of:
 //   1. VECTOR SPREADER: UDB_MXLEN jump instructions (one per possible vector)
@@ -196,24 +142,39 @@
 #define int_hndlr_tblsz (UDB_MXLEN*2*WDBYTSZ)                                // size of combined int+exception dispatch tables
 
 //==============================================================================
-// SECTION 7: SAVE AREA OFFSET DEFINITIONS
+// Each mode (M, S/HS, VS) has one save area of sv_area_sz bytes, allocated in .data
+// by RVTEST_TRAP_SAVEAREA. The offsets below are from the top of the save area
+// (Xtramptbl_sv, stored in xSCRATCH, loaded into sp on trap entry):
 //
-// These #define constants give byte offsets from the top of a mode's save area
-// (Xtramptbl_sv, stored in xSCRATCH, loaded into sp on trap entry).
+//    Offset                 | Size          | Contents
+//    -----------------------|---------------|--------------------------------------------
+//    0                      | tramp_sz      | Saved original trampoline (if xTVEC was not writable)
+//    tramp_sz + 0*8         | 8             | code_bgn_ptr   — rvtest_code_begin address
+//    tramp_sz + 1*8         | 8             | code_seg_siz   — code segment size in bytes
+//    tramp_sz + 2*8         | 8             | data_bgn_ptr   — rvtest_data_begin address
+//    tramp_sz + 3*8         | 8             | data_seg_siz   — data segment size in bytes
+//    tramp_sz + 4*8         | 8             | sig_bgn_ptr    — rvtest_sig_begin address
+//    tramp_sz + 5*8         | 8             | sig_seg_siz    — signature segment size in bytes
+//    tramp_sz + 6*8         | 8             | vmem_bgn_ptr   — virtual memory region begin
+//    tramp_sz + 7*8         | 8             | vmem_seg_siz   — virtual memory region size
+//    tramp_sz + 8*8         | 8             | trap_sig_ptr   — current trap signature write pointer
+//    tramp_sz + 9*8         | 8             | xsatp_sv       — saved xSATP value
+//    tramp_sz + 10*8        | 8             | sved_shared    — S area: saved hgatp; M area: saved hideleg
+//    tramp_sz + 11*8        | 8             | tentry_sv      — common handler entry point address
+//    tramp_sz + 12*8        | 8             | xedeleg_sv     — saved xEDELEG value
+//    tramp_sz + 13*8        | 8             | xtvec_new      — trampoline address currently in xTVEC
+//    tramp_sz + 14*8        | 8             | xtvec_save     — original xTVEC value before prolog
+//    tramp_sz + 15*8        | 8             | xscratch_save  — original xSCRATCH value before prolog
+//    tramp_sz + 16*8        | 8             | medeleg_illegal_sv — shadow value of medeleg[2]
+//    tramp_sz + 17*8        | 8             | tramp_copy_size — bytes saved for trampoline relocation
+//    tramp_sz + 18*8        | 8*REGWIDTH    | trapreg_sv     — ra scratch (slot 0), T1..T6 (slots 1-6), sp (slot 7)
+//    (after trapreg_sv)     | 8*REGWIDTH    | rvmodel_sv     — shared scratch area:
+//                           |               |   slot 0: fast-handler invisible-trap handoff marker
+//                           |               |   slots 2-3: fast-handler a1 and a2 save
+//                           |               |   any slot: RVMODEL macro scratch
+//    (after rvmodel_sv)     | 4*REGWIDTH    | int_clr_sv     — a0-a2 save across interrupt clearing
 //
-// The save area layout is:
-//   [0 .. tramp_sz-1]           trampoline save (original code if xTVEC not writable)
-//   [tramp_sz + 0*8]            code_bgn_off    — rvtest_code_begin phys addr
-//   [tramp_sz + 1*8]            code_seg_siz    — code segment size
-//   ...                         (see full layout in FILE OVERVIEW above)
-//   [tramp_sz + 16*8]           medeleg_illegal_sv_off — logical medeleg[2] value
-//   [tramp_sz + 17*8]           tramp_copy_size_off — bytes saved for trampoline relocation
-//   [tramp_sz + 18*8]           trap_sv_off     — start of handler register save (T1..T6,sp,spare)
-//   [after trap_sv]             rvmodel_sv_off  — start of RVMODEL macro scratch area
-//   [after rvmodel_sv]          int_clr_sv_off  — a0-a2 save across interrupt clearing
-//
-// The fast trap handler uses slot 0 as its invisible-trap handoff marker and
-// slots 2-3 to save a1 and a2. These uses do not overlap in time.
+// The uses of rvmodel_sv never overlap in time.
 //==============================================================================
 
 #define tramp_sv_off                         ( 0*8) // offset to trampoline save area
@@ -244,7 +205,7 @@
 #define int_clr_sv_off  (rvmodel_sv_off+8*(REGWIDTH))   // a0/a1/a2 save slots for interrupt clearing routines
 
 //==============================================================================
-// SECTION 8: INSTANTIATE_MODE_MACRO
+// SECTION 3: INSTANTIATE_MODE_MACRO
 //
 // Helper macro that replicates a given macro for each supported privilege mode.
 // Called as: INSTANTIATE_MODE_MACRO RVTEST_TRAP_HANDLER
@@ -273,7 +234,7 @@
 .endm
 
 //==============================================================================
-// SECTION 9: CSR RENAME MACROS
+// SECTION 4: CSR RENAME MACROS
 //
 // XCSR_RENAME <MODE> sets assembler symbols (CSR_XSTATUS, CSR_XEPC, etc.)
 // to the actual CSR names for the specified mode. This allows the handler
@@ -397,7 +358,7 @@
 .endm
 
 //==============================================================================
-// SECTION 11: DEFAULT INTERRUPT MACROS
+// SECTION 5: DEFAULT INTERRUPT MACROS
 //
 // If the DUT does not define RVMODEL_SET/CLR_xxx_INT macros, these defaults
 // are used. The default action is to jump to rvtest_code_end, which terminates
@@ -442,7 +403,7 @@
 //==============================================================================
 //==============================================================================
 //
-//  SECTION 12: RVTEST_TRAP_PROLOG
+//  SECTION 6: RVTEST_TRAP_PROLOG
 //
 //  Per-mode trap handler initialization. Called once per mode during boot.
 //  Sets up:
@@ -666,49 +627,9 @@ rvtest_\__MODE__\()prolog_done:
 //==============================================================================
 //==============================================================================
 //
-//  SECTION 13: RVTEST_TRAP_HANDLER
+//  SECTION 7: HANDLER HELPER MACROS
 //
-//  The main trap handler macro. This is the heart of the ACT4 framework.
-//  One copy is instantiated per supported privilege mode (M, S, H, V).
-//
-//  STRUCTURE:
-//    1. Trampoline table       — UDB_MXLEN jump instructions for vectored entry
-//    2. Per-cause stubs        — save sp+T6, jump to common handler
-//    3. Common handler         — save T5, restore xSCRATCH, jump to entry
-//    4. Common entry           — save T1-T4, read xcause
-//    5. T-SBI dispatch (NEW)   — check for ecall + dispatch SBI operations
-//    6. Trap signature update  — record trap info in signature region
-//    7. Exception handler      — record xEPC, bump past instruction
-//    8. Interrupt handler      — clear interrupt source via dispatch table
-//    9. Restore and return     — restore T1-T6+sp, xret
-//
-//  T-SBI DISPATCH (NEW CODE):
-//    Inserted between ecall detection and normal trap signature recording.
-//    M-mode handler:  full dispatch (ECALL_TEST, CSR_ACCESS, GOTO_xMODE)
-//    S-mode handler:  partial dispatch + forwarding to M-mode for privileged ops
-//
-//  REGISTER STATE AT T-SBI DISPATCH POINT:
-//    sp     = pointer to current mode's save area (Xtramptbl_sv)
-//    T5     = xcause value (MSB=1 for interrupts)
-//    T4     = masked cause (cause[11:0] only, int bit cleared)
-//    T3     = available (used in preceding comparisons)
-//    T2     = available
-//    T1     = saved at trap_sv_off+1*REGWIDTH(sp)
-//    T6     = saved at trap_sv_off+6*REGWIDTH(sp)
-//    orig sp= saved at trap_sv_off+7*REGWIDTH(sp)
-//    a0/a1  = caller's T-SBI operation code / argument, still LIVE in the
-//             registers: since T5/T6 are x14/x15 (not a0/a1), the handler
-//             never overwrites a0/a1 on entry.
-//
-//  CALLER'S a0/a1 HANDLING:
-//    The handler's temporaries are T1..T6 = x6..x9, x14, x15. a0 and a1 are
-//    never used as scratch, so the caller's SBI operation code (a0) and
-//    argument (a1) simply remain valid in their registers throughout the
-//    handler. Dispatch reads them directly out of a0/a1 (no copy needed).
-//    The restore path
-//    (resto_Xrtn) does not touch a0/a1 either, which is what allows the
-//    T-SBI service routines to return their result by writing a0: the value
-//    survives the register restore and the xret back to the caller.
+//  Macros that RVTEST_TRAP_HANDLER uses.
 //
 //==============================================================================
 //==============================================================================
@@ -877,6 +798,42 @@ rvtest_\__MODE__\()prolog_done:
 9:
 #endif
 .endm
+
+//==============================================================================
+//==============================================================================
+//
+//  SECTION 8: RVTEST_TRAP_HANDLER
+//
+//  The main trap handler macro. One copy is instantiated per supported mode
+//  (M, S/HS, VS).
+//
+//  STRUCTURE:
+//    1. Trampoline table       — UDB_MXLEN jump instructions for vectored entry
+//    2. Per-cause stubs        — save sp+T6, jump to common handler
+//    3. Common handler         — save T5, restore xSCRATCH, jump to entry
+//    4. Common entry           — save T1-T4, read xcause
+//    5. T-SBI dispatch         — check for ecall + dispatch T-SBI operations
+//    6. Trap signature update  — record trap info in signature region
+//    7. Exception handler      — record xEPC, bump past instruction
+//    8. Interrupt handler      — clear interrupt source via dispatch table
+//    9. Restore and return     — restore T1-T6+sp, xret
+//
+//  T-SBI dispatch comes after ecall detection and before normal trap signature
+//  recording. The FILE OVERVIEW describes which handler services each operation.
+//
+//  REGISTER STATE AT T-SBI DISPATCH POINT:
+//    sp     = pointer to current mode's save area (Xtramptbl_sv)
+//    T5     = xcause value (MSB=1 for interrupts)
+//    T4     = masked cause (int bit + cause[11:0])
+//    T3, T2 = available
+//    T1     = saved at trap_sv_off+1*REGWIDTH(sp)
+//    T6     = saved at trap_sv_off+6*REGWIDTH(sp)
+//    orig sp= saved at trap_sv_off+7*REGWIDTH(sp)
+//    a0/a1  = caller's T-SBI operation code / argument. The handler does not
+//             use them as temporaries, so dispatch reads them directly.
+//
+//==============================================================================
+//==============================================================================
 
 .macro RVTEST_TRAP_HANDLER __MODE__
 .option push
@@ -1939,9 +1896,8 @@ tsbi_instr_table:
 //==============================================================================
 // NORMAL TRAP HANDLING
 //
-// Reached when the trap is NOT a T-SBI call (either not an ecall,
-// or an ecall with a0==0 that was already handled by the legacy path,
-// or a genuine ecall exception that should be recorded in the signature).
+// Reached for traps that are not T-SBI calls, and for TSBI_ECALL_TEST,
+// which records its ecall in the trap signature.
 //
 // This section:
 //   1. Calculates the trap signature entry size (4, or 6 words for M and HS with H)
@@ -2692,7 +2648,7 @@ excpt_\__MODE__\()hndlr_tbl:
 //==============================================================================
 //==============================================================================
 //
-//  SECTION 14: RVTEST_TRAP_EPILOG
+//  SECTION 9: RVTEST_TRAP_EPILOG
 //
 //  Per-mode cleanup, run after test completion.
 //  Restores xEDELEG, xSATP, xSCRATCH, xTVEC, and any relocated trampoline code.
@@ -2791,13 +2747,13 @@ rvtest_\__MODE__\()end:                            // epilog is done for this mo
 //==============================================================================
 //==============================================================================
 //
-//  SECTION 15: RVTEST_TRAP_SAVEAREA
+//  SECTION 10: RVTEST_TRAP_SAVEAREA
 //
 //  Allocates and initializes the per-mode save area in the .data section.
 //  One copy per supported mode (M, S/HS, VS), instantiated by
 //  INSTANTIATE_MODE_MACRO RVTEST_TRAP_SAVEAREA.
 //
-//  Layout: See SAVE AREA OFFSET DEFINITIONS (Section 8) for the full structure.
+//  Layout: see SECTION 2.
 //
 //  The rvmodel_sv area has eight REGWIDTH entries at rvmodel_sv_off:
 //    - Slot 0 is the fast-handler invisible-trap handoff marker.
