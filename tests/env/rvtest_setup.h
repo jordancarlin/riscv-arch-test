@@ -8,7 +8,7 @@
 // test's -march), so it drops any mutually-exclusive extension the test declared
 // (e.g. Zfinx in the Sm/Ssstateen suites, which conflicts with F). .option pop then
 // restores the test's real march. Supersets are harmless: only the init instructions
-// are emitted inside the block. See rv..imafdcv (V implies zve64d->d->f->m).
+// are emitted inside the block. V implies Zve64d, which implies D and F.
 #if __riscv_xlen == 64
   #define RVTEST_FP_INIT_ARCH  rv64if
   #define RVTEST_VEC_INIT_ARCH rv64imfv
@@ -21,8 +21,8 @@
 /**** RVTEST_BEGIN sets up the test environment and is run before the actual test code. ****/
 /**** - sets up main entry point labels                                                 ****/
 /**** - runs model specific boot code                                                   ****/
-/**** - instantiates trap prologs when STANDARD_SM_SUPPORTED is defined                 ****/
-/**** - initializes regs                                                                ****/
+/**** - calls rvmodel_boot, which runs the trap prologs (STANDARD_SM_SUPPORTED),         ****/
+/****   switches to the boot mode, and initializes regs                                 ****/
 /**** - defines rvtest_code_begin global label                                          ****/
 /*******************************************************************************************/
 .macro RVTEST_BEGIN
@@ -61,7 +61,6 @@
   // to be in separate output sections in the linker script.
   .section .text.rvtest
 
-  // Test initialization
   // Start of test
   .global rvtest_code_begin
   rvtest_code_begin:
@@ -76,8 +75,8 @@
 /**** - Switch to M Mode                                                                ****/
 /**** - instantiates trap epilogs when STANDARD_SM_SUPPORTED is defined                 ****/
 /**** - Instantiate trap handlers for each priv mode                                    ****/
-/**** - Include headers that contain code (not macros) that would throw off the address ****/
-/**** - Terminate test with call to RVMODEL_HALT                                        ****/
+/**** - Emit failure code, rvmodel_boot, IO/halt routines, and interrupt helpers        ****/
+/**** - Terminate test with RVMODEL_HALT_PASS or RVMODEL_HALT_FAIL                      ****/
 /*******************************************************************************************/
 // Turn off M-mode landing pads (mseccfg.MLPE) on the way out of a test. The end-of-test
 // and failure code, the epilogs and rvmodel_halt_fail are not written with landing pads,
@@ -91,7 +90,7 @@
 .endm
 
 .macro RVTEST_CODE_END
-  // Disable assembler/linker optimizations for RVTEST_CODE_END
+  // Disable compressed instructions for RVTEST_CODE_END
   .option push
   .option norvc
   .global rvtest_code_end       // define the label and make it available
@@ -211,7 +210,8 @@
       .word   CSR_MEPC
   #endif
 
-  // Restore xTVEC, trampoline, regs for each mode in opposite order that they were saved.
+  // Run each mode's epilog in reverse prolog order. Each restores xEDELEG, xSATP, xSCRATCH,
+  // xTVEC, and the trampoline.
   run_epilogs:
     LI(T5, 0)                         // normal termination
     j   run_epilogs_body
@@ -243,11 +243,11 @@
       #ifdef S_SUPPORTED
         // Exact reverse of the prolog order (M, S, V).
         #ifdef H_SUPPORTED
-          RVTEST_TRAP_EPILOG V        // actual v-mode prolog/epilog/handler code
+          RVTEST_TRAP_EPILOG V
         #endif
-        RVTEST_TRAP_EPILOG S          // actual s-mode prolog/epilog/handler code
+        RVTEST_TRAP_EPILOG S
       #endif
-      RVTEST_TRAP_EPILOG M            // actual m-mode prolog/epilog/handler code
+      RVTEST_TRAP_EPILOG M
       LA(T1, rvtest_trap_prolog_error)
       LREG T1, 0(T1)
       bnez T1, rvtest_trap_setup_failed
@@ -304,9 +304,7 @@
     j       rvtest_code_end_mmode
 
   // Instantiate trap handlers for each priv mode
-  // Guard matches the RVTEST_TRAP_EPILOG guard above: rvtest_Mend (and sibling
-  // labels) are defined by RVTEST_TRAP_EPILOG, so the handler that references
-  // them must only be emitted when the epilog is also emitted.
+  // Emit the handlers only with STANDARD_SM_SUPPORTED, the same guard as the prologs and epilogs.
   #ifdef STANDARD_SM_SUPPORTED
     INSTANTIATE_MODE_MACRO RVTEST_TRAP_HANDLER
     // Fast illegal-instruction handler for high-trap-volume suites (Ssstrict).
@@ -583,7 +581,7 @@
       #ifdef RVMODEL_MTIMECMP_ADDRESS
         LI_FIXED_LEN(a1, RVMODEL_MTIMECMP_ADDRESS)
         li a2, -1 // all 1s
-        sw a2, 4(a1)      // don't bother with lower bits, which stay at 0
+        sw a2, 4(a1)      // mtimecmp high word = all 1s; the low word does not matter
         RVTEST_WAIT_MIP_CLEAR_M 0x80 // mip.MTIP
       #endif
       ret
@@ -775,7 +773,7 @@
     #endif // RVTEST_SGEI_INTR_IMPL
   #endif
 
-  // Flavors to run from supervisor mode
+  // Flavors to run from S-mode or U-mode
 
   // These reach machine interrupt sources only through T-SBI, so they need a T-SEE but not
   // a standard M-mode; they are emitted whenever a lower privilege mode can call them.
@@ -831,7 +829,7 @@
       #ifdef RVMODEL_MTIMECMP_ADDRESS
         LI_FIXED_LEN(a1, RVMODEL_MTIMECMP_ADDRESS)
         li a2, -1 // all 1s
-        RVTEST_TSBI_SWP4 // sw a2, 4(a1)      // don't bother with lower bits, which stay at 0
+        RVTEST_TSBI_SWP4 // sw a2, 4(a1)      // mtimecmp high word = all 1s; the low word does not matter
         RVTEST_WAIT_MIP_CLEAR_SU 0x80 // mip.MTIP
       #endif
       ret
@@ -1205,8 +1203,8 @@
 /*********************************** end of RVTEST_SIG_SETUP *********************************/
 
 
-/************************************ RVTEST_BOOT_TO_M_MODE ********************************/
-/**** Set up M-mode trap handler and initialize M-mode CSRs                             ****/
+/************************************ RVTEST_BOOT_TO_MMODE *********************************/
+/**** Set up trap handlers for all modes and initialize M-mode CSRs                    ****/
 /**** Can be overridden by DUT-specific RVMODEL_BOOT_TO_MMODE for custom M-mode         ****/
 /*******************************************************************************************/
 .macro RVTEST_BOOT_TO_MMODE
@@ -1289,8 +1287,8 @@
       // mstatus.MBE = 0: Set M-mode to little endian if supported
       // mstatus.GVA = 0: Guest virtual address
       // mstatus.MPV = 0: Previous virtualization OFF
-      // mstatus.MPELP = 0: Disable landing pads
-      // mstatus.MDT = 0: Disable double trap
+      // mstatus.MPELP = 0: No landing pad expected after MRET
+      // mstatus.MDT = 0: M-mode traps are not double traps
       #if __riscv_xlen == 64
         #define MSTATUS_UXL_64         0x0000000200000000
         #define MSTATUS_SXL_64         0x0000000800000000
@@ -1310,7 +1308,7 @@
       // menvcfg.STCE = 0: Disable Sstc supervisor timer compare
       // menvcfg.PBMTE = 0: Disable Svpbmt page-based memory types
       // menvcfg.ADUE = 0: Disable Svadu A/D bit update
-      // menvcfg.CDE = 0: Disable counter delegation ***check
+      // menvcfg.CDE = 0: Disable Smcdeleg counter delegation
       // menvcfg.DTE = 0: Disable Ssdbltrp double traps
       // menvcfg.PMM = 00: Disable Smnpm pointer masking at next lower privilege mode
       // menvcfg.SSE = 0: Disable Zicfiss shadow stacks
@@ -1482,7 +1480,7 @@
         csrw mcounteren, t0 // Enable all counters for access from next lower priv mode
       #endif
 
-      // msseccfg.MLL, MMWP, RLB, USEED, and SSEED reset to defined values.
+      // mseccfg.MML, MMWP, RLB, USEED, and SSEED reset to defined values.
       // if Pointer Masking is supported, mseccfg.PMM should be initialized to 0 to turn it off
       // might as well turn off everything
       #ifdef SMMPM_SUPPORTED
@@ -1627,8 +1625,8 @@
   INIT_FLOAT_VECTOR_STATE
 .endm
 
-/************************************ RVTEST_BOOT_TO_S_MODE ********************************/
-/**** Set up S-mode trap handler and initialize S-mode CSRs                             ****/
+/************************************ RVTEST_BOOT_TO_SMODE *********************************/
+/**** Set S-mode delegation and initialize S-mode CSRs                                 ****/
 /**** Switch into S-mode                                                                ****/
 /*******************************************************************************************/
 .macro RVTEST_BOOT_TO_SMODE
@@ -1643,7 +1641,7 @@
   // medeleg[1] = 1: delegate instruction access fault exception
   // medeleg[2] = 1: logically delegate illegal instruction exceptions to S-mode.
   //                 See RVTEST_SAVE_MEDELEG_ILLEGAL and RVTEST_RESTORE_MEDELEG_ILLEGAL
-  //                 in rvtest_trap_handler.h for details on medeleg[2] emulation.
+  //                 in rvtest_invisible_trap_handler.h for details on medeleg[2] emulation.
   // medeleg[3] = 1: delegate breakpoint exception
   // medeleg[4] = 1: delegate load address misaligned exception
   // medeleg[5] = 1: delegate load access fault exception
@@ -1669,7 +1667,7 @@
   li t0, 0x0FCB5FF
   csrw medeleg, t0
 
-  // Delegate supervisor interrupts to S-mode. Do not delege M-mode interrupts.
+  // Delegate supervisor interrupts to S-mode. Do not delegate M-mode interrupts.
   // mideleg.SSIP = 1: delegate supervisor software interrupts
   // mideleg.STIP = 1: delegate supervisor timer interrupts
   // mideleg.SEIP = 1: delegate supervisor external interrupts
@@ -1705,7 +1703,7 @@
   // Disable all privileged environment configuration, and enable unprivileged configuration
   // Privileged tests that want to use these features should turn them on
   // Unprivileged tests don't make SBI calls so the features should already be enabled
-  // senvcfg.PMM = 00: Disable Smnpm pointer masking at next lower privilege mode (RV64 only)
+  // senvcfg.PMM = 00: Disable Ssnpm pointer masking at next lower privilege mode (RV64 only)
   // senvcfg.SSE = 0: Disable Zicfiss shadow stacks
   // senvcfg.LPE = 0: Disable Zicfilp landing pads
   // senvcfg.FIOM = 0: Disable Fence of I/O Implies Memory
@@ -1721,7 +1719,7 @@
   RVTEST_TSBI_GOTO_SMODE
 .endm
 
-/************************************ RVTEST_BOOT_TO_U_MODE ********************************/
+/************************************ RVTEST_BOOT_TO_UMODE *********************************/
 /**** Switch into U-mode                                                                ****/
 /*******************************************************************************************/
 .macro RVTEST_BOOT_TO_UMODE
@@ -1755,7 +1753,7 @@
       #ifdef ZVE32X_SUPPORTED // this should be defined if EEW of 32 is supported
         .option push
         .option arch, RVTEST_VEC_INIT_ARCH
-        vsetivli t0, 1, e32, m1, tu, mu // predictable initial state with 1 element, 32-bit EEW, LMUL=1, tail and masked elements undistrubed
+        vsetivli t0, 1, e32, m1, tu, mu // predictable initial state with 1 element, 32-bit EEW, LMUL=1, tail and masked elements undisturbed
         .option pop
       #endif // ZVE32X_SUPPORTED
     #endif // ZVL32B_SUPPORTED
@@ -1765,7 +1763,7 @@
 /**** helper macro to initialize regs, just to make sure you catch any errors ****/
 /*****************************************************************/
 
-.macro DBLSHIFTR dstreg,     oldreg,       tmpreg, shamt       //this is just a rotate  using xtmp as a tmp
+.macro DBLSHIFTR dstreg,     oldreg,       tmpreg, shamt       // rotate right; tmpreg is scratch
         slli    \tmpreg\(), \oldreg\(), UDB_MXLEN-\shamt
         srli    \dstreg\(), \oldreg\(),           \shamt
         or      \dstreg\(), \dstreg\(), \tmpreg\()
@@ -1836,7 +1834,7 @@
     fmv.w.x f13, x13
     fmv.w.x f14, x14
     fmv.w.x f15, x15
-    fmv.w.x f16, x0 // what the heck, make this zero :)
+    fmv.w.x f16, x0 // zero
     fmv.w.x f17, x1
     fmv.w.x f18, x2
     fmv.w.x f19, x3
@@ -1878,7 +1876,7 @@
     vmv.v.x v13, x13
     vmv.v.x v14, x14
     vmv.v.x v15, x15
-    vmv.v.x v16, x0 // what the heck, make this zero :)
+    vmv.v.x v16, x0 // zero
     vmv.v.x v17, x1
     vmv.v.x v18, x2
     vmv.v.x v19, x3
