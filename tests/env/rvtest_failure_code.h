@@ -1498,9 +1498,7 @@
         li a1, 3
         beq a0, a1, failedtest_report_end   # if mismatch region is vector base, skip printing mismatch mask since it is not valid
 
-        // Print mismatch mask (raw bytes of vec_mismatch_mask, VLEN/8 bytes)
-        // We print as a hex string by iterating over the bytes.
-        // For brevity we print up to VLENMAX_BYTES bytes.
+        // Print all vlenb bytes of failing_mask_vec as hex, most-significant byte first.
         LA(a0, mismatch_mask_str)
         call rvmodel_io_write_str
 
@@ -2383,7 +2381,7 @@
         .string "Unknown/custom cause\n"
 
     //==========================================================================
-    // GENERAL STRINGS (unchanged from original)
+    // GENERAL STRINGS
     //==========================================================================
     successstr:
         // Sequence of .ascii and .asciz is used to create a multi-part string with a single null terminator

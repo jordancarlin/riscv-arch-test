@@ -43,10 +43,7 @@
 #endif
 
 // Per-test fractional LMUL support based on RVTEST_SEW (set in each test) and UDB_ELEN.
-// The testgen-emitted #if guards in the test source run BEFORE this header is included,
-// at which point UDB_ELEN is still undefined, so the test-source defines never fire.
-// Defining them here (after UDB_ELEN is in scope) ensures #ifdef TEST_LMULfN_SUPPORTED
-// in the test body works correctly.
+// Generated tests guard fractional-LMUL cases with TEST_LMULfN_SUPPORTED.
 #if defined(RVTEST_SEW) && defined(UDB_ELEN)
     #if (RVTEST_SEW <= UDB_ELEN / 2)
         #ifndef TEST_LMULf2_SUPPORTED

@@ -9,7 +9,7 @@
     _PAR: Register containing Physical Address
     _PR: Register containing Permissions for Leaf PTE.
         (Note: No-leaf PTE (if-any) has only valid permission (pte.v) set)
-    _TR0, _TR1, _TR2: Temporary registers used and modified by function
+    _TR0, _TR1: Temporary registers used and modified by the macro
     VA: Virtual address
     level: Level at which PTE would be setup
         0: Two level translation
@@ -36,8 +36,8 @@
 #define VMEM vmem_bgn_off
 
 
-//****NOTE: label `rvtest_Sroot_pg_tbl` must be declared after RVTEST_DATA_END
-//          in the test aligned at 4kiB (use .p2align 12)
+// RVTEST_DATA_END defines rvtest_Sroot_pg_tbl. Tests define the lower-level tables
+// (rvtest_slvlN_pg_tbl), 4 KiB aligned.
 #define PTE_SETUP_COMMON(_PAR, _PR, _TR0, _TR1, _VAR, level)      ;\
     srli _VAR, _VAR, (RISCV_PGLEVEL_BITS * level + RISCV_PGSHIFT) ;\
     srli _PAR, _PAR, (RISCV_PGLEVEL_BITS * level + RISCV_PGSHIFT) ;\

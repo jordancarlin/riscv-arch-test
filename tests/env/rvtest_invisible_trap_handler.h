@@ -481,7 +481,7 @@
 // alternative way of tracking the desired state of medeleg[2] since it needs to be cleared in lower priv modes
 // even when we want delegation to happen. The desired state is stored in the save area at medeleg_illegal_sv_off
 // and is saved/restored during privilege mode switches using the macros below. When switching to M-mode, the real
-// value of medeleg[2] must be restored so that code that reads medeleg seems the correct value. When switching to
+// value of medeleg[2] must be restored so that code that reads medeleg sees the correct value. When switching to
 // a lower-priv mode, the value of medeleg[2] must be saved and then cleared so that illegal instructions go
 // through M-mode.
 
@@ -516,9 +516,8 @@
 #endif
 .endm
 
-// Check the mode we are going to and save the current value of medeleg[2]
-// if we are switching to a lower-priv mode. Used when doing a mode-switch
-// to anything other than M-mode.
+// Save medeleg[2] and clear it if the caller is in M-mode (mstatus.MPP == M). Call before
+// MPP is set to the target mode. Used for switches to modes other than M.
 .macro RVTEST_PREPARE_MEDELEG_FOR_LOWER SAVE_AREA_REG, STATUS_REG, TMP_REG
   csrr    \STATUS_REG, CSR_MSTATUS
   LI(     \TMP_REG, MSTATUS_MPP)

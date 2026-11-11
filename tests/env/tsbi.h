@@ -1,5 +1,6 @@
 // tsbi.h
-// T-SBI (Test Supervisor Binary Interface) operation codes, shared by assembly and C tests.
+// T-SBI (Test Supervisor Binary Interface) operation codes for assembly and C tests,
+// and RVTEST_TSBI_* assembly macros.
 //
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 // SPDX-License-Identifier: BSD-3-Clause
@@ -129,9 +130,10 @@
   .option push
   .option norvc
   li   a0, TSBI_SFENCE_VMA
-  ecall
+  ecall                                          // trap to handler; handler executes sfence.vma
   .option pop
-.endm                                         // trap to handler; handler executes sfence.vma
+.endm
+
 .macro RVTEST_TSBI_LW
   .option push
   .option norvc                                  // ensure consistent code size

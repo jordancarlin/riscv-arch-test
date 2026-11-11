@@ -62,10 +62,11 @@
 //  advances by 4; advancing by 2 would return to the same instruction.
 //
 //  Register usage:
-//    a0, a1 (x10, x11) — the ONLY scratch registers (CSR reads, instruction
-//              word, advance amount). These are the framework's designated
-//              clobber registers: the priv test generator never allocates them
-//              to tests, so clobbering them here without save/restore is safe.
+//    a0, a1 (x10, x11) — clobbered on the fast record path (CSR reads, instruction
+//              word, advance amount). The priv test generator never allocates
+//              a0-a2 to tests.
+//    a2 (x12)  — used by the code-range check; saved in rvmodel_sv slot 3 and restored.
+//    The forward paths restore a0-a2. The cold failure path also uses x4, x6, x7, and x9.
 //==============================================================================
 //==============================================================================
 
@@ -173,7 +174,7 @@ fast_Mboot_trap:
 fast_Mothertrap:
         LREG a1, rvmodel_sv_off+2*REGWIDTH(a0)  // restore caller's a1
         csrrw a0, CSR_MSCRATCH, a0      // restore mscratch = save ptr; a0 = caller's a0
-        j    Mtrampoline                // hand off all non-illegal-instruction traps
+        j    Mtrampoline                // hand off all traps that the fast path does not record
 
 fast_Mcause_mismatch:
         RVTEST_FAST_TRAP_FAILURE(CSR_MEPC, CSR_MCAUSE, CSR_MTVAL, CSR_MSTATUS, fast_Mcause_mismatch, sv_Mcause_str)
@@ -250,7 +251,7 @@ fast_Sboot_trap:
 fast_Sothertrap:
         LREG a1, rvmodel_sv_off+2*REGWIDTH(a0)  // restore caller's a1
         csrrw a0, CSR_SSCRATCH, a0      // restore sscratch = save ptr; a0 = caller's a0
-        j    Strampoline                // hand off all non-illegal-instruction traps
+        j    Strampoline                // hand off all traps that the fast path does not record
 
 fast_Scause_mismatch:
         RVTEST_FAST_TRAP_FAILURE(CSR_SEPC, CSR_SCAUSE, CSR_STVAL, CSR_SSTATUS, fast_Scause_mismatch, sv_Scause_str)

@@ -1,6 +1,6 @@
 // check_defines.h
 // Ensures all RVMODEL macros are defined
-// Define _M flavors of RVMODEL_CLR_<type>_INT_M to match non-M if not defined by user
+// Define RVMODEL_SET/CLR_<type>_INT_M from the non-_M macros when the DUT does not define them
 // Jordan Carlin jcarlin@hmc.edu December 2025
 // SPDX-License-Identifier: BSD-3-Clause
 
@@ -13,8 +13,8 @@
   #error "SIGUPD_COUNT not defined. It should be defined at the beginning of the test file."
 #endif
 
-// TRAP_SIGUPD_COUNT is the number of expected traps. Each trap uses 4 signature
-// words, or 6 when H is supported.
+// TRAP_SIGUPD_COUNT is the number of expected traps. Reserve 4 signature words per
+// trap, or 6 with H (the largest entry).
 #ifndef TRAP_SIGUPD_COUNT
   #define TRAP_SIGUPD_COUNT 0
 #endif
