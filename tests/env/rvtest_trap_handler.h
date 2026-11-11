@@ -369,7 +369,7 @@
 // RVMODEL macros in their rvmodel_macros.h to actually set/clear the interrupt.
 //==============================================================================
 
-#define RVTEST_DFLT_INT_HNDLR      la T1, rvtest_code_end; jr T1  // default: abort test on unexpected interrupt
+#define RVTEST_DFLT_INT_HNDLR      LA(T1, rvtest_code_end); jr T1  // default: abort test on unexpected interrupt
 
 // Trap handler version. The M-mode handler uses rvtest_code_end_mmode: with Smdbltrp,
 // mstatus.MDT=1 there and the ecall to switch to M-mode is a double trap.
@@ -654,7 +654,7 @@ rvtest_\__MODE__\()prolog_done:
         LREG    a1, int_clr_sv_off+1*REGWIDTH(sp)
         LREG    a0, int_clr_sv_off+0*REGWIDTH(sp)
         LREG    ra, trap_sv_off+0*REGWIDTH(sp)
-        la      T2, resto_\__MODE__\()rtn
+        LA(     T2, resto_\__MODE__\()rtn)
         jr      T2
 .endm
 
