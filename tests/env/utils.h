@@ -28,6 +28,43 @@
 #define WDBYTSZ (WDSZ >> 3)  // in units of #bytes
 #define WDBYTMSK (WDBYTSZ-1)
 
+// Register aliases
+#define DEFAULT_SIG_REG  x2                      // signature pointer register
+#define DEFAULT_DATA_REG x3                      // test data pointer register
+#define DEFAULT_TEMP_REG x4                      // general temporary for test macros
+#define DEFAULT_LINK_REG x5                      // link register for test macros (jal return address)
+
+#ifndef T1
+  #define T1      x6                             // handler temporary 1
+#endif
+#ifndef T2
+  #define T2      x7                             // handler temporary 2
+#endif
+#ifndef T3
+  #define T3      x8                             // handler temporary 3
+#endif
+#ifndef T4
+  #define T4      x9                             // handler temporary 4
+#endif
+#ifndef T5
+  #define T5      x14                            // handler temporary 5
+#endif
+#ifndef T6
+  #define T6      x15                            // handler temporary 6
+#endif
+
+// mstatus, hstatus, and satp field positions
+#define GVA_LSB    6                             // hstatus.GVA bit position (guest virtual address indicator)
+#define MPP_LSB   11                             // mstatus.MPP LSB position (previous privilege mode, 2 bits)
+#define MODE_LSB  (UDB_MXLEN-4)                       // xSATP.MODE field LSB (top 4 bits on RV32, top 4 on RV64)
+#define MPRV_LSB  17                             // mstatus.MPRV bit position (modify privilege for loads/stores)
+#define MPV_LSB    7                             // mstatush.MPV bit position (previous virtualization mode)
+#define MPP_SMODE (1<<MPP_LSB)                   // MPP value for S-mode (01 << 11 = 0x800)
+#define MPP_HMODE (2<<MPP_LSB)                   // MPP value for reserved/HS (10 << 11 = 0x1000)
+#define MPP_MMODE (3<<MPP_LSB)                   // MPP value for M-mode (11 << 11 = 0x1800)
+#define SUM_LSB    18                             // mstatus.SUM bit position (permit supervisor/user memory access)
+#define MXR_LSB    19                             // mstatus.MXR bit position (make executable readable)
+
 // XLEN specific macros
 #define REGWIDTH (UDB_MXLEN>>3)      // in units of #bytes
 #define ALIGNSZ ((UDB_MXLEN>>5)+2)   // log2(UDB_MXLEN): 2,3,4 for UDB_MXLEN 32,64,128

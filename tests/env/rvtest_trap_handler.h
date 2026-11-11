@@ -129,31 +129,6 @@
 //
 //************************************************************************************
 
-#define DEFAULT_SIG_REG  x2                      // signature pointer register
-#define DEFAULT_DATA_REG x3                      // test data pointer register
-#define DEFAULT_TEMP_REG x4                      // general temporary for test macros
-#define DEFAULT_LINK_REG x5                      // link register for test macros (jal return address)
-
-
-#ifndef T1
-  #define T1      x6                             // handler temporary 1
-#endif
-#ifndef T2
-  #define T2      x7                             // handler temporary 2
-#endif
-#ifndef T3
-  #define T3      x8                             // handler temporary 3
-#endif
-#ifndef T4
-  #define T4      x9                             // handler temporary 4
-#endif
-#ifndef T5
-  #define T5      x14                            // handler temporary 5
-#endif
-#ifndef T6
-  #define T6      x15                            // handler temporary 6
-#endif
-
 //==============================================================================
 // SECTION 2: ARCHITECTURE CONSTANTS
 //
@@ -191,17 +166,6 @@
 .set MMODE_SIG, 3                                // M-mode signature encoding (bits 1:0 = 11)
 .set SMODE_SIG, 1                                // S-mode signature encoding (bits 1:0 = 01)
 .set VMODE_SIG, 2                                // VS-mode signature encoding (bits 1:0 = 10)
-
-#define GVA_LSB    6                             // hstatus.GVA bit position (guest virtual address indicator)
-#define MPP_LSB   11                             // mstatus.MPP LSB position (previous privilege mode, 2 bits)
-#define MODE_LSB  (UDB_MXLEN-4)                       // xSATP.MODE field LSB (top 4 bits on RV32, top 4 on RV64)
-#define MPRV_LSB  17                             // mstatus.MPRV bit position (modify privilege for loads/stores)
-#define MPV_LSB    7                             // mstatush.MPV bit position (previous virtualization mode)
-#define MPP_SMODE (1<<MPP_LSB)                   // MPP value for S-mode (01 << 11 = 0x800)
-#define MPP_HMODE (2<<MPP_LSB)                   // MPP value for reserved/HS (10 << 11 = 0x1000)
-#define MPP_MMODE (3<<MPP_LSB)                   // MPP value for M-mode (11 << 11 = 0x1800)
-#define SUM_LSB    18                             // mstatus.SUM bit position (permit supervisor/user memory access)
-#define MXR_LSB    19                             // mstatus.MXR bit position (make executable readable)
 
 //==============================================================================
 // SECTION 6: TRAMPOLINE AND SAVE AREA SIZE CALCULATIONS
@@ -278,212 +242,6 @@
 // .data layout on RV32, where REGWIDTH is 4.
 #define rvmodel_sv_off  (trap_sv_off+8*(REGWIDTH))    // offset to RVMODEL macro scratch area (8 regs)
 #define int_clr_sv_off  (rvmodel_sv_off+8*(REGWIDTH))   // a0/a1/a2 save slots for interrupt clearing routines
-
-
-// Invisible trap handling requires illegal instruction exceptions to always go through M-mode for possible
-// emulation. When emulation does not occur, the trap must be forwarded to S-mode if delegation is supposed to
-// be enabled and to the normal M-mode trap handler if delegation is supposed to be disabled. This requires an
-// alternative way of tracking the desired state of medeleg[2] since it needs to be cleared in lower priv modes
-// even when we want delegation to happen. The desired state is stored in the save area at medeleg_illegal_sv_off
-// and is saved/restored during privilege mode switches using the macros below. When switching to M-mode, the real
-// value of medeleg[2] must be restored so that code that reads medeleg seems the correct value. When switching to
-// a lower-priv mode, the value of medeleg[2] must be saved and then cleared so that illegal instructions go
-// through M-mode.
-
-
-// Record the current value of medeleg[2] in the save area and clear it in the actual CSR.
-// Used when switching from M-mode to a lower priv mode.
-.macro RVTEST_SAVE_MEDELEG_ILLEGAL SAVE_AREA_REG, TMP_REG
-#if defined(RVTEST_INVISIBLE_TRAP_HANDLER) && defined(S_SUPPORTED)
-  csrr    \TMP_REG, CSR_MEDELEG
-  andi    \TMP_REG, \TMP_REG, (1 << CAUSE_ILLEGAL_INSTRUCTION)
-  SREG    \TMP_REG, medeleg_illegal_sv_off(\SAVE_AREA_REG)
-  csrci   CSR_MEDELEG, (1 << CAUSE_ILLEGAL_INSTRUCTION)
-#else
-  nop
-  nop
-  nop
-  nop
-#endif
-.endm
-
-// Restore the saved value of medeleg[2] to the actual CSR.
-// Used when switching from a lower priv mode back to M-mode.
-.macro RVTEST_RESTORE_MEDELEG_ILLEGAL SAVE_AREA_REG, TMP_REG
-#if defined(RVTEST_INVISIBLE_TRAP_HANDLER) && defined(S_SUPPORTED)
-  csrci   CSR_MEDELEG, (1 << CAUSE_ILLEGAL_INSTRUCTION)
-  LREG    \TMP_REG, medeleg_illegal_sv_off(\SAVE_AREA_REG)
-  csrs    CSR_MEDELEG, \TMP_REG
-#else
-  nop
-  nop
-  nop
-#endif
-.endm
-
-// Check the mode we are going to and save the current value of medeleg[2]
-// if we are switching to a lower-priv mode. Used when doing a mode-switch
-// to anything other than M-mode.
-.macro RVTEST_PREPARE_MEDELEG_FOR_LOWER SAVE_AREA_REG, STATUS_REG, TMP_REG
-  csrr    \STATUS_REG, CSR_MSTATUS
-  LI(     \TMP_REG, MSTATUS_MPP)
-  and     \STATUS_REG, \STATUS_REG, \TMP_REG
-  bne     \STATUS_REG, \TMP_REG, 1f
-  RVTEST_SAVE_MEDELEG_ILLEGAL \SAVE_AREA_REG, \TMP_REG
-1:
-.endm
-
-// Check the mode we are coming from and restore the saved value of medeleg[2]
-// if we are switching from a lower-priv mode. Used when doing a mode-switch to M-mode.
-.macro RVTEST_PREPARE_MEDELEG_FOR_M SAVE_AREA_REG, STATUS_REG, TMP_REG
-  csrr    \STATUS_REG, CSR_MSTATUS
-  LI(     \TMP_REG, MSTATUS_MPP)
-  and     \STATUS_REG, \STATUS_REG, \TMP_REG
-  beq     \STATUS_REG, \TMP_REG, 1f
-  RVTEST_RESTORE_MEDELEG_ILLEGAL \SAVE_AREA_REG, \TMP_REG
-1:
-.endm
-
-// Relocate the resume address (xEPC, already past the ecall) of
-// RVTEST_TSBI_GOTO_MMODE, RVTEST_TSBI_GOTO_SMODE and RVTEST_TSBI_GOTO_UMODE
-// between the two mappings of the code region.
-//
-// The test image is identity mapped by the boot page tables, but that mapping is
-// not user accessible, so a test that runs code in U-mode maps its code region a
-// second time at a virtual alias. It registers that alias by writing it to code_bgn
-// of the S save area, which is what SAVE_AREA_SETUP(VA, rvtest_code_begin, code,
-// LEVEL) does. Both mappings cover the whole code region, so the offset from the
-// region start is the same in either one and only the base has to be swapped.
-//
-// For example, an Sv39 test that maps rvtest_code_begin (0x80000000) at
-// va_rvtest_code_begin (0xC0000000) and calls RVTEST_TSBI_GOTO_UMODE at 0x80000210
-// resumes at 0xC0000210, and the RVTEST_TSBI_GOTO_SMODE that ends the U-mode
-// excursion, reached at 0xC0000260, resumes at 0x80000260. GOTO_SMODE and
-// GOTO_MMODE have to move back because M-mode does not translate and S-mode cannot
-// execute a user page. The resume address may equal rvtest_code_end, which is where
-// the end-of-test code starts.
-//
-// Each direction checks that xEPC really lies in the mapping it is moving out of, so
-// a test that registers an alias but resumes somewhere else is left alone, as is one
-// that never registers an alias. Uses T2-T4; a0 = GOTO operation code.
-//
-// M and S service different callers, so they get different halves:
-//   M handles GOTO_UMODE, whose caller runs in the code region, and it is the only
-//     one that has to ask whether translation is on at all. Reading satp there is
-//     always legal; in S-mode it would raise an illegal instruction when
-//     mstatus.TVM is set.
-//   S only ever services callers already in U-mode, which reach it because
-//     ecall-from-U is delegated, so it only moves them back out of the alias.
-//
-// A guest (VS or VU) runs its code in the alias registered in code_bgn of the VS
-// save area, if any, which a test registers while its VS-stage and G-stage maps it.
-// Both handlers move a caller entering the guest (GOTO_VSMODE/VUMODE from M, HS or
-// U) from the code region to that alias, and a caller leaving it (GOTO_M/S/UMODE
-// with mstatus.MPV or hstatus.SPV set) back. Calls within the guest stay put.
-.macro TSBI_RELOCATE_EPC __MODE__
-// Without S-mode there is no satp, and no S save area to register an alias in.
-#ifdef S_SUPPORTED
-  #ifdef H_SUPPORTED
-        // Guests use the code alias registered in the V save area.
-        LA(     T2, Mtramptbl_sv)
-        addi    T2, T2, sv_area_sz                   // step past the M area: two areas overflow the load immediate
-        LREG    T3, code_bgn_off+sv_area_sz(T2)      // T3 = registered guest code alias
-        addi    T2, T2, -sv_area_sz
-        LREG    T2, code_bgn_off(T2)                 // T2 = rvtest_code_begin
-        beq     T2, T3, 7f                           // no guest alias registered
-    .ifc \__MODE__ , M
-      #if (UDB_MXLEN==32)
-        csrr    T4, CSR_MSTATUSH                     // RV32: MPV lives in mstatush
-      #else
-        csrr    T4, CSR_MSTATUS
-        srli    T4, T4, 32                           // RV64: MPV is in the upper half of mstatus
-      #endif
-    .else
-        csrr    T4, CSR_HSTATUS                      // the S handler reads SPV instead
-    .endif
-        andi    T4, T4, (1 << MPV_LSB)               // mstatus.MPV and hstatus.SPV are both bit 7
-        bnez    T4, 6f                               // caller ran in the guest
-
-        // Host caller entering a guest: code region -> guest alias.
-        li      T4, TSBI_GOTO_VSMODE
-        blt     a0, T4, 7f                           // not entering a guest
-        csrr    T4, CSR_XEPC
-        sub     T4, T4, T2                           // T4 = offset into the code region
-        LA(     T2, Mtramptbl_sv)
-        LREG    T2, code_seg_siz(T2)                 // T2 = code region size
-        bgtu    T4, T2, 7f                           // caller is not in the code region
-        add     T4, T4, T3
-        csrw    CSR_XEPC, T4
-        j       9f
-
-        // Guest caller resuming in the host: guest alias -> the target's own view.
-6:      li      T4, TSBI_GOTO_VSMODE
-        bge     a0, T4, 9f                           // staying in the guest
-        csrr    T4, CSR_XEPC
-        sub     T4, T4, T3                           // T4 = offset into the guest alias
-        LA(     T3, Mtramptbl_sv)
-        LREG    T3, code_seg_siz(T3)                 // T3 = code region size
-        bgtu    T4, T3, 9f                           // caller is not in the guest alias
-        li      T3, TSBI_GOTO_UMODE
-        bne     a0, T3, 5f                           // M and S resume in the code region
-        LA(     T2, Mtramptbl_sv)
-        LREG    T2, code_bgn_off+sv_area_sz(T2)      // U resumes in the registered S alias
-5:      add     T4, T4, T2
-        csrw    CSR_XEPC, T4
-        j       9f
-7:
-  #endif
-        LA(     T2, Mtramptbl_sv)
-        LREG    T3, code_bgn_off+sv_area_sz(T2)      // T3 = registered code alias
-        LREG    T2, code_bgn_off(T2)                 // T2 = rvtest_code_begin
-        beq     T2, T3, 9f                           // no alias registered
-        li      T4, TSBI_GOTO_UMODE
-  .ifc \__MODE__ , M
-        beq     a0, T4, 1f                           // GOTO_UMODE: code region -> alias
-  .else
-        beq     a0, T4, 9f                           // U caller returning to U: already in the alias
-  .endif
-        bgtu    a0, T4, 9f                           // VS/VU: not relocated
-        csrr    T4, CSR_XEPC                         // GOTO_M/SMODE: alias -> code region
-        sub     T4, T4, T3                           // T4 = offset into the alias
-        LA(     T3, Mtramptbl_sv)
-        LREG    T3, code_seg_siz(T3)                 // T3 = code region size
-  .ifc \__MODE__ , M
-        bgtu    T4, T3, 8f                           // not in the alias: an M caller entering S goes the other way
-  .else
-        bgtu    T4, T3, 9f                           // caller is not in the alias
-  .endif
-        add     T4, T4, T2
-        csrw    CSR_XEPC, T4
-  .ifc \__MODE__ , M
-        j       9f
-
-        // An M-mode caller asking for S-mode runs in the code region, not the alias.
-        // A test whose own map does not cover the code region -- one that maps a test VA
-        // over the root slot the boot tables identity map it through -- can only fetch
-        // through the alias, so send S-mode there, exactly as GOTO_UMODE does.
-8:      li      T4, TSBI_GOTO_SMODE
-        bne     a0, T4, 9f                           // GOTO_MMODE: M does not translate, nothing to do
-        LA(     T3, Mtramptbl_sv)
-        LREG    T3, code_bgn_off+sv_area_sz(T3)      // T3 = registered code alias (clobbered above)
-1:      csrr    T4, CSR_SATP
-    #if (UDB_MXLEN==32)
-        bgez    T4, 9f                               // satp.MODE = Bare
-    #else
-        srli    T4, T4, MODE_LSB
-        beqz    T4, 9f                               // satp.MODE = Bare
-    #endif
-        csrr    T4, CSR_XEPC
-        sub     T4, T4, T2                           // T4 = offset into the code region
-        LA(     T2, Mtramptbl_sv)
-        LREG    T2, code_seg_siz(T2)                 // T2 = code region size
-        bgtu    T4, T2, 9f                           // caller is not in the code region
-        add     T4, T4, T3
-        csrw    CSR_XEPC, T4
-  .endif
-9:
-#endif
-.endm
 
 //==============================================================================
 // SECTION 8: INSTANTIATE_MODE_MACRO
@@ -637,191 +395,6 @@
        XCSR_RENAME \__MODE__                    //   M/S: identical from either context
   .endif
 .endm
-
-//==============================================================================
-// SECTION 10: T-SBI CONVENIENCE MACROS FOR TESTS
-//
-// These macros provide a clean test-facing interface for the a0-based T-SBI
-// calling convention. Unlike the legacy GOTO_MMODE, these
-// set a0 to the operation code and ecall.
-//
-// Usage in tests:
-//   RVTEST_TSBI_GOTO_MMODE              // switch to M-mode, clobbers a0
-//   RVTEST_TSBI_GOTO_UMODE              // switch to U-mode, clobbers a0
-//   RVTEST_TSBI_ECALL_TEST              // ecall recorded in the trap signature, xEPC in a0
-//   RVTEST_TSBI_CSR_ACCESS 0x30002573   // read mstatus into a0
-//
-// CLOBBERS: a0 (operation code / return value), a1 (CSR_ACCESS argument only)
-// PRESERVES: all other registers
-// PRECONDITION: a0 must be non-zero (it always is during normal test execution)
-//==============================================================================
-
-// Switch to M-mode via T-SBI.
-// After this macro, the processor is in M-mode and a0 is undefined.
-// The S-mode handler forwards a GOTO_MMODE from U, VS or VU to M-mode and then
-// resumes here in M-mode with jr a0, which sets ELP when mseccfg.MLPE=1 (Zicfilp).
-// So the instruction after the ecall is a 4-byte-aligned lpad 0, which is a no-op
-// when the handler returns here with mret instead.
-.macro RVTEST_TSBI_GOTO_MMODE
-  .option push
-  .p2align 2                                     // align the lpad below (c.nop padding if needed)
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_GOTO_MMODE                      // a0 = 1 (GOTO_MMODE operation code)
-  ecall                                          // trap to handler; handler sets MPP=M, mrets
-  auipc x0, 0                                    // lpad 0: landing pad for the forwarded jr a0
-  .option pop
-.endm
-
-// Switch to S-mode via T-SBI.
-// After this macro, the processor is in S-mode and a0 is undefined.
-.macro RVTEST_TSBI_GOTO_SMODE
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_GOTO_SMODE                      // a0 = 2 (GOTO_SMODE operation code)
-  ecall                                          // trap to handler; handler sets MPP=S, mrets
-  .option pop
-.endm
-
-// Switch to U-mode via T-SBI.
-// After this macro, the processor is in U-mode and a0 is undefined.
-.macro RVTEST_TSBI_GOTO_UMODE
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_GOTO_UMODE                      // a0 = 3 (GOTO_UMODE operation code)
-  ecall                                          // trap to handler; handler sets MPP=U, mrets
-  .option pop
-.endm
-
-// Test the ecall trap path via T-SBI. The handler records the ecall in the trap
-// signature and returns past it. After this macro, a0 contains the address of the
-// ecall instruction itself.
-.macro RVTEST_TSBI_ECALL_TEST
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_ECALL_TEST                      // a0 = 0x73 (ECALL_TEST operation code)
-  ecall                                          // trap to handler; handler records it and reads xEPC into a0
-  // a0 now contains the address of the ecall instruction above
-  .option pop
-.endm
-
-// Execute sfence.vma x0, x0 via T-SBI, for a U-mode test that has set satp through
-// TSBI_CSR_WRITE and cannot execute sfence.vma itself. Runs in the S-mode handler when
-// one exists, otherwise in the M-mode handler. Clobbers a0.
-.macro RVTEST_TSBI_SFENCE_VMA
-  .option push
-  .option norvc
-  li   a0, TSBI_SFENCE_VMA
-  ecall
-  .option pop
-.endm                                         // trap to handler; handler executes sfence.vma
-.macro RVTEST_TSBI_LW
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_LW                               // code for lw a0, 0(a1)
-  ecall                                          // T-SBI call
-  .option pop
-.endm
-
-.macro RVTEST_TSBI_LWP4
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_LWP4                             // code for lw a0, 4(a1)
-  ecall                                          // T-SBI call
-  .option pop
-.endm
-
-.macro RVTEST_TSBI_LD
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_LD                               // code for ld a0, 0(a1)
-  ecall                                          // T-SBI call
-  .option pop
-.endm
-
-.macro RVTEST_TSBI_SW
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_SW                               // code for sw a2, 0(a1)
-  ecall                                          // T-SBI call
-  .option pop
-.endm
-
-.macro RVTEST_TSBI_SWP4
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_SWP4                             // code for sw a2, 4(a1)
-  ecall                                          // T-SBI call
-  .option pop
-.endm
-
-.macro RVTEST_TSBI_SD
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_SD                               // code for sd a2, 0(a1)
-  ecall                                          // T-SBI call
-  .option pop
-.endm
-
-// Access a CSR via T-SBI (read, write, or read-modify-write).
-//
-// Parameters:
-//   encoding: the 32-bit RISC-V CSR instruction encoding to execute.
-//             The rd field MUST be a0 (x10, register 10) for reads.
-//             The rs1 field SHOULD be a1 (x11, register 11) for writes.
-//   a1 holds the rs1 value for csrrs/csrrc/csrrw; the caller loads it before the macro.
-//
-// After this macro, a0 contains the CSR read result (if rd==a0 in encoding).
-//
-// Example: Read mstatus (CSR 0x300) via csrrs a0, mstatus, x0
-//   Encoding: imm[31:20]=0x300, rs1[19:15]=0, funct3[14:12]=010, rd[11:7]=01010, opcode=1110011
-//   Binary:   0011_0000_0000_00000_010_01010_1110011 = 0x30002573
-//   Usage:    RVTEST_TSBI_CSR_ACCESS 0x30002573
-//
-// Example: Set mstatus.TVM via csrrs x0, mstatus, a1 (a1 has bit 20 set)
-//   Encoding: imm=0x300, rs1=01011(a1), funct3=010, rd=00000(x0), opcode=1110011
-//   Binary:   0011_0000_0000_01011_010_00000_1110011 = 0x3005A073
-//   Usage:    li a1, (1 << 20)
-//             RVTEST_TSBI_CSR_ACCESS 0x3005A073
-.macro RVTEST_TSBI_CSR_ACCESS encoding
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li a0, \encoding                               // a0 = CSR instruction encoding (32-bit value)
-  ecall                                          // trap to handler; handler executes the matching CSR instr from its table
-  // a0 now contains the CSR read result (if rd==a0 in the encoding)
-  .option pop
-.endm
-
-// CSR access by CSR number: csr is a 12-bit CSR number such as CSR_MIP from encoding.h,
-// imm is a constant loaded into a1 with li before the call.
-#define RVTEST_TSBI_CSR_SET(csr, imm)    li a1, imm; RVTEST_TSBI_CSR_ACCESS TSBI_CSR_SET(csr)
-#define RVTEST_TSBI_CSR_CLEAR(csr, imm)  li a1, imm; RVTEST_TSBI_CSR_ACCESS TSBI_CSR_CLEAR(csr)
-#define RVTEST_TSBI_CSR_WRITE(csr, imm)  li a1, imm; RVTEST_TSBI_CSR_ACCESS TSBI_CSR_WRITE(csr)
-// write value in a1 to CSR
-#define RVTEST_TSBI_CSR_WRITE_A1(csr)       RVTEST_TSBI_CSR_ACCESS TSBI_CSR_WRITE(csr)
-// read value from CSR into a0
-#define RVTEST_TSBI_CSR_READ(csr)        RVTEST_TSBI_CSR_ACCESS TSBI_CSR_READ(csr)
-
-#ifdef H_SUPPORTED
-// Switch to VS-mode via T-SBI. Requires hypervisor extension.
-// After this macro, the processor is in VS-mode and a0 is undefined.
-.macro RVTEST_TSBI_GOTO_VSMODE
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_GOTO_VSMODE                     // a0 = 4 (GOTO_VSMODE operation code)
-  ecall                                          // trap to handler; handler sets MPP=S, MPV=1, mrets
-  .option pop
-.endm
-
-// Switch to VU-mode via T-SBI. Requires hypervisor extension.
-// After this macro, the processor is in VU-mode and a0 is undefined.
-.macro RVTEST_TSBI_GOTO_VUMODE
-  .option push
-  .option norvc                                  // ensure consistent code size
-  li   a0, TSBI_GOTO_VUMODE                     // a0 = 5 (GOTO_VUMODE operation code)
-  ecall                                          // trap to handler; handler sets MPP=U, MPV=1, mrets
-  .option pop
-.endm
-#endif // H_SUPPORTED
 
 //==============================================================================
 // SECTION 11: DEFAULT INTERRUPT MACROS
@@ -1162,6 +735,147 @@ rvtest_\__MODE__\()prolog_done:
         LREG    ra, trap_sv_off+0*REGWIDTH(sp)
         la      T2, resto_\__MODE__\()rtn
         jr      T2
+.endm
+
+// Relocate the resume address (xEPC, already past the ecall) of
+// RVTEST_TSBI_GOTO_MMODE, RVTEST_TSBI_GOTO_SMODE and RVTEST_TSBI_GOTO_UMODE
+// between the two mappings of the code region.
+//
+// The test image is identity mapped by the boot page tables, but that mapping is
+// not user accessible, so a test that runs code in U-mode maps its code region a
+// second time at a virtual alias. It registers that alias by writing it to code_bgn
+// of the S save area, which is what SAVE_AREA_SETUP(VA, rvtest_code_begin, code,
+// LEVEL) does. Both mappings cover the whole code region, so the offset from the
+// region start is the same in either one and only the base has to be swapped.
+//
+// For example, an Sv39 test that maps rvtest_code_begin (0x80000000) at
+// va_rvtest_code_begin (0xC0000000) and calls RVTEST_TSBI_GOTO_UMODE at 0x80000210
+// resumes at 0xC0000210, and the RVTEST_TSBI_GOTO_SMODE that ends the U-mode
+// excursion, reached at 0xC0000260, resumes at 0x80000260. GOTO_SMODE and
+// GOTO_MMODE have to move back because M-mode does not translate and S-mode cannot
+// execute a user page. The resume address may equal rvtest_code_end, which is where
+// the end-of-test code starts.
+//
+// Each direction checks that xEPC really lies in the mapping it is moving out of, so
+// a test that registers an alias but resumes somewhere else is left alone, as is one
+// that never registers an alias. Uses T2-T4; a0 = GOTO operation code.
+//
+// M and S service different callers, so they get different halves:
+//   M handles GOTO_UMODE, whose caller runs in the code region, and it is the only
+//     one that has to ask whether translation is on at all. Reading satp there is
+//     always legal; in S-mode it would raise an illegal instruction when
+//     mstatus.TVM is set.
+//   S only ever services callers already in U-mode, which reach it because
+//     ecall-from-U is delegated, so it only moves them back out of the alias.
+//
+// A guest (VS or VU) runs its code in the alias registered in code_bgn of the VS
+// save area, if any, which a test registers while its VS-stage and G-stage maps it.
+// Both handlers move a caller entering the guest (GOTO_VSMODE/VUMODE from M, HS or
+// U) from the code region to that alias, and a caller leaving it (GOTO_M/S/UMODE
+// with mstatus.MPV or hstatus.SPV set) back. Calls within the guest stay put.
+.macro TSBI_RELOCATE_EPC __MODE__
+// Without S-mode there is no satp, and no S save area to register an alias in.
+#ifdef S_SUPPORTED
+  #ifdef H_SUPPORTED
+        // Guests use the code alias registered in the V save area.
+        LA(     T2, Mtramptbl_sv)
+        addi    T2, T2, sv_area_sz                   // step past the M area: two areas overflow the load immediate
+        LREG    T3, code_bgn_off+sv_area_sz(T2)      // T3 = registered guest code alias
+        addi    T2, T2, -sv_area_sz
+        LREG    T2, code_bgn_off(T2)                 // T2 = rvtest_code_begin
+        beq     T2, T3, 7f                           // no guest alias registered
+    .ifc \__MODE__ , M
+      #if (UDB_MXLEN==32)
+        csrr    T4, CSR_MSTATUSH                     // RV32: MPV lives in mstatush
+      #else
+        csrr    T4, CSR_MSTATUS
+        srli    T4, T4, 32                           // RV64: MPV is in the upper half of mstatus
+      #endif
+    .else
+        csrr    T4, CSR_HSTATUS                      // the S handler reads SPV instead
+    .endif
+        andi    T4, T4, (1 << MPV_LSB)               // mstatus.MPV and hstatus.SPV are both bit 7
+        bnez    T4, 6f                               // caller ran in the guest
+
+        // Host caller entering a guest: code region -> guest alias.
+        li      T4, TSBI_GOTO_VSMODE
+        blt     a0, T4, 7f                           // not entering a guest
+        csrr    T4, CSR_XEPC
+        sub     T4, T4, T2                           // T4 = offset into the code region
+        LA(     T2, Mtramptbl_sv)
+        LREG    T2, code_seg_siz(T2)                 // T2 = code region size
+        bgtu    T4, T2, 7f                           // caller is not in the code region
+        add     T4, T4, T3
+        csrw    CSR_XEPC, T4
+        j       9f
+
+        // Guest caller resuming in the host: guest alias -> the target's own view.
+6:      li      T4, TSBI_GOTO_VSMODE
+        bge     a0, T4, 9f                           // staying in the guest
+        csrr    T4, CSR_XEPC
+        sub     T4, T4, T3                           // T4 = offset into the guest alias
+        LA(     T3, Mtramptbl_sv)
+        LREG    T3, code_seg_siz(T3)                 // T3 = code region size
+        bgtu    T4, T3, 9f                           // caller is not in the guest alias
+        li      T3, TSBI_GOTO_UMODE
+        bne     a0, T3, 5f                           // M and S resume in the code region
+        LA(     T2, Mtramptbl_sv)
+        LREG    T2, code_bgn_off+sv_area_sz(T2)      // U resumes in the registered S alias
+5:      add     T4, T4, T2
+        csrw    CSR_XEPC, T4
+        j       9f
+7:
+  #endif
+        LA(     T2, Mtramptbl_sv)
+        LREG    T3, code_bgn_off+sv_area_sz(T2)      // T3 = registered code alias
+        LREG    T2, code_bgn_off(T2)                 // T2 = rvtest_code_begin
+        beq     T2, T3, 9f                           // no alias registered
+        li      T4, TSBI_GOTO_UMODE
+  .ifc \__MODE__ , M
+        beq     a0, T4, 1f                           // GOTO_UMODE: code region -> alias
+  .else
+        beq     a0, T4, 9f                           // U caller returning to U: already in the alias
+  .endif
+        bgtu    a0, T4, 9f                           // VS/VU: not relocated
+        csrr    T4, CSR_XEPC                         // GOTO_M/SMODE: alias -> code region
+        sub     T4, T4, T3                           // T4 = offset into the alias
+        LA(     T3, Mtramptbl_sv)
+        LREG    T3, code_seg_siz(T3)                 // T3 = code region size
+  .ifc \__MODE__ , M
+        bgtu    T4, T3, 8f                           // not in the alias: an M caller entering S goes the other way
+  .else
+        bgtu    T4, T3, 9f                           // caller is not in the alias
+  .endif
+        add     T4, T4, T2
+        csrw    CSR_XEPC, T4
+  .ifc \__MODE__ , M
+        j       9f
+
+        // An M-mode caller asking for S-mode runs in the code region, not the alias.
+        // A test whose own map does not cover the code region -- one that maps a test VA
+        // over the root slot the boot tables identity map it through -- can only fetch
+        // through the alias, so send S-mode there, exactly as GOTO_UMODE does.
+8:      li      T4, TSBI_GOTO_SMODE
+        bne     a0, T4, 9f                           // GOTO_MMODE: M does not translate, nothing to do
+        LA(     T3, Mtramptbl_sv)
+        LREG    T3, code_bgn_off+sv_area_sz(T3)      // T3 = registered code alias (clobbered above)
+1:      csrr    T4, CSR_SATP
+    #if (UDB_MXLEN==32)
+        bgez    T4, 9f                               // satp.MODE = Bare
+    #else
+        srli    T4, T4, MODE_LSB
+        beqz    T4, 9f                               // satp.MODE = Bare
+    #endif
+        csrr    T4, CSR_XEPC
+        sub     T4, T4, T2                           // T4 = offset into the code region
+        LA(     T2, Mtramptbl_sv)
+        LREG    T2, code_seg_siz(T2)                 // T2 = code region size
+        bgtu    T4, T2, 9f                           // caller is not in the code region
+        add     T4, T4, T3
+        csrw    CSR_XEPC, T4
+  .endif
+9:
+#endif
 .endm
 
 .macro RVTEST_TRAP_HANDLER __MODE__
@@ -2974,264 +2688,6 @@ excpt_\__MODE__\()hndlr_tbl:
 
 .option pop
 .endm                                                 // end of RVTEST_TRAP_HANDLER
-
-//==============================================================================
-//==============================================================================
-//
-//  SECTION 13B: RVTEST_FAST_TRAP_HANDLER
-//
-//  Minimal-overhead illegal-instruction trap handler for test suites that
-//  generate very large numbers of illegal-instruction traps (e.g. the
-//  Ssstrict CSR and instruction-encoding sweeps, 150k+ traps). The standard
-//  RVTEST_TRAP_HANDLER records several words per trap into the dedicated
-//  trap-signature region, which those sweeps would overflow. This handler
-//  records three words (xcause, xepc, xtval) per illegal-instruction trap in
-//  the regular test signature (x2), advances xEPC past the trapping
-//  instruction, and returns. In self-check mode, each word is compared before
-//  x2 advances.
-//
-//  Enabled with:    #define RVTEST_USE_FAST_TRAP_HANDLER   (in the test file)
-//  Instantiated by: RVTEST_CODE_END, alongside the standard trap handlers
-//  Installed by:    RVTEST_TRAP_PROLOG — when RVTEST_USE_FAST_TRAP_HANDLER is
-//                   defined, the M-mode prolog installs
-//                   trap_handler_fastillegalinstr in mtvec and the S-mode
-//                   prolog installs strap_handler_fastillegalinstr in stvec
-//                   with the selected xTVEC mode, instead of the standard
-//                   trampolines. In vectored mode, synchronous exceptions
-//                   still enter at the handler BASE; these tests do not enable
-//                   interrupts.
-//
-//  M-mode handler (mtvec): handles illegal-instruction traps taken in (or not
-//  delegated from) M-mode. Any other cause is forwarded to Mtrampoline, the
-//  standard framework handler, so T-SBI calls, fetch faults, and the
-//  RVTEST_CODE_END ecall all still work.
-//
-//  S-mode handler (stvec, S_SUPPORTED only): handles illegal-instruction
-//  traps delegated to S-mode via medeleg[2] (set by RVTEST_BOOT_TO_SMODE).
-//  With H, it also handles the virtual-instruction traps from VS and VU
-//  delegated to HS-mode via medeleg[22] (hedeleg = 0), and sret returns to
-//  the virtual mode. Any other S-mode trap is forwarded to Strampoline.
-//
-//  Assumptions:
-//    - The tests do not enable interrupts when the handler uses vectored mode.
-//      Synchronous exceptions enter at the handler BASE in both supported
-//      modes. If xTVEC does not accept the handler address, the prolog uses
-//      the standard trampoline relocation fallback instead of the fast handler.
-//    - The hart has read access to the trapping instruction (PMP/physical
-//      memory allows instruction reads at the faulting PC) and address
-//      translation is disabled, so the handler can read the instruction word
-//      directly from xEPC without manipulating mstatus.MPRV.
-//
-//  Instruction-width detection reads bits[1:0] of the trapping instruction:
-//    bits[1:0] == 0b11 (uncompressed) -> advance xEPC by 4
-//    bits[1:0] != 0b11 (compressed)   -> advance xEPC by 2
-//  lhu (not lw) is used because xEPC is only guaranteed 2-byte aligned; a
-//  4-byte lw at a 2 mod 4 address would misalign on cores without hardware
-//  misaligned-load support. bits[1:0] fit in the loaded 16 bits.
-//  Without Zca, IALIGN=32 and xEPC[1] is always zero, so the handler always
-//  advances by 4; advancing by 2 would return to the same instruction.
-//
-//  Register usage:
-//    a0, a1 (x10, x11) — the ONLY scratch registers (CSR reads, instruction
-//              word, advance amount). These are the framework's designated
-//              clobber registers: the priv test generator never allocates them
-//              to tests, so clobbering them here without save/restore is safe.
-//==============================================================================
-//==============================================================================
-
-// RVTEST_FAST_TRAP_FAILURE(epc, cause, tval, status, check, description)
-// Reports a fast-trap field mismatch. This path is cold, so it can use extra
-// registers to snapshot the trapping CSRs for the normal trap diagnostics.
-#define RVTEST_FAST_TRAP_FAILURE(_EPC, _CAUSE, _TVAL, _STATUS, _CHECK, _DESCRIPTION) \
-        csrr x9, _EPC                                      ;\
-        LA(x7, saved_xepc)                                 ;\
-        SREG x9, 0(x7)                                     ;\
-        csrr x9, _CAUSE                                    ;\
-        SREG x9, 8(x7)                                     ;\
-        csrr x9, _TVAL                                     ;\
-        SREG x9, 16(x7)                                    ;\
-        csrr x9, _STATUS                                   ;\
-        SREG x9, 24(x7)                                    ;\
-        mv x6, a0                                          ;\
-        mv x4, a1                                          ;\
-        jal x7, failedtest_trap_x7_x9                      ;\
-        RVTEST_WORD_PTR _CHECK                             ;\
-        RVTEST_WORD_PTR _DESCRIPTION                       ;\
-        .word _EPC
-
-.macro RVTEST_FAST_TRAP_HANDLER
-.option push
-.option norvc                                    // all handler code must be uncompressed
-
-// ── Fast M-mode handler (mtvec) ─────────────────────────────────────────────
-// Align to the core's WARL mtvec BASE boundary so the prolog's write of the
-// handler address into mtvec survives.
-.balign 64
-#ifdef UDB_MTVEC_BASE_ALIGNMENT_VECTORED
-.balign UDB_MTVEC_BASE_ALIGNMENT_VECTORED
-#endif
-#ifdef UDB_MTVEC_BASE_ALIGNMENT_DIRECT
-.balign UDB_MTVEC_BASE_ALIGNMENT_DIRECT
-#endif
-// ENTRY PROTOCOL: the caller's a0/a1 MUST survive the forward path — the
-// standard handler dispatches on the caller's a0 (a0==0 is the GOTO signal;
-// T-SBI ops are a0 values). Clobbering a0 before `j Mtrampoline` breaks every
-// ecall that arrives through this handler.
-trap_handler_fastillegalinstr:
-        csrrw a0, CSR_MSCRATCH, a0      // a0 = M save-area ptr; mscratch = caller's a0
-        SREG a1, rvmodel_sv_off+2*REGWIDTH(a0)  // stash caller's a1 (rvmodel_sv slot 2 is free)
-        csrr a1, mcause                 // read trap cause
-        xori a1, a1, 2                  // a1 = 0 iff cause == 2 (illegal instruction)
-        bnez a1, fast_Mothertrap        // not illegal — restore regs and use regular handler
-        // Only traps taken in the test body may use the fast path. It signature-updates
-        // through x2, which RVTEST_INIT_REGS does not load until the end of boot, so a
-        // trap taken earlier — e.g. a boot-time CSR write that the reference model does
-        // not implement — would write through an uninitialized register. Forward those to
-        // the standard handler, which works off mscratch and records nothing in the
-        // signature (so the reference model taking such a trap does not diverge from a DUT
-        // that does not). Ask whether xEPC is in the test code segment rather than
-        // inferring it from x2's contents. This compares unrelocated addresses, which is
-        // already the fast path's assumption: RVTEST_SIGUPD_FAST_TRAP writes through x2 raw.
-        SREG a2, rvmodel_sv_off+3*REGWIDTH(a0)  // stash caller's a2 (rvmodel_sv slot 3 is free)
-        csrr a1, mepc
-        LREG a2, code_bgn_off(a0)       // a2 = rvtest_code_begin
-        sub  a1, a1, a2                 // a1 = mepc - code_begin (wraps if mepc is below it)
-        LREG a2, code_seg_siz(a0)       // a2 = code segment size
-        bgeu a1, a2, fast_Mboot_trap    // outside the test code — use the standard handler
-#ifdef RVTEST_INVISIBLE_TRAP_HANDLER
-        // Let the invisible handler try emulation before recording this trap.
-        li   a1, 1
-        SREG a1, rvmodel_sv_off(a0)     // Mark a declined M-mode trap for the fast path.
-        j    fast_Mboot_trap            // Restore a2, which the range check clobbered.
-#else
-        // Match the three-instruction invisible-trap path. The code must be the same
-        // length so the addresses are the same in the DUT and Sail signature builds.
-        nop
-        nop
-        nop
-#endif
-        LREG a2, rvmodel_sv_off+3*REGWIDTH(a0)  // restore caller's a2
-        LREG a1, rvmodel_sv_off+2*REGWIDTH(a0)  // restore caller's a1
-        csrrw a0, CSR_MSCRATCH, a0      // restore mscratch = save ptr; a0 = caller's a0
-fast_Millegalinstruction:
-        RVTEST_SIGUPD_FAST_TRAP(x2, a1, a0, CSR_MCAUSE, 0, fast_Mcause_mismatch)
-        RVTEST_SIGUPD_FAST_TRAP(x2, a1, a0, CSR_MEPC, SIG_STRIDE, fast_Mepc_mismatch)
-        RVTEST_SIGUPD_FAST_TRAP(x2, a1, a0, CSR_MTVAL, 2*SIG_STRIDE, fast_Mtval_mismatch)
-        addi x2, x2, 3*SIG_STRIDE
-#ifdef ZCA_SUPPORTED
-        // mepc advance using only a0 — reads bits[1:0] from *mepc using lhu
-        // (lhu because mepc is only guaranteed 2-byte aligned).
-        csrr a0, mepc
-        lhu  a0, 0(a0)                  // load lower 16 bits from *mepc
-        andi a0, a0, 3                  // a0 = bits[1:0]
-        xori a0, a0, 3                  // a0 = 0 iff bits[1:0]==0b11 (uncompressed)
-        beqz a0, fast_Muncompressed
-fast_Mcompressed:
-        csrr a0, mepc
-        addi a0, a0, 2                  // 16-bit instruction: advance mepc by 2
-        j    fast_Mdone
-#endif
-fast_Muncompressed:
-        csrr a0, mepc
-        addi a0, a0, 4                  // 32-bit instruction: advance mepc by 4
-fast_Mdone:
-        csrw mepc, a0
-        mret
-
-fast_Mboot_trap:
-        LREG a2, rvmodel_sv_off+3*REGWIDTH(a0)  // restore caller's a2, then fall through
-fast_Mothertrap:
-        LREG a1, rvmodel_sv_off+2*REGWIDTH(a0)  // restore caller's a1
-        csrrw a0, CSR_MSCRATCH, a0      // restore mscratch = save ptr; a0 = caller's a0
-        j    Mtrampoline                // hand off all non-illegal-instruction traps
-
-fast_Mcause_mismatch:
-        RVTEST_FAST_TRAP_FAILURE(CSR_MEPC, CSR_MCAUSE, CSR_MTVAL, CSR_MSTATUS, fast_Mcause_mismatch, sv_Mcause_str)
-fast_Mepc_mismatch:
-        RVTEST_FAST_TRAP_FAILURE(CSR_MEPC, CSR_MCAUSE, CSR_MTVAL, CSR_MSTATUS, fast_Mepc_mismatch, sv_Mepc_str)
-fast_Mtval_mismatch:
-        RVTEST_FAST_TRAP_FAILURE(CSR_MEPC, CSR_MCAUSE, CSR_MTVAL, CSR_MSTATUS, fast_Mtval_mismatch, sv_Mtval_str)
-
-#ifdef S_SUPPORTED
-// ── Fast S-mode handler (stvec) ─────────────────────────────────────────────
-// Align to the core's WARL stvec BASE boundary so the prolog's write of the
-// handler address into stvec survives.
-.balign 64
-#ifdef UDB_STVEC_BASE_ALIGNMENT_VECTORED
-.balign UDB_STVEC_BASE_ALIGNMENT_VECTORED
-#endif
-// Same entry protocol as the M handler: preserve the caller's a0/a1 across the
-// forward path (the S standard handler dispatches delegated U-ecalls on the
-// caller's a0), stashing a0 in sscratch and a1 in the S save-area's free
-// rvmodel_sv slot 2 during the cause check.
-strap_handler_fastillegalinstr:
-        csrrw a0, CSR_SSCRATCH, a0      // a0 = S save-area ptr; sscratch = caller's a0
-        SREG a1, rvmodel_sv_off+2*REGWIDTH(a0)  // stash caller's a1
-        csrr a1, scause
-        xori a1, a1, 2                  // a1 = 0 iff scause == 2 (illegal instruction)
-#ifdef H_SUPPORTED
-        beqz a1, fast_Shandled_cause
-        xori a1, a1, 2 ^ 22             // a1 = 0 iff scause == 22 (virtual instruction, from VS or VU)
-#endif
-        bnez a1, fast_Sothertrap        // not illegal (or virtual) instruction — restore regs and use the S
-                                        // framework handler (NOT fast_Mothertrap: the M trampoline's mscratch
-                                        // access is itself illegal from S-mode and creates a trap loop)
-fast_Shandled_cause:
-        // Same test-body check as the M handler: only traps taken in the test code segment
-        // may use the fast path, because it signature-updates through x2, which is not
-        // loaded until the end of boot. See the M handler for the full rationale.
-        SREG a2, rvmodel_sv_off+3*REGWIDTH(a0)  // stash caller's a2 (rvmodel_sv slot 3 is free)
-        csrr a1, sepc
-        LREG a2, code_bgn_off(a0)       // a2 = rvtest_code_begin
-        sub  a1, a1, a2                 // a1 = sepc - code_begin (wraps if sepc is below it)
-        LREG a2, code_seg_siz(a0)       // a2 = code segment size
-        bgeu a1, a2, fast_Sboot_trap    // outside the test code — use the S framework handler
-        LREG a2, rvmodel_sv_off+3*REGWIDTH(a0)  // restore caller's a2
-        LREG a1, rvmodel_sv_off+2*REGWIDTH(a0)  // restore caller's a1
-        csrrw a0, CSR_SSCRATCH, a0      // restore sscratch = save ptr; a0 = caller's a0
-fast_Sillegalinstruction:
-        RVTEST_SIGUPD_FAST_TRAP(x2, a1, a0, CSR_SCAUSE, 0, fast_Scause_mismatch)
-        RVTEST_SIGUPD_FAST_TRAP(x2, a1, a0, CSR_SEPC, SIG_STRIDE, fast_Sepc_mismatch)
-        RVTEST_SIGUPD_FAST_TRAP(x2, a1, a0, CSR_STVAL, 2*SIG_STRIDE, fast_Stval_mismatch)
-        addi x2, x2, 3*SIG_STRIDE
-#ifdef ZCA_SUPPORTED
-        // Width detection: lhu at sepc (2-byte aligned -> no misalign trap).
-        csrr a0, sepc
-        lhu  a0, 0(a0)                  // load lower 16 bits of faulting instruction
-        andi a0, a0, 3
-        xori a0, a0, 3                  // a0 = 0 iff bits[1:0]==0b11 (uncompressed)
-        beqz a0, fast_Suncompressed
-fast_Scompressed:
-        csrr a0, sepc
-        addi a0, a0, 2                  // 16-bit instruction: advance sepc by 2
-        j    fast_Sdone
-#endif
-fast_Suncompressed:
-        csrr a0, sepc
-        addi a0, a0, 4                  // 32-bit instruction: advance sepc by 4
-fast_Sdone:
-        csrw sepc, a0
-        sret                            // MUST be sret: this handler runs in S-mode — an mret here
-                                        // is itself an illegal instruction and re-enters this
-                                        // handler forever
-
-fast_Sboot_trap:
-        LREG a2, rvmodel_sv_off+3*REGWIDTH(a0)  // restore caller's a2, then fall through
-fast_Sothertrap:
-        LREG a1, rvmodel_sv_off+2*REGWIDTH(a0)  // restore caller's a1
-        csrrw a0, CSR_SSCRATCH, a0      // restore sscratch = save ptr; a0 = caller's a0
-        j    Strampoline                // hand off all non-illegal-instruction traps
-
-fast_Scause_mismatch:
-        RVTEST_FAST_TRAP_FAILURE(CSR_SEPC, CSR_SCAUSE, CSR_STVAL, CSR_SSTATUS, fast_Scause_mismatch, sv_Scause_str)
-fast_Sepc_mismatch:
-        RVTEST_FAST_TRAP_FAILURE(CSR_SEPC, CSR_SCAUSE, CSR_STVAL, CSR_SSTATUS, fast_Sepc_mismatch, sv_Sepc_str)
-fast_Stval_mismatch:
-        RVTEST_FAST_TRAP_FAILURE(CSR_SEPC, CSR_SCAUSE, CSR_STVAL, CSR_SSTATUS, fast_Stval_mismatch, sv_Stval_str)
-#endif // S_SUPPORTED
-
-.option pop
-.endm                                            // end of RVTEST_FAST_TRAP_HANDLER
 
 //==============================================================================
 //==============================================================================

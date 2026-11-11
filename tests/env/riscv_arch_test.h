@@ -25,6 +25,7 @@
   #include "rvtest_macros_vector.h"
 #endif
 #include "rvtest_trap_handler.h"
+#include "rvtest_fast_trap_handler.h"
 #include "rvtest_invisible_trap_handler.h"
 #include "rvtest_failure_code.h"
 #include "rvtest_setup.h"
