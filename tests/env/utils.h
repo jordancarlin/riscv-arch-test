@@ -10,20 +10,17 @@
 #define MASK (((1<<(UDB_MXLEN-1))-1) + (1<<(UDB_MXLEN-1))) // UDB_MXLEN bits of 1s
 #define MASK_XLEN(val)  val&MASK // shortens 64b values to UDB_MXLEN when UDB_MXLEN==32
 
-// Constants and sign extension macros (TODO: Check which of these are actually needed for ACT 4.0)
+// Constants and sign extension macros for LI and LI_FIXED_LEN
 #define WDSZ 32
 #define WDSGN (WDSZ -1)
 #define WDMSK ((1 << WDSZ) -1)
-#define SEXT_WRD(x) ((x & WDMSK) | (-BIT((x), WDSGN)<< WDSZ))
 #define IMMSZ 12
 #define IMMSGN (IMMSZ -1)
 #define IMMMSK ((1 << IMMSZ)-1)
 #define SEXT_IMM(x) ((x & IMMMSK) | (-BIT((x), IMMSGN)<< IMMSZ))
 
 #define LIMMSZ (WDSZ - IMMSZ)
-#define LIMMSGN (LIMMSZ -1)
 #define LIMMMSK ((1 <<LIMMSZ)-1)
-#define SEXT_LIMM(x) ((x &LIMMMSK) | (-BIT((x),LIMMSGN)<<LIMMSZ))
 
 #define WDBYTSZ (WDSZ >> 3)  // in units of #bytes
 #define WDBYTMSK (WDBYTSZ-1)
@@ -35,39 +32,37 @@
 #define DEFAULT_LINK_REG x5                      // link register for test macros (jal return address)
 
 #ifndef T1
-  #define T1      x6                             // handler temporary 1
+  #define T1      x6                             // framework temporary 1
 #endif
 #ifndef T2
-  #define T2      x7                             // handler temporary 2
+  #define T2      x7                             // framework temporary 2
 #endif
 #ifndef T3
-  #define T3      x8                             // handler temporary 3
+  #define T3      x8                             // framework temporary 3
 #endif
 #ifndef T4
-  #define T4      x9                             // handler temporary 4
+  #define T4      x9                             // framework temporary 4
 #endif
 #ifndef T5
-  #define T5      x14                            // handler temporary 5
+  #define T5      x14                            // framework temporary 5
 #endif
 #ifndef T6
-  #define T6      x15                            // handler temporary 6
+  #define T6      x15                            // framework temporary 6
 #endif
 
 // mstatus, hstatus, and satp field positions
 #define GVA_LSB    6                             // hstatus.GVA bit position (guest virtual address indicator)
 #define MPP_LSB   11                             // mstatus.MPP LSB position (previous privilege mode, 2 bits)
-#define MODE_LSB  (UDB_MXLEN-4)                       // xSATP.MODE field LSB (top 4 bits on RV32, top 4 on RV64)
+#define MODE_LSB  (UDB_MXLEN-4)                  // satp.MODE LSB on RV64 (bits 63:60). Not valid on RV32, where MODE is bit 31.
 #define MPRV_LSB  17                             // mstatus.MPRV bit position (modify privilege for loads/stores)
 #define MPV_LSB    7                             // mstatush.MPV bit position (previous virtualization mode)
 #define MPP_SMODE (1<<MPP_LSB)                   // MPP value for S-mode (01 << 11 = 0x800)
-#define MPP_HMODE (2<<MPP_LSB)                   // MPP value for reserved/HS (10 << 11 = 0x1000)
 #define MPP_MMODE (3<<MPP_LSB)                   // MPP value for M-mode (11 << 11 = 0x1800)
 #define SUM_LSB    18                             // mstatus.SUM bit position (permit supervisor/user memory access)
 #define MXR_LSB    19                             // mstatus.MXR bit position (make executable readable)
 
 // XLEN specific macros
 #define REGWIDTH (UDB_MXLEN>>3)      // in units of #bytes
-#define ALIGNSZ ((UDB_MXLEN>>5)+2)   // log2(UDB_MXLEN): 2,3,4 for UDB_MXLEN 32,64,128
 
 #if   UDB_MXLEN==32
     #define SREG sw
@@ -133,9 +128,9 @@
 // two distinct FLEN values:
 // ----------------------------------------------------------------------------
 // TEST_FLEN  — the max FLEN this test file was written for. Supplied by the
-//              build via -DTEST_FLEN and based on the march string. It fixes
-//              the width of the .data section entries and of every signature
-//              slot (SIG_STRIDE). It must notvary between configs: the
+//              build via -DTEST_FLEN and based on the march string. It sets
+//              the minimum width of the .data section entries and of every
+//              signature slot (see SIG_STRIDE). It must not vary between configs: the
 //              generated assembly has literal byte offsets and the Sail-produced
 //              signature layout baked in.
 //

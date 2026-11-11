@@ -46,7 +46,7 @@
 // RVTEST_SIGUPD_FAST_TRAP(sigptr, tempreg, sigreg, csr, offset, mismatch)
 // Reads, records, or compares one CSR field without advancing sigptr.
 // Fast trap handlers use fixed offsets for their cause, EPC, and TVAL fields,
-// then advance sigptr once after all three fields. Both compile modes emit two
+// then advance sigptr once after all three fields. Both compile modes emit three
 // instructions so the signature and self-check ELFs have identical code layout.
 #ifdef RVTEST_SELFCHECK
   #define RVTEST_SIGUPD_FAST_TRAP(_SIG_PTR, _TMPREG, _R, _CSR, _OFF, _MISMATCH) \
@@ -368,9 +368,9 @@
     .option pop
 #endif
 
-// RVTEST_SIGUPD_F(sigptr, linkreg, tempreg, ftempreg, sigreg, instptr, strptr)
+// RVTEST_SIGUPD_F(sigptr, linkreg, tempreg, ftempreg, fpreg, instptr, strptr)
 // Checks both a floating point result register and fflags against the signature.
-// Compares the float value in sigreg with the value in memory at 0(sigptr),
+// Compares the float value in fpreg with the value in memory at 0(sigptr),
 // then uses RVTEST_SIGUPD_FFLAGS to check fflags. When CONFIG_FLEN > UDB_MXLEN, the
 // float value requires 2 signature entries (low and high words), plus 1 for
 // fflags (total 3*SIG_STRIDE). When CONFIG_FLEN <= UDB_MXLEN, uses 1 entry for the
@@ -386,7 +386,7 @@
 //  _SIG_PTR - Base register for signature region
 //  _LINK_REG - Link register to use for failure jump
 //  _TEMP_REG - Temporary register to use for loading signature
-//  _F_TEMP_REG - Temporary register to use for loading fp signature
+//  _F_TEMP_REG - Unused. Kept for caller compatibility.
 //  _FR - Floating point register containing value to store/compare
 //  _INST_PTR - label on instruction being tested (for PC reporting)
 //  _STR_PTR - label to string describing the test
@@ -511,7 +511,7 @@
     nop
 
 // RVTEST_SIGUPD_V(cmp, sigptr, linkreg, tempreg,
-//                 vtmp, mtmp, sew, offset, vreg, instptr, strptr)
+//                 vtmp, mtmp, vd_eew, vreg, instptr, strptr)
 //
 // This macro either compares a vector register against the reference
 // signature (SELFCHECK mode) or stores the vector register to the
@@ -614,8 +614,9 @@
 #endif
 
 
-// RVTEST_SIGUPD_V_LEN(sigptr, linkreg, tempreg, maskreg, vtmp, vtmp2, mtmp, vr,
-//                     maskprod_flag, masked_flag, sew, lmul, offset, instptr, strptr)
+// RVTEST_SIGUPD_V_LEN(sigptr, linkreg, tempreg, tempreg2, tempreg3, vtmp, mtmp3, mtmp2, mtmp, vr,
+//                     vs1, maskreg, maskprod_flag, masked_flag, vcompress_flag, vd_eew, lmul,
+//                     scalar_dst_flag, force_ta_ma_flag, instptr, strptr)
 //
 // Compares the vector register vreg against the reference signature stored at
 // memory location 0(sigptr). The comparison is performed element-wise using
@@ -706,7 +707,7 @@
             /* Mask vector comparison: Load reference from signature and compute mismatch mask */                       \
             /* Set vl = VLMAX for full-register comparison, for masks this means SEW=8, LMUL=8, VL=VLEN*/               \
             vsetvli     _LINK_REG, x0, e8, m8, ta, ma ;                                                                 \
-            vlm.v       _VTMP, 0(_SIG_PTR)       ;   /* Load reference data with vector unit-stride mask load */        \
+            vlm.v       _VTMP, 0(_SIG_PTR)       ;   /* Store mask register to signature */                            \
             vmxor.mm    _MTMP, _VR, _VTMP        ;   /* MTMP[i] = 1 if result != reference for mask registers */        \
         .else; \
             /* Data vector comparison: Load reference from signature and compute mismatch mask */                       \
@@ -724,7 +725,7 @@
         .endif; \
         .if (_MASKPROD_FLAG == 0) ; /* This does not work in the mask producing case because we don't get the right lmul */ \
             vid.v       _VTMP                    ;   /* VTMP[i] = i (element index) */                                  \
-            vmsltu.vx   _MTMP3, _VTMP, _TEMP_REG ;   /* MTMP2[i] = (i < original vl) */                                 \
+            vmsltu.vx   _MTMP3, _VTMP, _TEMP_REG ;   /* MTMP3[i] = (i < original vl) */                                 \
             j 5f ; \
         .endif ; \
     4: ;\
@@ -746,7 +747,7 @@
         andi _LINK_REG, _TEMP_REG, 0x7; /* _LINK_REG = vl & 0x7 */ \
         sll _LINK_REG, _TEMP_REG3, _LINK_REG; /* _LINK_REG = 1 << LINK_REG */ \
         addi _LINK_REG, _LINK_REG, -1; /* _LINK_REG -= 1 */\
-        /* As, v1 = 1, this sets only the first element of vtmp to 1 */ \
+        /* With vl = 1, this writes _LINK_REG to element 0 of _VTMP only */ \
         vmv.v.x _VTMP, _LINK_REG; \
         /* Return to a full vector register */ \
         vsetvli _LINK_REG, x0, e8, m1, ta, ma ;                                                   \
@@ -754,7 +755,7 @@
         LI(_LINK_REG, 0xff); \
         vmv.v.x _MTMP3, _LINK_REG;\
         /* Calculate the number of elements to slide _VTMP up */ \
-        srli _TEMP_REG3, _TEMP_REG, 3; /* _TEMP_REG = _TEMP_REG >> 3 (divides by 8) */ \
+        srli _TEMP_REG3, _TEMP_REG, 3; /* _TEMP_REG3 = vl >> 3 (bytes to slide) */ \
         vslideup.vx _MTMP3, _VTMP, _TEMP_REG3; /* Slide Up By _TEMP_REG3. rs1 is NOT truncated to SEW bytes for this instruction */ \
         .if (_MASKPROD_FLAG == 1) ; \
             vsetvli _LINK_REG, x0, e8, m8, ta, ma; /* Return to the previous vector settings */     \
@@ -917,7 +918,7 @@
             /* Mask vector comparison: Load reference from signature and compute mismatch mask */                       \
             /* Set vl = VLMAX for full-register comparison, for masks this means SEW=8, LMUL=8, VL=VLEN*/               \
             vsetvli     _LINK_REG, x0, e8, m8, ta, ma ;                                                                 \
-            vsm.v       _VR, 0(_SIG_PTR)         ;   /* Load reference data with vector unit-stride mask load */        \
+            vsm.v       _VR, 0(_SIG_PTR)         ;   /* Store mask register to signature */                            \
             nop                                  ;                                                                      \
         .else; \
             /* Data vector comparison: Load reference from signature and compute mismatch mask */                       \
@@ -946,7 +947,7 @@
         nop                                  ;                                                                      \
         nop                                  ;                                                                      \
         nop                                  ;                                                                      \
-        /* As, v1 = 1, this sets only the first element of vtmp to 1 */ \
+        /* With vl = 1, this writes _LINK_REG to element 0 of _VTMP only */ \
         nop                                  ;                                                                      \
         /* Return to a full vector register */ \
         .if (_MASKPROD_FLAG == 1) ; \
