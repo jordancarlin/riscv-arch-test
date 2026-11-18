@@ -119,6 +119,18 @@
     auipc   x0, 0                     // lpad 0
     RVTEST_MLPE_OFF
 
+  // Only hart 0 reports a pass. Other harts park here unless T5 marks a failure.
+  #if defined(STANDARD_SM_SUPPORTED) && RVTEST_NUM_HARTS > 1
+    csrr    T1, CSR_MHARTID
+    beqz    T1, rvtest_code_end_report
+    LA(     T2, trap_sig_overflow)
+    beq     T5, T2, rvtest_code_end_report
+    LI(     T2, 0xBAD0DEAD)
+    beq     T5, T2, rvtest_code_end_report
+    j       rvtest_end_park
+  rvtest_code_end_report:
+  #endif
+
   #ifndef RVTEST_NOSIG
     // Check the regular signature offset to make sure the correct number of
     // signature updates occurred.
@@ -236,6 +248,32 @@
     LI(T5, 1)
 
   run_epilogs_body:
+    // The first hart to get here ends the test. Other harts park.
+    #if defined(STANDARD_SM_SUPPORTED) && RVTEST_NUM_HARTS > 1
+      LA(     T1, rvtest_end_claim)
+      LI(     T2, 1)
+      #if defined(ZAAMO_SUPPORTED)
+        .option push
+        .option arch, +zaamo
+        amoswap.w T2, T2, (T1)
+        .option pop
+      #elif defined(ZALRSC_SUPPORTED)
+        .option push
+        .option arch, +zalrsc
+      rvtest_end_claim_retry:
+        lr.w    T3, (T1)
+        bnez    T3, rvtest_end_park
+        sc.w    T3, T2, (T1)
+        bnez    T3, rvtest_end_claim_retry
+        li      T2, 0
+        .option pop
+      #else
+        lw      T3, 0(T1)               // without atomics, two harts can both claim
+        sw      T2, 0(T1)
+        mv      T2, T3
+      #endif
+      bnez    T2, rvtest_end_park
+    #endif
     #ifdef STANDARD_SM_SUPPORTED
       #ifdef S_SUPPORTED
         // Exact reverse of the prolog order (M, S, V).
@@ -252,6 +290,12 @@
     beqz T5, exit_cleanup
     LA(T1, rvmodel_halt_fail)
     jr T1
+
+  #if defined(STANDARD_SM_SUPPORTED) && RVTEST_NUM_HARTS > 1
+  rvtest_end_park:
+    LA(     T1, rvtest_park_hart)
+    jr      T1
+  #endif
 
   // Terminate test with passing status
   exit_cleanup:
@@ -331,16 +375,70 @@
     #endif
   #endif
 
-  // Model specific boot code
+  // Boot code, in M-mode. Every hart runs RVMODEL_BOOT first.
+  // Steps marked ONCE run on hart 0 only. Steps marked "per hart" run on each hart the test
+  // uses and set up only that hart's CSRs and save areas. The other harts wait until hart 0
+  // has done the ONCE steps.
   rvmodel_boot:
+    // Every hart: DUT boot code
     #ifdef RVMODEL_BOOT
       RVMODEL_BOOT
     #endif
+
+    #ifdef STANDARD_SM_SUPPORTED
+      // Hart IDs must be 0 to RVTEST_NUM_HARTS-1. Harts with a larger mhartid park.
+      csrr T1, CSR_MHARTID
+      LI(T2, RVTEST_NUM_HARTS)
+      bltu T1, T2, rvtest_boot_hart
+
+    // A parked hart halts with the result of the test. Some simulators run until every
+    // hart halts. On these, a parked hart can otherwise run until its instruction limit.
+    rvtest_park_hart:
+      wfi
+      LA(T1, rvtest_end_status)
+      lw T2, 0(T1)
+      beqz T2, rvtest_park_hart
+      LA(T1, rvmodel_halt_pass)
+      LI(T3, 1)
+      beq T2, T3, rvtest_park_halt
+      LA(T1, rvmodel_halt_fail)
+    rvtest_park_halt:
+      jr T1
+
+    rvtest_boot_hart:
+      #if RVTEST_NUM_HARTS > 1
+        // Per hart: mscratch = this hart's M save area, Mtramptbl_sv + mhartid*sv_hart_stride
+        mv T6, T1
+        LA(T1, Mtramptbl_sv)
+        LI(T2, sv_hart_stride)
+      rvtest_hart_sv_area:
+        beqz T6, rvtest_hart_sv_area_done
+        add T1, T1, T2
+        addi T6, T6, -1
+        j rvtest_hart_sv_area
+      rvtest_hart_sv_area_done:
+        csrw CSR_MSCRATCH, T1
+
+        // Harts other than hart 0 wait until hart 0 releases them.
+        csrr T1, CSR_MHARTID
+        beqz T1, rvtest_boot_once
+        LA(T2, rvtest_hart_release)
+      rvtest_wait_hart_release:
+        lw T3, 0(T2)
+        beqz T3, rvtest_wait_hart_release
+        fence r, rw
+        j rvtest_boot_per_hart
+      rvtest_boot_once:
+      #endif
+    #endif
+
+    // ONCE: DUT I/O initialization
     #ifdef RVMODEL_IO_INIT
       RVMODEL_IO_INIT(T1, T2, T3)
     #endif
 
     #ifdef S_SUPPORTED
+      // ONCE: identity map shared by all harts
       rvtest_identity_map:
         // Identity maps rvtest_data_begin, forming an aligned Sv32 megapage,
         // Sv39 gigapage, Sv48 terapage and Sv57 petapage.
@@ -375,8 +473,34 @@
         RVTEST_SFENCE_VMA_IF_SUPPORTED
     #endif
 
-    // Boot to the lowest supported privilege mode unless a test requests M-mode or S-mode.
+    // ONCE: clear .bss for C tests
+    #ifdef RVTEST_C_TEST
+      LA(T1, __bss_start)
+      LA(T2, __bss_end)
+    rvtest_clear_bss:
+      bgeu T1, T2, rvtest_clear_bss_done
+      SREG zero, 0(T1)
+      addi T1, T1, REGWIDTH
+      j rvtest_clear_bss
+    rvtest_clear_bss_done:
+    #endif
+
+    // ONCE: release the other harts the test uses
+    #if defined(STANDARD_SM_SUPPORTED) && RVTEST_NUM_HARTS > 1
+      LA(T1, rvtest_hart_release)
+      LI(T2, 1)
+      fence rw, w
+      sw T2, 0(T1)
+    rvtest_boot_per_hart:
+    #endif
+
+    // Per hart: M-mode CSRs and trap handlers. Boot to the lowest supported privilege mode
+    // unless a test requests M-mode or S-mode.
     RVTEST_BOOT_TO_MMODE
+    // T-SBI keeps T6 across the mode switches below. T6 = 0 marks hart 0.
+    #if defined(STANDARD_SM_SUPPORTED) && RVTEST_NUM_HARTS > 1
+      csrr T6, CSR_MHARTID
+    #endif
     // The BOOT_TO_MMODE symbol will be defined in any tests that should run in M-mode.
     // Otherwise continue to a lower privilege mode (if one exists) depending on the type of test
     #ifndef BOOT_TO_MMODE
@@ -392,9 +516,13 @@
       #endif
     #endif
 
-    // Clear the global trap counter at the end of boot code
+    // ONCE: clear the global trap counter at the end of boot code
+    #if defined(STANDARD_SM_SUPPORTED) && RVTEST_NUM_HARTS > 1
+      bnez T6, rvtest_trap_count_cleared
+    #endif
     LA (T1, rvtest_trap_count)
     SREG zero, 0(T1)
+    rvtest_trap_count_cleared:
 
     RVTEST_INIT_REGS // Put deterministic values in each register
 
@@ -418,11 +546,22 @@
     addi sp, sp, 16
     ret
 
+  // Each halt records the result for the parked harts (see rvtest_park_hart).
   rvmodel_halt_pass:
+  #ifdef STANDARD_SM_SUPPORTED
+    LA(T1, rvtest_end_status)
+    LI(T2, 1)
+    sw T2, 0(T1)
+  #endif
     RVMODEL_HALT_PASS
     j . // Explicit non-returning tail if the macro returns (it should not)
 
   rvmodel_halt_fail:
+  #ifdef STANDARD_SM_SUPPORTED
+    LA(T1, rvtest_end_status)
+    LI(T2, 2)
+    sw T2, 0(T1)
+  #endif
     RVMODEL_HALT_FAIL
     j . // Explicit non-returning tail if the macro returns (it should not)
 
@@ -1077,10 +1216,23 @@
   rvtest_wait_loop:
     .dword 0, 0
 
-  // Target of the last T-SBI mode change: 0 for M-mode, nonzero for lower modes.
+  // Target of hart 0's last T-SBI mode change: 0 for M-mode, nonzero for lower modes.
   .p2align 3
   rvtest_current_mode:
     .dword 0
+
+  // Result of the test for the parked harts: 0 while it runs, 1 for pass, 2 for fail.
+  rvtest_end_status:
+    .dword 0
+
+  #if RVTEST_NUM_HARTS > 1
+    // Hart 0 sets this when the once-only boot setup is complete.
+    rvtest_hart_release:
+      .dword 0
+    // The first hart to end the test sets this.
+    rvtest_end_claim:
+      .dword 0
+  #endif
 
   .p2align 4
 
@@ -1090,6 +1242,11 @@
   // is instantiated.
   #ifdef STANDARD_SM_SUPPORTED
   INSTANTIATE_MODE_MACRO RVTEST_TRAP_SAVEAREA
+  #if RVTEST_NUM_HARTS > 1
+    .rept RVTEST_NUM_HARTS-1
+      RVTEST_HART_SAVEAREAS
+    .endr
+  #endif
   #endif
 
   // Data for use in test
@@ -1453,6 +1610,11 @@
         #endif
       #endif
 
+      // ONCE: the mtimecmp and msip addresses below are hart 0's.
+      #if RVTEST_NUM_HARTS > 1
+        csrr t0, CSR_MHARTID
+        bnez t0, rvtest_boot_timer_done
+      #endif
       #ifdef RVMODEL_MTIMECMP_ADDRESS
         // Initialize mtimecmp to all 1s so that it does not generate a timer interrupt prematurely
         LI_FIXED_LEN(t0, RVMODEL_MTIMECMP_ADDRESS)
@@ -1472,6 +1634,7 @@
         LI_FIXED_LEN(t0, RVMODEL_MSIP_ADDRESS)
         sw zero, 0(t0)
       #endif
+      rvtest_boot_timer_done:
 
       // make counters accessible to a lower privilege mode if one exists
       #ifdef U_SUPPORTED

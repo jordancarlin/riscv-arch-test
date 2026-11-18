@@ -167,6 +167,8 @@ def gen_compile_tasks(
     ]
     if enable_experimental_extensions:
         compile_prefix.append("-DENABLE_EXPERIMENTAL_EXTENSIONS")
+    if test_metadata.min_harts > 1:
+        compile_prefix.append(f"-DRVTEST_NUM_HARTS={test_metadata.min_harts}")
 
     # Metadata
     march_flags = toolchain.march_flags(

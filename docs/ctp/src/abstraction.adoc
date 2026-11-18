@@ -75,6 +75,14 @@ If the test is not intended to run in S-mode, and U-mode is supported, `rvmodel_
 
 Finally, `rvmodel_boot` clears the trap counter and runs `RVTEST_INIT_REGS`, which initializes the integer, floating-point and vector registers, then sets up the signature pointer and checks a canary if applicable. It then jumps to `rvtest_code_begin` to start the test.
 
+==== Multi-hart Boot
+
+A test that needs more than one hart sets `MIN_HARTS`. Tests without `MIN_HARTS` run on hart 0, the hart with `mhartid` 0. A multi-hart test requires hart IDs 0 to `MIN_HARTS`-1. The ISA does not require contiguous hart IDs, but the tests do. Every hart runs `RVMODEL_BOOT` first, at the same time as the other harts. On a multi-hart DUT, `RVMODEL_BOOT` must read `mhartid` to separate setup that must occur once, such as a shared PLL or memory controller, from setup that each hart needs. Then the harts that the test does not use park. C tests read `mhartid` with `tsbi_csr_read(CSR_MHARTID)`.
+
+Hart 0 then runs `RVMODEL_IO_INIT`, writes the shared page tables, clears `.bss` for C tests, and initializes the hart 0 `mtimecmp` and `msip` registers. Then it releases the other harts. Every hart that the test uses runs the M-mode CSR initialization and the trap handler setup for its own CSRs. Each hart has its own trap handler save areas, so T-SBI calls from different harts can occur at the same time. A DUT that replaces the reference T-SEE must also accept T-SBI calls from all harts at the same time.
+
+Only hart 0 reports a pass. A hart that fails ends the test, so `RVMODEL_HALT_PASS`, `RVMODEL_HALT_FAIL`, and `RVMODEL_IO_WRITE_STR` must work from any hart.
+
 [[rvmodel-macros]]
 === RVMODEL DUT-Specific Macros
 
@@ -100,7 +108,7 @@ The RVMODEL DUT-Specific Macros are given in <<t-rvmodel>>. The "Can Be Empty?" 
 [%AUTOWIDTH]
 |===
 |Macro|Description|Can be Empty?|Mode
-|RVMODEL_BOOT|Perform boot operations, such as turning on a phase-locked loop or DRAM controller or initializing custom state. Cannot clobber `x1`/`ra`, but any other registers may be trashed.|Empty or omitted if no boot operations are needed, or a separate DUT-specific executable is used for booting before loading and invoking the test ELF.| Machine
+|RVMODEL_BOOT|Perform boot operations, such as turning on a phase-locked loop or DRAM controller or initializing custom state. Runs on every hart at the same time; on a multi-hart DUT, read `mhartid` to do shared setup only once. Cannot clobber `x1`/`ra`, but any other registers may be trashed.|Empty or omitted if no boot operations are needed, or a separate DUT-specific executable is used for booting before loading and invoking the test ELF.| Machine
 |RVMODEL_BOOT_TO_MMODE|Replaces the default M-mode boot in `RVTEST_BOOT_TO_MMODE` (trap handler setup and M-mode CSR initialization) for a DUT with a custom M-mode that cannot run it. It must leave the trap handlers set up as the default does.|Omit for a standard M-mode, and for a DUT with no M-mode CSRs that leaves `STANDARD_SM_SUPPORTED` undefined. | Machine
 |RVMODEL_HALT_PASS|Terminate test with a pass indication.  When the test is run in simulation, this should end the simulation.|No | Any
 |RVMODEL_HALT_FAIL|Terminate test with a fail indication.  When the test is run in simulation, this should end the simulation.|No | Any

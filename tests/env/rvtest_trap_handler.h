@@ -231,6 +231,19 @@
 #define sv_area_sz      (tramp_sz + ptr_sv_sz + reg_sv_sz + model_sv_sz + int_clr_sv_sz) // total save area per mode
 #define int_hndlr_tblsz (UDB_MXLEN*2*WDBYTSZ)                                // size of combined int+exception dispatch tables
 
+// Each hart has its own M, S and V save areas, in that order. Hart N's areas start
+// N*sv_hart_stride bytes after hart 0's. RVTEST_NUM_HARTS is the number of harts the test uses.
+#ifndef RVTEST_NUM_HARTS
+  #define RVTEST_NUM_HARTS 1
+#endif
+#if defined(H_SUPPORTED)
+  #define sv_hart_stride  (3*sv_area_sz)
+#elif defined(S_SUPPORTED)
+  #define sv_hart_stride  (2*sv_area_sz)
+#else
+  #define sv_hart_stride  (1*sv_area_sz)
+#endif
+
 //==============================================================================
 // SECTION 7: SAVE AREA OFFSET DEFINITIONS
 //
@@ -895,6 +908,23 @@
 //==============================================================================
 //==============================================================================
 
+// REG = this hart's save area for MODE. In a multi-hart test the boot code puts the
+// address of each hart's M save area in mscratch, so this works in M-mode outside
+// the trap handler. Otherwise it is hart 0's area.
+.macro RVTEST_HART_SV_AREA reg, __MODE__
+#if RVTEST_NUM_HARTS > 1
+        csrr    \reg, CSR_MSCRATCH
+  .ifnc \__MODE__ , M
+        addi    \reg, \reg, sv_area_sz          // S area follows the M area
+  .endif
+  .ifc \__MODE__ , V
+        addi    \reg, \reg, sv_area_sz          // V area follows the S area
+  .endif
+#else
+        LA(     \reg, \__MODE__\()tramptbl_sv)
+#endif
+.endm
+
 .macro  RVTEST_TRAP_PROLOG __MODE__
 .option push
 .option norvc                                    // no compressed instructions in handler code
@@ -902,7 +932,7 @@
 .global \__MODE__\()trampoline                   // make trampoline label globally visible
         XCSR_RENAME_FROM_M \__MODE__             // set CSR_X* aliases for this mode (prolog runs in M-mode)
 
-        LA(     T1, \__MODE__\()tramptbl_sv)     // T1 = address of this mode's save area in .data
+        RVTEST_HART_SV_AREA T1, \__MODE__       // T1 = this hart's save area for this mode
         SREG    zero, tramp_copy_size_off(T1)
 
 //---------- Initialize xSCRATCH ----------
@@ -1381,9 +1411,13 @@ tsbi_\__MODE__\()goto_mode:
         addi    T4, T4, 4                            // T4 = mepc + 4 (instruction after ecall)
         csrw    CSR_XEPC, T4                         // mepc = mepc + 4
         TSBI_RELOCATE_EPC \__MODE__                  // move between code region and its alias if needed
+        // rvtest_current_mode tracks hart 0 only. sp points to hart 0's save area only on hart 0.
+        LA(     T4, \__MODE__\()tramptbl_sv)
+        bne     T4, sp, tsbi_\__MODE__\()goto_mode_tracked
         LA(     T4, rvtest_current_mode)
         addi    T2, a0, -TSBI_GOTO_MMODE             // 0 for M-mode, nonzero for lower modes
         SREG    T2, 0(T4)
+tsbi_\__MODE__\()goto_mode_tracked:
 
         // Dispatch based on caller's a0 (still live in a0 from the ecall)
         li      T2, TSBI_GOTO_MMODE                  // T2 = 1
@@ -3262,7 +3296,7 @@ fast_Stval_mismatch:
 
         XCSR_RENAME_FROM_M \__MODE__              // set CSR aliases for this mode (epilog runs in M-mode)
 exit_\__MODE__\()cleanup:                         // entry point (also used by abort path)
-        LA(     T1, \__MODE__\()tramptbl_sv)
+        RVTEST_HART_SV_AREA T1, \__MODE__        // T1 = this hart's save area for this mode
 
 // --- Restore xEDELEG ---
 resto_\__MODE__\()edeleg:
@@ -3356,44 +3390,57 @@ rvtest_\__MODE__\()end:                            // epilog is done for this mo
 //==============================================================================
 //==============================================================================
 
-.macro RVTEST_TRAP_SAVEAREA __MODE__
+.macro RVTEST_TRAP_SAVEAREA __MODE__, __SFX__=
 
 .option push
 .option norvc
-.global \__MODE__\()tramptbl_sv                    // make save area label global
+.global \__MODE__\()tramptbl_sv\__SFX__                    // make save area label global
 
-\__MODE__\()tramptbl_sv:                           // TOP OF SAVE AREA — stored in xSCRATCH
+\__MODE__\()tramptbl_sv\__SFX__:                           // TOP OF SAVE AREA — stored in xSCRATCH
 .rept (tramp_sz>>2)                                // trampoline save: space for original code (if xTVEC fixed)
         j       .+0                                // initialized with prototype jump instructions
 .endr
 
-\__MODE__\()save_area:                             // start of pointer/metadata section
-\__MODE__\()code_bgn_ptr:  .dword rvtest_code_begin                          // code segment begin address
-\__MODE__\()code_seg_sz:   .dword rvtest_code_end-rvtest_code_begin          // code segment size
-\__MODE__\()data_bgn_ptr:  .dword rvtest_data_begin                          // data segment begin address
-\__MODE__\()data_seg_sz:   .dword rvtest_data_end-rvtest_data_begin          // data segment size
-\__MODE__\()sig_bgn_ptr:   .dword rvtest_sig_begin                           // signature begin address
-\__MODE__\()sig_seg_sz:    .dword rvtest_sig_end-rvtest_sig_begin            // signature segment size
-\__MODE__\()vmem_bgn_ptr:  .dword rvtest_code_begin                          // vmem begin (default=code begin)
-\__MODE__\()vmem_seg_sz:   .dword rvtest_code_end-rvtest_code_begin          // vmem size (default=code size)
+\__MODE__\()save_area\__SFX__:                             // start of pointer/metadata section
+\__MODE__\()code_bgn_ptr\__SFX__:  .dword rvtest_code_begin                          // code segment begin address
+\__MODE__\()code_seg_sz\__SFX__:   .dword rvtest_code_end-rvtest_code_begin          // code segment size
+\__MODE__\()data_bgn_ptr\__SFX__:  .dword rvtest_data_begin                          // data segment begin address
+\__MODE__\()data_seg_sz\__SFX__:   .dword rvtest_data_end-rvtest_data_begin          // data segment size
+\__MODE__\()sig_bgn_ptr\__SFX__:   .dword rvtest_sig_begin                           // signature begin address
+\__MODE__\()sig_seg_sz\__SFX__:    .dword rvtest_sig_end-rvtest_sig_begin            // signature segment size
+\__MODE__\()vmem_bgn_ptr\__SFX__:  .dword rvtest_code_begin                          // vmem begin (default=code begin)
+\__MODE__\()vmem_seg_sz\__SFX__:   .dword rvtest_code_end-rvtest_code_begin          // vmem size (default=code size)
 
-\__MODE__\()trap_sig:      .dword  trap_sigptr                               // current trap signature write ptr
-\__MODE__\()satp_sv:       .dword 0                                          // saved xSATP value
-\__MODE__\()sved_shared:   .dword  0                                         // see sved_shared_off
-\__MODE__\()tentry_sv:     .dword  \__MODE__\()trampoline + actual_tramp_sz  // common entry point addr
-\__MODE__\()edeleg_sv:     .dword  0                                         // saved xEDELEG
-\__MODE__\()tvec_new:      .dword  0                                         // current xTVEC value (trampoline)
-\__MODE__\()tvec_save:     .dword  0                                         // original xTVEC before prolog
-\__MODE__\()scratch_save:  .dword  0                                         // original xSCRATCH before prolog
-\__MODE__\()medeleg_illegal_sv: .dword 0                                     // logical medeleg[2] value
-\__MODE__\()tramp_copy_size: .dword 0                                       // bytes saved for trampoline relocation
-\__MODE__\()trapreg_sv:    .fill   8, REGWIDTH, 0xdeadbeef                   // handler reg save: ra scratch (slot 0), T1..T6 (1-6), sp (7)
+\__MODE__\()trap_sig\__SFX__:      .dword  trap_sigptr                               // current trap signature write ptr
+\__MODE__\()satp_sv\__SFX__:       .dword 0                                          // saved xSATP value
+\__MODE__\()sved_shared\__SFX__:   .dword  0                                         // see sved_shared_off
+\__MODE__\()tentry_sv\__SFX__:     .dword  \__MODE__\()trampoline + actual_tramp_sz  // common entry point addr
+\__MODE__\()edeleg_sv\__SFX__:     .dword  0                                         // saved xEDELEG
+\__MODE__\()tvec_new\__SFX__:      .dword  0                                         // current xTVEC value (trampoline)
+\__MODE__\()tvec_save\__SFX__:     .dword  0                                         // original xTVEC before prolog
+\__MODE__\()scratch_save\__SFX__:  .dword  0                                         // original xSCRATCH before prolog
+\__MODE__\()medeleg_illegal_sv\__SFX__: .dword 0                                     // logical medeleg[2] value
+\__MODE__\()tramp_copy_size\__SFX__: .dword 0                                       // bytes saved for trampoline relocation
+\__MODE__\()trapreg_sv\__SFX__:    .fill   8, REGWIDTH, 0xdeadbeef                   // handler reg save: ra scratch (slot 0), T1..T6 (1-6), sp (7)
 
 // rvmodel_sv is shared scratch space. The fast trap handlers use slot 0 as the
 // invisible-trap handoff marker and slots 2-3 to save a1 and a2.
-\__MODE__\()rvmodel_sv:    .fill   8, REGWIDTH, 0xdeadbeef                   // RVMODEL/T-SBI scratch area
-\__MODE__\()int_clr_sv:    .fill   4, REGWIDTH, 0xdeadbeef                   // a0-a2 save across interrupt clearing
-\__MODE__\()sv_area_end:                           // end marker (used for size calculation assertions)
+\__MODE__\()rvmodel_sv\__SFX__:    .fill   8, REGWIDTH, 0xdeadbeef                   // RVMODEL/T-SBI scratch area
+\__MODE__\()int_clr_sv\__SFX__:    .fill   4, REGWIDTH, 0xdeadbeef                   // a0-a2 save across interrupt clearing
+\__MODE__\()sv_area_end\__SFX__:                           // end marker (used for size calculation assertions)
 
 .option pop
 .endm                                              // end of RVTEST_TRAP_SAVEAREA
+
+// Save areas for harts 1 to RVTEST_NUM_HARTS-1. They follow hart 0's areas in the same
+// M, S, V order with the same initial values, so hart N's areas start N*sv_hart_stride
+// bytes after hart 0's. Each hart's prolog fills in its own runtime fields.
+.macro RVTEST_HART_SAVEAREAS
+  RVTEST_TRAP_SAVEAREA M, _h\@
+  #ifdef S_SUPPORTED
+    RVTEST_TRAP_SAVEAREA S, _h\@
+    #ifdef H_SUPPORTED
+      RVTEST_TRAP_SAVEAREA V, _h\@
+    #endif
+  #endif
+.endm
