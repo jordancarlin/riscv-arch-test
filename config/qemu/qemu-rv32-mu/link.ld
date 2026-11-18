@@ -1,1 +1,1 @@
-../qemu-rv32-max/link.ld
+../qemu-rv32-m/link.ld

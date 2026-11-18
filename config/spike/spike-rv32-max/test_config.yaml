@@ -5,3 +5,4 @@ ref_model_exe: sail_riscv_sim # executable name on $PATH or full path to executa
 udb_config: spike-rv32-max.yaml
 linker_script: link.ld
 dut_include_dir: . # Directory containing DUT specific rvmodel_macros.h header
+harts: 4 # Number of harts in the run command; multi-hart tests need at least MIN_HARTS

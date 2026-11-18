@@ -2,7 +2,7 @@
 RAM_ORIGIN = 0x80000000;
 RAM_LENGTH = 0x80000000;
 TEST_BASE = RAM_ORIGIN;
-NUM_HARTS = 1;
+NUM_HARTS = 4;
 
 /* Most users should not need to modify anything below this line. */
 STACK_SIZE = 0x20000;

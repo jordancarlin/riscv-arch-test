@@ -1,1 +1,1 @@
-../whisper-rv64-max/link.ld
+../whisper-rv64-m/link.ld

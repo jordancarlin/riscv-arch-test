@@ -22,6 +22,9 @@ exclude_extensions:
   # clears mstateen0h.ENVCFG, so S-mode senvcfg accesses raise an illegal instruction
   # (https://gitlab.com/qemu-project/qemu/-/issues/4611).
   - S_scsr-
+  # With -icount and -smp > 1, instret counts instructions of other harts, so the instret delta across WFI is
+  # wrong on the 4-hart configs (https://gitlab.com/qemu-project/qemu/-/work_items/4909).
+  - S_Zicntr
   # qemu#4200, qemu#4201
   - Ssstrict_Sm_CSR
   - Ssstrict_Sm_IllegalInstr

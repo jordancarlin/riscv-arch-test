@@ -1,1 +1,1 @@
-../spike-rv64-max/link.ld
+../spike-rv64-m/link.ld
